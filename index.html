@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AfterSkoolClub Learning Hub</title>
+<style>
+  body{margin:0;min-height:100vh;font-family:"Microsoft YaHei",system-ui,sans-serif;background:linear-gradient(#e8f6fd,#eef8f0);color:#2c2c44;display:flex;flex-direction:column;align-items:center;padding:28px 16px;box-sizing:border-box}
+  .banner{width:100%;max-width:400px;box-sizing:border-box;background:#fff3b0;border:2px dashed #c9a200;border-radius:12px;padding:10px 12px;font-weight:700;font-size:14px;text-align:center;margin-bottom:22px}
+  .brand{font-size:34px;font-weight:800;text-align:center;line-height:1.25;margin:6px 0 22px;letter-spacing:1px}
+  .brand small{display:block;font-size:14px;font-weight:600;letter-spacing:0;color:#5a5a75;margin-top:4px}
+  .screen{display:none;width:100%;max-width:400px}
+  .screen.active{display:block}
+  .card{background:#fff;border:4px solid #35325d;border-radius:18px;padding:22px 22px 26px;box-shadow:0 6px 0 #35325d}
+  label{display:block;font-weight:700;font-size:15px;margin:14px 0 6px}
+  input,select{width:100%;box-sizing:border-box;padding:12px 14px;font-size:16px;border:3px solid #35325d;border-radius:12px;background:#fff;color:#2c2c44}
+  .btn{width:100%;margin-top:22px;padding:14px;font-size:18px;font-weight:800;color:#fff;background:#ff8a3d;border:3px solid #35325d;border-radius:14px;box-shadow:0 5px 0 #35325d;cursor:pointer}
+  .btn:active{transform:translateY(3px);box-shadow:0 2px 0 #35325d}
+  .err{color:#c62828;font-weight:700;text-align:center;min-height:20px;margin-top:12px}
+  .hello{font-size:20px;font-weight:800;text-align:center}
+  .hello span{color:#ff8a3d}
+  .yr{text-align:center;color:#5a5a75;font-weight:600;margin-bottom:14px}
+  .tiles{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+  a.tile,div.tile{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:96px;border:3px solid #35325d;border-radius:14px;background:#fff;color:#2c2c44;text-decoration:none;font-weight:800;font-size:17px;box-shadow:0 4px 0 #35325d}
+  a.tile:active{transform:translateY(3px);box-shadow:0 1px 0 #35325d}
+  .tile .ic{font-size:28px;margin-bottom:4px}
+  .tile small{font-size:12px;font-weight:600;color:#7a7a92;margin-top:4px}
+  .tile.off{opacity:.45;cursor:not-allowed;box-shadow:0 4px 0 #9a9ab0;border-color:#9a9ab0}
+  .tile.wide{grid-column:span 2}
+  .yrow{margin-top:14px}.ylabel{font-weight:800;font-size:16px;margin-bottom:6px}
+  .out{display:block;margin:20px auto 0;background:none;border:none;color:#5a5a75;text-decoration:underline;font-size:14px;cursor:pointer}
+</style>
+</head>
+<body>
+
+<div class="banner">🧪 测试模式：ID 和密码都留空，按“登入”就能看到全部年级。</div>
+<div class="brand">🏫 AfterSkoolClub<small>Learning Hub</small></div>
+
+<div id="login" class="screen active">
+  <div class="card">
+    <label for="uid">学生 ID</label>
+    <input id="uid" placeholder="ID" autocomplete="off" autocapitalize="off">
+    <label for="pw">密码 Password</label>
+    <input id="pw" type="password" placeholder="密码" autocomplete="off">
+    <label for="year">年级 Year</label>
+    <select id="year">
+      <option value="1">一年级</option><option value="2">二年级</option><option value="3">三年级</option>
+      <option value="4">四年级</option><option value="5">五年级</option><option value="6">六年级</option>
+    </select>
+    <button class="btn" id="loginBtn">登入 Login ➜</button>
+    <div class="err" id="loginError"></div>
+  </div>
+</div>
+
+<div id="testMenu" class="screen">
+  <div class="card">
+    <div class="hello">测试模式 Test mode</div>
+    <div class="yr">全部年级 All years</div>
+    <div id="yearList"></div>
+    <button class="out" id="logoutBtn2">退出 Logout</button>
+  </div>
+</div>
+
+<div id="menu" class="screen">
+  <div class="card">
+    <div class="hello">欢迎 Welcome, <span id="who"></span></div>
+    <div class="yr" id="yrTag"></div>
+    <div class="tiles">
+      <a class="tile" id="mathBtn" href="#"><span class="ic">🔢</span>Mathematic</a>
+      <a class="tile" id="cnBtn" href="#"><span class="ic">文</span>Chinese</a>
+      <div class="tile off"><span class="ic">Aa</span>English<small>Coming soon</small></div>
+      <div class="tile off"><span class="ic">BM</span>Bahasa Melayu<small>Coming soon</small></div>
+      <div class="tile off wide"><span class="ic">🔬</span>Science<small>Coming soon</small></div>
+    </div>
+    <button class="out" id="logoutBtn">退出 Logout</button>
+  </div>
+</div>
+
+<script>
+  const hs=(s,seed=0)=>{let h1=0xdeadbeef^seed,h2=0x41c6ce57^seed;for(let i=0,ch;i<s.length;i++){ch=s.charCodeAt(i);h1=Math.imul(h1^ch,2654435761);h2=Math.imul(h2^ch,1597334677)}h1=Math.imul(h1^(h1>>>16),2246822507)^Math.imul(h2^(h2>>>13),3266489909);h2=Math.imul(h2^(h2>>>16),2246822507)^Math.imul(h1^(h1>>>13),3266489909);return String(4294967296*(2097151&h2)+(h1>>>0))};
+  const norm=s=>s.replace(/[\s\u3000]+/g,"").toLowerCase();
+  // Student accounts by year. Only Alex is listed for now.
+  const ROST = {"1": [{"n": "Alex", "i": "Alex", "h": "7624984167397427"}], "2": [{"n": "Alex", "i": "Alex", "h": "7624984167397427"}], "3": [{"n": "Alex", "i": "Alex", "h": "7624984167397427"}], "4": [{"n": "Alex", "i": "Alex", "h": "7624984167397427"}], "5": [{"n": "Alex", "i": "Alex", "h": "7624984167397427"}], "6": [{"n": "Alex", "i": "Alex", "h": "7624984167397427"}]};
+  const MATHS = {1:"year1-maths.html",2:"year2-maths.html",3:"year3-maths.html",4:"year4-maths.html",5:"year5-maths.html",6:"year6-maths.html"};
+  const SESS_KEY = "asc_student";
+
+  const $ = id => document.getElementById(id);
+  function show(id){ document.querySelectorAll('.screen').forEach(s => s.classList.remove('active')); $(id).classList.add('active'); }
+
+  function getSess(){ try{ return JSON.parse(sessionStorage.getItem(SESS_KEY) || "null"); }catch(e){ return null; } }
+  function setSess(v){ try{ v ? sessionStorage.setItem(SESS_KEY, JSON.stringify(v)) : sessionStorage.removeItem(SESS_KEY); }catch(e){} }
+
+  function showMenu(sess){
+    $('who').textContent = sess.name;
+    $('yrTag').textContent = "Year " + sess.year;
+    $('mathBtn').href = MATHS[sess.year] + "?s=" + encodeURIComponent(sess.name);
+    const cn = $('cnBtn');
+    if(sess.year === 3){
+      cn.classList.remove('off'); cn.href = "year3-chinese.html?s=" + encodeURIComponent(sess.name);
+    } else {
+      cn.classList.add('off'); cn.removeAttribute('href');
+    }
+    show('menu');
+  }
+
+  function showTestMenu(){
+    let html = "";
+    for(let y = 1; y <= 6; y++){
+      const cn = y === 3
+        ? `<a class="tile" href="year3-chinese.html?s=Alex" style="min-height:56px">文 Chinese</a>`
+        : `<div class="tile off" style="min-height:56px">文 Chinese<small>Coming soon</small></div>`;
+      html += `<div class="yrow"><div class="ylabel">Year ${y}</div><div class="tiles">
+        <a class="tile" href="${MATHS[y]}?s=Alex" style="min-height:56px">🔢 Mathematic</a>${cn}</div></div>`;
+    }
+    $('yearList').innerHTML = html;
+    show('testMenu');
+  }
+
+  $('loginBtn').addEventListener('click', () => {
+    const idRaw = $('uid').value;
+    const pw = $('pw').value.replace(/\s+/g, "");
+    const year = +$('year').value;
+    if(!idRaw.trim() && !pw){ setSess({test:true}); showTestMenu(); return; }
+    if(!idRaw.trim() || !pw){ $('loginError').textContent = "请输入 ID 和密码 Please enter ID and password."; return; }
+    const id = norm(idRaw);
+    const acc = (ROST[year] || []).find(x => norm(x.i) === id && x.h === hs(id + "|" + pw));
+    if(!acc){ $('loginError').textContent = "ID 或密码不对 Incorrect ID or password."; return; }
+    $('loginError').textContent = "";
+    const sess = { name: acc.n, year: year };
+    setSess(sess);
+    showMenu(sess);
+  });
+
+  ['logoutBtn','logoutBtn2'].forEach(id => $(id).addEventListener('click', () => {
+    setSess(null);
+    $('uid').value = ""; $('pw').value = ""; $('loginError').textContent = "";
+    show('login');
+  }));
+
+  document.addEventListener('click', e => {
+    const t = e.target.closest('.tile.off');
+    if(t) e.preventDefault();
+  });
+
+  const existing = getSess();
+  if(existing && existing.test) showTestMenu();
+  else if(existing && ROST[existing.year]) showMenu(existing);
+  else show('login');
+</script>
+</body>
+</html>

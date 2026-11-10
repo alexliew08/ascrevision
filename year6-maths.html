@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>数学星球探险队 · 六年级</title>
+<style>
+:root{--bg:#eef3ff;--card:#fff;--text:#1d2347;--mute:#5b638f;--acc:#6c4cff;--ok:#18a864;--bad:#e5484d;--line:#d9e0ff;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1633;--card:#1a2350;--text:#f1f3ff;--mute:#a9b2e6;--acc:#9a85ff;--line:#2f3a78;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0f1633;--card:#1a2350;--text:#f1f3ff;--mute:#a9b2e6;--acc:#9a85ff;--line:#2f3a78;color-scheme:dark}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,"PingFang SC","Microsoft YaHei",sans-serif;min-height:100vh}
+.wrap{max-width:760px;margin:0 auto;padding:16px}
+h1{margin:6px 0;font-size:26px}h2{margin:4px 0}
+.card{background:var(--card);border:2px solid var(--line);border-radius:18px;padding:16px;margin:12px 0}
+.bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;justify-content:space-between}
+.pill{background:var(--card);border:2px solid var(--line);border-radius:99px;padding:4px 12px;font-weight:700}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+button{font:inherit;color:inherit;cursor:pointer}
+.planet{background:var(--card);border:2px solid var(--line);border-radius:16px;padding:12px;text-align:center;transition:.15s}
+.planet:hover{transform:translateY(-3px) rotate(-1deg);border-color:var(--acc)}
+.planet .e{font-size:38px;display:block}.planet small{color:var(--mute)}
+.btn{background:var(--acc);color:#fff;border:0;border-radius:12px;padding:10px 18px;font-weight:700}
+.btn.alt{background:transparent;color:var(--text);border:2px solid var(--line)}
+.lv{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.q{font-size:21px;line-height:1.55;font-weight:600;margin:8px 0 14px}
+.opts{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.opt{background:var(--card);border:2px solid var(--line);border-radius:14px;padding:14px 8px;font-size:19px;font-weight:700}
+.opt:hover:not(:disabled){border-color:var(--acc)}
+.opt.ok{background:var(--ok);color:#fff;border-color:var(--ok)}.opt.no{background:var(--bad);color:#fff;border-color:var(--bad);animation:sh .3s}
+@keyframes sh{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.prog{height:12px;background:var(--line);border-radius:9px;overflow:hidden}.prog i{display:block;height:100%;background:var(--acc);transition:.3s}
+.fb{margin-top:12px;padding:12px;border-radius:12px;background:var(--bg);border:2px dashed var(--line);white-space:pre-line}
+.hide{display:none}button:disabled{opacity:.4;cursor:not-allowed}.mas{display:flex;align-items:center;gap:8px;margin:2px 0 8px}.mi{font-size:34px;animation:bob 2s ease-in-out infinite}.bub{background:var(--bg);border:2px solid var(--line);border-radius:14px;padding:6px 12px;font-size:14px;color:var(--mute)}.bub.good{border-color:var(--ok);color:var(--ok);font-weight:700}@keyframes bob{50%{transform:translateY(-4px)}}@keyframes fall{to{transform:translateY(110vh) rotate(360deg)}}@keyframes pop{50%{transform:scale(1.1)}}.opt.ok{animation:pop .4s}mark{background:#ffd54a;color:#1d2347;border-radius:4px;padding:0 4px;font-weight:800}.big{font-size:54px;text-align:center}.badge{display:inline-block;margin:4px;padding:6px 10px;border-radius:12px;background:var(--bg);border:2px solid var(--line)}.badge.off{opacity:.35;filter:grayscale(1)}
+@media(max-width:420px){.opts{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap" id="app"></div>
+<script>
+const R=(a,b)=>a+Math.floor(Math.random()*(b-a+1));
+const P=a=>a[R(0,a.length-1)];
+const sh=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=R(0,i);[a[i],a[j]]=[a[j],a[i]]}return a};
+const fmt=n=>Number.isInteger(n)?n.toLocaleString("en-US"):String(+n.toFixed(2));
+const RM=n=>"RM"+n.toFixed(2);
+const p2=n=>String(n).padStart(2,"0");
+const tf=m=>{m=((m%1440)+1440)%1440;return p2(Math.floor(m/60))+":"+p2(m%60)};
+const hm=d=>(d>=60?Math.floor(d/60)+" 小时 ":"")+(d%60?d%60+" 分钟":"");
+function mkS(q,ans,wr,exp,hint){const tr0=x=>typeof x==="string"?x.trim():x;ans=tr0(ans);wr=wr.map(tr0);let w=[...new Set(wr)].filter(x=>x!==ans);let k=1;while(w.length<3){const z="("+R(1,12)+", "+R(1,12)+")";if(z!==ans&&!w.includes(z))w.push(z)}return{q,ans,opts:sh([ans,...sh(w).slice(0,3)]),exp,hint}}
+function mkN(q,a,ds,f,exp,hint){const s=new Set();sh(ds).forEach(d=>{[a+d,a-d].forEach(x=>{x=+x.toFixed(2);if(x>=0&&x!==a)s.add(x)})});let i=1;while(s.size<3){s.add(+(a+i*7).toFixed(2));i++}const w=sh([...s]).slice(0,3);return{q,ans:f(a),opts:sh([a,...w]).map(f),exp,hint}}
+const id=n=>fmt(n);
+const CL=["红","蓝","绿","黄"];
+const gcd=(a,b)=>b?gcd(b,a%b):a;
+const simp=(n,d)=>{const g=gcd(n,d);return `${n/g}/${d/g}`};
+const q2=x=>+x.toFixed(2);
+const SV=(h,i,w=340)=>`<svg viewBox="0 0 ${w} ${h}" style="width:100%;max-width:${w}px;display:block;margin:8px auto" role="img" aria-label="题目图示">${i}</svg>`;
+const TX=(x,y,t,a="middle",s=13,c="var(--text)")=>`<text x="${x}" y="${y}" text-anchor="${a}" font-size="${s}" fill="${c}" font-family="sans-serif">${t}</text>`;
+const LN=(a,b,c,d,col="var(--text)",dash="",w=2)=>`<line x1="${a}" y1="${b}" x2="${c}" y2="${d}" stroke="${col}" stroke-width="${w}"${dash?` stroke-dasharray="${dash}"`:""}/>`;
+const EMO=(x,y,e,s=22)=>`<text x="${x}" y="${y}" font-size="${s}" text-anchor="middle">${e}</text>`;
+const RC=(x,y,w,h,f="none",o=.25,sw=2,r=0)=>`<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${r}" fill="${f}" fill-opacity="${o}" stroke="var(--text)" stroke-width="${sw}"/>`;
+const AC="var(--acc)",BD="var(--bad)";
+const XX=(x,y,r=11)=>LN(x-r,y-r,x+r,y+r,BD,"",3)+LN(x+r,y-r,x-r,y+r,BD,"",3);
+const picEm=g=>{let s="",y=26;g.forEach(o=>{if(o.lab){s+=TX(10,y-6,o.lab,"start",13,"var(--mute)");y+=20;return}if(o.sign){s+=TX(170,y+2,o.sign,"middle",24);y+=26;return}for(let i=0;i<o.n;i++){const cx=24+(i%10)*31,cy=y+Math.floor(i/10)*32;s+=EMO(cx,cy,o.e);if(i>=o.n-(o.x||0))s+=XX(cx,cy-7)}y+=Math.ceil(o.n/10)*32+6});return SV(y,s)};
+const picAddE=(a,b,e)=>picEm([{e,n:a},{sign:"＋"},{e,n:b}]);
+const picSubE=(a,b,e)=>picEm([{e,n:a,x:b}]);
+const blk=(n,x0,y0,sc=1)=>{const t=Math.floor(n/10),o=n%10;let s="";for(let i=0;i<t;i++){const x=x0+i*12*sc;s+=`<rect x="${x}" y="${y0}" width="${10*sc}" height="${50*sc}" fill="${AC}" fill-opacity=".55" stroke="var(--text)" stroke-width="1.2"/>`;for(let j=1;j<10;j++)s+=LN(x,y0+j*5*sc,x+10*sc,y0+j*5*sc,"var(--text)","",.6)}const ox=x0+t*12*sc+8*sc;for(let i=0;i<o;i++)s+=`<rect x="${ox+(i%3)*12*sc}" y="${y0+50*sc-(Math.floor(i/3)+1)*12*sc}" width="${10*sc}" height="${10*sc}" fill="#D85A30" fill-opacity=".6" stroke="var(--text)" stroke-width="1.2"/>`;return s};
+const picBlocks=(n,cap=true)=>SV(cap?96:76,blk(n,90,10)+(cap?TX(170,88,`${n} = ${Math.floor(n/10)} 个十 + ${n%10} 个一`,"middle",13):""));
+const picBlocks2=(a,b,sg)=>SV(96,blk(a,10,10,.9)+TX(170,40,sg,"middle",28)+blk(b,190,10,.9)+TX(85,88,a,"middle",13)+TX(255,88,b,"middle",13));
+const picNL=(a,b,o={})=>{const W=300,x0=20,k=W/(b-a),y=62,step=(b-a)<=24?1:(b-a)<=60?5:(b-a)<=130?10:(b-a)<=600?50:100;let s=LN(x0,y,x0+W,y);const lst=(String(b).length>=5&&(b-a)/((b-a)<=24?1:(b-a)<=60?5:(b-a)<=130?10:(b-a)<=600?50:100)>6)?((b-a)<=24?1:(b-a)<=60?5:(b-a)<=130?10:(b-a)<=600?50:100)*5:step;const stp=(b-a)<=24?1:(b-a)<=60?5:(b-a)<=130?10:(b-a)<=600?50:100;for(let v=a;v<=b;v++){const x=x0+(v-a)*k;if((v-a)%stp==0||v==b){s+=LN(x,y-5,x,y+5,"var(--text)","",1.5);if((v-a)%lst==0)s+=(v===o.qm?"":TX(x,y+22,v,"middle",11))}}(o.hi||[]).forEach(v=>s+=`<circle cx="${x0+(v-a)*k}" cy="${y}" r="7" fill="${AC}"/>`);if(o.qm!=null)s+=`<circle cx="${x0+(o.qm-a)*k}" cy="${y}" r="9" fill="none" stroke="${BD}" stroke-width="2.5"/>`+TX(x0+(o.qm-a)*k,y-18,"?","middle",16,BD);(o.jumps||[]).forEach(j=>{const xa=x0+(j[0]-a)*k,xb=x0+(j[1]-a)*k;s+=`<path d="M ${xa} ${y} Q ${(xa+xb)/2} ${y-36} ${xb} ${y}" fill="none" stroke="${AC}" stroke-width="2.5"/>`+TX((xa+xb)/2,y-30,j[2]||"","middle",12)});return SV(92,s)};
+const picSeq=v=>{const n=v.length,w=Math.min(54,300/n);let s="";v.forEach((x,i)=>{const X=(340-n*w)/2+i*w;s+=RC(X,20,w-4,38,x=="?"?"var(--bad)":AC,.2,2,6)+TX(X+(w-4)/2,45,x,"middle",16,x=="?"?BD:"var(--text)")});return SV(78,s)};
+const picBond=(t,a,b)=>SV(140,LN(170,52,110,92)+LN(170,52,230,92)+`<circle cx="170" cy="32" r="24" fill="${AC}" fill-opacity=".25" stroke="var(--text)" stroke-width="2"/>`+`<circle cx="110" cy="108" r="24" fill="none" stroke="var(--text)" stroke-width="2"/>`+`<circle cx="230" cy="108" r="24" fill="none" stroke="var(--text)" stroke-width="2"/>`+TX(170,38,t,"middle",18)+TX(110,114,a,"middle",18,a=="?"?BD:"var(--text)")+TX(230,114,b,"middle",18,b=="?"?BD:"var(--text)"));
+const picPieF=(k,d)=>{const cx=110,cy=80,r=68;let s="";for(let i=0;i<d;i++){const a0=-Math.PI/2+i*2*Math.PI/d,a1=a0+2*Math.PI/d;s+=`<path d="M ${cx} ${cy} L ${cx+r*Math.cos(a0)} ${cy+r*Math.sin(a0)} A ${r} ${r} 0 0 1 ${cx+r*Math.cos(a1)} ${cy+r*Math.sin(a1)} Z" fill="${i<k?AC:"none"}" fill-opacity=".55" stroke="var(--text)" stroke-width="2"/>`}return SV(165,s)};
+const picRectF=(k,d)=>{const w=240/d,x=50;let s="";for(let i=0;i<d;i++)s+=RC(x+i*w,16,w,56,i<k?AC:"none",.55);return SV(80,s)};
+const picBoxes=(m,n,e,eaten=0,lab="")=>{if(m>12)return picBoxesL(m,String(n),lab);const bw=Math.min(m<=2?130:76,320/m-8),sp=(bw-18)/4.2,fz=Math.min(16,sp*.95);let s="";for(let i=0;i<m;i++){const x=(340-m*(bw+8))/2+i*(bw+8);s+=RC(x,14,bw,64,"none",0,2,8);for(let j=0;j<n;j++){const px=x+12+(j%5)*((bw-18)/4.2),py=36+Math.floor(j/5)*22;s+=e==="•"?`<circle cx="${px}" cy="${py}" r="5" fill="${AC}"/>`:EMO(px,py+5,e,fz)}if(i>=m-eaten)s+=XX(x+bw/2,46,22)}return SV(96,s+TX(170,94,lab,"middle",13))};
+const NOTE={1:"#378ADD",5:"#1D9E75",10:"#D85A30",20:"#BA7517",50:"#2A9DA8",100:"#7F77DD"};
+const noteS=(x,y,v)=>`<rect x="${x}" y="${y}" width="64" height="34" rx="4" fill="${NOTE[v]||"#888"}" fill-opacity=".3" stroke="var(--text)" stroke-width="1.5"/>`+TX(x+32,y+22,"RM"+v,"middle",14);
+const coinS=(x,y,t)=>`<circle cx="${x}" cy="${y}" r="21" fill="#EF9F27" fill-opacity=".5" stroke="var(--text)" stroke-width="1.5"/>`+TX(x,y+4,t,"middle",12);
+const picNotes=(v,n)=>{let s="";const per=4,rows=Math.ceil(n/per);for(let i=0;i<n;i++)s+=noteS(14+(i%per)*80,10+Math.floor(i/per)*44,v);return SV(rows*44+16,s)};
+const picCoins=(t,n)=>{let s="";for(let i=0;i<n;i++)s+=coinS(30+(i%6)*52,28+Math.floor(i/6)*48,t);return SV(Math.ceil(n/6)*48+14,s)};
+const picTags=(r)=>{let s="";r.forEach((t,i)=>{const x=16+i*104;s+=RC(x,16,92,58,"#EF9F27",.2,2,8)+TX(x+46,38,t[0],"middle",13)+TX(x+46,62,"RM"+t[1],"middle",16)});return SV(90,s)};
+const picWeek=(i,j)=>{const nm="一二三四五六日";let s="";for(let k=0;k<7;k++){const x=10+k*46;s+=RC(x,16,42,50,k===i?AC:k===j?"#1D9E75":"none",.45,2,6)+TX(x+21,46,nm[k],"middle",18)}return SV(86,s+TX(170,82,"星期一 到 星期日","middle",12))};
+const picMonths=(i,j)=>{let s="";for(let k=0;k<12;k++){const x=14+(k%6)*54,y=12+Math.floor(k/6)*46;s+=RC(x,y,48,38,k===i?AC:k===j?"#1D9E75":"none",.45,2,6)+TX(x+24,y+25,(k+1)+"月","middle",14)}return SV(104,s)};
+const picClock=(h,m)=>{const cx=100,cy=100,r=84;let s=`<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="var(--text)" stroke-width="3"/>`;for(let i=1;i<=12;i++){const a=i*30*Math.PI/180;s+=TX(cx+(r-17)*Math.sin(a),cy-(r-17)*Math.cos(a)+5,i,"middle",14)}for(let i=0;i<60;i++){const a=i*6*Math.PI/180,l=i%5?3:6;s+=LN(cx+(r-l)*Math.sin(a),cy-(r-l)*Math.cos(a),cx+r*Math.sin(a),cy-r*Math.cos(a),"var(--text)","",1)}const ah=((h%12)*30+m*.5)*Math.PI/180,am=m*6*Math.PI/180;s+=LN(cx,cy,cx+46*Math.sin(ah),cy-46*Math.cos(ah),"var(--text)","",4)+LN(cx,cy,cx+68*Math.sin(am),cy-68*Math.cos(am),AC,"",3)+`<circle cx="${cx}" cy="${cy}" r="4" fill="var(--text)"/>`;return SV(200,s,200)};
+const picBarsH=(rows,u="cm")=>{const mx=Math.max(...rows.map(r=>r[1])),k=190/mx;let s="";rows.forEach((r,i)=>{const y=14+i*40;s+=TX(60,y+22,r[0],"end",14)+RC(70,y,r[1]*k,28,["#378ADD","#1D9E75","#D85A30"][i%3],.35,2,4)+TX(70+r[1]*k+6,y+20,r[1]+" "+u,"start",13)});return SV(rows.length*40+14,s)};
+const picRopes=(a,b,u="cm")=>{const k=Math.min(10,270/(a+b)),x=20;return SV(86,RC(x,14,a*k,28,"#378ADD",.35,2,4)+RC(x+a*k,14,b*k,28,"#1D9E75",.35,2,4)+TX(x+a*k/2,34,a+" "+u,"middle",13)+TX(x+a*k+b*k/2,34,b+" "+u,"middle",13)+TX(x+(a+b)*k/2,72,"合起来 = ?","middle",14,BD))};
+const picRopeCut=(a,b,c,u="cm")=>{const k=Math.min(10,290/Math.max(a,a-b+c)),x=20;return SV(110,RC(x,12,a*k,26,"#378ADD",.35,2,4)+RC(x+(a-b)*k,12,b*k,26,BD,.35,2,4)+TX(x+(a-b)*k+b*k/2,30,"剪去 "+b,"middle",12)+TX(x+a*k/2-b*k/2,30,a+" "+u,"middle",13)+TX(170,70,`再接上 ${c} ${u}，现在多长？`,"middle",14,BD))};
+const picBal=(l,r,ul,ur,u="kg",tilt=true)=>{const t=!tilt?0:l>r?-12:l<r?12:0;return SV(140,`<g transform="rotate(${t} 170 40)">`+LN(60,40,280,40,"var(--text)","",4)+RC(40,52,76,44,"#378ADD",.25,2,6)+TX(78,80,ul+" "+l+" "+u,"middle",12)+LN(78,40,78,52,"var(--text)","",2)+RC(224,52,76,44,"#D85A30",.25,2,6)+TX(262,80,ur+" "+r+" "+u,"middle",12)+LN(262,40,262,52,"var(--text)","",2)+`</g>`+LN(170,40,170,118,"var(--text)","",4)+LN(130,118,210,118,"var(--text)","",4))};
+const picJug=(v,mx,u="ℓ",x0=130,lab)=>{const H=110,top=14,h=v/mx*H;let s=RC(x0,top,80,H,"none",0,2.5,4)+`<rect x="${x0+2}" y="${top+H-h}" width="76" height="${h}" fill="#378ADD" fill-opacity=".45"/>`;const st=mx>12?Math.ceil(mx/6):1;for(let i=0;i<=mx;i+=st){const y=top+H-i/mx*H;s+=LN(x0+80,y,x0+90,y,"var(--text)","",1.5)+TX(x0+96,y+4,i,"start",11)}return SV(top+H+14,s+TX(x0-12,top+H/2,lab||v+" "+u,"end",14))};
+const picJugs=(a,b,mx,u="ℓ")=>{const H=100,top=14;let s="";[[a,50],[b,200]].forEach(([v,x])=>{const h=v/mx*H;s+=RC(x,top,70,H,"none",0,2.5,4)+`<rect x="${x+2}" y="${top+H-h}" width="66" height="${h}" fill="#378ADD" fill-opacity=".45"/>`+TX(x+35,top+H+18,v+" "+u,"middle",13)});return SV(top+H+30,s)};
+const solid=(k,x,y)=>{const s="var(--text)",f=`fill="${AC}" fill-opacity=".3" stroke="${s}" stroke-width="2"`;if(k=="cube")return `<rect x="${x}" y="${y+16}" width="56" height="56" ${f}/><polygon points="${x},${y+16} ${x+16},${y} ${x+72},${y} ${x+56},${y+16}" fill="${AC}" fill-opacity=".15" stroke="${s}" stroke-width="2"/><polygon points="${x+56},${y+16} ${x+72},${y} ${x+72},${y+56} ${x+56},${y+72}" fill="${AC}" fill-opacity=".22" stroke="${s}" stroke-width="2"/>`;if(k=="cuboid")return `<rect x="${x-14}" y="${y+22}" width="86" height="44" ${f}/><polygon points="${x-14},${y+22} ${x+2},${y+6} ${x+88},${y+6} ${x+72},${y+22}" fill="${AC}" fill-opacity=".15" stroke="${s}" stroke-width="2"/><polygon points="${x+72},${y+22} ${x+88},${y+6} ${x+88},${y+50} ${x+72},${y+66}" fill="${AC}" fill-opacity=".22" stroke="${s}" stroke-width="2"/>`;if(k=="cyl")return `<rect x="${x}" y="${y+12}" width="64" height="58" ${f}/><ellipse cx="${x+32}" cy="${y+12}" rx="32" ry="11" fill="${AC}" fill-opacity=".2" stroke="${s}" stroke-width="2"/><path d="M ${x} ${y+70} A 32 11 0 0 0 ${x+64} ${y+70}" fill="none" stroke="${s}" stroke-width="2"/>`;if(k=="cone")return `<polygon points="${x+32},${y} ${x},${y+64} ${x+64},${y+64}" ${f}/><path d="M ${x} ${y+64} A 32 11 0 0 0 ${x+64} ${y+64}" fill="none" stroke="${s}" stroke-width="2"/>`;return `<circle cx="${x+34}" cy="${y+36}" r="34" ${f}/><ellipse cx="${x+22}" cy="${y+22}" rx="8" ry="5" fill="#fff" fill-opacity=".6"/>`};
+const SN={cube:"正方体",cuboid:"长方体",cyl:"圆柱体",cone:"圆锥体",ball:"球体"};
+const picSolid=(k,lab=true)=>SV(lab?110:96,solid(k,134,12)+(lab?TX(170,104,SN[k],"middle",14):""));
+const picSolids=(r)=>{let s="";r.forEach((o,i)=>{const x=22+i*108;s+=solid(o[0],x,10)+TX(x+36,100,SN[o[0]]+" × "+o[1],"middle",13)});return SV(116,s)};
+const shape=(k,x,y,sz=44)=>{const f=`fill="${AC}" fill-opacity=".3" stroke="var(--text)" stroke-width="2"`;return k=="tri"?`<polygon points="${x+sz/2},${y} ${x},${y+sz} ${x+sz},${y+sz}" ${f}/>`:k=="sq"?`<rect x="${x}" y="${y}" width="${sz}" height="${sz}" ${f}/>`:`<rect x="${x}" y="${y+sz*.15}" width="${sz*1.5}" height="${sz*.7}" ${f}/>`};
+const picShape=k=>SV(110,shape(k,k=="rect"?125:135,16,64)+TX(170,104,{tri:"三角形",sq:"正方形",rect:"长方形"}[k],"middle",14));
+const picShapes=r=>{let s="",x=14,y=10;r.forEach(o=>{for(let i=0;i<o[1];i++){const w=o[0]=="rect"?42:34;if(x+w>330){x=14;y+=46}s+=shape(o[0],x,y,28);x+=w+10}});return SV(y+46,s)};
+const picPictE=(rows)=>{let s="";const sp=Math.min(27,Math.floor(250/Math.max(...rows.map(r=>r[2]))));rows.forEach((r,i)=>{const y=24+i*34;s+=TX(60,y+6,r[0],"end",14);for(let j=0;j<r[2];j++)s+=EMO(78+j*sp,y+6,r[1],Math.min(22,sp-3))});const ly=24+rows.length*34;return SV(ly+10,s+TX(170,ly+4,"每个图案代表 1 个","middle",12,"var(--mute)"))};
+const picPeople=(a,b,hi)=>{let s="";for(let i=0;i<a+b;i++){const x=14+(i%12)*26,y=22+Math.floor(i/12)*30;s+=EMO(x,y,i===a-1?"🧒":"🙂",20)+(i===a-1?TX(x,y+16,"小明","middle",10,BD):"")}return SV(Math.ceil((a+b)/12)*30+14,s)};
+const picOps=(items,e)=>{let s="",x=10;items.forEach(it=>{const t=Math.floor(it[1]/10),o=it[1]%10;s+=TX(x+30,22,it[0]+it[1],"middle",18)+blk(it[1],x,30,.72);x+=Math.max(70,t*9+o*3+44)});return SV(96,s)};
+const picBars=(rows)=>{const mx=Math.max(...rows.map(r=>r[1])),k=200/mx;let s="";rows.forEach((r,i)=>{const y=12+i*34;s+=TX(66,y+18,r[0],"end",13)+RC(74,y,r[1]*k,26,["#378ADD","#1D9E75","#D85A30"][i%3],.35,2,4)+TX(74+r[1]*k+6,y+18,r[1],"start",13)});return SV(rows.length*34+12,s)};
+const picDay=(b,c)=>{let s="";for(let i=0;i<24;i++)s+=`<rect x="${10+i*13.3}" y="20" width="13.3" height="30" fill="${i<b?"#378ADD":i<b+c?"#1D9E75":"none"}" fill-opacity=".45" stroke="var(--text)" stroke-width="1"/>`;return SV(100,s+TX(10,70,`睡觉 ${b} 小时`,"start",12)+TX(10,88,`上学 ${c} 小时`,"start",12)+TX(330,88,"一天 24 小时","end",12))};
+const picSave=(a,n,u="天")=>{let s="";for(let i=0;i<n;i++){const x=10+i*64;s+=RC(x,16,56,50,"#EF9F27",.2,2,8)+TX(x+28,38,"第 "+(i+1)+" "+u,"middle",11)+TX(x+28,58,"RM"+a,"middle",14)}return SV(86,s)};
+const pc=(q,p)=>{q.pic=p;return q};
+
+const blk3=(n,x0,y0)=>{const h=Math.floor(n/100),t=Math.floor(n/10)%10,o=n%10;let s="";for(let i=0;i<h;i++){const x=x0+i*22;s+=`<rect x="${x}" y="${y0}" width="20" height="40" fill="#1D9E75" fill-opacity=".45" stroke="var(--text)" stroke-width="1.2"/>`+LN(x,y0+20,x+20,y0+20,"var(--text)","",.6)+LN(x+10,y0,x+10,y0+40,"var(--text)","",.6)}const tx=x0+h*22+10;for(let i=0;i<t;i++){const x=tx+i*11;s+=`<rect x="${x}" y="${y0}" width="9" height="40" fill="${AC}" fill-opacity=".55" stroke="var(--text)" stroke-width="1"/>`}const ox=tx+t*11+8;for(let i=0;i<o;i++)s+=`<rect x="${ox+(i%3)*10}" y="${y0+40-(Math.floor(i/3)+1)*10}" width="8" height="8" fill="#D85A30" fill-opacity=".6" stroke="var(--text)" stroke-width="1"/>`;return s};
+const picBlocks3=n=>SV(70,blk3(n,Math.max(8,(340-(Math.floor(n/100)*22+Math.floor(n/10)%10*11+40))/2),14));
+const picArray=(r,c)=>{const sp=Math.min(16,Math.floor(300/Math.max(c,1)),Math.floor(150/Math.max(r,1)));let s="";for(let i=0;i<r;i++)for(let j=0;j<c;j++)s+=`<circle cx="${(340-c*sp)/2+j*sp+sp/2}" cy="${12+i*sp+sp/2}" r="${sp*.34}" fill="${AC}"/>`;return SV(r*sp+30,s+TX(170,r*sp+24,`${r} 行，每行 ${c} 个`,"middle",12,"var(--mute)"))};
+const picShare=(n,k)=>{let s="";const cols=Math.min(10,n),rows=Math.ceil(n/10);for(let i=0;i<n;i++)s+=`<circle cx="${14+(i%10)*13}" cy="${14+Math.floor(i/10)*13}" r="4.5" fill="${AC}"/>`;const bx=170,bw=Math.min(52,160/k-6);for(let i=0;i<k;i++)s+=RC(bx+(i%3)*(bw+6)+ (k<=3?0:0),10+Math.floor(i/3)*40,bw,34,"none",0,2,6);const h=Math.max(rows*13+16,Math.ceil(k/3)*40+10);return SV(h+22,s+TX(170,h+16,`平均分给 ${k} 份`,"middle",13,"var(--mute)"))};
+const picRectF2=(a,b,d)=>{const w=Math.min(36,280/d),x=(340-w*d)/2;let s="";for(let i=0;i<d;i++)s+=RC(x+i*w,16,w,48,i<a?AC:i<a+b?"#1D9E75":"none",.55);return SV(80,s)};
+const picDecBar=k=>{let s="";for(let i=0;i<10;i++)s+=RC(40+i*26,16,26,44,i<k?AC:"none",.55);return SV(76,s+TX(170,74,"一整条分成 10 份","middle",12,"var(--mute)"))};
+const clk=(h,m,cx,cy,r,sc)=>{let s=`<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="var(--text)" stroke-width="2.5"/>`;for(let i=1;i<=12;i++){const a=i*30*Math.PI/180;s+=TX(cx+(r-12)*Math.sin(a),cy-(r-12)*Math.cos(a)+4,i,"middle",11)}const ah=((h%12)*30+m*.5)*Math.PI/180,am=m*6*Math.PI/180;return s+LN(cx,cy,cx+r*.5*Math.sin(ah),cy-r*.5*Math.cos(ah),"var(--text)","",3.5)+LN(cx,cy,cx+r*.76*Math.sin(am),cy-r*.76*Math.cos(am),AC,"",2.5)+`<circle cx="${cx}" cy="${cy}" r="3" fill="var(--text)"/>`};
+const picClock2=(a,b)=>SV(130,clk(a,0,80,62,54)+TX(170,66,"→","middle",26)+clk(b,0,260,62,54)+TX(80,126,"开始","middle",13)+TX(260,126,"结束","middle",13));
+const picBig=e=>SV(86,EMO(170,66,e,58));
+const picBoxesL=(m,t,cap)=>{if(m>20)return SV(84,RC(30,14,280,44,"none",0,2,6)+TX(170,42,`共 ${m} 个${t!==""?"，每个 "+t:""}`,"middle",15)+(cap?TX(170,78,cap,"middle",13,"var(--mute)"):""));const bw=Math.min(60,320/m-6);let s="";const small=bw<36&&t!=="";const c2=small?("每个 "+t+(cap?"，"+cap:"")):cap;for(let i=0;i<m;i++){const x=(340-m*(bw+6))/2+i*(bw+6);s+=RC(x,14,bw,44,"none",0,2,6)+((t!==""&&!small)?TX(x+bw/2,42,t,"middle",Math.max(8,Math.min(16,(bw-6)/(String(t).length*.95)))):"")}return SV(c2?84:72,s+(c2?TX(170,78,c2,"middle",13,"var(--mute)"):""))};
+const picBar=(labels,vals,step)=>{const n=vals.length,mx=Math.ceil(Math.max(...vals)/step)*step,H=150,ox=48,oy=14,W=270,bw=Math.min(50,W/n*.6);let s="";for(let v=0;v<=mx;v+=step){const y=oy+H-v/mx*H;s+=LN(ox,y,ox+W,y,"var(--line)","",1)+TX(ox-6,y+4,v,"end",11)}s+=LN(ox,oy,ox,oy+H)+LN(ox,oy+H,ox+W,oy+H);vals.forEach((v,i)=>{const bx=ox+(i+.5)*W/n-bw/2,bh=v/mx*H;s+=`<rect x="${bx}" y="${oy+H-bh}" width="${bw}" height="${bh}" fill="${AC}" fill-opacity=".55" stroke="var(--text)" stroke-width="1.5"/>`+TX(bx+bw/2,oy+H+16,labels[i],"middle",12)});return SV(oy+H+30,s)};
+const picTimeBar=(r)=>{const tot=r.reduce((a,b)=>a+b[1],0),k=300/tot,cols=["#378ADD","#1D9E75","#D85A30"];let s="",x=20;r.forEach((o,i)=>{s+=RC(x,14,o[1]*k,34,cols[i%3],.4,2,4)+TX(x+o[1]*k/2,36,o[1]+"分","middle",12)+TX(x+o[1]*k/2,66,o[0],"middle",12);x+=o[1]*k});return SV(80,s)};
+
+const picSeg=(parts,q)=>{const n=parts.length,w=Math.min(110,300/n);let s="";const cols=["#378ADD","#1D9E75","#D85A30"];parts.forEach((t,i)=>{const x=(340-n*w)/2+i*w;s+=RC(x,14,w,34,cols[i%3],.35,2,4)+TX(x+w/2,36,t,"middle",13)});return SV(q?80:62,s+(q?TX(170,74,q,"middle",14,BD):""))};
+const picBarAdd=v=>{const tot=v.reduce((a,b)=>a+b,0),k=290/tot,cols=["#378ADD","#1D9E75","#D85A30"];let s="",x=25;v.forEach((n,i)=>{s+=RC(x,14,n*k,34,cols[i%3],.35,2,4)+TX(x+n*k/2,36,n,"middle",13);x+=n*k});return SV(82,s+TX(170,74,"全部 = ？","middle",14,BD))};
+const picBarSub=(a,r)=>{const k=290/a;let s=RC(25,14,a*k,34,"#378ADD",.35,2,4)+TX(25+a*k/2,12,a,"middle",13),x=25+a*k;r.forEach(n=>{x-=n*k;s+=RC(x,14,n*k,34,BD,.3,2,4)+TX(x+n*k/2,36,"−"+n,"middle",13)});return SV(70,s+TX(170,66,"剩下 = ？","middle",14,BD))};
+const picBalQ=(t,u)=>SV(130,LN(60,40,280,40,"var(--text)","",4)+RC(40,52,86,44,"#378ADD",.25,2,6)+TX(83,80,t,"middle",12)+RC(214,52,86,44,"#D85A30",.25,2,6)+TX(257,80,"？ "+u,"middle",13)+LN(170,40,170,112,"var(--text)","",4)+LN(130,112,210,112,"var(--text)","",4));
+
+const ACN=AC;
+const PC=["#378ADD","#1D9E75","#D85A30","#BA7517","#7F77DD"];
+const picRect=(l,w,u="cm")=>{const k=Math.min(200/l,110/w),W=l*k,H=w*k,x=(340-W)/2-24,y=28;return SV(H+56,`<rect x="${x}" y="${y}" width="${W}" height="${H}" fill="${ACN}" fill-opacity=".22" stroke="var(--text)" stroke-width="2"/>`+TX(x+W/2,y-8,l+" "+u)+TX(x+W+8,y+H/2+4,w+" "+u,"start"))};
+
+const picTri=(b,h,u="cm")=>{const k=Math.min(200/b,110/h),W=b*k,H=h*k,x=(340-W)/2,y=24,ax=x+W*.3,by=y+H;return SV(H+60,`<polygon points="${x},${by} ${x+W},${by} ${ax},${y}" fill="${ACN}" fill-opacity=".22" stroke="var(--text)" stroke-width="2"/>`+LN(ax,y,ax,by,"var(--text)","5 4")+`<polyline points="${ax},${by-10} ${ax+10},${by-10} ${ax+10},${by}" fill="none" stroke="var(--text)" stroke-width="1.5"/>`+TX(x+W/2,by+20,b+" "+u)+TX(ax+14,y+H/2+4,h+" "+u,"start"))};
+
+const picCuboid=(l,w,h,u="cm")=>{const k=Math.min(130/l,90/h),W=l*k,H=h*k,dx=Math.min(w*k*.6,60),dy=dx*.6,x=70,y=26+dy,s="var(--text)";const f=`<polygon points="${x},${y} ${x+W},${y} ${x+W},${y+H} ${x},${y+H}" fill="${ACN}" fill-opacity=".25" stroke="${s}" stroke-width="2"/>`,t=`<polygon points="${x},${y} ${x+dx},${y-dy} ${x+W+dx},${y-dy} ${x+W},${y}" fill="${ACN}" fill-opacity=".1" stroke="${s}" stroke-width="2"/>`,r=`<polygon points="${x+W},${y} ${x+W+dx},${y-dy} ${x+W+dx},${y+H-dy} ${x+W},${y+H}" fill="${ACN}" fill-opacity=".18" stroke="${s}" stroke-width="2"/>`;return SV(H+dy+58,f+t+r+TX(x+W/2,y+H+20,l+" "+u)+TX(x-8,y+H/2+4,h+" "+u,"end")+TX(x+W+dx+6,y+H/2-dy/2,w+" "+u,"start"))};
+
+const picAngle=(deg,lab=true)=>{const cx=110,cy=125,L=100,a=deg*Math.PI/180,ex=cx+L*Math.cos(a),ey=cy-L*Math.sin(a),r=34,ax=cx+r*Math.cos(a),ay=cy-r*Math.sin(a),st=deg>=180;const arc=`<path d="M ${cx+r} ${cy} A ${r} ${r} 0 0 0 ${st?cx-r:ax} ${st?cy:ay}" fill="none" stroke="${ACN}" stroke-width="3"/>`;return SV(145,LN(cx,cy,cx+L+60,cy)+LN(cx,cy,st?cx-L:ex,st?cy:ey)+arc+(lab?TX(cx+r+14,cy-10,deg+"°","start",14):""),340)};
+
+const picTriAng=(a,b)=>SV(150,`<polygon points="60,125 280,125 150,25" fill="${ACN}" fill-opacity=".2" stroke="var(--text)" stroke-width="2"/>`+TX(96,116,a+"°","start",14)+TX(246,116,b+"°","end",14)+TX(150,58,"?","middle",18));
+
+const picGrid=(pts,path=[],n0)=>{const mxv=Math.max(10,...pts.map(p=>Math.max(p[0],p[1])),...path.map(p=>Math.max(p[0],p[1]))),n=n0||mxv,c=Math.floor(240/n),ox=40,oy=22;let s="";for(let i=0;i<=n;i++){s+=LN(ox+i*c,oy,ox+i*c,oy+n*c,"var(--line)","",1)+LN(ox,oy+i*c,ox+n*c,oy+i*c,"var(--line)","",1)+TX(ox+i*c,oy+n*c+16,i,"middle",11)+TX(ox-8,oy+n*c-i*c+4,i,"end",11)}s+=LN(ox,oy,ox,oy+n*c)+LN(ox,oy+n*c,ox+n*c,oy+n*c);if(path.length>1)s+=`<polyline points="${path.map(p=>(ox+p[0]*c)+","+(oy+n*c-p[1]*c)).join(" ")}" fill="none" stroke="${ACN}" stroke-width="2.5" stroke-dasharray="6 4"/>`;pts.forEach(p=>{s+=`<circle cx="${ox+p[0]*c}" cy="${oy+n*c-p[1]*c}" r="6" fill="${ACN}"/>`+TX(ox+p[0]*c+9,oy+n*c-p[1]*c-8,p[2],"start",14)});return SV(oy+n*c+28,s)};
+
+const picPict=(labels,counts,sym)=>{let s="";const rh=30,ox=70;labels.forEach((lb,i)=>{const y=22+i*rh;s+=TX(ox-8,y+5,lb,"end",13);const full=Math.floor(counts[i]);for(let j=0;j<full;j++)s+=`<circle cx="${ox+10+j*22}" cy="${y}" r="9" fill="${ACN}"/>`;if(counts[i]%1)s+=`<path d="M ${ox+10+full*22} ${y-9} A 9 9 0 0 0 ${ox+10+full*22} ${y+9} Z" fill="${ACN}"/>`});const ly=22+labels.length*rh+4;s+=`<circle cx="30" cy="${ly}" r="9" fill="${ACN}"/>`+TX(46,ly+5,"= "+sym,"start",13);return SV(ly+22,s)};
+
+const picPie=items=>{const cx=90,cy=90,r=74;let a0=-Math.PI/2,s="";items.forEach((it,i)=>{const a1=a0+it[1]/100*2*Math.PI,x0=cx+r*Math.cos(a0),y0=cy+r*Math.sin(a0),x1=cx+r*Math.cos(a1),y1=cy+r*Math.sin(a1);s+=`<path d="M ${cx} ${cy} L ${x0} ${y0} A ${r} ${r} 0 ${it[1]>50?1:0} 1 ${x1} ${y1} Z" fill="${PC[i]}" stroke="var(--bg)" stroke-width="2"/>`+`<rect x="190" y="${28+i*28}" width="14" height="14" fill="${PC[i]}"/>`+TX(212,40+i*28,it[0]+" "+it[1]+"%","start",13);a0=a1});return SV(190,s)};
+
+const picFrac=(k,d)=>{const W=Math.min(300,d*40),w=W/d,x=(340-W)/2;let s="";for(let i=0;i<d;i++)s+=`<rect x="${x+i*w}" y="14" width="${w}" height="44" fill="${i<k?ACN:"none"}" fill-opacity=".55" stroke="var(--text)" stroke-width="2"/>`;return SV(72,s)};
+
+
+const picChips=n=>{const t=String(n),L=t.length,hd=["个","十","百","千","万","十万","百万"],w=Math.min(52,300/L);let s="";for(let i=0;i<L;i++){const d=+t[i],x=(340-L*w)/2+i*w;s+=TX(x+w/2,16,hd[L-1-i],"middle",13)+LN(x+w,6,x+w,24+9*11,"var(--line)","",1);for(let j=0;j<d;j++)s+=`<circle cx="${x+w/2}" cy="${30+(8-j)*11+0}" r="4.6" fill="${["#378ADD","#1D9E75","#D85A30","#BA7517","#7F77DD","#378ADD","#1D9E75"][L-1-i]}"/>`}return SV(134,LN(20,24,320,24)+s)};
+const picSet=(t,n)=>{let s="";for(let i=0;i<t;i++){const cx=24+(i%10)*30,cy=22+Math.floor(i/10)*30;s+=`<circle cx="${cx}" cy="${cy}" r="11" fill="${i<n?BD:"none"}" fill-opacity=".6" stroke="var(--text)" stroke-width="2"/>`}return SV(Math.ceil(t/10)*30+14,s)};
+const picEqFrac=(a,b,k)=>{const w1=Math.min(260,b*30),w2=Math.min(260,b*k*20),x1=(340-w1)/2,x2=(340-w2)/2;let s="";for(let i=0;i<b;i++)s+=RC(x1+i*w1/b,10,w1/b,34,i<a?AC:"none",.55);s+=TX(170,66,"＝","middle",20);for(let i=0;i<b*k;i++)s+=RC(x2+i*w2/(b*k),76,w2/(b*k),34,"none",0);return SV(126,s+TX(170,124,"涂几份？","middle",13,BD))};
+const picMixedBars=(w,n,d)=>{let s="";const bw=Math.min(90,310/(w+(n?1:0))-6),x0=(340-(w+(n?1:0))*(bw+6))/2;for(let i=0;i<w+(n?1:0);i++){const full=i<w;for(let j=0;j<d;j++)s+=RC(x0+i*(bw+6)+j*bw/d,14,bw/d,40,(full||j<n)?AC:"none",.55,1.5)}return SV(70,s)};
+const picImpBars=(top,d)=>picMixedBars(Math.floor(top/d),top%d,d);
+const picBoxesHL=(m,k,cap)=>{if(m>20)return picBoxesL(m,"",cap);const bw=Math.min(60,320/m-6);let s="";for(let i=0;i<m;i++){const x=(340-m*(bw+6))/2+i*(bw+6);s+=RC(x,14,bw,44,i<k?AC:"none",.45,2,6)}return SV(cap?84:72,s+(cap?TX(170,78,cap,"middle",13,"var(--mute)"):""))};
+const picSale=(p,d)=>SV(88,RC(30,16,110,52,"#EF9F27",.2,2,8)+TX(85,38,"原价","middle",13)+TX(85,60,"RM"+p,"middle",16)+TX(170,48,"→","middle",22)+`<circle cx="245" cy="42" r="30" fill="${BD}" fill-opacity=".2" stroke="${BD}" stroke-width="2"/>`+TX(245,38,"打折","middle",13)+TX(245,58,"−"+d+"%","middle",15));
+const picSale2=(p,d,q,e)=>SV(100,RC(10,14,120,60,"#EF9F27",.2,2,8)+TX(70,34,"衬衫","middle",12)+TX(70,52,"RM"+p,"middle",15)+TX(70,68,"−"+d+"%","middle",12,BD)+RC(200,14,120,60,"#EF9F27",.2,2,8)+TX(260,34,"裤子","middle",12)+TX(260,52,"RM"+q,"middle",15)+TX(260,68,"−"+e+"%","middle",12,BD)+TX(165,50,"＋","middle",22));
+const clkt=(t,cx,cy,r)=>{const [h,m]=t.split(":").map(Number);return clk(h,m,cx,cy,r)};
+const picClock2m=(a,b)=>SV(130,clkt(a,80,62,54)+TX(170,66,"→","middle",26)+clkt(b,260,62,54)+TX(80,126,a,"middle",13)+TX(260,126,b,"middle",13));
+const picPrism=()=>{const s="var(--text)",f=(o)=>`fill="${AC}" fill-opacity="${o}" stroke="${s}" stroke-width="2" stroke-linejoin="round"`;return SV(130,`<polygon points="60,104 100,54 160,28 120,78" ${f(.12)}/><polygon points="140,104 100,54 160,28 200,78" ${f(.2)}/><polygon points="60,104 140,104 200,78 120,78" ${f(.08)}/><polygon points="60,104 140,104 100,54" ${f(.3)}/>`)};
+const picPoly=n=>{let p="";for(let i=0;i<n;i++){const a=-Math.PI/2+i*2*Math.PI/n;p+=(170+56*Math.cos(a)).toFixed(1)+","+(70+56*Math.sin(a)).toFixed(1)+" "}return SV(136,`<polygon points="${p}" fill="${AC}" fill-opacity=".25" stroke="var(--text)" stroke-width="2"/>`)};
+const picStraightAng=a=>{const cx=170,cy=100,L=90,r=a*Math.PI/180,ex=cx+L*Math.cos(r),ey=cy-L*Math.sin(r);return SV(125,LN(cx-L,cy,cx+L,cy)+LN(cx,cy,ex,ey)+`<path d="M ${cx+30} ${cy} A 30 30 0 0 0 ${cx+30*Math.cos(r)} ${cy-30*Math.sin(r)}" fill="none" stroke="${AC}" stroke-width="3"/>`+TX(cx+44,cy-8,a+"°","start",14)+`<path d="M ${cx+30*Math.cos(r)} ${cy-30*Math.sin(r)} A 30 30 0 0 0 ${cx-30} ${cy}" fill="none" stroke="${BD}" stroke-width="3"/>`+TX(cx-50,cy-16,"？","end",16,BD))};
+const picAround=(a,b)=>{const cx=170,cy=80,L=64,rays=[0,a,a+b];let s="";rays.forEach(d=>{const r=d*Math.PI/180;s+=LN(cx,cy,cx+L*Math.cos(r),cy-L*Math.sin(r))});const mid=d=>d*Math.PI/180;s+=TX(cx+36*Math.cos(mid(a/2)),cy-36*Math.sin(mid(a/2)),a+"°","middle",13)+TX(cx+36*Math.cos(mid(a+b/2)),cy-36*Math.sin(mid(a+b/2)),b+"°","middle",13)+TX(cx+36*Math.cos(mid(a+b+(360-a-b)/2)),cy-36*Math.sin(mid(a+b+(360-a-b)/2)),"？","middle",16,BD);return SV(160,s)};
+const picCutRect=(A,B,a,b)=>{const k=Math.min(220/A,110/B),W=A*k,H=B*k,x=(340-W)/2,y=26,cw=a*k,ch=b*k;return SV(H+60,`<polygon points="${x},${y} ${x+W-cw},${y} ${x+W-cw},${y+ch} ${x+W},${y+ch} ${x+W},${y+H} ${x},${y+H}" fill="${AC}" fill-opacity=".22" stroke="var(--text)" stroke-width="2"/>`+`<rect x="${x+W-cw}" y="${y}" width="${cw}" height="${ch}" fill="none" stroke="${BD}" stroke-width="2" stroke-dasharray="5 4"/>`+TX(x+W/2,y+H+18,A+" cm")+TX(x-8,y+H/2+4,B+" cm","end")+TX(x+W-cw/2,y-6,a+" cm","middle",12,BD)+TX(x+W+6,y+ch/2+4,b+" cm","start",12,BD))};
+const picRatio=(p,q,n1,n2)=>{const sz=Math.min(26,300/Math.max(p,q)),x=20;let s=TX(14,26,n1,"start",13);for(let i=0;i<p;i++)s+=RC(x+i*(sz+2),34,sz,22,"#378ADD",.45,1.5);s+=TX(14,84,n2,"start",13);for(let i=0;i<q;i++)s+=RC(x+i*(sz+2),92,sz,22,"#D85A30",.45,1.5);return SV(126,s)};
+const picSpinner=(t,r,r2=0)=>{const cx=110,cy=80,R0=66;let s="";for(let i=0;i<t;i++){const a0=-Math.PI/2+i*2*Math.PI/t,a1=a0+2*Math.PI/t;s+=`<path d="M ${cx} ${cy} L ${cx+R0*Math.cos(a0)} ${cy+R0*Math.sin(a0)} A ${R0} ${R0} 0 0 1 ${cx+R0*Math.cos(a1)} ${cy+R0*Math.sin(a1)} Z" fill="${i<r?"#E24B4A":i<r+r2?"#378ADD":"none"}" fill-opacity=".6" stroke="var(--text)" stroke-width="2"/>`}return SV(160,s+TX(220,80,"转盘平均分成 "+t+" 等份","start",13))};
+const picBag=(r,b,g)=>{let s=`<path d="M 70 30 Q 170 6 270 30 L 290 130 Q 170 160 50 130 Z" fill="#BA7517" fill-opacity=".2" stroke="var(--text)" stroke-width="2"/>`;let items=[];for(let i=0;i<r;i++)items.push("#E24B4A");for(let i=0;i<b;i++)items.push("#378ADD");for(let i=0;i<g;i++)items.push("#1D9E75");const per=Math.ceil(Math.sqrt(items.length*2.2)),sp=Math.min(24,200/per);items.forEach((c,i)=>{s+=`<circle cx="${170-(per*sp)/2+(i%per)*sp+sp/2}" cy="${58+Math.floor(i/per)*sp}" r="${sp*.4}" fill="${c}"/>`});return SV(166,s)};
+const picAuto=(re,txt)=>{};
+const picInterest=(t,r)=>SV(90,RC(24,16,120,56,"#EF9F27",.2,2,8)+TX(84,38,"存入","middle",13)+TX(84,60,"RM"+t,"middle",15)+TX(165,48,"→","middle",22)+`<circle cx="245" cy="44" r="32" fill="#1D9E75" fill-opacity=".2" stroke="#1D9E75" stroke-width="2"/>`+TX(245,40,"年利率","middle",12)+TX(245,60,r+"%","middle",16));
+
+const pk=(re,f)=>[re,f],N=s=>+String(s).replace(/,/g,""),fx=v=>String(+v);
+const UNITS="km|m|cm|mm|kg|g|ℓ|mℓ",RS=(n,l)=>l;
+const sp=(s)=>String(s).split("，").map(x=>x.replace("☐","?"));
+const RULES1=[
+pk(/^(\d) 个千、(\d) 个百、(\d) 个十、(\d) 个一合起来是多少？$/,m=>picChips(1000*m[1]+100*m[2]+10*m[3]+ +m[4])),
+pk(/^([\d,]+) 里面的数字 (\d) 表示多少？$/,m=>picChips(N(m[1]))),
+pk(/^([\d,]+) 的(后面|前面)一个数是多少？$/,m=>{const n=N(m[1]);return picNL(n-4,n+4,{hi:[n],qm:m[2]=="后面"?n+1:n-1})}),
+pk(/^(?:找规律：|数列：)(.+?)。/,m=>picSeq(sp(m[1]))),
+pk(/^([\d,]+(?:，[\d,]+)*，☐(?:，[\d,]+)*)。/,m=>picSeq(sp(m[1]))),
+pk(/^把 ([\d,]+) 四舍五入到(?:最接近的 ([\d,]+)|(十|百|千)位)，是多少？$/,m=>{const n=N(m[1]),p=m[2]?N(m[2]):{十:10,百:100,千:1000}[m[3]],t=Math.floor(n/p)*p;return picNL(t,t+p,{hi:[n]})}),
+pk(/^一组有 (\d+) 个球，其中 (\d+) 个是红球/,m=>picSet(+m[1],+m[2])),
+pk(/^(\d+)\/(\d+) = ☐\/(\d+)，/,m=>picEqFrac(+m[1],+m[2],m[3]/m[2])),
+pk(/^把 (\d+)\/(\d+) 化成最简分数。/,m=>+m[2]<=16?picRectF(+m[1],+m[2]):null),
+pk(/^(\d+)\/(\d+) 化成带分数是？/,m=>picImpBars(+m[1],+m[2])),
+pk(/^(\d+) (\d+)\/(\d+) 化成假分数/,m=>picMixedBars(+m[1],+m[2],+m[3])),
+pk(/^(\d+) 的 (\d+)\/(\d+) 是多少？$/,m=>picBoxesHL(+m[3],+m[2],`平均分成 ${m[3]} 份，取 ${m[2]} 份`)),
+pk(/^(\d+)\/(\d+) × (\d+) = \?$/,m=>picBoxesHL(+m[2],+m[1],`${m[3]} 平均分成 ${m[2]} 份，取 ${m[1]} 份`)),
+pk(/^(\d+)\/(\d+) \+ (\d+)\/(\d+) = \?$/,m=>+m[1]+ +m[3]<=+m[2]?picRectF2(+m[1],+m[3],+m[2]):null),
+pk(/^买 (\d+) 本书，每本 RM([\d.]+)，再买 (\d+) 支笔，每支 RM([\d.]+)/,m=>picTags([[`书 × ${m[1]}`,fx(m[2])],[`笔 × ${m[3]}`,fx(m[4])]])),
+pk(/^一个玩具 RM([\d.]+)，买 (\d+) 个，共多少钱？/,m=>picEm([{lab:`每个 RM${m[1]}`},{e:"🧸",n:+m[2]}])),
+pk(/^一个玩具 RM([\d.]+)，买 (\d+) 个，付了 RM(\d+)/,m=>picTags([[`玩具 × ${m[2]}`,fx(m[1])],["付了",m[3]]])),
+pk(/^买三样东西，价钱分别是 RM(\d+)、RM(\d+) 和 RM(\d+)，付了 RM(\d+)/,m=>picTags([["A",m[1]],["B",m[2]],["C",m[3]]])),
+pk(/^RM([\d.]+) \+ RM([\d.]+) − RM([\d.]+) = \?/,m=>picTags([["A",fx(m[1])],["＋ B",fx(m[2])],["－ C",fx(m[3])]])),
+pk(/^RM([\d.]+) [+−] RM([\d.]+) = \?$/,m=>picTags([["A",fx(m[1])],["B",fx(m[2])]])),
+pk(/^1 个外币等于 RM(\d+)/,m=>picTags([["1 个外币",m[1]]])),
+pk(/^每件 RM([\d.]+)，买 (\d+) 件/,m=>picEm([{lab:`每件 RM${m[1]}`},{e:"👕",n:+m[2]}])),
+pk(/^(\d+) 个人平分 RM([\d.]+)/,m=>picEm([{lab:`平分 RM${m[2]}`},{e:"🙂",n:+m[1]}])),
+pk(/^小明原有 RM(\d+)，每月存 RM(\d+)，存 (\d+) 个月后/,m=>picSave(+m[2],+m[3],"月")),
+pk(/^一件玩具 RM([\d.]+)，买 (\d+) 件，付了 RM(\d+)/,m=>picTags([[`玩具 × ${m[2]}`,fx(m[1])],["付了",m[3]]])),
+pk(/^一(?:部电话|双鞋)原价 RM(\d+)，打 (\d+)% 折扣/,m=>picSale(+m[1],+m[2])),
+pk(/^一件衬衫原价 RM(\d+)，打 (\d+)% 折扣；一条裤子原价 RM(\d+)，打 (\d+)% 折扣/,m=>picSale2(+m[1],+m[2],+m[3],+m[4])),
+pk(/^RM(\d+) \+ RM(\d+) × (\d+) − RM(\d+) = \?/,m=>picTags([["A",m[1]],[`B × ${m[3]}`,m[2]],["－ C",m[4]]])),
+pk(/^从 (\d\d:\d\d) 到 (\d\d:\d\d)，/,m=>picClock2m(m[1],m[2])),
+pk(/^火车 (\d\d:\d\d) 开出，(\d\d:\d\d) 到达/,m=>picClock2m(m[1],m[2])),
+pk(/^火车 (\d\d:\d\d) 出发，行驶/,m=>picSV1(m[1])),
+pk(/^每节课 (\d+) 小时 (\d+) 分钟，连续(?:上)? ?(\d+) 节课/,m=>picBoxesL(+m[3],`${m[1]}时${m[2]}分`,"")),
+pk(/^每天(?:做运动|读书) (\d+) 小时 (\d+) 分钟，连续(?:读)? ?(\d+) 天/,m=>picBoxesL(+m[3],`${m[1]}时${m[2]}分`,"")),
+pk(/^(\d+) 小时 (\d+) 分钟 ([+−]) (\d+) 小时 (\d+) 分钟 = \?/,m=>picSeg([`${m[1]} 小时 ${m[2]} 分`,`${m[3]=="+"?"＋":"－"} ${m[4]} 小时 ${m[5]} 分`],"= ？")),
+pk(/平均分成 (\d+) 份，每份是多长时间/,m=>picBoxesL(+m[1],"","平均分成 "+m[1]+" 份")),
+pk(/^下午 (\d+):(\d\d)，用 24 小时制/,m=>picClock(+m[1],+m[2])),
+pk(/^(\d+) (km|m|kg|ℓ) (\d+) (m|cm|g|mℓ) ([+−]) (\d+) (km|m|kg|ℓ) (\d+) (m|cm|g|mℓ) = \?/,m=>picSeg([`${m[1]} ${m[2]} ${m[3]} ${m[4]}`,`${m[5]=="+"?"＋":"－"} ${m[6]} ${m[7]} ${m[8]} ${m[9]}`],"= ？")),
+pk(/^(\d+) (m|kg|ℓ) (\d+) (cm|g|mℓ) \+ (\d+) (cm|g|mℓ) = 多少/,m=>picSeg([`${m[1]} ${m[2]}`,`${m[3]} ${m[4]}`,`${m[5]} ${m[6]}`],"合起来 = ？")),
+pk(/^(\d+) (km|m|kg|ℓ) (\d+) (m|cm|g|mℓ) = 多少 (m|cm|g|mℓ)？/,m=>picSeg([`${m[1]} ${m[2]}`,`${m[3]} ${m[4]}`],"合起来 = ？ "+m[5])),
+pk(/^([\d,.]+) (km|m|cm|kg|ℓ|g|mℓ|mm) = 多少 (m|cm|mm|g|mℓ|kg|ℓ|km)？/,m=>picSeg([`${m[1]} ${m[2]}`],"= ？ "+m[3])),
+pk(/^(\d+) m (\d+) cm × (\d+) = 多少 cm？/,m=>picBoxesL(+m[3],`${m[1]} m ${m[2]} cm`,"")),
+pk(/^(\d+) ℓ (\d+) mℓ × (\d+) = 多少 mℓ？/,m=>picBoxesL(+m[3],`${m[1]} ℓ ${m[2]} mℓ`,"")),
+pk(/^([\d,]+) mℓ 的水平均分成 (\d+) 份/,m=>picBoxesL(+m[2],"","平均分成 "+m[2]+" 份")),
+pk(/^每包糖重 (\d+) g，买 (\d+) 包，其中 (\d+) g 放进礼盒/,m=>picBoxesL(+m[2],m[1]+" g",m[3]+" g 放进礼盒")),
+pk(/^一桶(?:水|油)有 (\d+) ℓ，倒进 (\d+) 个瓶子，每瓶 (\d+) mℓ/,m=>picBoxesL(+m[2],m[3]+" mℓ","从 "+m[1]+" ℓ 里倒出")),
+pk(/^(三角棱柱)(?:的两个底面|有几)/,()=>picPrism()),
+pk(/^长方体有几/,()=>picSolid("cuboid",false)),
+pk(/^(五边形|六边形|八边形)有几条边？/,m=>picPoly({五边形:5,六边形:6,八边形:8}[m[1]])),
+pk(/^等边三角形有几条对称轴？/,()=>picPoly(3)),
+pk(/^正方形有几条对称轴？/,()=>picShape("sq")),
+pk(/^长方形有几条对称轴？/,()=>picShape("rect")),
+pk(/^(\d+)° 的角是什么角？/,m=>picAngle(+m[1])),
+pk(/^长方形长 (\d+) cm、宽 (\d+) cm，(?:周长|面积)/,m=>picRect(+m[1],+m[2])),
+pk(/^正方形的边长是 (\d+) cm，周长/,m=>picRect(+m[1],+m[1])),
+pk(/^长方体长 (\d+) cm、宽 (\d+) cm、高 (\d+) cm，体积/,m=>picCuboid(+m[1],+m[2],+m[3])),
+pk(/^正方体的边长是 (\d+) cm，体积/,m=>picCuboid(+m[1],+m[1],+m[1])),
+pk(/^三角形的底是 (\d+) cm，高是 (\d+) cm，面积/,m=>picTri(+m[1],+m[2])),
+pk(/^一块 (\d+) cm × (\d+) cm 的长方形纸板，剪掉一个 (\d+) cm × (\d+) cm/,m=>picCutRect(+m[1],+m[2],+m[3],+m[4])),
+pk(/^正.边形的(?:边长|周长)是 (\d+) cm/,m=>null),
+pk(/^三角形的两个角是 (\d+)° 和 (\d+)°/,m=>picTriAng(+m[1],+m[2])),
+pk(/^一条直线上有两个角，其中一个是 (\d+)°/,m=>picStraightAng(+m[1])),
+pk(/^一个点周围有三个角，其中两个是 (\d+)° 和 (\d+)°/,m=>picAround(+m[1],+m[2])),
+pk(/^长方体水箱长 (\d+) cm、宽 (\d+) cm、高 (\d+) cm/,m=>picCuboid(+m[1],+m[2],+m[3])),
+pk(/^点 A 在第 (\d+) 列、第 (\d+) 行/,m=>picGrid([[+m[1],+m[2],"A"]])),
+pk(/^点 ([A-C]) 在 \((\d+), (\d+)\)，/,m=>picGrid([[+m[2],+m[3],m[1]]])),
+pk(/^点 A (?:在横轴 (\d+)、纵轴 (\d+) 的位置)/,m=>picGrid([[+m[1],+m[2],"A"]])),
+pk(/^点 A \((\d+), (\d+)\) 和点 B \((\d+), (\d+)\)/,m=>picGrid([[+m[1],+m[2],"A"],[+m[3],+m[4],"B"]])),
+pk(/^红珠与蓝珠的比是 (\d+) : (\d+)/,m=>picRatio(+m[1],+m[2],"红珠","蓝珠")),
+pk(/^红笔与蓝笔的比是 (\d+) : (\d+)/,m=>picRatio(+m[1],+m[2],"红笔","蓝笔")),
+pk(/^班上男生 (\d+) 人，女生 (\d+) 人/,m=>picBars([["男生",+m[1]],["女生",+m[2]]])),
+pk(/^全班同学喜欢的运动：足球 (\d+) 人，篮球 (\d+) 人，羽球 (\d+) 人，游泳 (\d+) 人/,m=>{const v=m.slice(1,5).map(Number);return picBar(["足球","篮球","羽球","游泳"],v,Math.max(...v)>30?10:5)}),
+pk(/^饼分图表示全班 (\d+) 人喜欢的运动：足球 (\d+)%，篮球 (\d+)%，羽球 (\d+)%/,m=>picPie([["足球",+m[2]],["篮球",+m[3]],["羽球",+m[4]]])),
+pk(/^饼(?:分)?图显示：喜欢足球占 (\d+)%，喜欢篮球占 (\d+)%，其余的喜欢羽球/,m=>picPie([["足球",+m[1]],["篮球",+m[2]],["羽球",100-m[1]-m[2]]])),
+pk(/^饼(?:分)?图显示，喜欢(足球|篮球|羽球|游泳)的占 (\d+)%/,m=>picPie([[m[1],+m[2]],["其他",100-m[2]]])),
+pk(/^象形统计图中，每个图案代表 (\d+) 个，(苹果|书本|气球)有 (\d+) 个图案/,m=>picPict([m[2]],[+m[3]],m[1]+" 个")),
+pk(/^条形统计图每格代表 (\d+) 人，三个班分别是 (\d+) 格、(\d+) 格和 (\d+) 格/,m=>picBar(["甲班","乙班","丙班"],[m[1]*m[2],m[1]*m[3],m[1]*m[4]],+m[1])),
+pk(/^每个图案代表 (\d+) 本书。甲班有 (\d+) 个半图案.*乙班有 (\d+) 个整图案/,m=>picPict(["甲班","乙班"],[+m[2]+.5,+m[3]],m[1]+" 本")),
+pk(/^条形统计图显示：甲班有 (\d+) 人，乙班有 (\d+) 人/,m=>{const v=[+m[1],+m[2]];return picBar(["甲班","乙班"],v,Math.max(...v)>50?10:5)}),
+pk(/^袋中有 (\d+) 个红球、(\d+) 个蓝球、(\d+) 个绿球/,m=>picBag(+m[1],+m[2],+m[3])),
+pk(/^转盘平均分成 (\d+) 等份，其中 (\d+) 份是红色/,m=>picSpinner(+m[1],+m[2])),
+pk(/^袋中有 (\d+) 个球，其中 (\d+) 个是红球/,m=>picBag(+m[2],0,0)||picBag(+m[2],+m[1]-m[2],0)),
+pk(/^袋中原有 (\d+) 个红球和 (\d+) 个蓝球，取走/,m=>picBag(+m[1],+m[2],0)),
+pk(/^(\d+) 颗糖平均分给 (\d+) 位小朋友/,m=>picBoxesL(+m[2],"","平均分给 "+m[2]+" 位小朋友")),
+pk(/^每班 (\d+) 人，共 (\d+) 班，今天有 (\d+) 人缺席/,m=>picBoxesL(+m[2],m[1]+" 人","缺席 "+m[3]+" 人")),
+pk(/^(\d+) (年|天) (\d+) (个月|小时) \+ (\d+) (年|天) (\d+) (个月|小时) = \?/,m=>picSeg([`${m[1]} ${m[2]} ${m[3]} ${m[4]}`,`＋ ${m[5]} ${m[6]} ${m[7]} ${m[8]}`],"= ？")),
+pk(/^甲店 (\d+) 个 RM([\d.]+)，乙店 (\d+) 个 RM([\d.]+)/,m=>picTags([[`甲店 × ${m[1]}`,fx(m[2])],[`乙店 × ${m[3]}`,fx(m[4])]])),
+pk(/^把 RM([\d,]+) 存(?:进|入)银行，年利率 (\d+)%/,m=>picInterest(m[1],m[2])),
+pk(/^(\d+) : (\d+) = (?:\d+ : ☐|☐ : \d+)，/,m=>+m[1]<=8&&+m[2]<=8?picRatio(+m[1],+m[2],"前项","后项"):null),
+pk(/^(\d+) (?:支笔|本练习簿) RM([\d.]+)，买 (\d+) (?:支|本)/,m=>picTags([[`${m[1]} 个`,fx(m[2])]])),
+pk(/^点 ([A-D]) \((\d+), (\d+)\) 和点 ([A-D]) \((\d+), (\d+)\)/,m=>picGrid([[+m[2],+m[3],m[1]],[+m[5],+m[6],m[4]]])),
+pk(/^正(五|六|八|十)边形的(?:边长|周长)是/,m=>picPoly({五:5,六:6,八:8,十:10}[m[1]])),
+pk(/^点 (?:A|B|C) 在 \((\d+), (\d+)\)，先向右移/,m=>null)
+];
+function picSV1(t){const [h,m]=t.split(":").map(Number);return picClock(h,m)}
+function addPic(q){if(q.pic)return q;for(const[r,f]of RULES1){const m=q.q.match(r);if(m){const o=f(m);if(o){if(typeof o=="string")q.pic=o;else{q.pic=o.pic;if(o.q)q.q=o.q}}break}}return q}
+const RW1=[
+pk(/^学校有 ([\d,]+) 位男生和 ([\d,]+) 位女生，后来又转来 (\d+) 位学生/,m=>picBars([["男生",N(m[1])],["女生",N(m[2])],["转来",N(m[3])]])),
+pk(/^数列每次多 (\d+)，第 1 个数是 (\d+)。第 (\d) 个数/,m=>{const d=+m[1],a=+m[2],n=+m[3];const v=[];for(let i=0;i<Math.min(n-1,4);i++)v.push(a+i*d);return picSeq(v.concat(["?"]))}),
+pk(/^甲仓库有 ([\d,]+) (?:箱货物|公斤米)，乙仓库原有 ([\d,]+) (?:箱|公斤)，后来乙仓库又运进 ([\d,]+)/,m=>picBars([["甲仓库",N(m[1])],["乙原有",N(m[2])],["又运进",N(m[3])]])),
+pk(/^仓库原有 (\d+) 箱汽水，每箱 (\d+) 瓶，卖出 (\d+) 瓶/,m=>picBoxesL(+m[1],m[2]+" 瓶","卖出 "+m[3]+" 瓶")),
+pk(/^共有 ([\d,]+) 本书，平分给 (\d+) 个班/,m=>picBoxesL(+m[2],"","平分给 "+m[2]+" 个班")),
+pk(/^水果摊原有 (\d+) 个橙，卖出 (\d+)\/(\d+)/,m=>picBoxesHL(+m[3],+m[2],`卖出 ${m[2]}/${m[3]}`)),
+pk(/^小明跑了 ([\d.]+) km，小华比小明多跑 ([\d.]+) km/,m=>picBarsH([["小明",+m[1]],["多跑",+m[2]]],"km")),
+pk(/^仓库原有 ([\d,]+) 个零件，接着连续 (\d+) 天，每天生产 ([\d,]+) 个，之后运走了 ([\d,]+) 个/,m=>picBars([["原有",N(m[1])],["每天生产",N(m[3])],["运走",N(m[4])]])),
+pk(/^图书馆共买了 ([\d,]+) 本故事书和 ([\d,]+) 本(?:科学书|杂志)，把它们平分给 (\d+) 个班/,m=>picBars([["故事书",N(m[1])],["另一种",N(m[2])]])),
+pk(/^甲有 ([\d,]+) 元，乙原有 ([\d,]+) 元，后来乙又得到 ([\d,]+) 元/,m=>picBars([["甲",N(m[1])],["乙原有",N(m[2])],["又得到",N(m[3])]])),
+pk(/^水塘原有 ([\d,]+) ℓ 水，第一天用去 (\d+)\/(\d+)/,m=>picBoxesHL(+m[3],+m[2],`第一天用去 ${m[2]}/${m[3]}`)),
+pk(/^水果店原有 (\d+) 个橙，卖出 (\d+)\/(\d+)/,m=>picBoxesHL(+m[3],+m[2],`卖出 ${m[2]}/${m[3]}`)),
+pk(/^书店原有 ([\d,]+) 本书，卖出 (\d+)%/,m=>picBars([["原有",N(m[1])],["卖出",N(m[1])*m[2]/100]])),
+pk(/^一(?:件外套|件衬衫)原价 RM(\d+)，(?:现在)?打 (\d+)% 折扣/,m=>picSale(+m[1],+m[2])),
+pk(/^一部电话原价 RM(\d+)，打 (\d+)% 折扣/,m=>picSale(+m[1],+m[2])),
+pk(/^爸爸把 RM([\d,]+) 存进银行，年利率 (\d+)%/,m=>picInterest(m[1],m[2])),
+pk(/^甲、乙两人把共 RM(\d+) 按 (\d+) : (\d+)/,m=>picRatio(+m[2],+m[3],"甲","乙")),
+pk(/^面粉和糖的比是 (\d+) : (\d+)/,m=>picRatio(+m[1],+m[2],"面粉","糖")),
+pk(/^红珠与蓝珠的比是 (\d+) : (\d+)/,m=>picRatio(+m[1],+m[2],"红珠","蓝珠")),
+pk(/^红笔与蓝笔的比是 (\d+) : (\d+)/,m=>picRatio(+m[1],+m[2],"红笔","蓝笔")),
+pk(/^工厂 (\d+) 天共生产了 ([\d,]+) 个零件，每 (\d+) 个装成一箱，每箱售价 RM(\d+)/,m=>picTags([[`每 ${m[3]} 个一箱`,m[4]]])),
+pk(/^书店原有 ([\d,]+) 本书，第一周卖出 (\d+)%，第二周卖出 (\d+)%/,m=>picBars([["原有",N(m[1])],["第一周卖",N(m[1])*m[2]/100],["第二周卖",N(m[1])*m[3]/100]])),
+pk(/^超市原有 (\d+) kg 米，又进了 (\d+) 包，每包重 ([\d.]+) kg，后来卖出 (\d+) kg/,m=>picBars([["原有",+m[1]],["又进",+(m[2]*m[3]).toFixed(2)],["卖出",+m[4]]])),
+pk(/^小明原有 RM([\d,]+) 的储蓄，先用了 (\d+)% 买书/,m=>picBars([["原有",N(m[1])],["买书",N(m[1])*m[2]/100]])),
+pk(/RM(\d+)、RM(\d+) 和 RM(\d+)/,m=>picTags([["第一月",m[1]],["第二月",m[2]],["第三月",m[3]]])),
+pk(/^一场比赛共有三节，分别是 (\d+) 分钟、(\d+) 分钟和 (\d+) 分钟，每两节之间休息 (\d+) 分钟/,m=>picTimeBar([["第一节",+m[1]],["休息",+m[4]],["第二节",+m[2]],["休息",+m[4]],["第三节",+m[3]]])),
+pk(/^甲飞机飞行了 (\d+) 小时 (\d+) 分钟，乙飞机飞行了 (\d+) 小时 (\d+) 分钟/,m=>picBarsH([["甲",60*m[1]+ +m[2]],["乙",60*m[3]+ +m[4]]],"分钟")),
+pk(/^阿美一个星期（7 天）都运动：星期一到星期五每天运动 (\d+) 分钟，星期六运动 (\d+) 分钟，星期日运动 (\d+) 分钟/,m=>picBars([["一至五每天",+m[1]],["星期六",+m[2]],["星期日",+m[3]]])),
+pk(/^电影院一天放映 (\d+) 场电影，每场长 (\d+) 小时 (\d+) 分钟，每两场之间休息 (\d+) 分钟/,m=>picBoxesL(+m[1],`${m[2]}时${m[3]}分`,`每两场休息 ${m[4]} 分钟`)),
+pk(/^一桶油(?:原)?有 (\d+) ℓ，倒进 (\d+) 个瓶子里，每个瓶子装 (\d+) mℓ/,m=>picBoxesL(+m[2],m[3]+" mℓ","从 "+m[1]+" ℓ 里倒出")),
+pk(/^长方体水箱长 (\d+) cm、宽 (\d+) cm、水深 (\d+) cm/,m=>picCuboid(+m[1],+m[2],+m[3])),
+pk(/^长方形操场长 (\d+) m、宽 (\d+) m/,m=>picRect(+m[1],+m[2],"m")),
+pk(/^(\d+) 本练习簿共 RM([\d.]+)。小明买了 (\d+) 本，付了 RM(\d+)/,m=>picTags([[`${m[1]} 本`,fx(m[2])],["付了",m[4]]])),
+pk(/^五位同学的平均分是 (\d+) 分，其中四位同学分别得 (\d+) 分、(\d+) 分、(\d+) 分和 (\d+) 分/,m=>picSeq([m[2],m[3],m[4],m[5],"?"])),
+pk(/^甲组 (\d+) 位同学平均每人得 (\d+) 分，乙组 (\d+) 位同学平均每人得 (\d+) 分/,m=>picBars([["甲组平均",+m[2]],["乙组平均",+m[4]]])),
+pk(/^转盘平均分成 (\d+) 等份，其中 (\d+) 份是红色，(\d+) 份是蓝色/,m=>picSpinner(+m[1],+m[2],+m[3])),
+pk(/^同学掷一粒骰子/,()=>picBig("🎲")),
+pk(/^三人按 (\d+) : (\d+) : (\d+)/,m=>picRatio(+m[1],+m[2],"甲","乙")),
+
+pk(/^小狗从(?:点|位置)? ?\((\d+), (\d+)\)(?: 出发)?，?先?(?:向右)?走到 \((\d+), (\d+)\)，再向上走到 \((\d+), (\d+)\)/,m=>picGrid([[+m[1],+m[2],"起"],[+m[5],+m[6],"终"]],[[+m[1],+m[2]],[+m[3],+m[4]],[+m[5],+m[6]]])),
+pk(/^从 \((\d+), (\d+)\) 向右走到 \((\d+), (\d+)\)，再向上走到 \((\d+), (\d+)\)/,m=>picGrid([[+m[1],+m[2],"起"],[+m[5],+m[6],"终"]],[[+m[1],+m[2]],[+m[3],+m[4]],[+m[5],+m[6]]])),
+pk(/^小狗从 \((\d+), (\d+)\) 走到 \((\d+), (\d+)\)，再走到 \((\d+), (\d+)\)，然后原路/,m=>picGrid([[+m[1],+m[2],"起"],[+m[5],+m[6],"终"]],[[+m[1],+m[2]],[+m[3],+m[4]],[+m[5],+m[6]]])),
+pk(/^象形统计图中，每个图案代表 (\d+) 本书。甲班 (\d+) 个图案，乙班 (\d+) 个图案，丙班 (\d+) 个图案/,m=>picPict(["甲班","乙班","丙班"],[+m[2],+m[3],+m[4]],m[1]+" 本")),
+pk(/^每个图案代表 (\d+) 本书。甲班有 (\d+) 个图案和半个图案.*乙班有 (\d+) 个图案/,m=>picPict(["甲班","乙班"],[+m[2]+.5,+m[3]],m[1]+" 本")),
+pk(/^条形统计图每格代表 (\d+) 人。甲班 (\d+) 格，乙班 (\d+) 格/,m=>picBar(["甲班","乙班"],[m[1]*m[2],m[1]*m[3]],+m[1])),
+pk(/^条形统计图显示：甲班 (\d+) 人，乙班 (\d+) 人，丙班 (\d+) 人/,m=>{const v=[+m[1],+m[2],+m[3]];return picBar(["甲班","乙班","丙班"],v,Math.max(...v)>50?10:5)}),
+pk(/^饼分图表示全班 (\d+) 人喜欢的运动：足球 (\d+)%，篮球 (\d+)%/,m=>picPie([["足球",+m[2]],["篮球",+m[3]],["羽球",100-m[2]-m[3]]])),
+pk(/^星期一(?:售出|卖出) (\d+) 张票，星期二(?:售出|卖出) (\d+) 张，星期三比星期二多(?:售|卖)出 (\d+) 张/,m=>picBars([["星期一",+m[1]],["星期二",+m[2]],["星期三",+m[2]+ +m[3]]])),
+pk(/^转盘平均分成 (\d+) 等份，红色占 (\d+) 份，蓝色占 (\d+) 份/,m=>picSpinner(+m[1],+m[2],+m[3])),
+pk(/^盒中共有 (\d+) 个红球、(\d+) 个蓝球和 (\d+) 个黄球/,m=>picBag(+m[1],+m[2],+m[3])),
+pk(/^袋中原有 (\d+) 个红球和 (\d+) 个蓝球，取走/,m=>picBag(+m[1],+m[2],0)),
+pk(/^长方形(?:菜园|)长 (\d+) m、宽 (\d+) m/,m=>picRect(+m[1],+m[2],"m")),
+pk(/^长方形长 (\d+) cm、宽 (\d+) cm；正方形边长 (\d+) cm/,m=>picRect(+m[1],+m[2])),
+pk(/^长方体(?:盒子|水箱)长 (\d+) cm、宽 (\d+) cm、高 (\d+) cm/,m=>picCuboid(+m[1],+m[2],+m[3])),
+pk(/^每块三角形纸板的底是 (\d+) cm、高是 (\d+) cm/,m=>picTri(+m[1],+m[2])),
+pk(/^L 形地板可以看成长 (\d+) m、宽 (\d+) m 的大长方形，缺掉一个长 (\d+) m、宽 (\d+) m/,m=>picCutRect(+m[1],+m[2],+m[3],+m[4])),
+pk(/^一块长 (\d+) cm、宽 (\d+) cm 的长方形铁片/,m=>picRect(+m[1],+m[2])),
+pk(/^(\d+) 个三角棱柱和 (\d+) 个长方体/,()=>picPrism()),
+pk(/^(\d+) 个正方体和 (\d+) 个长方体，每个都有 12 条棱/,m=>picSolids([["cube",+m[1]],["cuboid",+m[2]]])),
+pk(/^(\d+) 个正方形和 (\d+) 个长方形，正方形有 4 条对称轴/,m=>picShapes([["sq",+m[1]],["rect",+m[2]]])),
+pk(/^每瓶(?:饮料)?有 (\d+) mℓ，买了 (\d+) 瓶/,m=>picBoxesL(+m[2],m[1]+" mℓ","")),
+pk(/^一桶油有 (\d+) ℓ，倒进 (\d+) 个瓶子里，每个瓶子装 (\d+) mℓ/,m=>picBoxesL(+m[2],m[3]+" mℓ","从 "+m[1]+" ℓ 里倒出")),
+pk(/^面粉店买了 (\d+) 包面粉，每包重/,m=>picBoxesL(+m[1],"","")),
+pk(/^每瓶饮料有 (\d+) mℓ，买了 (\d+) 瓶/,m=>picBoxesL(+m[2],m[1]+" mℓ","")),
+pk(/^一条绳子原有 ([\d.]+) m，每 (\d+) cm 剪成一段/,m=>picSeg([m[1]+" m"],"每 "+m[2]+" cm 一段")),
+pk(/^(?:小明做功课用了|小明跑步用了|甲走路花了) (\d+) 分钟/,m=>null),
+pk(/^小明做功课用了 (\d+) 小时 (\d+) 分钟，做运动用了 (\d+) 分钟/,m=>picTimeBar([["做功课",60*m[1]+ +m[2]],["运动",+m[3]]])),
+pk(/^小华做功课用了 (\d+) 小时 (\d+) 分钟，弹琴用了 (\d+) 分钟/,m=>picTimeBar([["做功课",60*m[1]+ +m[2]],["弹琴",+m[3]]])),
+pk(/^每节课 (\d+) 小时 (\d+) 分钟，连上 (\d+) 节/,m=>picBoxesL(+m[3],`${m[1]}时${m[2]}分`,"")),
+pk(/^(?:一场比赛共有三节，分别是|电影院一天放映) /,m=>null)
+];
+function addPicW(q){if(q.pic)return q;for(const[r,f]of RW1){const m=q.q.match(r);if(m){const o=f(m);if(o){q.pic=typeof o=="string"?o:o.pic;break}}}
+ if(!q.pic){const am=[...q.q.matchAll(/(?:^|[，、：:\s])([^，、：:\s\d]{1,4}?)\s*RM([\d,.]+)/g)].slice(0,4);if(am.length>=2&&q.q.length<120)q.pic=picTags(am.map((x,i)=>[(x[1]||"金额"+(i+1)).slice(-3),fx(x[2].replace(/,/g,""))]))}
+ return q}
+
+
+const picRatio3=(p,q,r)=>{const sz=Math.min(24,300/Math.max(p,q,r)),x=20;let s="";[[p,"甲","#378ADD"],[q,"乙","#D85A30"],[r,"丙","#1D9E75"]].forEach((o,i)=>{s+=TX(10,22+i*40,o[1],"start",13);for(let j=0;j<o[0];j++)s+=RC(x+22+j*(sz+2),8+i*40,sz,22,o[2],.45,1.5)});return SV(124,s)};
+const picPrice2=(a,p,q)=>SV(96,RC(10,16,92,56,"#EF9F27",.2,2,8)+TX(56,38,"原价","middle",12)+TX(56,60,"RM"+a,"middle",15)+TX(116,46,"→","middle",18)+`<circle cx="170" cy="44" r="28" fill="${BD}" fill-opacity=".15" stroke="${BD}" stroke-width="2"/>`+TX(170,40,"涨价","middle",12)+TX(170,58,"+"+p+"%","middle",14)+TX(226,46,"→","middle",18)+`<circle cx="282" cy="44" r="28" fill="#1D9E75" fill-opacity=".15" stroke="#1D9E75" stroke-width="2"/>`+TX(282,40,"打折","middle",12)+TX(282,58,"−"+q+"%","middle",14));
+const picBadge=(l1,v1,l2,v2)=>SV(90,RC(24,16,120,56,"#EF9F27",.2,2,8)+TX(84,38,l1,"middle",13)+TX(84,60,"RM"+v1,"middle",15)+TX(165,48,"→","middle",22)+`<circle cx="245" cy="44" r="32" fill="#1D9E75" fill-opacity=".2" stroke="#1D9E75" stroke-width="2"/>`+TX(245,40,l2,"middle",12)+TX(245,60,v2,"middle",16));
+const SQ=s=>String(s).split("，").map(x=>x.trim());
+RULES1.unshift(
+pk(/^(五|六|七|八|十)边形的内角和是多少度？$/,m=>picPoly({五:5,六:6,七:7,八:8,十:10}[m[1]])),
+pk(/^饼分图中，喜欢足球的占 (\d+)%/,m=>picPie([["足球",+m[1]],["其他",100-m[1]]])),
+pk(/^一块 (\d+) cm × (\d+) cm 的长方形纸板，剪掉一个 (\d+) cm × (\d+) cm 的长方形。剩下的面积是多少 cm²？$/,m=>({pic:picCutRect(+m[1],+m[2],+m[3],+m[4]),q:"图中的长方形纸板剪掉了虚线框里的小长方形。剩下的面积是多少 cm²？"})),
+pk(/^长方体水箱长 (\d+) cm、宽 (\d+) cm、高 (\d+) cm，里面已有 (\d+) ℓ 水。水箱还可以再装多少 ℓ 水？（1 ℓ = 1 000 cm³）$/,m=>({pic:picCuboid(+m[1],+m[2],+m[3]),q:`图中长方体水箱里已有 ${m[4]} ℓ 水。水箱还可以再装多少 ℓ 水？（1 ℓ = 1 000 cm³）`})),
+pk(/^([\d,]+) 是 ([\d,]+) 的百分之几？$/,m=>picBars([["整体",N(m[2])],["部分",N(m[1])]])),
+pk(/^一件商品原价 RM(\d+)，先涨价 (\d+)%，再打 (\d+)% 折扣/,m=>picPrice2(m[1],m[2],m[3])),
+pk(/^存入 RM([\d,]+)，年利率 (\d+)%/,m=>picInterest(m[1],m[2])),
+pk(/^成本 RM(\d+)，售价 RM(\d+)/,m=>picTags([["成本",m[1]],["售价",m[2]]])),
+pk(/^一件 RM(\d+) 的物品要加 (\d+)% 的税/,m=>picBadge("原价",m[1],"税",m[2]+"%")),
+pk(/^分期付款：首期付 RM(\d+)，其余分 (\d+) 个月付清，每月 RM(\d+)/,m=>picTags([["首期",m[1]],[`每月 × ${m[2]}`,m[3]]])),
+pk(/^借 RM([\d,]+)，年利率 (\d+)%/,m=>picBadge("借入",m[1],"年利率",m[2]+"%")),
+pk(/^(\d+) 天 (\d+) 小时 − (\d+) 天 (\d+) 小时 = \?/,m=>picSeg([`${m[1]} 天 ${m[2]} 小时`,`－ ${m[3]} 天 ${m[4]} 小时`],"= ？")),
+pk(/^每次练习 (\d+) 小时 (\d+) 分钟，一共练习 (\d+) 次/,m=>picBoxesL(+m[3],`${m[1]}时${m[2]}分`,"")),
+pk(/^(\d+) 年 (\d+) 个月 × (\d+) = \?/,m=>picBoxesL(+m[3],`${m[1]}年${m[2]}月`,"")),
+pk(/^(\d+) kg (\d+) g × (\d+) = \?/,m=>picBoxesL(+m[3],`${m[1]}kg${m[2]}g`,"")),
+pk(/^([\d,]+) mℓ 的果汁平均倒入 (\d+) 个杯子/,m=>picBoxesL(+m[2],"","平均倒入 "+m[2]+" 个杯子")),
+pk(/^一桶果汁有 (\d+) ℓ，倒进 (\d+) 个杯子，每杯 (\d+) mℓ/,m=>picBoxesL(+m[2],m[3]+" mℓ","从 "+m[1]+" ℓ 里倒出")),
+pk(/^每袋米重 (\d+) kg (\d+) g，买了 (\d+) 袋，后来煮饭用去 ([\d,]+) g/,m=>picBoxesL(+m[3],`${m[1]}kg${m[2]}g`,"用去 "+m[4]+" g")),
+pk(/^一个边长 (\d+) cm 的正方体和一个长 (\d+) cm、宽 (\d+) cm、高 (\d+) cm 的长方体/,m=>picSolids([["cube",1],["cuboid",1]])),
+pk(/^三人按 (\d+) : (\d+) : (\d+) 分/,m=>picRatio3(+m[1],+m[2],+m[3])),
+pk(/^两个数的比是 (\d+) : (\d+)，它们的和/,m=>picRatio(+m[1],+m[2],"第一个数","第二个数")),
+pk(/^(\d+) 个蛋糕 RM([\d.]+)，买 (\d+) 个/,m=>picTags([[`${m[1]} 个`,fx(m[2])]])),
+pk(/^汽车每小时行驶 (\d+) km，行驶 (\d+) 小时/,m=>picBoxesL(+m[2],m[1]+" km","每小时行驶")),
+pk(/^数据：(.+)。(?:平均数|中位数)是多少？$/,m=>picSeq(SQ(m[1]))),
+pk(/^甲组 (\d+) 人平均 (\d+) 分，乙组 (\d+) 人平均 (\d+) 分/,m=>picBars([["甲组平均",+m[2]],["乙组平均",+m[4]]])),
+pk(/^六位同学的平均分是 (\d+) 分，其中五位分别得 (\d+)、(\d+)、(\d+)、(\d+)、(\d+) 分/,m=>picSeq([m[2],m[3],m[4],m[5],m[6],"?"]))
+);
+RW1.unshift(
+pk(/^某市原有人口 ([\d,]+) 人，每年增加 ([\d,]+) 人，连续 (\d+) 年后，又迁出了 ([\d,]+) 人/,m=>picBars([["原有",N(m[1])],["每年增加",N(m[2])],["迁出",N(m[4])]])),
+pk(/^工厂共生产了 ([\d,]+) 个零件，平分装进 (\d+) 个箱子/,m=>picBoxesL(+m[2],"","平分装进 "+m[2]+" 个箱子")),
+pk(/^甲仓库有 ([\d,]+) 吨米，乙仓库原有 ([\d,]+) 吨，后来乙仓库又运进 ([\d,]+) 吨/,m=>picBars([["甲仓库",N(m[1])],["乙原有",N(m[2])],["又运进",N(m[3])]])),
+pk(/^每辆车载客 (\d+) 人，(\d+) 辆车/,m=>picBoxesL(+m[2],m[1]+" 人","")),
+pk(/^小明原有 RM(\d+)，用去 3\/8 买书/,m=>picBoxesHL(8,3,"用去 3/8")),
+pk(/^某班有 (\d+) 位同学，男生占 (\d+)%/,m=>picPie([["男生",+m[2]],["女生",100-m[2]]])),
+pk(/^一部手机原价 RM(\d+)，先打 (\d+)% 折扣，再加 6% 的税/,m=>picSale(+m[1],+m[2])),
+pk(/^李先生把 RM([\d,]+) 存进银行，年利率 (\d+)%/,m=>picInterest(m[1],m[2])),
+pk(/^电视机现金价 RM([\d,]+)。分期购买：首期付 RM(\d+)，其余分 (\d+) 个月付清，每月 RM(\d+)/,m=>picTags([["现金价",fx(N(m[1]))],["首期",m[2]],[`每月 × ${m[3]}`,m[4]]])),
+pk(/^飞机第一段飞行了 (\d+) 小时 (\d+) 分钟，中途停留 (\d+) 分钟，第二段飞行了 (\d+) 小时 (\d+) 分钟/,m=>picTimeBar([["第一段",60*m[1]+ +m[2]],["停留",+m[3]],["第二段",60*m[4]+ +m[5]]])),
+pk(/^小美五天做作业的时间分别是 (\d+)、(\d+)、(\d+)、(\d+) 和 (\d+) 分钟/,m=>picSeq([m[1],m[2],m[3],m[4],m[5]])),
+pk(/^每节课 (\d+) 小时 (\d+) 分钟，连上 (\d+) 节，中间休息 (\d+) 次，每次 (\d+) 分钟/,m=>picBoxesL(+m[3],`${m[1]}时${m[2]}分`,`每次休息 ${m[5]} 分钟`)),
+pk(/^每瓶饮料有 (\d+) mℓ，一箱有 (\d+) 瓶，买了 (\d+) 箱/,m=>picBoxesL(+m[3],m[2]+" 瓶","每瓶 "+m[1]+" mℓ")),
+pk(/^面粉店有 ([\d.]+) kg 面粉，每 (\d+) g 装成一袋/,m=>picSeg([m[1]+" kg"],"每 "+m[2]+" g 装成一袋")),
+pk(/^长方形草地长 (\d+) m、宽 (\d+) m，中间有一个/,m=>picRect(+m[1],+m[2],"m")),
+pk(/^一块正方体木块边长 (\d+) cm/,m=>picCuboid(+m[1],+m[1],+m[1])),
+pk(/^三人按 (\d+) : (\d+) : (\d+) 分 RM/,m=>picRatio3(+m[1],+m[2],+m[3])),
+pk(/^汽车每小时行驶 (\d+) km，行驶了 (\d+) 小时/,m=>picBoxesL(+m[2],m[1]+" km","每小时行驶")),
+pk(/^六位同学的平均分是 (\d+) 分，其中五位分别得 (\d+)、(\d+)、(\d+)、(\d+)、(\d+) 分/,m=>picSeq([m[2],m[3],m[4],m[5],m[6],"?"]))
+);
+const U=s=>x=>fmt(x)+" "+s,rd=(x,p)=>Math.round(x/p)*p,r1=x=>+x.toFixed(1);
+const prm=(f,n)=>{const s=new Set();while(s.size<n)s.add(f());return [...s]};
+const NV=[
+[[()=>{const d=sh([1,2,3,4,5,6,7,8,9]).slice(0,7),n=+d.join(""),pos=R(0,6),dig=d[6-pos],v=dig*10**pos;return mkN(`${fmt(n)} 里面的数字 ${dig} 表示多少？`,v,[v/10>=1?v/10:dig,v*10,dig],id,`${dig} 在${["个","十","百","千","万","十万","百万"][pos]}位，表示 ${fmt(v)}`,"看数字在哪一位。")},
+  ()=>{const n=R(1000000,9999999),p=P([10000,100000,1000000]),a=rd(n,p);return mkN(`把 ${fmt(n)} 四舍五入到最接近的 ${fmt(p)}，是多少？`,a,[p,2*p,p/10],id,`看后面一位：满 5 就进，不满 5 就舍。答案 ${fmt(a)}`,"看要保留位数的后一位。")}],
+ [()=>{const a=R(3000000,6000000),b=R(1000000,2900000),ad=R(0,1);return ad?mkN(`${fmt(a)} + ${fmt(b)} = ?`,a+b,[100,1000,10000],id,`逐位相加，满十进一 = ${fmt(a+b)}`,"个位对齐，从个位开始加。"):mkN(`${fmt(a)} − ${fmt(b)} = ?`,a-b,[100,1000,10000],id,`逐位相减 = ${fmt(a-b)}`,"不够减时向左边借 1。")},
+  ()=>{const a=R(1200,9999),b=R(120,999);return mkN(`${fmt(a)} × ${b} = ?`,a*b,[100,1000,a],id,`先分别乘 ${b} 的百位、十位、个位，再相加 = ${fmt(a*b)}`,"拆开乘再相加。")},
+  ()=>{const b=R(12,99),q=R(1200,9999);return mkN(`${fmt(b*q)} ÷ ${b} = ?`,q,[10,100,b],id,`${fmt(b*q)} ÷ ${b} = ${fmt(q)}`,"用除法竖式，一位一位商。")}],
+ [()=>{const a=R(120,900),b=R(80,500),c=R(12,60),d=R(100,900);return mkN(`(${a} + ${b}) × ${c} − ${d} = ?`,(a+b)*c-d,[10,100,c],id,`括号先算：${a+b}；再 × ${c} = ${fmt((a+b)*c)}；最后 − ${d} = ${fmt((a+b)*c-d)}`,"有括号先算括号，再乘，最后减。")},
+  ()=>{const e=R(3,9),q=R(20,90),d=e*q,b=R(12,40),c=R(3,9),a=R(2000,9000);return mkN(`${fmt(a)} − ${b} × ${c} + ${d} ÷ ${e} = ?`,a-b*c+q,[10,100,q],id,`先乘除：${b} × ${c} = ${b*c}，${d} ÷ ${e} = ${q}；再 ${fmt(a)} − ${b*c} + ${q} = ${fmt(a-b*c+q)}`,"先乘除，后加减。")},
+  ()=>{const k=R(3,9),m=R(20,90),x=k*R(15,80),n=x/k+m;return mkN(`☐ ÷ ${k} + ${m} = ${n}，☐ 是多少？`,x,[k,10,100],id,`${n} − ${m} = ${x/k}，${x/k} × ${k} = ${x}`,"先倒着算加法，再算除法。")}],
+ [()=>{const a=R(120,900),b=R(12,60),c=R(120,900),d=R(12,60);return mkN(`${a} × ${b} 与 ${c} × ${d} 的积相差多少？`,Math.abs(a*b-c*d),[100,1000,10],id,`${fmt(a*b)} 与 ${fmt(c*d)} 相差 ${fmt(Math.abs(a*b-c*d))}`,"先算两个积，再用大数减小数。")},
+  ()=>{const e=R(2,9),m=R(5,20),y=e*m,d=R(1,y-1),c=y-d,b=R(10,40),x=R(10,50),a=b+x;return mkN(`(${a} − ${b}) × (${c} + ${d}) ÷ ${e} = ?`,x*m*1,[10,100,e],id,`${a-b} × ${c+d} = ${x*y}，再 ÷ ${e} = ${x*m}`,"先算两个括号，再乘，最后除。")},
+  ()=>{const b=R(3,9),a=R(12,80),m=R(20,90),c=b*(a+m);return mkN(`(☐ + ${a}) × ${b} = ${fmt(c)}，☐ 是多少？`,m,[1,10,a],id,`${fmt(c)} ÷ ${b} = ${a+m}，${a+m} − ${a} = ${m}`,"先倒着算乘法，再算加法。")}]],
+[[()=>{let a,b,c,d;do{a=R(1,5);b=P([2,3,4,5,6,7,8]);c=R(1,5);d=P([2,3,4,5,6,7,8])}while(a>=b||c>=d);return R(0,1)?mkS(`${a}/${b} × ${c}/${d} = ?（最简分数）`,simp(a*c,b*d),[`${a*c}/${b*d}`,`${a+c}/${b+d}`,`${a*d}/${b*c}`,`${a*c+1}/${b*d}`],`分子乘分子，分母乘分母 = ${a*c}/${b*d}，约分 = ${simp(a*c,b*d)}`,"乘法：分子 × 分子，分母 × 分母，最后约分。"):mkS(`${a}/${b} ÷ ${c}/${d} = ?（最简分数）`,simp(a*d,b*c),[`${a*c}/${b*d}`,simp(b*c,a*d),`${a*d}/${b*c+1}`,`${a+d}/${b+c}`],`除以一个分数，等于乘它的倒数：${a}/${b} × ${d}/${c} = ${simp(a*d,b*c)}`,"除以分数，等于乘倒数。")}],
+ [()=>{const d=P([3,4,5,6,8]),w=R(1,4),n=R(1,d-1),k=R(2,6);const tot=(w*d+n)*k;return mkS(`${w} ${n}/${d} × ${k} = ?（用最简分数或带分数表示）`,tot%d==0?String(tot/d):`${Math.floor(tot/d)} ${simp(tot%d,d)}`,[String(tot/d+1),`${Math.floor(tot/d)} ${(tot%d)+1}/${d}`,`${w*k} ${n}/${d}`,String(w*k+n)],`先化成假分数：${w*d+n}/${d} × ${k} = ${tot}/${d} = ${tot%d==0?tot/d:Math.floor(tot/d)+" "+simp(tot%d,d)}`,"带分数先化成假分数再乘。")},
+  ()=>{const x=R(11,59)/10,y=R(11,59)/10;return mkN(`${x} × ${y} = ?`,q2(x*y),[.1,.01,1],id,`先当作整数乘：${Math.round(x*10)} × ${Math.round(y*10)} = ${Math.round(x*10)*Math.round(y*10)}，再点两位小数 = ${fmt(q2(x*y))}`,"两个小数各一位，积有两位小数。")},
+  ()=>{const y=R(2,9)/10+R(0,4),q=R(12,99)/10,x=q2(y*q);return mkN(`${x} ÷ ${y} = ?`,q,[.1,1,10],id,`${x} ÷ ${y} = ${q}（除数变成整数，被除数同时扩大）`,"除数是小数，先把除数变成整数。")}],
+ [()=>{const p=P([5,12,15,35,45,60,75,85]),t=20*R(10,60);return mkN(`${fmt(t)} 的 ${p}% 是多少？`,p*t/100,[5,10,20],id,`${fmt(t)} × ${p}% = ${fmt(p*t/100)}`,"百分比就是分母为 100 的分数。")},
+  ()=>{const y=20*R(5,40),p=P([5,10,15,20,25,30,40,45,50,60,75]),x=y*p/100;return mkN(`${fmt(x)} 是 ${fmt(y)} 的百分之几？`,p,[5,10,1],v=>v+"%",`${fmt(x)} ÷ ${fmt(y)} = ${p}%`,"先除，再 × 100%。")},
+  ()=>{const p=P([5,10,20,25,40,50,60,75]),t=20*R(10,50),x=t*p/100;return mkN(`某数的 ${p}% 是 ${fmt(x)}，这个数是多少？`,t,[10,20,p],id,`${fmt(x)} ÷ ${p}% = ${fmt(t)}`,"整体 = 部分 ÷ 百分比。")}],
+ [()=>{const a=20*R(15,60),p=P([10,20,25,50]),q=P([10,20,25,50]),v=a*(100+p)/100*(100-q)/100;return mkN(`一件商品原价 RM${a}，先涨价 ${p}%，再打 ${q}% 折扣，现价是多少？`,v,[5,10,20],RM,`涨价后 ${RM(a*(100+p)/100)}；再 × (100 − ${q})% = ${RM(v)}`,"一步一步算，每一步用上一步的结果。")},
+  ()=>{const d=P([4,5,8,10]),k=R(1,d-1),p=5*R(1,10),x=P([0.1,0.2,0.25,0.5]),v=100*k/d+p+x*100;return mkN(`${k}/${d} + ${p}% + ${x} = ?（用百分比表示）`,v,[5,10,15],u=>fmt(+u.toFixed(1))+"%",`${k}/${d} = ${100*k/d}%，${x} = ${x*100}%，相加 = ${fmt(+v.toFixed(1))}%`,"全部化成百分比再相加。")}]],
+[[()=>{const t=100*R(10,80),r=P([2,3,4,5,6]);return mkN(`把 RM${fmt(t)} 存进银行，年利率 ${r}%。一年的利息是多少令吉？`,t*r/100,[10,100,r],RM,`${fmt(t)} × ${r}% = ${RM(t*r/100)}`,"利息 = 本金 × 利率。")}],
+ [()=>{const t=100*R(10,80),r=P([2,3,4,5,6]),y=R(2,5);return mkN(`存入 RM${fmt(t)}，年利率 ${r}%，存 ${y} 年（单利）。到期时本金和利息共多少？`,t+t*r*y/100,[t*r/100,100,10],RM,`利息 = ${fmt(t)} × ${r}% × ${y} = ${fmt(t*r*y/100)}；共 ${RM(t+t*r*y/100)}`,"利息 = 本金 × 利率 × 年数。")},
+  ()=>{const c=20*R(10,60),p=P([10,20,25,30,40,50]),s=c*(100+p)/100;return mkN(`成本 RM${c}，售价 RM${s}，盈利百分之几？`,p,[5,10,1],v=>v+"%",`盈利 ${RM(s-c)}；${s-c} ÷ ${c} = ${p}%`,"盈利率 = 盈利 ÷ 成本 × 100%。")}],
+ [()=>{const p=20*R(20,100),tax=P([6,8,10]);return mkN(`一件 RM${p} 的物品要加 ${tax}% 的税，一共要付多少令吉？`,p*(100+tax)/100,[5,10,20],RM,`税 = ${p} × ${tax}% = ${RM(p*tax/100)}；共 ${RM(p*(100+tax)/100)}`,"含税价 = 原价 × (100 + 税率)%。")},
+  ()=>{const d=R(2,6)*100,n=R(6,24),m=R(8,40)*10,p=R(10,40)*100;return mkN(`分期付款：首期付 RM${d}，其余分 ${n} 个月付清，每月 RM${m}。一共付了多少令吉？`,d+n*m,[m,d,100],RM,`${d} + ${n} × ${m} = ${RM(d+n*m)}`,"总共 = 首期 + 每月 × 月数。")}],
+ [()=>{const t=100*R(10,50),r=P([4,5,10]),v=q2(t*(100+r)*(100+r)/10000);return mkN(`存入 RM${fmt(t)}，年利率 ${r}%（复利），存 2 年。到期共可取回多少？`,v,[t*r/100,10,100],RM,`第一年 ${fmt(t*(100+r)/100)}；第二年 × ${100+r}% = ${fmt(v)}`,"复利：第二年的利息用第一年的本利和来算。")},
+  ()=>{const L=1000*R(5,30),r=P([4,5,6,8]),y=R(2,5);return mkN(`借 RM${fmt(L)}，年利率 ${r}%，借 ${y} 年（单利）。到期要还多少令吉？`,L+L*r*y/100,[L*r/100,100,10],RM,`利息 ${fmt(L*r*y/100)}；共 ${RM(L+L*r*y/100)}`,"要还的 = 本金 + 利息。")}]],
+[[()=>{const a=R(1,5),b=R(10,55),c=R(1,5),d=R(10,55),t=(a+c)*60+b+d;return mkS(`${a} 小时 ${b} 分钟 + ${c} 小时 ${d} 分钟 = ?`,hm(t),[hm(t+10),hm(t-10),hm(t+60)],`分钟相加，满 60 进 1 小时 = ${hm(t)}`,"分钟满 60 要进 1 小时。")}],
+ [()=>{const a=R(2,5),b=R(1,20),c=R(1,a-1),d=R(1,b)+0,t=(a*24+b)-(c*24+Math.min(d,b));const f=h=>(Math.floor(h/24)?Math.floor(h/24)+" 天 ":"")+(h%24?h%24+" 小时":"");return mkS(`${a} 天 ${b} 小时 − ${c} 天 ${Math.min(d,b)} 小时 = ?`,f(t),[f(t+1),f(t-1),f(t+24)],`${a} × 24 + ${b} − (${c} × 24 + ${Math.min(d,b)}) = ${t} 小时 = ${f(t)}`,"全部换成小时再相减。")}],
+ [()=>{const s=R(19,22)*60+5*R(0,11),d=5*R(60,150),e=s+d;return mkS(`火车 ${tf(s)} 出发，行驶 ${hm(d)}，几点到站？（24 小时制，可能已经是第二天）`,tf(e),[tf(e+30),tf(e-30),tf(e+60)],`${tf(s)} + ${hm(d)}，超过 24:00 要减去 24 小时，所以是 ${tf(e)}`,"超过 24:00 就回到 00:00 重新数。")},
+  ()=>{const h=R(1,3),m=5*R(1,11),n=R(3,9),t=n*(h*60+m);return mkS(`每次练习 ${h} 小时 ${m} 分钟，一共练习 ${n} 次，总共是多长时间？`,hm(t),[hm(t+30),hm(t-30),hm(t+60)],`(${h} × 60 + ${m}) × ${n} = ${t} 分钟 = ${hm(t)}`,"先换成分钟，再乘次数。")}],
+ [()=>{const y=100*R(11,29)+R(1,99);const c=Math.ceil(y/100),m=Math.ceil(y/1000);return mkS(`${y} 年是第几世纪、第几个千禧年？`,`第 ${c} 世纪，第 ${m} 个千禧年`,[`第 ${c+1} 世纪，第 ${m} 个千禧年`,`第 ${c} 世纪，第 ${m+1} 个千禧年`,`第 ${c-1} 世纪，第 ${m} 个千禧年`],`${y} ÷ 100 进 1 = 第 ${c} 世纪；${y} ÷ 1 000 进 1 = 第 ${m} 个千禧年`,"1 世纪 = 100 年，1 个千禧年 = 1 000 年。")},
+  ()=>{const a=R(2,6),b=R(2,11),n=R(3,8),t=(a*12+b)*n,f=m=>(Math.floor(m/12)?Math.floor(m/12)+" 年 ":"")+(m%12?m%12+" 个月":"");return mkS(`${a} 年 ${b} 个月 × ${n} = ?`,f(t),[f(t+1),f(t-1),f(t+12)],`(${a} × 12 + ${b}) × ${n} = ${t} 个月 = ${f(t)}`,"先全部换成月，再乘。")}]],
+[[()=>{const a1=R(1,5),b1=50*R(1,19),a2=R(1,5),b2=50*R(1,19),t=1000*(a1+a2)+b1+b2,f=m=>(Math.floor(m/1000)?Math.floor(m/1000)+" km ":"")+(m%1000?m%1000+" m":"");return mkS(`${a1} km ${b1} m + ${a2} km ${b2} m = ?`,f(t),[f(t+50),f(t-50),f(t+1000)],`先把 m 相加，满 1 000 进 1 km = ${f(t)}`,"m 满 1 000 要进 1 km。")}],
+ [()=>{const a=R(1,5),b=50*R(1,19),n=R(2,9);const t=(1000*a+b)*n,f=m=>(Math.floor(m/1000)?Math.floor(m/1000)+" kg ":"")+(m%1000?m%1000+" g":"");return mkS(`${a} kg ${b} g × ${n} = ?`,f(t),[f(t+100),f(t-100),f(t+1000)],`(${a} × 1 000 + ${b}) × ${n} = ${fmt(t)} g = ${f(t)}`,"先全部换成 g，再乘。")},
+  ()=>{const n=R(3,9),p=R(11,99)*10,a=Math.floor(p*n/1000);return mkN(`${fmt(p*n)} mℓ 的果汁平均倒入 ${n} 个杯子，每杯是多少 mℓ？`,p,[10,50,100],U("mℓ"),`${fmt(p*n)} ÷ ${n} = ${p} mℓ`,"平均分用除法。")}],
+ [()=>{const a=R(20,60),x=P([200,250,330,500]),n=R(10,Math.min(80,Math.floor(a*1000/x)-1));return mkN(`一桶果汁有 ${a} ℓ，倒进 ${n} 个杯子，每杯 ${x} mℓ。桶里还剩多少 mℓ？`,a*1000-n*x,[x,100,1000],U("mℓ"),`${a} × 1 000 − ${n} × ${x} = ${fmt(a*1000-n*x)} mℓ`,"先把 ℓ 换成 mℓ。")}],
+ [()=>{const kg=R(2,5),g=100*R(1,9),n=R(6,15),z=100*R(5,19),v=q2(((1000*kg+g)*n-z)/1000);return mkN(`每袋米重 ${kg} kg ${g} g，买了 ${n} 袋，后来煮饭用去 ${fmt(z)} g。还剩多少 kg？`,v,[.1,.5,1],U("kg"),`(${kg} × 1 000 + ${g}) × ${n} − ${z} = ${fmt((1000*kg+g)*n-z)} g = ${fmt(v)} kg`,"先全部换成 g，最后换回 kg。")}]],
+[[()=>{const n=P([5,6,7,8,10]),nm={5:"五",6:"六",7:"七",8:"八",10:"十"}[n];return mkN(`${nm}边形的内角和是多少度？`,(n-2)*180,[180,90,360],v=>v+"°",`(${n} − 2) × 180° = ${(n-2)*180}°`,"多边形内角和 = (边数 − 2) × 180°。")}],
+ [()=>{const a=R(60,110),b=R(60,110),c=R(60,110);return mkN(`四边形的三个角分别是 ${a}°、${b}° 和 ${c}°，第四个角是多少度？`,360-a-b-c,[5,10,20],v=>v+"°",`360 − ${a} − ${b} − ${c} = ${360-a-b-c}°`,"四边形内角和 = 360°。")}],
+ [()=>{const A=R(30,60),B=R(20,40),a=R(8,18),b=R(5,12);return mkN(`一块 ${A} cm × ${B} cm 的长方形纸板，剪掉一个 ${a} cm × ${b} cm 的长方形。剩下的面积是多少 cm²？`,A*B-a*b,[a*b,2*a*b,10],U("cm²"),`${A} × ${B} − ${a} × ${b} = ${fmt(A*B-a*b)} cm²`,"总面积减去被剪掉的面积。")}],
+ [()=>{const l=R(40,90),w=R(30,70),h=10*R(3,6),x=R(5,Math.floor(l*w*h/1000)-5);return mkN(`长方体水箱长 ${l} cm、宽 ${w} cm、高 ${h} cm，里面已有 ${x} ℓ 水。水箱还可以再装多少 ℓ 水？（1 ℓ = 1 000 cm³）`,q2(l*w*h/1000-x),[.5,1,5],U("ℓ"),`容量 ${fmt(l*w*h)} cm³ = ${fmt(l*w*h/1000)} ℓ；${fmt(l*w*h/1000)} − ${x} = ${fmt(q2(l*w*h/1000-x))} ℓ`,"先求体积，再换成 ℓ。")},
+  ()=>{const a=R(4,12),l=R(8,20),w=R(5,12),h=R(4,10);return mkN(`一个边长 ${a} cm 的正方体和一个长 ${l} cm、宽 ${w} cm、高 ${h} cm 的长方体，体积一共是多少 cm³？`,a**3+l*w*h,[a*a,10,100],U("cm³"),`${a} × ${a} × ${a} + ${l} × ${w} × ${h} = ${fmt(a**3+l*w*h)} cm³`,"分别求体积，再相加。")}]],
+[[()=>{const [p,q]=P([[7,9],[5,8],[9,11],[7,12],[8,15]]),g=R(3,15);return mkS(`把比 ${g*p} : ${g*q} 化成最简比。`,`${p} : ${q}`,[`${q} : ${p}`,`${p+1} : ${q}`,`${p} : ${q+1}`],`同时 ÷ ${g} = ${p} : ${q}`,"找出最大公因数，同时除。")}],
+ [()=>{const [p,q,r]=P([[2,3,5],[1,2,3],[2,5,3],[3,4,5]]),k=R(8,60),t=(p+q+r)*k;return mkN(`三人按 ${p} : ${q} : ${r} 分 RM${fmt(t)}，最多的人得到多少令吉？`,Math.max(p,q,r)*k,[k,10,100],RM,`${fmt(t)} ÷ ${p+q+r} = ${k}（每份）；最多 ${Math.max(p,q,r)} 份 = ${fmt(Math.max(p,q,r)*k)}`,"先求每一份是多少。")}],
+ [()=>{const [p,q]=P([[2,3],[3,5],[4,7],[5,6],[3,4]]),k=R(6,50),s=(p+q)*k;return mkN(`两个数的比是 ${p} : ${q}，它们的和是 ${fmt(s)}。较大的数是多少？`,Math.max(p,q)*k,[k,10,p*k],id,`${fmt(s)} ÷ ${p+q} = ${k}；较大的数 = ${Math.max(p,q)} × ${k} = ${fmt(Math.max(p,q)*k)}`,"和 ÷ 总份数 = 每份。")}],
+ [()=>{const n=P([3,4,5,6,8]),c=R(6,40)/2,m=R(3,12);return mkN(`${n} 个蛋糕 RM${fmt(c)}，买 ${m*n} 个要多少钱？`,q2(c*m),[.5,1,c],RM,`${m*n} 是 ${n} 的 ${m} 倍：${fmt(c)} × ${m} = ${RM(c*m)}`,"先求是原来的几倍。")},
+  ()=>{const v=R(4,12)*5,t=R(2,6);return mkN(`汽车每小时行驶 ${v} km，行驶 ${t} 小时，一共行驶多少 km？`,v*t,[v,t,10],U("km"),`${v} × ${t} = ${v*t} km`,"路程 = 速度 × 时间。")}]],
+[[()=>{let M,v;do{M=R(40,90);const o=[R(-15,15),R(-15,15),R(-15,15),R(-15,15),R(-15,15),R(-15,15)],a=o.map(x=>M+x),last=7*M-a.reduce((x,y)=>x+y,0);v=[...a,last]}while(v.some(x=>x<20||x>120));return mkN(`数据：${sh(v).join("，")}。平均数是多少？`,M,[1,2,5],id,`总和 ${v.reduce((x,y)=>x+y,0)} ÷ 7 = ${M}`,"平均数 = 总和 ÷ 个数。")}],
+ [()=>{const s=prm(()=>R(10,60),7),b=s.slice().sort((x,y)=>x-y);return mkN(`数据：${s.join("，")}。中位数是多少？`,b[3],[1,2,5],id,`从小到大：${b.join("，")}，中间的数是 ${b[3]}`,"先从小到大排，取最中间的数。")}],
+ [()=>{const p=P([10,15,20,25,30,35,40,45,50,60]);return mkN(`饼分图中，喜欢足球的占 ${p}%，这个扇形的角度是多少度？`,p*3.6,[10,18,36],v=>fmt(q2(v))+"°",`360° × ${p}% = ${fmt(q2(p*3.6))}°`,"整个圆是 360°。")},
+  ()=>{let a,b,x,y,tot,n;do{a=R(10,25);b=R(10,25);x=R(30,60);y=R(30,60);tot=a*x+b*y;n=a+b}while(tot%n!==0);return mkN(`甲组 ${a} 人平均 ${x} 分，乙组 ${b} 人平均 ${y} 分。两组合起来，平均每人多少分？`,tot/n,[1,2,3],id,`(${a} × ${x} + ${b} × ${y}) ÷ ${n} = ${tot/n}`,"先求总分，再除以总人数。")}],
+ [()=>{const M=R(45,70),a=M+R(-8,8),b=M+R(-8,8),c=M+R(-8,8),d=M+R(-8,8),e=M+R(-8,8),s=a+b+c+d+e;return mkN(`六位同学的平均分是 ${M} 分，其中五位分别得 ${a}、${b}、${c}、${d}、${e} 分。第六位同学得多少分？`,6*M-s,[1,2,5],id,`${M} × 6 − (${a} + ${b} + ${c} + ${d} + ${e}) = ${6*M-s}`,"先用平均数 × 个数求出总和。")}]],
+[[()=>{const r=R(2,8),b=R(2,8),g=R(2,6),t=r+b+g;return mkS(`袋中有 ${r} 个红球、${b} 个蓝球、${g} 个绿球。随手取一个，取到红球的可能性是多少？（最简分数）`,simp(r,t),[`${r}/${t}`,simp(b+g,t),`${r}/${b+g}`,`${t}/${r}`],`${r}/${t} 约分 = ${simp(r,t)}`,"可能性 = 想要的个数 ÷ 总个数，记得约分。")}],
+ [()=>{const t=P([4,5,8,10]),r=R(1,t-2),n=t*R(20,80);return mkN(`转盘平均分成 ${t} 等份，其中 ${r} 份是红色。转 ${n} 次，大约有多少次转到红色？`,n/t*r,[r,t,10],id,`${n} ÷ ${t} × ${r} = ${n/t*r} 次`,"次数 × 可能性。")}],
+ [()=>{const t=P([10,20,25,50]),r=R(2,Math.floor(t/3)),s=(t-r)/t*100;return mkN(`袋中有 ${t} 个球，其中 ${r} 个是红球。随手取一个，取到不是红球的可能性是百分之几？`,s,[5,10,15],v=>v+"%",`${t-r}/${t} = ${s}%`,"先求不是红球的个数。")}],
+ [()=>{const r=R(8,15),x=R(2,6),b=R(5,10),y=R(2,5),tt=r-x+b+y,n=tt*R(4,12);return mkN(`袋中原有 ${r} 个红球和 ${b} 个蓝球，取走 ${x} 个红球，再放入 ${y} 个蓝球。每次取一个球，记下颜色再放回，共取 ${n} 次，大约有多少次取到红球？`,n/tt*(r-x),[3,5,10],id,`现在红球 ${r-x} 个，共 ${tt} 个；${n} ÷ ${tt} × ${r-x} = ${n/tt*(r-x)} 次`,"先算出现在袋中红球和总数。")}]]
+];
+const NAMES=["整数与运算","分数、小数与百分比","钱币","时间与时刻","度量衡","空间","坐标、比与比例","数据处理","可能性（加分星球）"],EMS=["🪐","🍕","💰","⏰","📏","📦","🧭","📊","🎲"];
+const T=NAMES.map((n,c)=>({n,e:EMS[c],g:[0,1,2,3].map(l=>()=>{const vs=NV[c][l];return addPic(P(vs)())})}));
+
+const LV=["🌱 简单","🌟 中等","🔥 困难","👑 专家"];
+const NQ=[20,15,10,5];
+const CAPT=[[10, 15, 10, 5], [10, 10, 6, 4], [8, 8, 6, 4], [8, 8, 6, 4], [8, 8, 6, 4], [16, 15, 10, 4], [5, 8, 6, 4], [8, 8, 6, 4], [8, 8, 6, 4]];const LIMT=[[5, 2, 2, 2], [5, 2, 2, 2], [8, 4, 3, 2], [8, 8, 2, 2], [8, 4, 6, 4], [2, 2, 2, 2], [8, 8, 6, 2], [8, 8, 3, 4], [8, 8, 6, 4]];const NQT=(t,l)=>Math.min(NQ[l],CAPT[t]&&CAPT[t][l]!=null?CAPT[t][l]:NQ[l]);const TLIM=(t,l)=>LIMT[t]&&LIMT[t][l]!=null?LIMT[t][l]:3;
+const TMPL=q=>q.q.replace(/[\d,]+(\.\d+)?/g,"#");const ISCALC=m=>/^[#\s+\-−×÷()=?☐，。？]*$/.test(m.replace(/RM/g,"").replace(/是多少|多少/g,""));
+const QANS=q=>q.ans!==undefined?q.ans:(q.s?q.s[q.s.length-1][1]:"");
+const S={score:0,stars:{},best:{},bad:new Set(),streakMax:0,played:0,perfect:0,expertOK:false,mode:"practice",cur:null};
+const app=document.getElementById("app");
+let G=null,timer=null;
+const BADGES=[["🥇","首次满分",()=>S.perfect>0],["🔥","连对 5 题",()=>S.streakMax>=5],["🌌","探索 5 个星球",()=>Object.keys(S.stars).length>=5],["🌍","九大星球",()=>Object.keys(S.stars).length>=9],["👑","专家达人",()=>S.expertOK],["💯","累计 500 分",()=>S.score>=500]];
+function home(){
+ clearInterval(timer);
+ const st=Object.values(S.stars).reduce((a,b)=>a+b,0);
+ app.innerHTML=`<div class="bar"><div><h1>🚀 数学星球探险队 · 六年级</h1><small style="color:var(--mute)">欢迎，${S.name}！点选星球出发 </small><button class="pill" onclick="login()">换人</button> ${BACKL}</div><div><span class="pill">⭐ ${st}/27</span> <span class="pill">🏆 ${S.score}</span></div></div>
+ <div class="card"><b>玩法：</b>选一个星球与难度，每关最多：简单 20 题、中等 15 题、困难 10 题、专家 5 题（有些星球题目较少，会少一点）。答对得分（难度越高分数越多），用提示会减半。完成后可拿到 1–3 颗星！<br>
+ 模式：<button class="btn ${S.mode=="practice"?"":"alt"}" onclick="S.mode='practice';home()">练习（不计时）</button>
+ <button class="btn ${S.mode=="challenge"?"":"alt"}" onclick="S.mode='challenge';home()">挑战（每题 25 秒，得分 ×1.5 + 快答奖励）</button></div>
+ <div class="card" style="text-align:center"><button class="btn" style="font-size:18px" onclick="wpHome()">📝 应用题（分单元 · 填空解题）</button></div><div class="grid">${T.map((t,i)=>`<button class="planet" onclick="pick(${i})"><span class="e">${t.e}</span><b>${t.n}</b><br><small>${"⭐".repeat(S.stars[i]||0)||"尚未探索"}</small></button>`).join("")}</div>
+ <div class="card"><b>🎖 成就徽章</b><br>${BADGES.map(b=>`<span class="badge ${b[2]()?"":"off"}">${b[0]} ${b[1]}</span>`).join("")}</div>`}
+function pick(i){S.cur=i;const rec=S.best[i]||[];
+ app.innerHTML=`<button class="btn alt" onclick="home()">← 返回</button><div class="card"><h2>${T[i].e} ${T[i].n}</h2><p>选择难度：</p><div class="lv">${LV.map((l,k)=>`<button class="btn" onclick="start(${i},${k})">${l} · ${NQT(i,k)}题${rec[k]!=null?` （最佳 ${rec[k]}/${NQT(i,k)}）`:""}</button>`).join("")}</div></div>`}
+function start(t,l){G={t,l,i:0,ok:0,streak:0,pts:0,qs:[],ans:false,hint:false,wrongs:[]};
+ const used=new Set();let tr=0;const need=NQT(t,l),lim=TLIM(t,l),cnt={},ansS=new Set();while(G.qs.length<need&&tr<6000){const q=T[t].g[l]();tr++;const kk=q.q+"|"+(q.pic||""),m=TMPL(q),aa=m+"=>"+QANS(q);if(used.has(kk)||ansS.has(aa)||(cnt[m]||0)>=(ISCALC(m)?lim+2:lim))continue;used.add(kk);ansS.add(aa);cnt[m]=(cnt[m]||0)+1;G.qs.push(q)}G.n=G.qs.length;show()}
+function show(){clearInterval(timer);const q=G.qs[G.i];G.ans=false;G.hint=false;
+ app.innerHTML=`<div class="bar"><button class="btn alt" onclick="home()">✕ 退出</button><span class="pill">${T[G.t].e} ${LV[G.l]}</span><span class="pill">🏆 ${G.pts}</span>${S.mode=="challenge"?'<span class="pill" id="tm">⏱ 25</span>':""}</div>
+ <div class="prog" style="margin:10px 0"><i style="width:${G.i/G.n*100}%"></i></div>
+ <div class="card"><small style="color:var(--mute)">第 ${G.i+1} / ${G.n} 题 ${G.streak>=2?" · 🔥 连对 "+G.streak:""}</small><div class="mas"><span class="mi">🚀</span><div class="bub" id="mt">${P(TIPS)}</div></div><div class="q">${q.q}</div>${q.pic||""}
+ <div class="opts">${q.opts.map((o,k)=>`<button class="opt" onclick="ans(${k})">${o}</button>`).join("")}</div>
+ <p><button class="btn alt" id="hb" onclick="hint()">💡 提示（得分减半）</button></p><div id="fb" class="fb hide"></div><p id="nx"></p></div>`;
+ if(S.mode=="challenge"){let s=25;G.left=s;timer=setInterval(()=>{s--;G.left=s;const e=document.getElementById("tm");if(e)e.textContent="⏱ "+s;if(s<=0){clearInterval(timer);ans(-1)}},1000)}}
+function hint(){if(G.ans)return;G.hint=true;const f=document.getElementById("fb");f.classList.remove("hide");f.textContent="💡 "+G.qs[G.i].hint}
+function ans(k){if(G.ans)return;G.ans=true;clearInterval(timer);const q=G.qs[G.i];const b=[...document.querySelectorAll(".opt")];b.forEach(x=>x.disabled=true);
+ const ok=k>=0&&q.opts[k]===q.ans;const f=document.getElementById("fb");f.classList.remove("hide");
+ b.forEach(x=>{if(x.textContent===q.ans)x.classList.add("ok")});
+ if(ok){const ch=S.mode=="challenge";const base=10*(G.l+1)/(G.hint?2:1);const bonus=ch?(G.left>=18?6:G.left>=10?3:0):0;const g=Math.round(base*(ch?1.5:1))+bonus;G.pts+=g;S.score+=g;G.ok++;G.streak++;S.streakMax=Math.max(S.streakMax,G.streak);mas(P(CHEER),1);if(G.streak%5===0)burst(16);
+  f.innerHTML=`🎉 ${P(["太棒了！","答对了！","真聪明！","继续保持！"])} +${g} 分${ch?`（挑战加成 ×1.5${bonus?`，快答奖励 +${bonus}`:""}）`:""}<br>${q.exp}`}
+ else{if(k>=0)b[k].classList.add("no");G.streak=0;G.wrongs.push(q);mas(P(COMFORT),0);f.innerHTML=`${k<0?"⏰ 时间到了，":""}没关系，错误是进步的机会！💪<br><b>正确答案：${q.ans}</b><br>${q.exp}`}
+ document.getElementById("nx").innerHTML=`<button class="btn" onclick="next()">${G.i<G.n-1?"下一题 →":"查看成绩 🏁"}</button>`}
+function next(){G.i++;G.i>=G.n?end():show()}
+function end(){const N=G.n,ok=G.ok,r=ok/N,s=r>=1?3:r>=.8?2:r>=.6?1:0;S.stars[G.t]=Math.max(S.stars[G.t]||0,s);
+ S.best[G.t]=S.best[G.t]||[];S.best[G.t][G.l]=Math.max(S.best[G.t][G.l]||0,ok);const rc={n:S.name,t:G.t,l:G.l,m:S.mode=="challenge"?"c":"p",ok,pts:G.pts,ts:Date.now()};const aa=getA();aa.push(rc);setA(aa);G.code=code(rc);S.played++;if(ok==N){S.perfect++;setTimeout(()=>burst(46),300)}else if(r>=.8)setTimeout(()=>burst(22),300);if(G.l==3&&r>=.8)S.expertOK=true;
+ const adv=r>=.8?(G.l<3?`你表现很棒！建议挑战「${LV[G.l+1]}」。`:"你已是专家！试试其他星球吧。"):r<=.4?(G.l>0?`先练习「${LV[G.l-1]}」巩固基础，再回来挑战，你一定可以！`:"再多练习几次，你会越来越好！"):"不错！再玩一次可以拿到更多星星。";
+ app.innerHTML=`<div class="card"><div class="big">${["🌱","⭐","⭐⭐","⭐⭐⭐"][s]}</div><h2 style="text-align:center">${ok==N?"满分！太厉害了！":r>=.6?"做得好！":"继续加油！"}</h2>
+ <p style="text-align:center">👤 ${S.name}<br>答对 <b>${ok}/${N}</b> 题 · 本关得分 <b>${G.pts}</b> · 总分 <b>${S.score}</b></p><div class="prog"><i style="width:${r*100}%"></i></div><p>📈 ${adv}</p>
+ ${G.wrongs.length?`<details><summary><b>📝 错题回顾（点开看）</b></summary>${G.wrongs.map(q=>`<div class="fb" style="margin:6px 0">${q.q}${q.pic||""}<br>✅ ${q.ans}<br>${q.exp}</div>`).join("")}</details>`:"<p>🎯 没有错题！</p>"}
+ <p><a class="btn" style="display:inline-block;text-decoration:none" target="_blank" rel="noopener" href="${formURL(G.code)}" onclick="gateStep()">📤 提交成绩给老师</a><br><small>点按钮后，在表单页面按「提交」。如果打不开，请复制下面的成绩代码发给老师。</small></p><p><small>📋 成绩代码（请复制发给老师）：</small><br><input readonly value="${G.code}" onclick="this.select()" style="width:100%;padding:8px;border-radius:8px;border:2px solid var(--line);background:var(--bg);color:var(--text)"></p><p><button class="btn alt" id="gcp" onclick="copyCode('${G.code}')">📋 复制成绩代码</button></p><p id="gate" class="fb">请先提交成绩：<br>① 点「📤 提交成绩给老师」，在表单页面按「提交」；<br>② 回到这里，点下面的「✅ 我已经提交了」，才能继续玩。<br>（打不开表单？请点「复制成绩代码」，发给老师后再点「我已经提交了」。）<br><button class="btn" id="gok" disabled onclick="gateUnlock()">✅ 我已经提交了</button></p><p><button class="btn gl" disabled onclick="start(${G.t},${G.l})">再玩一次</button> <button class="btn alt gl" disabled onclick="pick(${G.t})">换难度</button> <button class="btn alt gl" disabled onclick="home()">回到星球地图</button></p></div>`}
+/* ===== 老师请在这里修改学生名单（每个名字用引号括起来，用逗号隔开）===== */
+const ACC=[{"n": "Alex", "i": "Alex", "h": "7624984167397427"}];
+const ROSTER=ACC.map(a=>a.n);
+const TPIN="teacher2026"; /* 老师密码，可自行修改 */
+/* ============================================================ */
+const norm=s=>s.replace(/[\s\u3000]+/g,"").toLowerCase();
+const hs=(s,seed=0)=>{let h1=0xdeadbeef^seed,h2=0x41c6ce57^seed;for(let i=0,ch;i<s.length;i++){ch=s.charCodeAt(i);h1=Math.imul(h1^ch,2654435761);h2=Math.imul(h2^ch,1597334677)}h1=Math.imul(h1^(h1>>>16),2246822507)^Math.imul(h2^(h2>>>13),3266489909);h2=Math.imul(h2^(h2>>>16),2246822507)^Math.imul(h1^(h1>>>13),3266489909);return String(4294967296*(2097151&h2)+(h1>>>0))};
+function login(msg){clearInterval(timer);S.name=null;sessionStorage.removeItem("asc_student");location.replace("index.html");return;
+ app.innerHTML=`<div class="card" style="text-align:center;margin-top:8vh"><div class="big">🚀</div><h1>数学星球探险队 · 六年级</h1><p>请输入你的 ID 和密码，再开始探险！</p>
+ <p><input id="uid" autocomplete="off" autocapitalize="off" placeholder="ID（就是你的名字）" style="font:inherit;font-size:20px;padding:12px;border-radius:12px;border:2px solid var(--line);background:var(--bg);color:var(--text);width:100%;max-width:320px;text-align:center" onkeydown="if(event.key==='Enter')document.getElementById('upw').focus()"></p>
+ <p><input id="upw" type="password" autocomplete="off" placeholder="密码" style="font:inherit;font-size:20px;padding:12px;border-radius:12px;border:2px solid var(--line);background:var(--bg);color:var(--text);width:100%;max-width:320px;text-align:center" onkeydown="if(event.key==='Enter')doLogin()"></p>
+ <p><button class="btn" onclick="doLogin()">开始探险 ✨</button></p><div style="color:var(--bad);min-height:24px">${msg||""}</div><p>${BACKL} <button class="pill" onclick="tlogin()">👩‍🏫 老师入口</button></p></div>`;
+ setTimeout(()=>{const e=document.getElementById("uid");if(e&&e.focus)e.focus()},50)}
+function doLogin(){const id=norm(document.getElementById("uid").value),pw=document.getElementById("upw").value.replace(/\s+/g,"");
+ if(!id||!pw)return login("请填写 ID 和密码哦～");
+ const a=ACC.find(x=>norm(x.i)===id&&x.h===hs(id+"|"+pw));
+ if(!a)return login("ID 或密码不对，请再试一次，或问问老师。");
+ S.name=a.n;home()}
+const KEY="m6_attempts";
+const getA=()=>{try{return JSON.parse(localStorage.getItem(KEY)||"[]")}catch(e){return[]}};
+const setA=a=>{try{localStorage.setItem(KEY,JSON.stringify(a))}catch(e){}};
+const code=r=>[r.n,r.t,r.l,r.m,r.ok,r.pts,r.ts].join("|");
+function tlogin(msg){app.innerHTML=`<button class="btn alt" onclick="login()">← 返回</button><div class="card" style="text-align:center"><h2>👩‍🏫 老师入口</h2><input id="pw" type="password" placeholder="老师密码" style="font:inherit;padding:10px;border-radius:10px;border:2px solid var(--line);background:var(--bg);color:var(--text)" onkeydown="if(event.key==='Enter')tcheck()"> <button class="btn" onclick="tcheck()">进入</button><div style="color:var(--bad);min-height:24px">${msg||""}</div></div>`}
+function tcheck(){document.getElementById("pw").value===TPIN?report():tlogin("密码不对")}
+function imp(){const L=document.getElementById("imp").value.split(/\n/);const A=getA();let c=0;L.forEach(s=>{const p=s.trim().split("|");if(p[1]==="WP"){if(impWP(p))c++;return}if(p.length!==7||!ROSTER.includes(p[0]))return;const r={n:p[0],t:+p[1],l:+p[2],m:p[3],ok:+p[4],pts:+p[5],ts:+p[6]};if([r.t,r.l,r.ok,r.pts,r.ts].some(isNaN)||!T[r.t]||r.l<0||r.l>3||r.ok<0||r.ok>NQT(r.t,r.l))return;if(A.some(x=>x.n===r.n&&x.ts===r.ts))return;A.push(r);c++});setA(A);report(`已导入 ${c} 条新记录`)}
+function report(msg){const A=getA();const pc=(a)=>a.length?Math.round(a.reduce((s,x)=>s+x.ok,0)/a.reduce((s,x)=>s+NQT(x.t,x.l),0)*100):null;const cell=a=>a.length?`${pc(a)}%<br><small>${a.length}次</small>`:"–";
+ const rows=ROSTER.map(n=>{const a=A.filter(x=>x.n===n);if(!a.length)return `<tr><td>${n}</td><td colspan="9" style="color:var(--mute)">尚未游玩</td></tr>`;
+  const lv=[0,1,2,3].map(l=>a.filter(x=>x.l===l));let est="基础巩固中";lv.forEach((z,l)=>{if(z.length&&pc(z)>=80)est=LV[l]});
+  let wk="–",wa=101;T.forEach((t,i)=>{const z=a.filter(x=>x.t===i);if(z.length&&pc(z)<wa){wa=pc(z);wk=t.n+" "+wa+"%"}});
+  return `<tr><td><b>${n}</b></td>${lv.map(cell).map(c=>`<td>${c}</td>`).join("")}<td>${cell(a.filter(x=>x.m==="p"))}</td><td>${cell(a.filter(x=>x.m==="c"))}</td><td>${a.reduce((s,x)=>s+x.pts,0)}</td><td>${est}</td><td>${wk}</td></tr>`}).join("");
+ app.innerHTML=`<button class="btn alt" onclick="login()">← 返回</button><h2>📊 全班成绩报告</h2><div style="color:var(--ok)">${msg||""}</div>
+ <div class="card" style="overflow-x:auto"><table style="border-collapse:collapse;min-width:720px;text-align:center;font-size:14px"><tr style="color:var(--mute)"><th>学生</th><th>简单</th><th>中等</th><th>困难</th><th>专家</th><th>练习</th><th>挑战</th><th>总分</th><th>目前水平</th><th>最弱星球</th></tr>${rows}</table><small style="color:var(--mute)">百分比 = 答对题数 ÷ 总题数；目前水平 = 正确率达 80% 的最高难度</small></div>
+ ${wpCard()}<div class="card"><b>导入学生的成绩代码</b>（每行一条）<br><textarea id="imp" rows="4" style="width:100%;margin-top:6px;border-radius:10px;border:2px solid var(--line);background:var(--bg);color:var(--text);padding:8px"></textarea><p><button class="btn" onclick="imp()">导入</button></p></div>`}
+/* ===== 应用题 ===== */
+const WK=[["总共","合起来，求总数 → 常用加法"],["一共","合起来，求总数 → 常用加法"],["共","合起来，求总数 → 常用加法"],["相差","比一比，求多多少 / 少多少 → 大数 − 小数"],["原有","一开始就有的数量，先把它找出来"],["差","比一比 → 大数 − 小数"],["平分","平均分成几份 → 用除法"],["平均","平均分 / 求平均数 → 总数 ÷ 个数"]];
+const KRE=/(总共|一共|相差|原有|平分|平均|共|差)/g;
+const hl=t=>t.replace(KRE,"<mark>$1</mark>");
+const kwOf=t=>{const f=[];(t.match(KRE)||[]).forEach(k=>{const w=WK.find(x=>x[0]===k);if(w&&!f.some(y=>y[0]===k))f.push(w)});return f};
+const WQ=(q,s,u,e,p)=>({q,s:s.map(x=>["",x]),u,e,pic:p});
+const r2=x=>+x.toFixed(2);
+const WG5=[
+[()=>{const a=R(20000,90000),b=R(1200,4500),d=R(6,15),c=R(5000,19000),x=b*d,y=a+x;return WQ(`仓库原有 ${fmt(a)} 个零件，接着连续 ${d} 天，每天生产 ${fmt(b)} 个，之后运走了 ${fmt(c)} 个。现在仓库一共有多少个零件？`,[x,y,y-c],"个",`综合算式：${fmt(a)} + ${fmt(b)} × ${d} − ${fmt(c)} = ${fmt(y-c)}`)},
+ ()=>{const k=R(12,35),c=R(80,240),e=R(5,30),tt=k*c,a=R(Math.floor(tt*.3),Math.floor(tt*.7)),b=tt-a;return WQ(`图书馆共买了 ${fmt(a)} 本故事书和 ${fmt(b)} 本科学书，把它们平分给 ${k} 个班，之后每个班又各自增加了 ${e} 本。现在每班有多少本书？`,[tt,c,c+e],"本",`综合算式：(${fmt(a)} + ${fmt(b)}) ÷ ${k} + ${e} = ${c+e}`)},
+ ()=>{const a=R(80000,99999),b=R(20000,40000),c=R(8000,25000),x=b+c;return WQ(`甲仓库有 ${fmt(a)} 公斤米，乙仓库原有 ${fmt(b)} 公斤，后来乙仓库又运进 ${fmt(c)} 公斤。现在甲、乙两个仓库相差多少公斤？`,[x,a-x],"公斤",`综合算式：${fmt(a)} − (${fmt(b)} + ${fmt(c)}) = ${fmt(a-x)}`)},
+ ()=>{const k=R(12,48),bx=R(150,600),p=R(30,90),tt=k*bx;return WQ(`工厂 ${R(5,9)} 天共生产了 ${fmt(tt)} 个零件，每 ${k} 个装成一箱，每箱售价 RM${p}。把全部零件售完，总共可得多少令吉？`,[bx,bx*p],"令吉",`综合算式：${fmt(tt)} ÷ ${k} × ${p} = ${fmt(bx*p)}`)}],
+[()=>{const d=P([4,5,8]),k=R(1,d-2),t=2*d*R(60,240),f=t/d*k,rest=t-f;return WQ(`水塘原有 ${fmt(t)} ℓ 水，第一天用去 ${k}/${d}，第二天用去余下水量的一半。现在水塘还剩多少 ℓ 水？`,[f,rest,rest/2],"ℓ",`综合算式：(${fmt(t)} − ${fmt(t)} × ${k}/${d}) ÷ 2 = ${fmt(rest/2)}`)},
+ ()=>{const t=100*R(8,40),p=P([10,15,20,25]),q=P([5,10,15,30]),n=R(20,90),x=t*p/100,y=t*q/100;return WQ(`书店原有 ${fmt(t)} 本书，第一周卖出 ${p}%，第二周卖出 ${q}%（都按原有的数量计算），后来又进了 ${n} 本。现在书店一共有多少本书？`,[x,y,t-x-y+n],"本",`综合算式：${fmt(t)} − ${fmt(t)} × ${p}% − ${fmt(t)} × ${q}% + ${n} = ${fmt(t-x-y+n)}`)},
+ ()=>{const z=R(200,500),x=R(15,45)/10,n=R(12,30),y=R(50,150),u=r2(x*n);return WQ(`超市原有 ${z} kg 米，又进了 ${n} 包，每包重 ${x} kg，后来卖出 ${y} kg。现在超市共有多少 kg 米？`,[u,r2(z+u),r2(z+u-y)],"kg",`综合算式：${z} + ${x} × ${n} − ${y} = ${fmt(r2(z+u-y))}`)},
+ ()=>{const m=R(2,10),t=200*m,p=P([20,25,40,50]),rest=t*(100-p)/100;return WQ(`小明原有 RM${fmt(t)} 的储蓄，先用了 ${p}% 买书，再用余下钱的一半买文具。他现在还剩多少令吉？`,[t*p/100,rest,rest/2],"令吉",`综合算式：(${fmt(t)} − ${fmt(t)} × ${p}%) ÷ 2 = ${fmt(rest/2)}`)}],
+[()=>{const n=R(3,6),p=R(35,80),q=R(40,90),m=R(700,1200),x=n*p+q;return WQ(`小美原有 RM${m}，买了 ${n} 件衣服，每件 RM${p}，又买了一双鞋子 RM${q}。她还剩多少令吉？`,[n*p,x,m-x],"令吉",`综合算式：${m} − (${n} × ${p} + ${q}) = ${m-x}`)},
+ ()=>{const p=20*R(15,60),q=20*R(10,40),d=P([10,20,25,30,40,50]),e=P([10,20,25,30,40,50]),a=p*(100-d)/100,b=q*(100-e)/100;return WQ(`一件外套原价 RM${p}，打 ${d}% 折扣；一条裤子原价 RM${q}，打 ${e}% 折扣。买这两件衣服一共要付多少令吉？`,[a,b,a+b],"令吉",`综合算式：${p} × (100 − ${d})% + ${q} × (100 − ${e})% = ${fmt(a+b)}`)},
+ ()=>{const M=R(80,200),a=M+R(-30,30),b=M+R(-30,30),c=3*M-a-b;return WQ(`爸爸三个月的水电费分别是 RM${a}、RM${b} 和 RM${c}。照这样平均每月的水电费来算，一年（12 个月）总共要付多少令吉？`,[3*M,M,12*M],"令吉",`综合算式：(${a} + ${b} + ${c}) ÷ 3 × 12 = ${fmt(12*M)}`)},
+ ()=>{const t=100*R(20,150),r=P([2,3,4,5]),i=t*r/100,w=R(300,1500);return WQ(`阿明把 RM${fmt(t)} 存进银行，年利率 ${r}%。一年后，他把利息和本金一起算，再取出 RM${w}。户口里还剩多少令吉？`,[i,t+i,t+i-w],"令吉",`综合算式：${fmt(t)} + ${fmt(t)} × ${r}% − ${w} = ${fmt(t+i-w)}`)}],
+[()=>{const a=R(40,120),b=R(40,120),c=R(40,120),e=R(10,25);return WQ(`一场比赛共有三节，分别是 ${a} 分钟、${b} 分钟和 ${c} 分钟，每两节之间休息 ${e} 分钟（共休息 2 次）。比赛从开始到结束一共用了多少分钟？`,[a+b+c,2*e,a+b+c+2*e],"分钟",`综合算式：${a} + ${b} + ${c} + 2 × ${e} = ${a+b+c+2*e}`)},
+ ()=>{const h1=R(2,4),m1=R(5,55),h2=h1+R(1,3),m2=R(5,55),x=h1*60+m1,y=h2*60+m2;return WQ(`甲飞机飞行了 ${h1} 小时 ${m1} 分钟，乙飞机飞行了 ${h2} 小时 ${m2} 分钟。两架飞机的飞行时间相差多少分钟？`,[x,y,y-x],"分钟",`综合算式：(${h2} × 60 + ${m2}) − (${h1} × 60 + ${m1}) = ${y-x}`)},
+ ()=>{let m,M,b,a;do{m=R(20,40);M=R(35,50);b=R(30,90);a=7*M-5*m-b}while(a<10||a>120);return WQ(`阿美一个星期（7 天）都运动：星期一到星期五每天运动 ${m} 分钟，星期六运动 ${a} 分钟，星期日运动 ${b} 分钟。她平均每天运动多少分钟？`,[5*m,7*M,M],"分钟",`综合算式：(${m} × 5 + ${a} + ${b}) ÷ 7 = ${M}`)},
+ ()=>{const n=R(3,5),h=R(1,2),m=R(5,55),r=R(10,25),x=h*60+m;return WQ(`电影院一天放映 ${n} 场电影，每场长 ${h} 小时 ${m} 分钟，每两场之间休息 ${r} 分钟。从第一场开始到最后一场结束，总共经过了多少分钟？`,[n*x,(n-1)*r,n*x+(n-1)*r],"分钟",`综合算式：(${h} × 60 + ${m}) × ${n} + ${r} × ${n-1} = ${n*x+(n-1)*r}`)}],
+[()=>{const a=R(40,80),n=R(12,40),x=P([250,500,750]);return WQ(`一桶油原有 ${a} ℓ，倒进 ${n} 个瓶子里，每个瓶子装 ${x} mℓ。桶里还剩下多少 mℓ 的油？`,[a*1000,n*x,a*1000-n*x],"mℓ",`综合算式：${a} × 1 000 − ${n} × ${x} = ${fmt(a*1000-n*x)}`)},
+ ()=>{const x=R(11,49)/10,n=R(8,20),y=R(500,3000),u=r2(x*n);return WQ(`面粉店买了 ${n} 包面粉，每包重 ${x} kg，做蛋糕用去 ${y} g。面粉还剩多少 g？`,[u,u*1000,u*1000-y],"g",`综合算式：${x} × ${n} × 1 000 − ${y} = ${fmt(r2(u*1000-y))}`)},
+ ()=>{const b=P([20,25,40,50]),seg=R(8,30),d=R(2,6),len=b*seg;return WQ(`一条绳子原有 ${fmt(len/100)} m，每 ${b} cm 剪成一段，剪好后送出 ${d} 段。还剩下多少段？`,[len,seg,seg-d],"段",`综合算式：${fmt(len/100)} × 100 ÷ ${b} − ${d} = ${seg-d}`)},
+ ()=>{const l=R(40,100),w=R(30,80),h=R(20,50),x=R(10,60),V=l*w*h;return WQ(`长方体水箱长 ${l} cm、宽 ${w} cm、水深 ${h} cm，水箱里原有水。现在再倒进 ${x} ℓ 水，水箱里一共有多少 ℓ 水？（1 ℓ = 1 000 cm³）`,[V,r2(V/1000),r2(V/1000+x)],"ℓ",`综合算式：${l} × ${w} × ${h} ÷ 1 000 + ${x} = ${fmt(r2(V/1000+x))}`)}],
+[()=>{const l=R(60,120),w=R(40,80),p=R(8,25),f=R(500,2000),pe=(l+w)*2;return WQ(`长方形操场长 ${l} m、宽 ${w} m，四周铺跑道，每 m 的工钱是 RM${p}，另外还要付材料费 RM${f}。铺跑道一共要多少令吉？`,[pe,pe*p,pe*p+f],"令吉",`综合算式：(${l} + ${w}) × 2 × ${p} + ${f} = ${fmt(pe*p+f)}`)},
+ ()=>{const a=R(30,60),b=R(25,45),s=R(8,20);return WQ(`一块长 ${a} cm、宽 ${b} cm 的长方形铁片，中间挖去一个边长 ${s} cm 的正方形。铁片还剩下多少 cm² ？`,[a*b,s*s,a*b-s*s],"cm²",`综合算式：${a} × ${b} − ${s} × ${s} = ${fmt(a*b-s*s)}`)},
+ ()=>{const k=P([2,4,5,8]),a=R(40,90),b=R(30,70),c=8*R(3,6),V=a*b*c;return WQ(`长方体水箱长 ${a} cm、宽 ${b} cm、高 ${c} cm，装满水后，把水平分装进 ${k} 个相同的桶子。每个桶子装多少 ℓ 水？（1 ℓ = 1 000 cm³）`,[V,V/k,r2(V/k/1000)],"ℓ",`综合算式：${a} × ${b} × ${c} ÷ ${k} ÷ 1 000 = ${fmt(r2(V/k/1000))}`)},
+ ()=>{const a=R(12,25),b=R(10,18),c=R(3,7),d=R(3,6),p=R(20,60),A=a*b,B=c*d;return WQ(`L 形地板可以看成长 ${a} m、宽 ${b} m 的大长方形，缺掉一个长 ${c} m、宽 ${d} m 的小长方形。铺地板每 m² 要 RM${p}，铺完这块地板一共要多少令吉？`,[A,B,A-B,(A-B)*p],"令吉",`综合算式：(${a} × ${b} − ${c} × ${d}) × ${p} = ${fmt((A-B)*p)}`)}],
+[()=>{const [p,q]=P([[1,2],[2,3],[3,5],[3,4],[2,5]]),k=R(6,40);return WQ(`红笔与蓝笔的比是 ${p} : ${q}，蓝笔比红笔多 ${(q-p)*k} 支。红笔和蓝笔一共有多少支？`,[k,(p+q)*k],"支",`综合算式：${(q-p)*k} ÷ (${q} − ${p}) × (${p} + ${q}) = ${(p+q)*k}`)},
+ ()=>{const [p,q,r]=P([[2,3,5],[1,2,3],[1,3,6],[2,5,3]]),k=R(8,60),t=(p+q+r)*k,m=Math.max(p,q,r),n=Math.min(p,q,r);return WQ(`三人按 ${p} : ${q} : ${r} 分 RM${fmt(t)}。得到最多的人和得到最少的人，所得的差是多少令吉？`,[k,m-n,(m-n)*k],"令吉",`综合算式：${fmt(t)} ÷ (${p} + ${q} + ${r}) × (${m} − ${n}) = ${fmt((m-n)*k)}`)},
+ ()=>{const a=P([4,5,6,8]),c=R(8,40)/2,n=a*R(3,9),tot=n/a*c,m=Math.ceil(tot/50)*50+50;return WQ(`${a} 本练习簿共 RM${fmt(c)}。小明买了 ${n} 本，付了 RM${m}。应找回多少令吉？`,[n/a,tot,r2(m-tot)],"令吉",`综合算式：${m} − ${n} ÷ ${a} × ${fmt(c)} = ${fmt(r2(m-tot))}`)},
+ ()=>{const a=R(1,5),c=R(10,20),b=R(1,4),d=R(9,18);return WQ(`小狗从点 (${a}, ${b}) 出发，先向右走到 (${c}, ${b})，再向上走到 (${c}, ${d})，然后原路走回出发点。它来回一共走了多少格？`,[c-a,d-b,(c-a+d-b)*2],"格",`综合算式：((${c} − ${a}) + (${d} − ${b})) × 2 = ${(c-a+d-b)*2}`)}],
+[()=>{const M=R(45,90),a=M+R(-12,12),b=M+R(-12,12),c=M+R(-12,12),d=M+R(-12,12),s=a+b+c+d;return WQ(`五位同学的平均分是 ${M} 分，其中四位同学分别得 ${a} 分、${b} 分、${c} 分和 ${d} 分。第五位同学得多少分？`,[5*M,s,5*M-s],"分",`综合算式：${M} × 5 − (${a} + ${b} + ${c} + ${d}) = ${5*M-s}`)},
+ ()=>{const a=R(3,6),x=R(60,72),M=x+R(1,4),y=(a+1)*M-a*x;return WQ(`小莉前 ${a} 次测验平均 ${x} 分，第 ${a+1} 次测验得了 ${y} 分。她这 ${a+1} 次测验的平均分是多少？`,[a*x,a*x+y,M],"分",`综合算式：(${x} × ${a} + ${y}) ÷ ${a+1} = ${M}`)},
+ ()=>{let a,b,x,y;do{a=R(10,20);b=R(10,20);x=R(60,85);y=R(60,85)}while((a*x+b*y)%(a+b)!==0);return WQ(`甲组 ${a} 位同学平均每人得 ${x} 分，乙组 ${b} 位同学平均每人得 ${y} 分。两组同学合起来，平均每人得多少分？`,[a*x,b*y,(a*x+b*y)/(a+b)],"分",`综合算式：(${a} × ${x} + ${b} × ${y}) ÷ (${a} + ${b}) = ${(a*x+b*y)/(a+b)}`)},
+ ()=>{let a,b,c,d,tt;do{a=R(40,120);b=R(40,120);c=R(40,120);d=R(10,30);tt=a+b+c+(b+d)+2*c}while(tt%5!==0);return WQ(`商店星期一至星期五售出的雨伞数：星期一 ${a} 把，星期二 ${b} 把，星期三 ${c} 把，星期四比星期二多 ${d} 把，星期五是星期三的 2 倍。这五天平均每天售出多少把？`,[b+d,2*c,tt,tt/5],"把",`综合算式：(${a} + ${b} + ${c} + (${b} + ${d}) + ${c} × 2) ÷ 5 = ${tt/5}`)}],
+[()=>{const t=P([5,8,10]),r=R(1,2),b=R(1,3),n=t*R(20,60);return WQ(`转盘平均分成 ${t} 等份，其中 ${r} 份是红色，${b} 份是蓝色。转 ${n} 次，大约有多少次转到红色或蓝色？`,[n/t,r+b,n/t*(r+b)],"次",`综合算式：${n} ÷ ${t} × (${r} + ${b}) = ${n/t*(r+b)}`)},
+ ()=>{const a=R(4,12),b=R(4,12),c=R(4,12),tt=a+b+c,n=tt*R(3,10);return WQ(`盒中共有 ${a} 个红球、${b} 个蓝球和 ${c} 个黄球。每次取出一个球，记下颜色再放回，共取 ${n} 次。大约有多少次取到的不是红球？`,[tt,b+c,n/tt*(b+c)],"次",`综合算式：${n} ÷ (${a} + ${b} + ${c}) × (${b} + ${c}) = ${n/tt*(b+c)}`)},
+ ()=>{const n=6*R(10,40);return WQ(`同学掷一粒骰子 ${n} 次。大约有多少次出现偶数，多少次出现大于 4 的数？这两种结果的次数大约相差多少次？`,[n/6*3,n/6*2,n/6],"次",`综合算式：${n} ÷ 6 × 3 − ${n} ÷ 6 × 2 = ${n/6}`)},
+ ()=>{const r=R(8,15),x=R(2,6),b=R(5,10),y=R(2,5),tt=r-x+b+y,n=tt*R(4,12);return WQ(`袋中原有 ${r} 个红球和 ${b} 个蓝球，取走 ${x} 个红球，再放入 ${y} 个蓝球。从袋中取一个球，记下颜色再放回，共取 ${n} 次，大约有多少次取到红球？`,[r-x,tt,n/tt*(r-x)],"次",`综合算式：${n} ÷ (${r} − ${x} + ${b} + ${y}) × (${r} − ${x}) = ${n/tt*(r-x)}`)}]
+];
+const NW=12;const CAPW=[12, 12, 12, 12, 12, 12, 12, 12, 12];const LIMW=[3, 3, 3, 3, 3, 4, 3, 4, 4];const NWT=u=>Math.min(NW,CAPW[u]!=null?CAPW[u]:NW);
+const WG6=[
+[()=>{const a=R(2000000,6000000),b=R(20000,90000),n=R(3,8),c=R(100000,900000);return WQ(`某市原有人口 ${fmt(a)} 人，每年增加 ${fmt(b)} 人，连续 ${n} 年后，又迁出了 ${fmt(c)} 人。现在这个市一共有多少人？`,[b*n,a+b*n,a+b*n-c],"人",`${fmt(a)} + ${fmt(b)} × ${n} − ${fmt(c)} = ${fmt(a+b*n-c)}`)},
+ ()=>{const k=R(12,40),q=R(150,600),e=R(8,30);return WQ(`工厂共生产了 ${fmt(k*q)} 个零件，平分装进 ${k} 个箱子，之后每箱再放入 ${e} 个备用零件。每箱一共有多少个零件？`,[q,q+e],"个",`${fmt(k*q)} ÷ ${k} + ${e} = ${q+e}`)},
+ ()=>{const a=R(800000,990000),b=R(200000,400000),c=R(50000,250000);return WQ(`甲仓库有 ${fmt(a)} 吨米，乙仓库原有 ${fmt(b)} 吨，后来乙仓库又运进 ${fmt(c)} 吨。两个仓库相差多少吨？`,[b+c,a-b-c],"吨",`${fmt(a)} − (${fmt(b)} + ${fmt(c)}) = ${fmt(a-b-c)}`)},
+ ()=>{const a=R(30,90),b=R(12,40),c=R(120,600);return WQ(`每辆车载客 ${a} 人，${b} 辆车一共载客多少人？如果再上来 ${c} 人，总共有多少人？`,[a*b,a*b+c],"人",`${a} × ${b} + ${c} = ${a*b+c}`)}],
+[()=>{const t=40*R(3,15),p=P([20,25,50]);return WQ(`小明原有 RM${t}，用去 3/8 买书，再用余下的 ${p}% 买文具。他现在还剩多少令吉？`,[t*3/8,t-t*3/8,(t-t*3/8)*(100-p)/100],"令吉",`(${t} − ${t} × 3/8) × (100 − ${p})% = ${(t-t*3/8)*(100-p)/100}`)},
+ ()=>{const d=P([4,5,8]),k=R(1,d-2),t=d*20*R(4,12),f=t/d*k,rest=t-f,p=P([20,25,50]);return WQ(`水池原有 ${fmt(t)} ℓ 水，第一天用去 ${k}/${d}，第二天用去余下水量的 ${p}%。水池现在还剩多少 ℓ 水？`,[f,rest,rest*(100-p)/100],"ℓ",`(${fmt(t)} − ${fmt(t)} × ${k}/${d}) × (100 − ${p})% = ${fmt(rest*(100-p)/100)}`)},
+ ()=>{const d=P([2,4,5]);let N,p;do{N=20*R(3,12);p=P([20,25,40,50,60])}while((N*(100-p)/100)%d!==0);const g=N*(100-p)/100;return WQ(`某班有 ${N} 位同学，男生占 ${p}%，女生中有 1/${d} 戴眼镜。戴眼镜的女生有多少人？`,[N*p/100,g,g/d],"人",`${N} × (100 − ${p})% ÷ ${d} = ${g/d}`)}],
+[()=>{const p=100*R(10,30),d=P([10,20,25]),a=p*(100-d)/100;return WQ(`一部手机原价 RM${p}，先打 ${d}% 折扣，再加 6% 的税。一共要付多少令吉？`,[a,a*6/100,q2(a*106/100)],"令吉",`${p} × (100 − ${d})% × 106% = ${fmt(q2(a*106/100))}`)},
+ ()=>{const t=100*R(20,80),r=P([3,4,5]),y=R(2,5),c=R(300,1500),i=t*r*y/100;return WQ(`李先生把 RM${fmt(t)} 存进银行，年利率 ${r}%，存 ${y} 年（单利），到期后取出并买了 RM${fmt(c)} 的东西。他还剩多少令吉？`,[i,t+i,t+i-c],"令吉",`${fmt(t)} + ${fmt(t)} × ${r}% × ${y} − ${fmt(c)} = ${fmt(t+i-c)}`)},
+ ()=>{const p=R(10,30)*100,d=R(2,5)*100,n=R(10,24),m=Math.ceil((p-d)/n/10)*10+10;return WQ(`电视机现金价 RM${fmt(p)}。分期购买：首期付 RM${d}，其余分 ${n} 个月付清，每月 RM${m}。分期付款比现金价多付了多少令吉？`,[n*m,d+n*m,d+n*m-p],"令吉",`${d} + ${n} × ${m} − ${fmt(p)} = ${fmt(d+n*m-p)}`)}],
+[()=>{const h1=R(1,3),m1=R(10,50),r=R(20,60),h2=R(1,3),m2=R(10,50),t1=60*h1+m1,t2=60*h2+m2;return WQ(`飞机第一段飞行了 ${h1} 小时 ${m1} 分钟，中途停留 ${r} 分钟，第二段飞行了 ${h2} 小时 ${m2} 分钟。整个旅程一共用了多少分钟？`,[t1+t2,t1+t2+r],"分钟",`${t1} + ${r} + ${t2} = ${t1+t2+r}`)},
+ ()=>{const M=R(30,60),a=M+R(-8,8),b=M+R(-8,8),c=M+R(-8,8),d=M+R(-8,8),e=5*M-a-b-c-d;return WQ(`小美五天做作业的时间分别是 ${a}、${b}、${c}、${d} 和 ${e} 分钟。她平均每天做作业多少分钟？`,[a+b+c+d+e,M],"分钟",`(${a} + ${b} + ${c} + ${d} + ${e}) ÷ 5 = ${M}`)},
+ ()=>{const h=R(1,2),m=5*R(2,11),n=R(2,5),t=n*(60*h+m),b=R(10,25);return WQ(`每节课 ${h} 小时 ${m} 分钟，连上 ${n} 节，中间休息 ${n-1} 次，每次 ${b} 分钟。从第一节开始到最后一节结束，总共经过了多少分钟？`,[t,(n-1)*b,t+(n-1)*b],"分钟",`${t} + ${n-1} × ${b} = ${t+(n-1)*b}`)}],
+[()=>{const b=P([20,25,40,50]),seg=R(15,60),d=R(3,9);return WQ(`一条绳子原有 ${fmt(b*seg/100)} m，每 ${b} cm 剪成一段，剪好后送出 ${d} 段。还剩下几段？`,[b*seg,seg,seg-d],"段",`${fmt(b*seg/100)} × 100 ÷ ${b} − ${d} = ${seg-d}`)},
+ ()=>{const x=P([250,330,500]),n=P([6,12,24]),k=R(2,9);return WQ(`每瓶饮料有 ${x} mℓ，一箱有 ${n} 瓶，买了 ${k} 箱。一共有多少 ℓ 饮料？`,[n*k,x*n*k,q2(x*n*k/1000)],"ℓ",`${x} × ${n} × ${k} ÷ 1 000 = ${fmt(q2(x*n*k/1000))}`)},
+ ()=>{const b=P([250,500,125,200]),n=R(8,30),a=b*n/1000,e=R(1,7);return WQ(`面粉店有 ${fmt(a)} kg 面粉，每 ${b} g 装成一袋，装好后卖出 ${e} 袋。还剩下几袋？`,[a*1000,n,n-e],"袋",`${fmt(a)} × 1 000 ÷ ${b} − ${e} = ${n-e}`)}],
+[()=>{const l=R(30,60),w=R(20,40),a=R(8,15),b=R(5,10),p=R(3,9);return WQ(`长方形草地长 ${l} m、宽 ${w} m，中间有一个长 ${a} m、宽 ${b} m 的池塘，其余部分铺草皮，每 m² 草皮 RM${p}。铺草皮一共要多少令吉？`,[l*w,a*b,(l*w-a*b)*p],"令吉",`(${l} × ${w} − ${a} × ${b}) × ${p} = ${fmt((l*w-a*b)*p)}`)},
+ ()=>{const n=P([2,4,5,8]),l=R(40,90),w=R(30,70),h=8*R(4,8),V=l*w*h;return WQ(`长方体水箱长 ${l} cm、宽 ${w} cm、高 ${h} cm，装满水后，把水平分装进 ${n} 个相同的桶子。每个桶子装多少 ℓ 水？（1 ℓ = 1 000 cm³）`,[V,V/n,q2(V/n/1000)],"ℓ",`${l} × ${w} × ${h} ÷ ${n} ÷ 1 000 = ${fmt(q2(V/n/1000))}`)},
+ ()=>{const a=R(4,10),b=R(3,8);return WQ(`一块正方体木块边长 ${a} cm，从中切掉一个长 ${a} cm、宽 ${a} cm、高 ${b>a?a-1:b} cm 的长方体。剩下木块的体积是多少 cm³？`,[a**3,a*a*(b>a?a-1:b),a**3-a*a*(b>a?a-1:b)],"cm³",`${a}³ − ${a} × ${a} × ${b>a?a-1:b} = ${a**3-a*a*(b>a?a-1:b)}`)}],
+[()=>{const [p,q,r]=P([[2,3,5],[1,2,3],[2,5,3]]),k=R(8,60),t=(p+q+r)*k,m=Math.max(p,q,r),n=Math.min(p,q,r);return WQ(`三人按 ${p} : ${q} : ${r} 分 RM${fmt(t)}。得到最多的人和得到最少的人，所得的差是多少令吉？`,[k,m-n,(m-n)*k],"令吉",`${fmt(t)} ÷ (${p} + ${q} + ${r}) × (${m} − ${n}) = ${fmt((m-n)*k)}`)},
+ ()=>{const n=P([3,4,5,6]),c=R(8,40)/2,m=R(2,9),t=q2(c*m),pay=Math.ceil((t+1)/50)*50;return WQ(`${n} 本练习簿共 RM${fmt(c)}。小明买了 ${m*n} 本，付了 RM${pay}。应找回多少令吉？`,[m,t,q2(pay-t)],"令吉",`${pay} − ${m*n} ÷ ${n} × ${fmt(c)} = ${fmt(q2(pay-t))}`)},
+ ()=>{const v=R(6,14)*5,h=R(2,5),m=P([0,30]),d=v*h+v*m/60,sp=R(6,12)*5;return WQ(`汽车每小时行驶 ${v} km，行驶了 ${h} 小时${m?" 30 分钟":""}。一共行驶了多少 km？`,[h*60+m,v*(h*60+m)/60],"km",`${v} × ${h}${m?".5":""} = ${fmt(v*(h*60+m)/60)}`)}],
+[()=>{const M=R(60,80),aa=R(8,15),bb=R(8,15),x=M+bb,y=M-aa;return WQ(`甲组 ${aa} 位同学平均每人得 ${x} 分，乙组 ${bb} 位同学平均每人得 ${y} 分。两组同学合起来，平均每人得多少分？`,[aa*x,bb*y,M],"分",`(${aa} × ${x} + ${bb} × ${y}) ÷ (${aa} + ${bb}) = ${M}`)},
+ ()=>{const N=20*R(3,12),[p1,p2]=P([[40,30],[45,25],[50,20],[45,20]]);return WQ(`饼分图表示全班 ${N} 人喜欢的运动：足球 ${p1}%，篮球 ${p2}%，其余喜欢羽球。喜欢足球的人比喜欢羽球的人多几人？`,[N*p1/100,N*(100-p1-p2)/100,N*(p1-(100-p1-p2))/100],"人",`${N} × (${p1}% − ${100-p1-p2}%) = ${N*(p1-(100-p1-p2))/100}`)},
+ ()=>{const M=R(45,70),a=M+R(-8,8),b=M+R(-8,8),c=M+R(-8,8),d=M+R(-8,8),e=M+R(-8,8),s=a+b+c+d+e;return WQ(`六位同学的平均分是 ${M} 分，其中五位分别得 ${a}、${b}、${c}、${d}、${e} 分。第六位同学得多少分？`,[6*M,s,6*M-s],"分",`${M} × 6 − (${a} + ${b} + ${c} + ${d} + ${e}) = ${6*M-s}`)}],
+[()=>{const t=P([5,8,10]),r=R(1,2),b=R(1,3),n=t*R(20,60);return WQ(`转盘平均分成 ${t} 等份，其中 ${r} 份是红色，${b} 份是蓝色。转 ${n} 次，大约有多少次转到红色或蓝色？`,[n/t,r+b,n/t*(r+b)],"次",`${n} ÷ ${t} × (${r} + ${b}) = ${n/t*(r+b)}`)},
+ ()=>{const a=R(4,12),b=R(4,12),c=R(4,12),tt=a+b+c,n=tt*R(3,10);return WQ(`盒中共有 ${a} 个红球、${b} 个蓝球和 ${c} 个黄球。每次取一个球，记下颜色再放回，共取 ${n} 次。大约有多少次取到的不是红球？`,[tt,b+c,n/tt*(b+c)],"次",`${n} ÷ (${a} + ${b} + ${c}) × (${b} + ${c}) = ${n/tt*(b+c)}`)},
+ ()=>{const n=6*R(10,40);return WQ(`同学掷一粒骰子 ${n} 次。大约有多少次出现偶数，多少次出现大于 4 的数？这两种结果的次数大约相差多少次？`,[n/6*3,n/6*2,n/6],"次",`${n} ÷ 6 × 3 − ${n} ÷ 6 × 2 = ${n/6}`)}]
+];
+const WG=WG6.map((u,i)=>[...u,WG5[i][Math.min(2,WG5[i].length-1)]]);
+
+const WKEY="m6_wp";
+const getW=()=>{try{return JSON.parse(localStorage.getItem(WKEY)||"[]")}catch(e){return[]}};
+const setW=a=>{try{localStorage.setItem(WKEY,JSON.stringify(a))}catch(e){}};
+S.wpStars={};let WS=null;
+function wpHome(){clearInterval(timer);
+ app.innerHTML=`<button class="btn alt" onclick="home()">← 返回</button><h1>📝 应用题</h1>
+ <div class="card"><b>怎么做：</b>先读题，圈出<mark>重点字</mark>，想一想怎么算，再把答案写进空格里。每个单元最多 ${NW} 题，每题有 2 次机会。<br>需要帮忙时可以点「💡 提示」，但提示不会直接告诉你算式哦！<br><small style="color:var(--mute)">重点字：共 / 总共 / 一共 / 相差 / 差 / 原有 / 平分 / 平均</small></div>
+ <div class="grid">${T.map((t,i)=>`<button class="planet" onclick="wpStart(${i})"><span class="e">${t.e}</span><b>${t.n}</b><br><small>${"⭐".repeat(S.wpStars[i]||0)||"尚未挑战"}</small></button>`).join("")}</div>`}
+function wpStart(t){WS={t,i:0,ok:0,pts:0,qs:[],wrongs:[]};const used=new Set(),n=WG[t].length;let tr=0,order=[];
+ const need=NWT(t),lim=LIMW[t]!=null?LIMW[t]:3,cnt={},ansS=new Set();while(WS.qs.length<need&&tr<4000){if(!order.length)order=sh([...Array(n).keys()]);const q=addPicW(WG[t][order.pop()]());tr++;const kk=q.q+"|"+(q.pic||""),m=TMPL(q),aa=m+"=>"+QANS(q);if(used.has(kk)||ansS.has(aa)||(cnt[m]||0)>=lim)continue;used.add(kk);ansS.add(aa);cnt[m]=(cnt[m]||0)+1;WS.qs.push(q)}WS.n=WS.qs.length;wpShow()}
+function wpShow(){const q=WS.qs[WS.i];WS.tries=0;WS.hint=0;WS.done=false;
+ app.innerHTML=`<div class="bar"><button class="btn alt" onclick="wpHome()">✕ 退出</button><span class="pill">${T[WS.t].e} ${T[WS.t].n}</span><span class="pill">🏆 ${WS.pts}</span></div>
+ <div class="prog" style="margin:10px 0"><i style="width:${WS.i/WS.n*100}%"></i></div>
+ <div class="card"><small style="color:var(--mute)">第 ${WS.i+1} / ${WS.n} 题</small><div class="mas"><span class="mi">🚀</span><div class="bub" id="mt">${P(TIPS)}</div></div><div class="q">${hl(q.q)}</div>${q.pic||""}
+ <div style="margin:14px 0;font-weight:800;font-size:20px">答：<input id="wpa" inputmode="decimal" style="width:130px;text-align:center;font-size:20px"> ${q.u}</div>
+ <p><button class="btn alt" id="wph" onclick="wpHint()">💡 提示（得分减半）</button> <button class="btn" id="wpc" onclick="wpCheck()">检查答案 ✔</button></p><div id="fb" class="fb hide"></div><p id="nx"></p></div>`;
+ const e=document.getElementById("wpa");e.addEventListener("keydown",ev=>{if(ev.key==="Enter")wpCheck()});e.focus()}
+const TIPS=["仔细读题，看看图！","慢慢来，你可以的！","先想一想，再选答案。","图里有线索哦，找找看！"],CHEER=["太棒了！","你真聪明！","答对啦，继续加油！","哇，好厉害！"],COMFORT=["没关系，看看讲解，下次一定行！","错了也没关系，我们一起学！"];
+function mas(t,ok){const e=document.getElementById("mt");if(e){e.textContent=t;e.className="bub"+(ok?" good":"")}}
+function burst(n){if(typeof document.createElement!=="function"||!document.body)return;const w=document.createElement("div");w.style.cssText="position:fixed;left:0;top:0;right:0;bottom:0;pointer-events:none;overflow:hidden;z-index:50";for(let i=0;i<n;i++){const s=document.createElement("span");s.textContent=P(["⭐","🎉","✨","🎈","🌟"]);s.style.cssText=`position:absolute;left:${R(0,96)}%;top:-30px;font-size:${R(18,34)}px;animation:fall ${R(18,34)/10}s ease-in forwards;animation-delay:${R(0,8)/10}s`;w.appendChild(s)}document.body.appendChild(w);setTimeout(()=>w.remove(),4400)}
+
+function gateStep(){const b=document.getElementById("gok");if(b)b.disabled=false}
+function gateUnlock(){document.querySelectorAll(".gl").forEach(b=>b.disabled=false);const g=document.getElementById("gate");if(g)g.classList.add("hide")}
+function copyCode(c){try{navigator.clipboard.writeText(c).catch(()=>{})}catch(e){}try{const i=document.querySelector("input[readonly]");if(i){i.select();document.execCommand("copy")}}catch(e){}gateStep();const t=document.getElementById("gcp");if(t)t.textContent="✅ 已复制，请发给老师"}
+const BACKL=/claude/i.test(location.hostname)?"":`<a class="pill" href="index.html" style="text-decoration:none;display:inline-block">🏠 回到主目录</a>`;
+function say(h){const f=document.getElementById("fb");f.classList.remove("hide");f.innerHTML=h}
+function wpHint(){if(WS.done)return;const q=WS.qs[WS.i];WS.hint++;const kw=kwOf(q.q);
+ if(WS.hint==1)say(kw.length?"💡 重点字提示：<br>"+kw.map(w=>`<mark>${w[0]}</mark> ${w[1]}`).join("<br>"):"💡 先读清楚题目：问的是什么？已经知道什么？");
+ else say(`💡 这题要经过 ${q.s.length} 个运算步骤。想一想：要先求出什么，再求什么？有括号的部分要先算。`)}
+function wpCheck(){if(WS.done)return;const q=WS.qs[WS.i],e=document.getElementById("wpa"),raw=e.value.trim();
+ if(!raw)return say("✏️ 请先把答案写进空格里哦！");const v=parseFloat(raw.replace(/,/g,"")),a=q.s[q.s.length-1][1];WS.tries++;
+ if(Math.abs(v-a)<0.005){const pts=Math.round((WS.tries==1?10:5)/(WS.hint?2:1));WS.pts+=pts;S.score+=pts;WS.ok++;WS.done=true;e.disabled=true;e.style.background="var(--ok)";e.style.color="#fff";
+  say(`🎉 答对了！+${pts} 分<br>${q.e}`);mas(P(CHEER),1);burst(12);fin()}
+ else if(WS.tries==1){e.style.borderColor="var(--bad)";say("再想一想～检查一下重点字和运算顺序，还有一次机会！💪")}
+ else{WS.done=true;WS.wrongs.push(q);e.disabled=true;e.style.background="var(--bad)";e.style.color="#fff";say(`没关系！<b>正确答案：${fmt(a)} ${q.u}</b><br>${q.e}`);fin()}}
+function fin(){document.getElementById("wpc").classList.add("hide");document.getElementById("wph").classList.add("hide");document.getElementById("nx").innerHTML=`<button class="btn" onclick="wpNext()">${WS.i<WS.n-1?"下一题 →":"查看成绩 🏁"}</button>`}
+function wpNext(){WS.i++;WS.i>=WS.n?wpEnd():wpShow()}
+function wpEnd(){const ok=WS.ok,r=ok/WS.n,s=r>=1?3:r>=.8?2:r>=.6?1:0;S.wpStars[WS.t]=Math.max(S.wpStars[WS.t]||0,s);
+ const rc={n:S.name,t:WS.t,ok,N:WS.n,pts:WS.pts,ts:Date.now()};const a=getW();a.push(rc);setW(a);const cd=[rc.n,"WP",rc.t,ok,WS.n,rc.pts,rc.ts].join("|");
+ app.innerHTML=`<div class="card"><div class="big">${["🌱","⭐","⭐⭐","⭐⭐⭐"][s]}</div><h2 style="text-align:center">${ok==WS.n?"全对！太厉害了！":r>=.6?"做得好！":"继续加油！"}</h2>
+ <p style="text-align:center">👤 ${S.name} · ${T[WS.t].n}应用题<br>答对 <b>${ok}/${WS.n}</b> 题 · 本次得分 <b>${WS.pts}</b> · 总分 <b>${S.score}</b></p><div class="prog"><i style="width:${r*100}%"></i></div>
+ ${WS.wrongs.length?`<details><summary><b>📝 要再练习的题（点开看）</b></summary>${WS.wrongs.map(q=>`<div class="fb" style="margin:6px 0">${hl(q.q)}${q.pic||""}<br>${q.e}</div>`).join("")}</details>`:"<p>🎯 没有错题！</p>"}
+ <p><a class="btn" style="display:inline-block;text-decoration:none" target="_blank" rel="noopener" href="${formURL(cd)}" onclick="gateStep()">📤 提交成绩给老师</a><br><small>点按钮后，在表单页面按「提交」。如果打不开，请复制下面的成绩代码发给老师。</small></p><p><small>📋 成绩代码（请复制发给老师）：</small><br><input readonly value="${cd}" onclick="this.select()" style="width:100%"></p><p><button class="btn alt" id="gcp" onclick="copyCode('${cd}')">📋 复制成绩代码</button></p><p id="gate" class="fb">请先提交成绩：<br>① 点「📤 提交成绩给老师」，在表单页面按「提交」；<br>② 回到这里，点下面的「✅ 我已经提交了」，才能继续玩。<br>（打不开表单？请点「复制成绩代码」，发给老师后再点「我已经提交了」。）<br><button class="btn" id="gok" disabled onclick="gateUnlock()">✅ 我已经提交了</button></p>
+ <p><button class="btn gl" disabled onclick="wpStart(${WS.t})">再玩一次</button> <button class="btn alt gl" disabled onclick="wpHome()">选别的单元</button> <button class="btn alt gl" disabled onclick="home()">回到星球地图</button></p></div>`}
+const FORM="https://docs.google.com/forms/d/e/1FAIpQLSdz9NU0nefGuQWuqM5IOBsdhD3fJ6OLEUlQuNq2V_c6JWAr7Q/viewform";
+const formURL=c=>FORM+"?usp=pp_url&entry.1757878284="+encodeURIComponent("六年级")+"&entry.298702918="+encodeURIComponent(c);
+function impWP(p){const r={n:p[0],t:+p[2],ok:+p[3],N:+p[4],pts:+p[5],ts:+p[6]};if(!ROSTER.includes(r.n)||[r.t,r.ok,r.N,r.pts,r.ts].some(isNaN)||!T[r.t]||r.N<1||r.ok<0||r.ok>r.N)return false;const a=getW();if(a.some(x=>x.n===r.n&&x.ts===r.ts))return false;a.push(r);setW(a);return true}
+function wpCard(){const A=getW();const rows=ROSTER.map(n=>{const a=A.filter(x=>x.n===n);if(!a.length)return `<tr><td>${n}</td><td colspan="4" style="color:var(--mute)">尚未游玩</td></tr>`;
+ const pc=z=>Math.round(z.reduce((s,x)=>s+x.ok,0)/z.reduce((s,x)=>s+x.N,0)*100);let wk="–",wa=101;T.forEach((t,i)=>{const z=a.filter(x=>x.t===i);if(z.length&&pc(z)<wa){wa=pc(z);wk=t.n+" "+wa+"%"}});
+ return `<tr><td><b>${n}</b></td><td>${a.length}次</td><td>${pc(a)}%</td><td>${a.reduce((s,x)=>s+x.pts,0)}</td><td>${wk}</td></tr>`}).join("");
+ return `<div class="card" style="overflow-x:auto"><b>📝 应用题成绩</b><table style="border-collapse:collapse;min-width:480px;text-align:center;font-size:14px;margin-top:6px"><tr style="color:var(--mute)"><th>学生</th><th>次数</th><th>完全答对率</th><th>总分</th><th>最弱单元</th></tr>${rows}</table></div>`}
+/* ===== extra question banks to reduce repeats ===== */
+(function(){
+const picBigX=e=>SV(86,EMO(170,66,e,58)),pic0=k=>SV(110,shape(k,k=="rect"?125:135,16,64));
+const SNX={cube:"正方体",cuboid:"长方体",cyl:"圆柱体",cone:"圆锥体",ball:"球体"},SHX={tri:"三角形",sq:"正方形",rect:"长方形"};
+const OBJX=[["骰子","🎲","cube"],["魔方","🧊","cube"],["篮球","🏀","ball"],["足球","⚽","ball"],["地球仪","🌍","ball"],["罐头","🥫","cyl"],["水杯","🥛","cyl"],["冰淇淋蛋筒","🍦","cone"],["礼物盒","🎁","cuboid"],["砖头","🧱","cuboid"],["排球","🏐","ball"],["网球","🎾","ball"],["保龄球","🎳","ball"],["纸箱","📦","cuboid"],["书本","📘","cuboid"],["鼓","🥁","cyl"]];
+const mixIn=(c,l,fns)=>{const old=T[c].g[l];T[c].g[l]=()=>Math.random()<.2?old():P(fns)()};
+const objGen=()=>{const [n,e,k]=P(OBJX);return pc(mkS(`${n}的形状最像什么？`,SNX[k],Object.values(SNX).filter(x=>x!==SNX[k]),`${n}像${SNX[k]}`,"想一想它的样子。"),picBigX(e))};
+const recGen=()=>{const k=P(Object.keys(SNX));return pc(mkS("图中的立体是什么？",SNX[k],Object.values(SNX).filter(x=>x!==SNX[k]),`这是${SNX[k]}`,"看看它有几个面、是什么形状。"),picSolid(k,false))};
+const shapeId=()=>{const k=P(["tri","sq","rect"]);return pc(mkS("图中的图形是什么？",SHX[k],Object.values(SHX).filter(x=>x!==SHX[k]).concat(["圆形","五边形"]),`这是${SHX[k]}`,"数一数它的边和角。"),pic0(k))};
+const SC={tri:[3,3],sq:[4,4],rect:[4,4]};
+const nmSide=()=>{const k=P(["tri","sq","rect"]);return pc(mkN(`${SHX[k]}有几条边？`,SC[k][0],[1,2,3],x=>x+" 条",`${SHX[k]}有 ${SC[k][0]} 条边`,"数一数它的边。"),pic0(k))};
+const nmCorn=()=>{const k=P(["tri","sq","rect"]);return pc(mkN(`${SHX[k]}有几个角？`,SC[k][1],[1,2,3],x=>x+" 个",`${SHX[k]}有 ${SC[k][1]} 个角`,"数一数它的角。"),pic0(k))};
+const sideGen=()=>{const k=P(["tri","sq","rect"]);return pc(mkN("图中的图形有几条边？",SC[k][0],[1,2,3],x=>x+" 条",`数一数，有 ${SC[k][0]} 条边`,"一条一条数。"),pic0(k))};
+const cornGen=()=>{const k=P(["tri","sq","rect"]);return pc(mkN("图中的图形有几个角？",SC[k][1],[1,2,3],x=>x+" 个",`数一数，有 ${SC[k][1]} 个角`,"一个一个数。"),pic0(k))};
+const nShape=()=>{const k=P(["tri","sq","rect"]),n=R(2,6),w=R(0,1);return pc(mkN(`${n} 个${SHX[k]}，一共有几${w?"个角":"条边"}？`,n*SC[k][w],[n,SC[k][w],2],x=>x,`${n} × ${SC[k][w]} = ${n*SC[k][w]}`,`每个有 ${SC[k][w]} ${w?"个角":"条边"}。`),picShapes([[k,n]]))};
+const mix3=()=>{const a=R(1,4),b=R(1,4),c=R(1,3),w=R(0,1);const t=a*SC.tri[w]+b*SC.sq[w]+c*SC.rect[w];return pc(mkN(`${a} 个三角形、${b} 个正方形和 ${c} 个长方形，一共有几${w?"个角":"条边"}？`,t,[a,b,3],x=>x,`${a} × ${SC.tri[w]} + ${b} × ${SC.sq[w]} + ${c} × ${SC.rect[w]} = ${t}`,"分别算，再相加。"),picShapes([["tri",a],["sq",b],["rect",c]]))};
+const FACE=[["cube","面",6],["cube","棱",12],["cube","顶点",8],["cuboid","面",6],["cuboid","棱",12],["cuboid","顶点",8],["cyl","平面",2],["cyl","曲面",1],["cone","平面",1],["cone","曲面",1],["ball","平面",0],["ball","曲面",1]];
+const edgeTxt=()=>{const k=P(["cube","cuboid"]);return pc(mkN(`${SNX[k]}有几条边（棱）？`,12,[4,8,6],x=>x+" 条",`${SNX[k]}有 12 条棱`,"数一数。"),picSolid(k,false))};
+const faceGen=()=>{const [k,p,v]=P(FACE);return pc(mkN(`${SNX[k]}有几个${p}？`,v,[1,2,4],x=>x+" 个",`${SNX[k]}有 ${v} 个${p}`,"看着图，数一数。"),picSolid(k,false))};
+const nCube=()=>{const k=P(["cube","cuboid"]),n=R(2,9),p=P([["面",6],["棱",12],["顶点",8]]);return pc(mkN(`${n} 个${SNX[k]}，一共有几个${p[0]}？`,n*p[1],[n,p[1],10],x=>x,`${n} × ${p[1]} = ${n*p[1]}`,`每个有 ${p[1]} 个${p[0]}。`),picSolids([[k,n]]))};
+const unfold=()=>{const [q,a,w]=P([["把正方体展开，会得到几个正方形？","6",["4","5","8"]],["把长方体展开，会得到几个长方形？","6",["4","5","8"]],["把圆柱体展开，会得到几个圆？","2",["1","3","4"]],["把圆锥体展开，会得到几个圆？","1",["2","3","0"]]]);return pc(mkS(q,a,w,`答案是 ${a}`,"想一想它的上下面和侧面。"),picSolid(q.includes("正方体")?"cube":q.includes("长方体")?"cuboid":q.includes("圆柱")?"cyl":"cone",false))};
+const THINGS=[["颗","糖","🍬"],["个","苹果","🍎"],["块","饼干","🍪"],["张","贴纸","⭐"],["个","气球","🎈"]],ITEM_PIE=["圆饼","披萨","蛋糕","西瓜"],ITEM_BAR=["巧克力","面包","蛋糕条"];
+const fr0=()=>{const [d,k]=P([[2,1],[4,1],[4,2],[4,3]]),pie=R(0,1),it=pie?P(ITEM_PIE):P(ITEM_BAR),nm=`${k}/${d}`,w=d==2?["1/4","1/3","2/3"]:["1/2","1/4","2/4","3/4"].filter(x=>x!==nm);return pc(mkS(`一个${it}平均分成 ${d} 份，吃了 ${k} 份，吃了几分之几？`,nm,w,`分成 ${d} 份是分母，吃了 ${k} 份是分子：${nm}`,"分母是平均分成几份，分子是取了几份。"),pie?picPieF(k,d):picRectF(k,d))};
+const fr1=()=>{const [u,t,e]=P(THINGS),n=R(2,10);return pc(mkN(`${2*n} ${u}${t}平均分成 2 份，每份是它的二分之一，是多少${u}？`,n,[1,2,n+1],id,`${2*n} ÷ 2 = ${n}`,"平均分成 2 份。"),picBoxes(2,n,e,0,"平均分成 2 份"))};
+const fr2=()=>{const [u,t,e]=P(THINGS),n=R(2,6);return pc(mkN(`${4*n} ${u}${t}平均分成 4 份，每份是它的四分之一，是多少${u}？`,n,[1,2,n+1],id,`${4*n} ÷ 4 = ${n}`,"平均分成 4 份。"),picBoxes(4,n,e,0,"平均分成 4 份"))};
+const fr3=()=>{const [u,t,e]=P(THINGS),n=R(2,6);return pc(mkN(`${4*n} ${u}${t}，吃了 3/4，吃了几${u}？`,3*n,[n,1,2],id,`每份 ${n} ${u}，3 份就是 ${3*n} ${u}`,"先求每一份是几个。"),picBoxes(4,n,e,3,"4 份里吃了 3 份"))};
+const PR=[[3,"三角形",5,9,6],[4,"四边形",6,12,8],[5,"五边形",7,15,10],[6,"六边形",8,18,12],[7,"七边形",9,21,14],[8,"八边形",10,24,16]];
+const prism=()=>{const [n,nm,f,e,v]=P(PR),p=P([["面",f],["棱",e],["顶点",v]]);return pc(mkN(`底面是${nm}的棱柱体，有几个${p[0]}？`,p[1],[1,2,n],x=>x+" 个",`棱柱体：面 = ${n} + 2 = ${f}；棱 = ${n} × 3 = ${e}；顶点 = ${n} × 2 = ${v}`,"数一数底面和侧面。"),picPoly(n))};
+const polyN=()=>{const [n,nm]=P([[5,"五边形"],[6,"六边形"],[7,"七边形"],[8,"八边形"],[9,"九边形"],[10,"十边形"]]);return pc(mkN("图中的多边形有几条边？",n,[1,2,3],x=>x+" 条",`数一数，有 ${n} 条边`,"一条一条数。"),picPoly(n))};
+const AX=[[3,"等边三角形",3],[4,"正方形",4],[5,"正五边形",5],[6,"正六边形",6],[8,"正八边形",8]];
+const axis=()=>{const [n,nm,a]=P(AX);return pc(mkN(`${nm}有几条对称轴？`,a,[1,2,n+1],x=>x+" 条",`${nm}的对称轴和边数一样多：${a} 条`,"想一想怎样对折能完全重合。"),picPoly(n))};
+const chart=()=>{const [q,a]=P([["要比较各班人数的多少","条形统计图"],["要比较四种水果的销量","条形统计图"],["要看各部分占整体的百分之几","饼分图"],["要看班上男生和女生各占百分之几","饼分图"],["要用图案表示数量","象形统计图"],["要用一个图案代表几个来表示数量","象形统计图"],["要比较各种宠物的数量","条形统计图"],["要看零用钱各项用途占多少百分比","饼分图"],["要比较三个班的得分","条形统计图"],["要看全班喜欢的颜色各占几成","饼分图"]]);return mkS(`${q}，用什么统计图最合适？`,a,["条形统计图","饼分图","象形统计图","折线统计图"].filter(x=>x!==a).slice(0,3),`${q}：${a}`,"想一想每种图的用处。")};
+const polySum=()=>{const n=R(3,12),nm={3:"三",4:"四",5:"五",6:"六",7:"七",8:"八",9:"九",10:"十",11:"十一",12:"十二"}[n];return pc(mkN(`${nm}边形的内角和是多少度？`,(n-2)*180,[180,90,360],v=>v+"°",`(${n} − 2) × 180° = ${(n-2)*180}°`,"多边形内角和 = (边数 − 2) × 180°。"),picPoly(n))};
+const triMiss=()=>{const a=R(30,80),b=R(30,70);return pc(mkN("看图，三角形的第三个角是多少度？",180-a-b,[5,10,20],x=>x+"°",`180 − ${a} − ${b} = ${180-a-b}°`,"三角形内角和 = 180°。"),picTriAng(a,b))};
+const lineAng=()=>{const a=R(20,160);return pc(mkN(`一条直线上有两个角，其中一个是 ${a}°，另一个是多少度？`,180-a,[5,10,20],x=>x+"°",`180 − ${a} = ${180-a}°`,"直线上的角加起来是 180°。"),picStraightAng(a))};
+const around=()=>{const a=R(60,140),b=R(60,140);return pc(mkN(`一个点周围有三个角，其中两个是 ${a}° 和 ${b}°，第三个角是多少度？`,360-a-b,[5,10,20],x=>x+"°",`360 − ${a} − ${b} = ${360-a-b}°`,"一个点周围的角加起来是 360°。"),picAround(a,b))};
+const mm=(x)=>x;
+const G=typeof GR==="undefined"?6:GR;
+if(G==1){mixIn(6,0,[objGen,recGen]);mixIn(6,1,[shapeId,sideGen,cornGen,nmSide,nmCorn]);mixIn(6,2,[nShape]);mixIn(6,3,[mix3]);mixIn(2,0,[fr0]);mixIn(2,1,[fr1]);mixIn(2,2,[fr2]);mixIn(2,3,[fr3,fr1,fr2])}
+if(G==2){mixIn(6,0,[objGen,recGen]);mixIn(6,1,[faceGen,edgeTxt]);mixIn(6,2,[shapeId,sideGen,cornGen,nmSide,nmCorn]);mixIn(6,3,[nCube,unfold]);
+ const U2=s=>x=>fmt(x)+" "+s;mixIn(5,0,[()=>{const x=R(2,19);return mkN(`${x} m = 多少 cm？`,100*x,[10,100,50],U2("cm"),`${x} × 100 = ${100*x} cm`,"1 m = 100 cm。")},()=>{const k=R(2,19);return mkN(`${k} kg = 多少 g？`,1000*k,[100,500,1000],U2("g"),`${k} × 1 000 = ${fmt(1000*k)} g`,"1 kg = 1 000 g。")},()=>{const l=R(2,19);return mkN(`${l} ℓ = 多少 mℓ？`,1000*l,[100,500,1000],U2("mℓ"),`${l} × 1 000 = ${fmt(1000*l)} mℓ`,"1 ℓ = 1 000 mℓ。")}])}
+if(G==3){mixIn(6,0,[prism,faceGen]);mixIn(6,1,[polyN,axis]);mixIn(6,2,[prism,axis]);mixIn(6,3,[polyN,axis,prism]);mixIn(8,2,[chart])}
+if(G==6){mixIn(5,0,[polySum,triMiss,lineAng,around]);mixIn(5,1,[polySum,triMiss,lineAng,around]);mixIn(5,2,[polySum,triMiss])}
+})();
+
+(function(){let z=null;try{z=JSON.parse(sessionStorage.getItem("asc_student")||"null")}catch(e){}if(!z||!z.name){const q=new URLSearchParams(location.search).get("s");if(q)z={name:q,year:6}}const ok=z&&z.year==6&&ACC.some(a=>a.n===z.name);if(ok){S.name=z.name;try{sessionStorage.setItem("asc_student",JSON.stringify({name:z.name,year:6}))}catch(e){}home()}else{location.replace("index.html")}})();
+</script>
+
+</body>
+</html>
