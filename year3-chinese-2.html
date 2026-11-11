@@ -189,36 +189,12 @@ body.py .chip,body.py .tile{padding-top:2px;padding-bottom:2px}
 .dot.bad{background:var(--bad)}
 .dot.on.ok,.dot.on.bad{outline:3px solid var(--accent);outline-offset:1px}
 @media (max-width:460px){.pgbtn{min-width:96px;font-size:16px;padding:4px 10px}}
-
-.pybtn{font:inherit;font-size:16px;font-weight:700;min-height:44px;padding:4px 14px;border:3px solid var(--line);border-radius:14px;background:var(--panel);color:var(--ink);cursor:pointer}
-.pybtn[aria-pressed="true"]{background:#3a7bf0;color:#fff}
-.pyc{display:inline-flex;flex-direction:column;align-items:center;line-height:1.15;vertical-align:bottom;text-indent:0;margin:0 1px}
-.pyc i{font-style:normal;font-size:.56em;font-weight:400;color:inherit;opacity:.8;font-family:"Helvetica Neue",Arial,sans-serif;white-space:nowrap}
-.say{font:inherit;font-size:17px;min-width:40px;min-height:40px;padding:0 6px;margin-right:8px;border:2px solid var(--line);border-radius:12px;background:#ffe9a8;color:#2a2340;cursor:pointer;vertical-align:middle;line-height:1;flex:none}
-.say:active,.chip.tap:active{transform:scale(.92)}
-.voicebar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:10px;padding:8px 10px;border:2px dashed var(--line);border-radius:14px;background:var(--soft);font-weight:700}
-.voicebar select{font:inherit;font-size:15px;min-height:40px;max-width:100%;border:2px solid var(--line);border-radius:10px;background:var(--panel);color:var(--ink);padding:0 8px}
-#voiceSel{flex:1 1 200px;min-width:0}
-.rd{margin-top:14px;padding:12px 14px;border:3px solid var(--line);border-radius:16px;background:var(--soft)}
-.rdh{font-weight:700;font-size:16px;margin-bottom:6px}
-.rl{display:flex;align-items:flex-start;margin:8px 0;font-size:20px;line-height:1.9}
-.rl.ins{font-weight:700}
-.rl.para{font-size:19px}
-.rl .say{margin-top:4px}
-.chips{display:flex;flex-wrap:wrap;gap:8px;margin:4px 0 10px 48px}
-.chip{display:inline-flex;align-items:flex-end;min-height:44px;padding:2px 12px;border:2px solid var(--line);border-radius:12px;background:var(--panel);font-size:20px;font-weight:700}
-.chip.tap{cursor:pointer;background:#fff3cf}
-.listen{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:6px}
-.listenbtn{font-size:20px}
-.rdnote{margin:4px 0;font-weight:700}
-.muted{color:var(--muted)}
-.voicebar[hidden]{display:none}
 </style>
 </head>
 <body>
 <header class="top"><div class="top-in">
   <h1 class="t">📘 三年级华文 · 课堂评估</h1>
-  <div class="hdr-r"><button class="pybtn" id="pyBtn" aria-pressed="false">拼音：关</button><button class="pybtn" id="ttsBtn" aria-pressed="false">点读：关</button><span class="score scorebox" id="score">未检查</span></div>
+  <div class="hdr-r"><span class="score scorebox" id="score">未检查</span></div>
 </div></header>
 <main class="wrap">
   <div class="sheetbar">
@@ -226,11 +202,6 @@ body.py .chip,body.py .tile{padding-top:2px;padding-bottom:2px}
     <button class="btn sm" id="checkBtn">检查答案</button>
     <button class="btn sm alt" id="revealBtn">显示答案</button>
     <button class="btn sm alt" id="resetBtn">重做</button>
-  </div>
-  <div class="voicebar" id="voiceBar" hidden>
-    <label for="voiceSel">🔊 声音</label><select id="voiceSel"></select>
-    <label for="rateSel">速度</label><select id="rateSel"><option value="0.65">慢</option><option value="0.8">正常</option><option value="0.95">快</option></select>
-    <button class="btn sm alt" id="voiceTest">试听</button>
   </div>
   <div class="navline"><a href="index.html">← 返回学习中心 Learning Hub</a>　<span class="muted">图片题请对照纸质练习本作答。</span></div>
   <div id="view"></div>
@@ -377,15 +348,14 @@ function showSheet(key){
   const sh = DATA[book][+idx];
   current = key;
   $('sheetSel').value = key;
-  let h = `<section class="card"><div class="sec-h"><span class="tag">华文${book} · 课堂评估 ${sh.no}</span><h2 class="t shead" data-t="${esc(sh.unit)}">${esc(sh.unit)}</h2></div>
-    <p class="inst" data-say-title>${esc(sh.title)}</p></section>`;
+  let h = `<section class="card"><div class="sec-h"><span class="tag">华文${book} · 课堂评估 ${sh.no}</span><h2 class="t">${esc(sh.unit)}</h2></div>
+    <p class="inst">${esc(sh.title)}</p></section>`;
   sh.secs.forEach(sec => {
     if(sec.overlay && sec.overlay.skip) return;
-    const si = sh.secs.indexOf(sec);
-    h += sec.overlay ? `<section class="card pg" data-si="${si}">` : `<section class="card pg" data-si="${si}"><p class="inst" style="color:var(--ink);font-weight:700">${esc(sec.ins)}</p>`;
+    h += sec.overlay ? `<section class="card pg">` : `<section class="card pg"><p class="inst" style="color:var(--ink);font-weight:700">${esc(sec.ins)}</p>`;
     const pk = book + '-' + sh.no + '-' + sh.secs.indexOf(sec);
     if(!sec.overlay && PICS[pk] && !sec.items.some((it, idx) => PICS[pk + '-' + idx])) h += `<img class="pic-strip" src="${PICS[pk]}" alt="题目图片" loading="lazy">`;
-    if(sec.overlay){ h += renderOverlay(sec.overlay) + `<div data-rd="${si}"></div>`; }
+    if(sec.overlay){ h += renderOverlay(sec.overlay); }
     else sec.items.forEach((it, idx) => {
       const cp = PICS[pk + '-' + idx];
       if(cp) h += `<div class="cellrow"><img class="cell" src="${cp}" alt="图${idx + 1}"><div class="cellq">${renderItem(it)}</div></div>`;
@@ -395,8 +365,6 @@ function showSheet(key){
     h += '</section>';
   });
   $('view').innerHTML = h + PAGER;
-  CUR_SECS = sh.secs;
-  refreshPanels();
   $('score').textContent = '未检查';
   goPage(0);
 }
@@ -480,170 +448,6 @@ document.addEventListener('click', e => {
 });
 
 
-
-/* =====================================================
-   拼音 + 点读（跟「看图学华文」一样）
-===================================================== */
-const PY={};'一yī 丁dīng 七qī 万wàn 三sān 上shàng 下xià 不bù 与yǔ 丑chǒu 且qiě 世shì 业yè 丝sī 两liǎng 个gè 中zhōng 丰fēng 临lín 为wèi 主zhǔ 丽lì 举jǔ 久jiǔ 么me 义yì 之zhī 乐lè 乒pīng 乓pāng 乘chéng 九jiǔ 也yě 习xí 乡xiāng 书shū 买mǎi 了le 争zhēng 事shì 二èr 于yú 云yún 互hù 五wǔ 井jǐng 亚yà 些xiē 交jiāo 亭tíng 亮liàng 亲qīn 人rén 什shén 仁rén 仅jǐn 今jīn 介jiè 从cóng 他tā 付fù 仙xiān 令lìng 以yǐ 们men 件jiàn 价jià 任rèn 份fèn 仿fǎng 休xiū 优yōu 伙huǒ 会huì 伞sǎn 伟wěi 传chuán 伦lún 伴bàn 但dàn 位wèi 住zhù 体tǐ 何hé 佛fó 作zuò 你nǐ 使shǐ 例lì 供gōng 依yī 便biàn 保bǎo 信xìn 俭jiǎn 倒dǎo 值zhí 假jià 偏piān 做zuò 偶ǒu 傍bàng 傲ào 像xiàng 儿ér 允yǔn 元yuán 兆zhào 先xiān 光guāng 克kè 免miǎn 兔tù 入rù 全quán 八bā 公gōng 六liù 兰lán 共gòng 关guān 兴xìng 兵bīng 其qí 具jù 养yǎng 内nèi 再zài 冒mào 写xiě 军jūn 冠guàn 冰bīng 冲chōng 决jué 况kuàng 冷lěng 净jìng 准zhǔn 凉liáng 减jiǎn 几jǐ 凤fèng 凶xiōng 出chū 击jī 分fēn 切qiē 列liè 则zé 刚gāng 创chuàng 利lì 别bié 到dào 刻kè 前qián 剩shèng 力lì 办bàn 功gōng 加jiā 务wù 动dòng 助zhù 努nǔ 励lì 勇yǒng 勺sháo 包bāo 匙chí 匠jiàng 区qū 医yī 十shí 千qiān 午wǔ 华huá 单dān 卖mài 卜bǔ 卡kǎ 卫wèi 印yìn 却què 卷juǎn 厂chǎng 厅tīng 历lì 压yā 厌yàn 原yuán 厦shà 厨chú 去qù 参cān 又yòu 友yǒu 反fǎn 发fā 叔shū 取qǔ 受shòu 变biàn 口kǒu 古gǔ 句jù 另lìng 只zhǐ 叫jiào 可kě 台tái 史shǐ 叶yè 号hào 吃chī 各gè 合hé 吉jí 同tóng 名míng 后hòu 向xiàng 吓xià 否fǒu 吧ba 吩fēn 听tīng 启qǐ 吴wú 吵chǎo 吹chuī 吼hǒu 呀ya 告gào 员yuán 呢ne 周zhōu 味wèi 呼hū 命mìng 和hé 咐fù 咬yǎo 品pǐn 哈hā 响xiǎng 哥gē 哪nǎ 哭kū 唱chàng 啄zhuó 啊a 啦la 善shàn 喜xǐ 喝hē 嘴zuǐ 器qì 四sì 回huí 因yīn 团tuán 园yuán 困kùn 国guó 图tú 圆yuán 圈quān 土tǔ 圣shèng 在zài 地dì 场chǎng 圾jī 坐zuò 块kuài 坚jiān 坡pō 垂chuí 垃lā 培péi 填tián 境jìng 增zēng 墨mò 士shì 壮zhuàng 声shēng 壳ké 处chù 备bèi 复fù 夏xià 外wài 多duō 夜yè 够gòu 大dà 天tiān 太tài 夫fū 失shī 头tóu 夸kuā 奇qí 奉fèng 奋fèn 奖jiǎng 女nǚ 奶nǎi 她tā 好hǎo 如rú 妇fù 妈mā 妙miào 妨fáng 妹mèi 始shǐ 姐jiě 娃wá 婆pó 子zǐ 字zì 季jì 学xué 孩hái 它tā 守shǒu 安ān 完wán 官guān 定dìng 宜yí 宝bǎo 实shí 客kè 宣xuān 宫gōng 害hài 家jiā 容róng 寄jì 富fù 寒hán 对duì 寺sì 导dǎo 封fēng 射shè 将jiāng 尊zūn 小xiǎo 少shǎo 尔ěr 尖jiān 尝cháng 就jiù 尺chǐ 尼ní 尽jìn 尾wěi 局jú 居jū 屋wū 展zhǎn 山shān 峰fēng 巡xún 巢cháo 工gōng 巧qiǎo 巨jù 己jǐ 已yǐ 巴bā 巾jīn 币bì 布bù 帆fān 师shī 希xī 帐zhàng 带dài 席xí 帮bāng 常cháng 帽mào 幕mù 干gān 年nián 并bìng 幸xìng 庄zhuāng 序xù 库kù 应yīng 底dǐ 店diàn 庙miào 度dù 座zuò 建jiàn 开kāi 弃qì 弄nòng 式shì 弓gōng 弟dì 张zhāng 弱ruò 弹tán 强qiáng 当dāng 录lù 形xíng 彩cǎi 影yǐng 往wǎng 待dài 很hěn 律lǜ 徒tú 得de 心xīn 忆yì 忍rěn 忘wàng 快kuài 念niàn 怀huái 态tài 怎zěn 怡yí 急jí 性xìng 恩ēn 息xī 恳kěn 悔huǐ 您nín 悲bēi 情qíng 惊jīng 惨cǎn 想xiǎng 意yì 感gǎn 愿yuàn 慕mù 慢màn 慧huì 懂dǒng 成chéng 我wǒ 战zhàn 房fáng 所suǒ 扇shàn 手shǒu 才cái 打dǎ 托tuō 扫sǎo 扬yáng 扮bàn 扯chě 找zhǎo 承chéng 技jì 抄chāo 把bǎ 抓zhuā 抖dǒu 折zhé 护hù 报bào 抬tái 抱bào 抵dǐ 抹mǒ 担dān 拉lā 拒jù 拔bá 招zhāo 拥yōng 择zé 括kuò 拳quán 持chí 指zhǐ 挑tiāo 捉zhuō 捡jiǎn 据jù 掌zhǎng 探tàn 接jiē 推tuī 掩yǎn 提tí 插chā 搬bān 搭dā 摆bǎi 摇yáo 摸mō 撕sī 操cāo 支zhī 收shōu 改gǎi 攻gōng 放fàng 故gù 敌dí 救jiù 教jiào 敦dūn 敬jìng 数shù 整zhěng 文wén 斑bān 斗dòu 料liào 斤jīn 断duàn 斯sī 新xīn 方fāng 施shī 旁páng 旅lǚ 旗qí 无wú 日rì 早zǎo 旱hàn 时shí 明míng 易yì 星xīng 春chūn 是shì 晒shài 晚wǎn 景jǐng 晶jīng 智zhì 晾liàng 暖nuǎn 曲qū 更gèng 曾céng 最zuì 月yuè 有yǒu 朋péng 服fú 朗lǎng 望wàng 期qī 木mù 未wèi 末mò 本běn 术shù 朵duǒ 机jī 李lǐ 材cái 村cūn 束shù 条tiáo 来lái 极jí 构gòu 枕zhěn 林lín 果guǒ 枯kū 架jià 染rǎn 柴chái 标biāo 栏lán 树shù 校xiào 株zhū 样yàng 根gēn 格gé 栽zāi 框kuàng 案àn 桌zhuō 桥qiáo 桶tǒng 梅méi 梨lí 梯tī 梵fàn 检jiǎn 棉mián 棍gùn 棵kē 椅yǐ 植zhí 楚chǔ 楼lóu 榴liú 模mó 横héng 橙chéng 橡xiàng 次cì 欢huān 欣xīn 欺qī 歉qiàn 歌gē 止zhǐ 正zhèng 此cǐ 步bù 死sǐ 残cán 段duàn 每měi 毒dú 比bǐ 毛máo 毯tǎn 民mín 气qì 水shuǐ 永yǒng 汁zhī 求qiú 汉hàn 汗hàn 池chí 汪wāng 沃wò 沉chén 沙shā 没méi 河hé 油yóu 法fǎ 泡pào 波bō 泥ní 泪lèi 泳yǒng 泼pō 洁jié 洋yáng 洗xǐ 洞dòng 活huó 浆jiāng 浇jiāo 测cè 济jì 浪làng 浮fú 海hǎi 浸jìn 消xiāo 涯yá 淋lín 深shēn 混hùn 淹yān 清qīng 渔yú 温wēn 渴kě 游yóu 湖hú 湿shī 漂piāo 演yǎn 激jī 火huǒ 灯dēng 灰huī 灾zāi 炎yán 炒chǎo 炮pào 炸zhà 点diǎn 烈liè 烛zhú 烟yān 烧shāo 热rè 然rán 照zhào 燃rán 爪zhuǎ 爱ài 父fù 爷yé 爸bà 片piàn 牙yá 牢láo 物wù 特tè 犯fàn 状zhuàng 狐hú 狮shī 狸lí 猎liè 猛měng 猜cāi 猫māo 献xiàn 玉yù 玩wán 环huán 现xiàn 玲líng 珍zhēn 班bān 球qiú 理lǐ 琪qí 琴qín 瓦wǎ 瓶píng 甜tián 生shēng 用yòng 由yóu 甲jiǎ 电diàn 画huà 界jiè 留liú 疑yí 疾jí 病bìng 白bái 百bǎi 的de 皮pí 皿mǐn 盆pén 盒hé 盗dào 盘pán 目mù 直zhí 相xiāng 省shěng 看kàn 真zhēn 眯mī 眼yǎn 着zhe 睛jīng 睡shuì 知zhī 短duǎn 石shí 矿kuàng 砍kǎn 砖zhuān 破pò 确què 碎suì 示shì 礼lǐ 祝zhù 神shén 票piào 祸huò 禁jìn 福fú 离lí 种zhǒng 科kē 秧yāng 秩zhì 称chēng 程chéng 穷qióng 空kōng 突tū 立lì 站zhàn 童tóng 竹zhú 笑xiào 笔bǐ 符fú 第dì 笼lóng 等děng 筋jīn 筑zhù 筒tǒng 答dá 筝zhēng 签qiān 算suàn 管guǎn 箭jiàn 箱xiāng 篇piān 篷péng 簿bù 米mǐ 类lèi 粉fěn 粗cū 粮liáng 精jīng 糕gāo 糖táng 系xì 紧jǐn 繁fán 约yuē 级jí 纪jì 纱shā 纸zhǐ 纹wén 线xiàn 练liàn 组zǔ 细xì 终zhōng 绍shào 经jīng 结jié 绕rào 给gěi 络luò 绝jué 继jì 续xù 绳shéng 维wéi 绿lǜ 缓huǎn 缺quē 罐guàn 网wǎng 美měi 翔xiáng 翻fān 耀yào 老lǎo 考kǎo 者zhě 而ér 耐nài 耳ěr 聆líng 职zhí 联lián 聪cōng 肘zhǒu 肠cháng 股gǔ 肥féi 肩jiān 肮āng 肯kěn 育yù 肺fèi 背bèi 胜shèng 胡hú 胶jiāo 能néng 脏zāng 脑nǎo 脸liǎn 腰yāo 腿tuǐ 膀bǎng 臂bì 自zì 臭chòu 致zhì 舌shé 舍shè 航háng 船chuán 艘sōu 良liáng 色sè 艳yàn 节jié 芒máng 花huā 苍cāng 苦kǔ 英yīng 苹píng 范fàn 茶chá 草cǎo 荣róng 药yào 荷hé 莎shā 莲lián 获huò 菜cài 萄táo 萝luó 营yíng 落luò 著zhù 葡pú 蒙méng 蔡cài 蕉jiāo 薄báo 薯shǔ 藏cáng 虎hǔ 虹hóng 虽suī 蚊wén 蛀zhù 蛋dàn 蛙wā 蜂fēng 蜗wō 蜜mì 蜡là 蝇yíng 血xuè 行xíng 衣yī 补bǔ 表biǎo 衲nà 袋dài 袖xiù 袜wà 被bèi 装zhuāng 裙qún 褐hè 褪tuì 要yào 见jiàn 观guān 规guī 视shì 觉jué 角jiǎo 解jiě 言yán 计jì 认rèn 讨tǎo 让ràng 训xùn 记jì 讲jiǎng 许xǔ 设shè 访fǎng 证zhèng 识shí 词cí 试shì 诗shī 诚chéng 话huà 诞dàn 该gāi 详xiáng 语yǔ 误wù 说shuō 请qǐng 诺nuò 读dú 课kè 谁shéi 调diào 谅liàng 谎huǎng 谜mí 谢xiè 谷gǔ 豆dòu 象xiàng 貌mào 贝bèi 负fù 财cái 责zé 贤xián 败bài 货huò 质zhì 贪tān 贫pín 购gòu 贴tiē 贵guì 费fèi 贺hè 赏shǎng 赛sài 赞zàn 赠zèng 走zǒu 赶gǎn 起qǐ 超chāo 越yuè 趣qù 跃yuè 跑pǎo 跟gēn 路lù 跳tiào 踩cǎi 身shēn 躲duǒ 躺tǎng 车chē 转zhuǎn 轮lún 轻qīng 较jiào 辛xīn 辞cí 辣là 边biān 达dá 过guò 运yùn 近jìn 返fǎn 还hái 这zhè 进jìn 远yuǎn 连lián 迟chí 迪dí 迫pò 迷mí 退tuì 送sòng 逃táo 选xuǎn 途tú 通tōng 造zào 遇yù 遍biàn 道dào 遵zūn 避bì 邀yāo 那nà 邮yóu 部bù 都dōu 配pèi 酪lào 醒xǐng 采cǎi 释shì 里lǐ 重zhòng 野yě 量liàng 金jīn 钉dīng 钞chāo 钟zhōng 钢gāng 钥yào 钱qián 铃líng 铅qiān 销xiāo 锅guō 错cuò 锡xī 锤chuí 长cháng 门mén 闪shǎn 闭bì 问wèn 闲xián 间jiān 阅yuè 防fáng 阳yáng 阵zhèn 阻zǔ 附fù 陈chén 院yuàn 除chú 险xiǎn 隆lóng 随suí 难nán 雄xióng 雨yǔ 雪xuě 零líng 需xū 露lù 青qīng 非fēi 面miàn 鞋xié 鞭biān 音yīn 项xiàng 顺shùn 顽wán 顾gù 顿dùn 颁bān 预yù 颈jǐng 颗kē 题tí 风fēng 飞fēi 食shí 饥jī 饭fàn 饼bǐng 饿è 馆guǎn 馋chán 首shǒu 香xiāng 马mǎ 驴lǘ 驶shǐ 驾jià 骄jiāo 验yàn 骗piàn 骤zhòu 骨gǔ 高gāo 鬼guǐ 魔mó 鲜xiān 鸟niǎo 鸡jī 鸣míng 鸭yā 鹅é 鹰yīng 鹿lù 黑hēi 默mò 鼓gǔ 鼠shǔ 齐qí 齿chǐ 龙lóng 龟guī'.split(' ').forEach(t=>{if(t)PY[t[0]]=t.slice(1);});
-const WORDPY={};'哥哥:gē ge|弟弟:dì di|什么:shén me|怎么:zěn me|觉得:jué de|空格:kòng gé|得到:dé dào|因为:yīn wèi|太阳:tài yáng|大地:dà dì|地方:dì fāng|头发:tóu fa|教我:jiāo wǒ|花儿:huā er|校长:xiào zhǎng|班长:bān zhǎng|生长:shēng zhǎng|长颈鹿:cháng jǐng lù|便宜:pián yi|答应:dā ying|相应:xiāng yìng|应用:yìng yòng|卷曲:juǎn qū|反省:fǎn xǐng|爱好:ài hào|睡觉:shuì jiào|转一转:zhuàn yi zhuàn|试卷:shì juàn|原卷:yuán juàn|刻薄:kè bó|薄礼:bó lǐ|薄荷:bò he|单薄:dān bó|模具:mú jù|模样:mú yàng|困难:kùn nan|一只:yì zhī|睡着:shuì zháo|着急:zháo jí|衣着:yī zhuó|首都:shǒu dū|音乐:yīn yuè|认为:rèn wéi|成为:chéng wéi|行为:xíng wéi|得知:dé zhī|获得:huò dé|得救:dé jiù|取得:qǔ dé|自得:zì dé|记得:jì de|懂得:dǒng de|值得:zhí de|心地:xīn dì|地区:dì qū|雪地:xuě dì|地球:dì qiú|地毯:dì tǎn|地位:dì wèi|地标:dì biāo|目的地:mù dì dì|了不起:liǎo bu qǐ|仿佛:fǎng fú|漂亮:piào liang|兴兴:xìng xìng|高兴:gāo xìng|兴隆:xīng lóng|强求:qiǎng qiú|强迫:qiǎng pò|妈妈:mā ma|爸爸:bà ba|姐姐:jiě jie|妹妹:mèi mei|奶奶:nǎi nai|爷爷:yé ye|叔叔:shū shu|朋友:péng you|葡萄:pú tao|萝卜:luó bo|钥匙:yào shi|狐狸:hú li|风筝:fēng zheng|喜欢:xǐ huan|眼睛:yǎn jing|尾巴:wěi ba|嘴巴:zuǐ ba|月亮:yuè liang|事情:shì qing|知道:zhī dao|这么:zhè me|多么:duō me|聪明:cōng ming|力气:lì qi|消息:xiāo xi|早上:zǎo shang|骨头:gǔ tou|伙伴:huǒ bàn|一会儿:yí huì r|点儿:diǎn r|影儿:yǐng r|鸟儿:niǎo ér'.split('|').forEach(t=>{const[w,p]=t.split(':');WORDPY[w]=p.split(' ');});
-function toneOf(p){if(!p)return 0;if(/[āēīōūǖ]/.test(p))return 1;if(/[áéíóúǘ]/.test(p))return 2;if(/[ǎěǐǒǔǚ]/.test(p))return 3;if(/[àèìòùǜ]/.test(p))return 4;return 0;}
-const isHan=c=>/[\u4e00-\u9fff]/.test(c);
-function pinyinOf(text){
-  const out=new Array(text.length).fill(null),fixed=new Array(text.length).fill(false);
-  let i=0;
-  while(i<text.length){
-    let hit=0;
-    for(let n=3;n>=2;n--){const w=text.substr(i,n);if(WORDPY[w]){WORDPY[w].forEach((p,k)=>{out[i+k]=p;fixed[i+k]=true;});hit=n;break;}}
-    if(hit){i+=hit;continue;}
-    const c=text[i];if(isHan(c))out[i]=PY[c]||null;i++;
-  }
-  for(let k=0;k<text.length;k++){
-    if(fixed[k])continue;const c=text[k],prev=text[k-1]||'',next=text[k+1]||'';
-    if(c==='子'&&isHan(prev)&&prev!=='仔')out[k]='zi';
-    else if(c==='地'){out[k]=((next&&'上面方'.includes(next))||(prev&&'大土草'.includes(prev)))?'dì':'de';}
-    else if(c==='得'){out[k]=(next&&'奖到'.includes(next))?'dé':'de';}
-    else if(c==='空'&&!isHan(prev))out[k]='kòng';
-    else if(c==='一'){
-      if(prev==='第'||!isHan(next)||/[0-9０-９]/.test(next))out[k]='yī';
-      else if(isHan(prev)&&prev===next)out[k]='yi';
-      else{const t=toneOf(out[k+1]||PY[next]);out[k]=t===4?'yí':(t>=1&&t<=3?'yì':'yī');}
-    }
-    else if(c==='不'){const t=toneOf(out[k+1]||PY[next]);out[k]=t===4?'bú':'bù';}
-  }
-  return out;
-}
-function rubyText(text){
-  const p=pinyinOf(text);let h='';
-  for(let k=0;k<text.length;k++){let c=text[k];
-    if(p[k]){h+=`<span class="pyc"><i>${p[k]}</i>${c}</span>`;continue;}
-    const cc=text.charCodeAt(k);if(cc>=0xD800&&cc<=0xDBFF&&k+1<text.length){c+=text[k+1];k++;}
-    while(k+1<text.length&&/[\uFE0F\u200D]/.test(text[k+1])){c+=text[k+1];k++;}
-    h+=/\s/.test(c)?c:`<span class="pyc"><i>&nbsp;</i>${esc(c)}</span>`;}
-  return h;
-}
-function applyPinyin(root){
-  const w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode(n){
-    const el=n.parentElement;if(!el||!/[\u4e00-\u9fff]/.test(n.nodeValue))return NodeFilter.FILTER_REJECT;
-    if(el.closest('textarea,svg,.pyc,.nopy,.n,script,style'))return NodeFilter.FILTER_REJECT;
-    return NodeFilter.FILTER_ACCEPT;}});
-  const list=[];while(w.nextNode())list.push(w.currentNode);
-  list.forEach(n=>{const span=document.createElement('span');span.innerHTML=rubyText(n.nodeValue);n.replaceWith(...span.childNodes);});
-}
-
-const PREF_KEY='cn2_pref';
-let PREF={py:false,tts:false,voice:'',rate:0.8};
-try{Object.assign(PREF,JSON.parse(localStorage.getItem(PREF_KEY)||'{}'));}catch(e){}
-const savePref=()=>{try{localStorage.setItem(PREF_KEY,JSON.stringify(PREF));}catch(e){}};
-
-/* 读音练习的页面：拼音和朗读会泄露答案，所以自动关闭 */
-const isSoundTask=sec=>/读音|变调|多音字|」读/.test((sec.ins||'')+JSON.stringify(sec.items||[]));
-const isListening=sec=>/聆听/.test(sec.ins||'');
-
-/* ----- 语音：自动挑选设备上最自然、最准确的普通话声音 ----- */
-const canSpeak='speechSynthesis' in window && typeof SpeechSynthesisUtterance!=='undefined';
-let VOICES=[];
-function voiceScore(v){
-  const L=(v.lang||'').replace('_','-').toLowerCase(), N=(v.name||'');
-  if(/hk|yue|cantonese|粤|廣東|广东/i.test(L+' '+N)) return -1;
-  if(!/^(zh|cmn)/.test(L) && !/普通话|國語|国语|中文|Chinese|Mandarin/i.test(N)) return -1;
-  let s=0;
-  if(/^(zh|cmn)-(cn|hans)/.test(L)) s+=40; else if(/sg|my/.test(L)) s+=34; else if(/tw/.test(L)) s+=12; else s+=20;
-  if(/natural|neural/i.test(N)) s+=40;
-  if(/online/i.test(N)) s+=10;
-  if(/premium/i.test(N)) s+=32;
-  if(/enhanced|增强/i.test(N)) s+=24;
-  if(/google/i.test(N)) s+=22;
-  if(/xiaoxiao|xiaoyi|xiaochen|xiaohan|xiaomo|xiaoshuang|yunxi|yunxia|yunjian/i.test(N)) s+=12;
-  if(/tingting|lili|lilian|yu-?shu|yaoyao|huihui|kangkang/i.test(N)) s+=6;
-  if(/compact|eloquence/i.test(N)) s-=15;
-  return s;
-}
-function loadVoices(){
-  if(!canSpeak) return;
-  VOICES=speechSynthesis.getVoices().map(v=>({v,s:voiceScore(v)})).filter(x=>x.s>=0).sort((a,b)=>b.s-a.s).map(x=>x.v);
-  fillVoiceSel();
-}
-function curVoice(){return VOICES.find(v=>v.name===PREF.voice)||VOICES[0]||null;}
-function speak(text){
-  if(!canSpeak){alert('这台设备不支持朗读。请用 Chrome、Edge 或 Safari 打开。');return;}
-  const t=String(text).replace(/\{\}/g,'，，').replace(/[＿_]{2,}/g,'，，').replace(/[→✓✗📖🔊]/g,'，').replace(/\(([a-zāáǎàēéěèīíǐìōóǒòūúǔùǖǘǚǜü]+)\)|（([a-zāáǎàēéěèīíǐìōóǒòūúǔùǖǘǚǜü]+)）/gi,'');
-  speechSynthesis.cancel();
-  const u=new SpeechSynthesisUtterance(t), v=curVoice();
-  u.lang=v?v.lang:'zh-CN'; if(v)u.voice=v; u.rate=+PREF.rate||0.8; u.pitch=1;
-  try{speechSynthesis.speak(u);}catch(e){}
-}
-if(canSpeak){loadVoices();speechSynthesis.onvoiceschanged=loadVoices;setTimeout(loadVoices,600);}
-function fillVoiceSel(){
-  const sel=$('voiceSel'); if(!sel) return;
-  if(!VOICES.length){sel.innerHTML='<option>（没有找到中文声音）</option>';return;}
-  const cur=curVoice();
-  sel.innerHTML=VOICES.map((v,i)=>`<option value="${esc(v.name)}"${v===cur?' selected':''}>${i===0?'⭐ ':''}${esc(v.name)}</option>`).join('');
-}
-
-/* ----- 文字版面板（在每页练习图下面） ----- */
-const zh=t=>PREF.py?rubyText(String(t)):esc(String(t));
-const sayBtn=(t,label)=>PREF.tts?`<button class="say" data-say="${esc(t)}" aria-label="朗读">${label||'🔊'}</button>`:'';
-const blankify=s=>String(s).replace(/\{\}/g,'＿＿＿');
-function line(t,cls){
-  const shown=blankify(t);
-  return `<p class="rl ${cls||''}">${sayBtn(t)}<span>${zh(shown).replace(/\n/g,'<br>')}</span></p>`;
-}
-function chips(list){
-  return `<div class="chips">${list.map(o=>`<span class="chip${PREF.tts?' tap':''}" ${PREF.tts?`data-say="${esc(o)}" role="button" tabindex="0"`:''}>${zh(o)}</span>`).join('')}</div>`;
-}
-function itemHTML(it,listen){
-  let h='';
-  if(it.p && !listen) String(it.p).replace(/\\n/g,'\n').split('\n').filter(x=>x.trim()).forEach(par=>h+=line(par,'para'));
-  if(it.q) h+=line(it.q,'q');
-  if(it.s) h+=line(it.s,'q');
-  if(it.b) it.b.forEach(b=>{if(b.o&&b.o.length&&!b.o.every(o=>/^[\x00-\x7Fāáǎàēéěèīíǐìōóǒòūúǔùǖǘǚǜü\s]+$/.test(o)))h+=chips(b.o);});
-  if(it.o) h+= it.o.some(o=>String(o).length>8) ? it.o.map((o,k)=>line(String.fromCharCode(65+k)+'. '+o,'opt')).join('') : chips(it.o);
-  if(it.items) it.items.forEach(x=>h+=itemHTML(x,listen));
-  return h;
-}
-function passageOf(sec){return (sec.items||[]).filter(it=>it.p).map(it=>String(it.p).replace(/\\n/g,'\n')).join('\n');}
-function panelHTML(sec){
-  const listen=isListening(sec), sound=isSoundTask(sec);
-  let h='';
-  if(listen && canSpeak){
-    h+=`<div class="listen"><button class="btn listenbtn" data-say="${esc(passageOf(sec))}">🔊 听短文 Listen</button><span class="muted">听完再回答问题，可以多听几次。</span></div>`;
-  }
-  if(!PREF.py && !PREF.tts) return h ? `<div class="rd">${h}</div>` : '';
-  if(sound) return `<div class="rd">${h}<p class="muted rdnote">🔇 这一页是读音练习，所以不显示拼音，也不朗读。</p></div>`;
-  h+=`<div class="rdh">📖 文字版${PREF.py?' · 拼音':''}${PREF.tts?' · 点读':''}</div>`;
-  if(sec.ins) h+=line(sec.ins,'ins');
-  (sec.items||[]).forEach(it=>h+=itemHTML(it,listen));
-  return `<div class="rd">${h}</div>`;
-}
-let CUR_SECS=[];
-function refreshPanels(){
-  document.querySelectorAll('#view [data-rd]').forEach(el=>{el.innerHTML=panelHTML(CUR_SECS[+el.dataset.rd]);});
-  const hd=document.querySelector('#view .shead');
-  if(hd) hd.innerHTML=`<span>${zh(hd.dataset.t)}</span>`;
-  document.querySelectorAll('#view .pg').forEach(pg=>{
-    const sec=CUR_SECS[+pg.dataset.si]; const sound=sec&&isSoundTask(sec);
-    pg.querySelectorAll('select.gr option').forEach(o=>{
-      if(!o.value) return;
-      const p=(!sound&&PREF.py&&/[\u4e00-\u9fff]/.test(o.value))?pinyinOf(o.value).filter(Boolean).join(' '):'';
-      o.textContent=o.value+(p?'  '+p:'');
-    });
-  });
-  $('pyBtn').setAttribute('aria-pressed',PREF.py); $('pyBtn').textContent='拼音：'+(PREF.py?'开':'关');
-  $('ttsBtn').setAttribute('aria-pressed',PREF.tts); $('ttsBtn').textContent='点读：'+(PREF.tts?'开':'关');
-  $('voiceBar').hidden=!PREF.tts;
-}
-document.addEventListener('click',e=>{
-  const b=e.target.closest('[data-say]'); if(b){speak(b.dataset.say);return;}
-  if(e.target.closest('#pyBtn')){PREF.py=!PREF.py;savePref();refreshPanels();}
-  if(e.target.closest('#ttsBtn')){PREF.tts=!PREF.tts;savePref();refreshPanels();if(PREF.tts&&!VOICES.length)loadVoices();}
-  if(e.target.closest('#voiceTest')) speak('小朋友，你好！我们一起来学华文吧。');
-});
-document.addEventListener('keydown',e=>{const b=e.target.closest&&e.target.closest('.chip[data-say]');if(b&&(e.key==='Enter'||e.key===' ')){e.preventDefault();speak(b.dataset.say);}});
-document.addEventListener('change',e=>{
-  if(e.target.id==='voiceSel'){PREF.voice=e.target.value;savePref();speak('你好');}
-  if(e.target.id==='rateSel'){PREF.rate=+e.target.value;savePref();speak('你好');}
-});
-
 /* ===== 分页：一页一页做，不用一直往下滑 ===== */
 const PAGER = `<nav class="pager" aria-label="翻页">
   <button class="btn alt pgbtn" id="pgPrev" onclick="goPage(pg-1)">← 上一页</button>
@@ -698,8 +502,6 @@ $('revealBtn').addEventListener('click', revealAll);
 $('resetBtn').addEventListener('click', resetAll);
 
 fillSelector();
-$('rateSel').value=String(PREF.rate);
-fillVoiceSel();
 showSheet('3A-0');
 </script>
 </body>
