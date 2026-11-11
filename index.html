@@ -67,7 +67,8 @@
     <div class="yr" id="yrTag"></div>
     <div class="tiles">
       <a class="tile" id="mathBtn" href="#"><span class="ic">🔢</span>Mathematic</a>
-      <a class="tile" id="cnBtn" href="#"><span class="ic">文</span>Chinese</a>
+      <div class="tile off" id="cnBtn"><span class="ic">文</span>Chinese<small>Coming soon</small></div>
+      <a class="tile off" id="cn2Btn" href="#"><span class="ic">文</span>华文2</a>
       <div class="tile off"><span class="ic">Aa</span>English<small>Coming soon</small></div>
       <div class="tile off"><span class="ic">BM</span>Bahasa Melayu<small>Coming soon</small></div>
       <div class="tile off wide"><span class="ic">🔬</span>Science<small>Coming soon</small></div>
@@ -94,11 +95,11 @@
     $('who').textContent = sess.name;
     $('yrTag').textContent = "Year " + sess.year;
     $('mathBtn').href = MATHS[sess.year] + "?s=" + encodeURIComponent(sess.name);
-    const cn = $('cnBtn');
+    const cn2 = $('cn2Btn');
     if(sess.year === 3){
-      cn.classList.remove('off'); cn.href = "year3-chinese-2.html?s=" + encodeURIComponent(sess.name);
+      cn2.classList.remove('off'); cn2.href = "year3-chinese-2.html?s=" + encodeURIComponent(sess.name);
     } else {
-      cn.classList.add('off'); cn.removeAttribute('href');
+      cn2.classList.add('off'); cn2.removeAttribute('href');
     }
     show('menu');
   }
@@ -107,10 +108,11 @@
     let html = "";
     for(let y = 1; y <= 6; y++){
       const cn = y === 3
-        ? `<a class="tile" href="year3-chinese-2.html?s=Alex" style="min-height:56px">文 Chinese</a>`
-        : `<div class="tile off" style="min-height:56px">文 Chinese<small>Coming soon</small></div>`;
+        ? `<a class="tile" href="year3-chinese-2.html?s=Alex" style="min-height:56px">华文2 Chinese</a>`
+        : `<div class="tile off" style="min-height:56px">华文2 Chinese<small>Coming soon</small></div>`;
+      const cnOff = `<div class="tile off" style="min-height:56px">文 Chinese<small>Coming soon</small></div>`;
       html += `<div class="yrow"><div class="ylabel">Year ${y}</div><div class="tiles">
-        <a class="tile" href="${MATHS[y]}?s=Alex" style="min-height:56px">🔢 Mathematic</a>${cn}</div></div>`;
+        <a class="tile" href="${MATHS[y]}?s=Alex" style="min-height:56px">🔢 Mathematic</a>${cnOff}${cn}</div></div>`;
     }
     $('yearList').innerHTML = html;
     show('testMenu');
