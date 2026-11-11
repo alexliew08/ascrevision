@@ -174,6 +174,21 @@ body.py .chip,body.py .tile{padding-top:2px;padding-bottom:2px}
 .item-num{font-weight:700;margin-right:6px}
 @media (max-width:560px){.sel{font-size:17px}.qline{font-size:18px}}
 
+
+.pg[hidden]{display:none!important}
+.pager{position:sticky;bottom:0;z-index:4;display:flex;align-items:center;gap:10px;margin:8px -4px 0;padding:10px 4px calc(10px + env(safe-area-inset-bottom,0px));background:var(--bg)}
+.pgbtn{flex:none;min-width:118px;font-size:18px}
+.pgbtn:disabled{opacity:.35;box-shadow:none;cursor:default}
+.pgbtn.chk{background:var(--good)}
+.pgmid{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;min-width:0}
+.pgno{font-weight:700;font-size:16px;color:var(--ink)}
+.dots{display:flex;flex-wrap:wrap;justify-content:center;gap:6px}
+.dot{width:16px;height:16px;padding:0;border:2px solid var(--line);border-radius:50%;background:var(--panel);cursor:pointer}
+.dot.on{background:var(--accent);transform:scale(1.25)}
+.dot.ok{background:var(--good)}
+.dot.bad{background:var(--bad)}
+.dot.on.ok,.dot.on.bad{outline:3px solid var(--accent);outline-offset:1px}
+@media (max-width:460px){.pgbtn{min-width:96px;font-size:16px;padding:4px 10px}}
 </style>
 </head>
 <body>
@@ -337,7 +352,7 @@ function showSheet(key){
     <p class="inst">${esc(sh.title)}</p></section>`;
   sh.secs.forEach(sec => {
     if(sec.overlay && sec.overlay.skip) return;
-    h += sec.overlay ? `<section class="card">` : `<section class="card"><p class="inst" style="color:var(--ink);font-weight:700">${esc(sec.ins)}</p>`;
+    h += sec.overlay ? `<section class="card pg">` : `<section class="card pg"><p class="inst" style="color:var(--ink);font-weight:700">${esc(sec.ins)}</p>`;
     const pk = book + '-' + sh.no + '-' + sh.secs.indexOf(sec);
     if(!sec.overlay && PICS[pk] && !sec.items.some((it, idx) => PICS[pk + '-' + idx])) h += `<img class="pic-strip" src="${PICS[pk]}" alt="题目图片" loading="lazy">`;
     if(sec.overlay){ h += renderOverlay(sec.overlay); }
@@ -349,9 +364,9 @@ function showSheet(key){
     if(sec.note) h += `<div class="note">${esc(sec.note)}</div>`;
     h += '</section>';
   });
-  $('view').innerHTML = h;
+  $('view').innerHTML = h + PAGER;
   $('score').textContent = '未检查';
-  window.scrollTo(0, 0);
+  goPage(0);
 }
 
 function valueOf(el){
@@ -393,6 +408,7 @@ function checkAll(){
     }
   });
   $('score').textContent = total ? `得分 ${right} / ${total}` : '本页没有可自动检查的题目';
+  markPages();
 }
 
 function revealAll(){
@@ -420,6 +436,7 @@ function resetAll(){
   });
   document.querySelectorAll('#view textarea').forEach(t => t.value = '');
   $('score').textContent = '未检查';
+  clearMarks();
 }
 
 document.addEventListener('click', e => {
@@ -430,6 +447,56 @@ document.addEventListener('click', e => {
   }
 });
 
+
+/* ===== 分页：一页一页做，不用一直往下滑 ===== */
+const PAGER = `<nav class="pager" aria-label="翻页">
+  <button class="btn alt pgbtn" id="pgPrev" onclick="goPage(pg-1)">← 上一页</button>
+  <div class="pgmid"><div class="pgno" id="pgNo"></div><div class="dots" id="pgDots"></div></div>
+  <button class="btn pgbtn" id="pgNext" onclick="nextOrCheck()">下一页 →</button>
+</nav>`;
+let pg = 0;
+const pages = () => [...document.querySelectorAll('#view .pg')];
+function goPage(n){
+  const ps = pages(); if(!ps.length) return;
+  pg = Math.max(0, Math.min(n, ps.length - 1));
+  ps.forEach((el, i) => el.hidden = i !== pg);
+  $('pgNo').textContent = `第 ${pg + 1} / ${ps.length} 页`;
+  $('pgPrev').disabled = pg === 0;
+  const last = pg === ps.length - 1;
+  $('pgNext').textContent = last ? '✓ 检查答案' : '下一页 →';
+  $('pgNext').classList.toggle('chk', last);
+  $('pgDots').innerHTML = ps.map((el, i) => {
+    const st = el.dataset.st ? ' ' + el.dataset.st : '';
+    return `<button class="dot${i === pg ? ' on' : ''}${st}" onclick="goPage(${i})" aria-label="第 ${i + 1} 页"></button>`;
+  }).join('');
+  window.scrollTo(0, 0);
+}
+function nextOrCheck(){
+  if(pg < pages().length - 1) goPage(pg + 1);
+  else { checkAll(); }
+}
+function markPages(){
+  pages().forEach(el => {
+    const g = el.querySelectorAll('.gr');
+    el.dataset.st = !g.length ? '' : (el.querySelector('.gr.bad') ? 'bad' : (el.querySelector('.gr.ok') ? 'ok' : ''));
+  });
+  const ps = pages(), firstBad = ps.findIndex(el => el.dataset.st === 'bad');
+  goPage(firstBad >= 0 ? firstBad : pg);
+}
+function clearMarks(){ pages().forEach(el => el.dataset.st = ''); goPage(pg); }
+(function(){
+  let x0 = null, y0 = 0;
+  document.addEventListener('touchstart', e => {
+    if(e.target.closest('input,select,textarea,button')) { x0 = null; return; }
+    x0 = e.touches[0].clientX; y0 = e.touches[0].clientY;
+  }, {passive: true});
+  document.addEventListener('touchend', e => {
+    if(x0 === null) return;
+    const dx = e.changedTouches[0].clientX - x0, dy = e.changedTouches[0].clientY - y0;
+    x0 = null;
+    if(Math.abs(dx) > 70 && Math.abs(dx) > Math.abs(dy) * 1.5) goPage(pg + (dx < 0 ? 1 : -1));
+  }, {passive: true});
+})();
 $('checkBtn').addEventListener('click', checkAll);
 $('revealBtn').addEventListener('click', revealAll);
 $('resetBtn').addEventListener('click', resetAll);
