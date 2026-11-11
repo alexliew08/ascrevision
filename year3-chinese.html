@@ -129,6 +129,7 @@ body.py .chip,body.py .tile{padding-top:2px;padding-bottom:2px}
 @keyframes pop{0%{transform:scale(.7)}70%{transform:scale(1.06)}100%{transform:scale(1)}}
 .pop{animation:pop .35s ease-out}
 @media (prefers-reduced-motion:reduce){.pop{animation:none}}
+.hublink{display:inline-flex;align-items:center;min-height:44px;margin:4px 0 6px;font-weight:700;font-size:16px;color:var(--ink);text-decoration:underline}
 </style>
 </head>
 <body>
@@ -137,6 +138,7 @@ body.py .chip,body.py .tile{padding-top:2px;padding-bottom:2px}
   <div class="hdr-r"><button class="pybtn" id="pyBtn" data-act="py" aria-pressed="false">拼音：关</button><button class="pybtn" id="ttsBtn" data-act="tts" aria-pressed="false">点读：关</button><div class="score" id="score"></div></div>
 </div></header>
 <main class="wrap">
+  <a class="hublink" href="index.html">← 返回学习中心 Learning Hub</a>
   <nav class="tabs" id="tabs"></nav>
   <div id="ttsNote"></div>
   <div id="view"></div>
