@@ -563,13 +563,13 @@ function end(){const N=G.n,ok=G.ok,r=ok/N,s=r>=1?3:r>=.8?2:r>=.6?1:0;S.stars[G.t
  ${G.wrongs.length?`<details><summary><b>📝 错题回顾（点开看）</b></summary>${G.wrongs.map(q=>`<div class="fb" style="margin:6px 0">${q.q}${q.pic||""}<br>✅ ${"ABCD"[q.opts.indexOf(q.ans)]}. ${q.ans}<br>${q.exp}</div>`).join("")}</details>`:"<p>🎯 没有错题！</p>"}
  <p><a class="btn" style="display:inline-block;text-decoration:none" target="_blank" rel="noopener" href="${formURL(G.code)}" onclick="gateStep()">📤 提交成绩给老师</a><br><small>点按钮后，在表单页面按「提交」。如果打不开，请复制下面的成绩代码发给老师。</small></p><p><small>📋 成绩代码（请复制发给老师）：</small><br><input readonly value="${G.code}" onclick="this.select()" style="width:100%;padding:8px;border-radius:8px;border:2px solid var(--line);background:var(--bg);color:var(--text)"></p><p><button class="btn alt" id="gcp" onclick="copyCode('${G.code}')">📋 复制成绩代码</button></p><p id="gate" class="fb">请先提交成绩：<br>① 点「📤 提交成绩给老师」，在表单页面按「提交」；<br>② 回到这里，点下面的「✅ 我已经提交了」，才能继续玩。<br>（打不开表单？请点「复制成绩代码」，发给老师后再点「我已经提交了」。）<br><button class="btn" id="gok" disabled onclick="gateUnlock()">✅ 我已经提交了</button></p><p><button class="btn gl" disabled onclick="start(${G.t},${G.l})">再玩一次</button> <button class="btn alt gl" disabled onclick="pick(${G.t})">换难度</button> <button class="btn alt gl" disabled onclick="home()">回到星球地图</button></p></div>`}
 /* ===== 老师请在这里修改学生名单（每个名字用引号括起来，用逗号隔开）===== */
-const ACC=[{"n": "Clarisse", "i": "Clarisse", "h": "431796577022812"}, {"n": "Ellysya", "i": "Ellysya", "h": "5015813571226950"}, {"n": "Amelia", "i": "Amelia", "h": "3183361814792748"}, {"n": "Abbie", "i": "Abbie", "h": "2517676636545801"}, {"n": "Jarrod", "i": "Jarrod", "h": "680867114456504"}, {"n": "Zhao Shem", "i": "Zhao Shem", "h": "350224475111533"}, {"n": "Aaren", "i": "Aaren", "h": "1250064031100057"}, {"n": "Tze Wei", "i": "Tze Wei", "h": "933427481726232"}, {"n": "Jax", "i": "Jax", "h": "2924296041494624"}, {"n": "Alex", "i": "Alex", "h": "6381831496830411"}];
+const ACC=[{"n": "Alex", "i": "Alex", "h": "7624984167397427"}];
 const ROSTER=ACC.map(a=>a.n);
 const TPIN="teacher2026"; /* 老师密码，可自行修改 */
 /* ============================================================ */
 const norm=s=>s.replace(/[\s\u3000]+/g,"").toLowerCase();
 const hs=(s,seed=0)=>{let h1=0xdeadbeef^seed,h2=0x41c6ce57^seed;for(let i=0,ch;i<s.length;i++){ch=s.charCodeAt(i);h1=Math.imul(h1^ch,2654435761);h2=Math.imul(h2^ch,1597334677)}h1=Math.imul(h1^(h1>>>16),2246822507)^Math.imul(h2^(h2>>>13),3266489909);h2=Math.imul(h2^(h2>>>16),2246822507)^Math.imul(h1^(h1>>>13),3266489909);return String(4294967296*(2097151&h2)+(h1>>>0))};
-function login(msg){clearInterval(timer);S.name=null;
+function login(msg){clearInterval(timer);S.name=null;sessionStorage.removeItem("asc_student");location.replace("index.html");return;
  app.innerHTML=`<div class="card" style="text-align:center;margin-top:8vh"><div class="big">🚀</div><h1>数学星球探险队 · 五年级</h1><p>请输入你的 ID 和密码，再开始探险！</p>
  <p><input id="uid" autocomplete="off" autocapitalize="off" placeholder="ID（就是你的名字）" style="font:inherit;font-size:20px;padding:12px;border-radius:12px;border:2px solid var(--line);background:var(--bg);color:var(--text);width:100%;max-width:320px;text-align:center" onkeydown="if(event.key==='Enter')document.getElementById('upw').focus()"></p>
  <p><input id="upw" type="password" autocomplete="off" placeholder="密码" style="font:inherit;font-size:20px;padding:12px;border-radius:12px;border:2px solid var(--line);background:var(--bg);color:var(--text);width:100%;max-width:320px;text-align:center" onkeydown="if(event.key==='Enter')doLogin()"></p>
@@ -693,7 +693,7 @@ function wpCard(){const A=getW();const rows=ROSTER.map(n=>{const a=A.filter(x=>x
  const pc=z=>Math.round(z.reduce((s,x)=>s+x.ok,0)/z.reduce((s,x)=>s+x.N,0)*100);let wk="–",wa=101;T.forEach((t,i)=>{const z=a.filter(x=>x.t===i);if(z.length&&pc(z)<wa){wa=pc(z);wk=t.n+" "+wa+"%"}});
  return `<tr><td><b>${n}</b></td><td>${a.length}次</td><td>${pc(a)}%</td><td>${a.reduce((s,x)=>s+x.pts,0)}</td><td>${wk}</td></tr>`}).join("");
  return `<div class="card" style="overflow-x:auto"><b>📝 应用题成绩</b><table style="border-collapse:collapse;min-width:480px;text-align:center;font-size:14px;margin-top:6px"><tr style="color:var(--mute)"><th>学生</th><th>次数</th><th>完全答对率</th><th>总分</th><th>最弱单元</th></tr>${rows}</table></div>`}
-login();
+(function(){let z=null;try{z=JSON.parse(sessionStorage.getItem("asc_student")||"null")}catch(e){}if(!z||!z.name){const q=new URLSearchParams(location.search).get("s");if(q)z={name:q,year:5}}const ok=z&&z.year==5&&ACC.some(a=>a.n===z.name);if(ok){S.name=z.name;try{sessionStorage.setItem("asc_student",JSON.stringify({name:z.name,year:5}))}catch(e){}home()}else{location.replace("index.html")}})();
 </script>
 
 </body>
