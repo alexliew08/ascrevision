@@ -514,7 +514,7 @@ TG[4]=NMS.map((n,c)=>{const old=c<4?T0[c]:c==5?T0[4]:null;const nv=c<4?NV4[c]:c=
 }
 
 /* ===== 老师请在这里修改学生名单 ===== */
-const ACC=[{"n": "Alex", "i": "Alex", "h": "7624984167397427"}];
+const ACC=[{"n": "Emma", "i": "Emma", "h": "3529028065359721"}, {"n": "Evonne", "i": "Evonne", "h": "5022488424880721"}, {"n": "Morris", "i": "Morris", "h": "4647029467790663"}, {"n": "Liang Yin", "i": "Liang Yin", "h": "8717243112686412"}, {"n": "Jyn Ann", "i": "Jyn Ann", "h": "3382444171251454"}, {"n": "Giselle", "i": "Giselle", "h": "2857122776164688"}, {"n": "Yong Sven", "i": "Yong Sven", "h": "5829868315061730"}, {"n": "Yu Sheng", "i": "Yu Sheng", "h": "6058690521005210"}, {"n": "Liang Jie", "i": "Liang Jie", "h": "5967858608450193"}, {"n": "Dylan Thye", "i": "Dylan Thye", "h": "5295091229330494"}, {"n": "Joel", "i": "Joel", "h": "1808767133980929"}, {"n": "Arielle", "i": "Arielle", "h": "2882017909082411"}, {"n": "Sean", "i": "Sean", "h": "5973427338122666"}, {"n": "Jessica", "i": "Jessica", "h": "5091519289996732"}, {"n": "Eason", "i": "Eason", "h": "3651316957871105"}, {"n": "Alex", "i": "Alex", "h": "1438553013022398"}];
 const ROSTER=ACC.map(a=>a.n);
 const TPIN="teacher2026";
 /* ================================== */
@@ -530,7 +530,7 @@ const getA=()=>{try{return JSON.parse(localStorage.getItem(KEY)||"[]")}catch(e){
 const setA=a=>{try{localStorage.setItem(KEY,JSON.stringify(a))}catch(e){}};
 const code=r=>[r.n,r.g,r.t,r.l,r.m,r.ok,r.pts,r.ts].join("|");
 const hs=(s,seed=0)=>{let h1=0xdeadbeef^seed,h2=0x41c6ce57^seed;for(let i=0,ch;i<s.length;i++){ch=s.charCodeAt(i);h1=Math.imul(h1^ch,2654435761);h2=Math.imul(h2^ch,1597334677)}h1=Math.imul(h1^(h1>>>16),2246822507)^Math.imul(h2^(h2>>>13),3266489909);h2=Math.imul(h2^(h2>>>16),2246822507)^Math.imul(h1^(h1>>>13),3266489909);return String(4294967296*(2097151&h2)+(h1>>>0))};
-function login(msg){clearInterval(timer);S.name=null;sessionStorage.removeItem("asc_student");location.replace("index.html");return;
+function login(msg){clearInterval(timer);S.name=null;
  app.innerHTML=`<div class="card" style="text-align:center;margin-top:8vh"><div class="big">🚀</div><h1>数学星球探险队 · ${GN[GR]}</h1><p>请输入你的 ID 和密码，再开始探险！</p>
  <p><input id="uid" autocomplete="off" autocapitalize="off" placeholder="ID（就是你的名字）" style="font:inherit;font-size:20px;padding:12px;border-radius:12px;border:2px solid var(--line);background:var(--bg);color:var(--text);width:100%;max-width:320px;text-align:center" onkeydown="if(event.key==='Enter')document.getElementById('upw').focus()"></p>
  <p><input id="upw" type="password" autocomplete="off" placeholder="密码" style="font:inherit;font-size:20px;padding:12px;border-radius:12px;border:2px solid var(--line);background:var(--bg);color:var(--text);width:100%;max-width:320px;text-align:center" onkeydown="if(event.key==='Enter')doLogin()"></p>
@@ -737,7 +737,7 @@ function wpCard(){const A=getW();const rows=ROSTER.map(n=>{const a=A.filter(x=>x
  return `<tr><td><b>${n}</b></td><td>${a.length}次</td><td>${pc(a)}%</td><td>${a.reduce((s,x)=>s+x.pts,0)}</td><td>${wk}</td></tr>`}).join("");
  return `<div class="card" style="overflow-x:auto"><b>📝 应用题成绩</b><table style="border-collapse:collapse;min-width:480px;text-align:center;font-size:14px;margin-top:6px"><tr style="color:var(--mute)"><th>学生</th><th>次数</th><th>完全答对率</th><th>总分</th><th>最弱单元</th></tr>${rows}</table></div>`}
 
-(function(){let z=null;try{z=JSON.parse(sessionStorage.getItem("asc_student")||"null")}catch(e){}if(!z||!z.name){const q=new URLSearchParams(location.search).get("s");if(q)z={name:q,year:4}}const ok=z&&z.year==4&&ACC.some(a=>a.n===z.name);if(ok){S.name=z.name;try{sessionStorage.setItem("asc_student",JSON.stringify({name:z.name,year:4}))}catch(e){}home()}else{location.replace("index.html")}})();
+login();
 </script>
 </body>
 </html>

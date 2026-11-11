@@ -340,7 +340,7 @@ TG[1]=NM1.map((n,c)=>({n,e:EM1[c],g:[0,1,2,3].map(l=>()=>{const vs=[...NV1[c][l]
 }
 
 /* ===== 老师请在这里修改学生名单 ===== */
-const ACC=[{"n": "Alex", "i": "Alex", "h": "7624984167397427"}];
+const ACC=[{"n": "Max", "i": "Max", "h": "4235339005087236"}, {"n": "Joy", "i": "Joy", "h": "8099146176407280"}, {"n": "Kyan", "i": "Kyan", "h": "7446749384373156"}, {"n": "Tze Ler", "i": "Tze Ler", "h": "6951348591075919"}, {"n": "Daphne", "i": "Daphne", "h": "1819962982997822"}, {"n": "Rou Xin", "i": "Rou Xin", "h": "8732129985264447"}, {"n": "Justin", "i": "Justin", "h": "8620276898173707"}, {"n": "Wen Kai", "i": "Wen Kai", "h": "6134380758165272"}, {"n": "Yong Eann", "i": "Yong Eann", "h": "5690275979352655"}, {"n": "Goh Kate", "i": "Goh Kate", "h": "3030385985694346"}, {"n": "Alex", "i": "Alex", "h": "5115006891982385"}];
 const ROSTER=ACC.map(a=>a.n);
 const TPIN="teacher2026";
 /* ================================== */
@@ -356,7 +356,7 @@ const getA=()=>{try{return JSON.parse(localStorage.getItem(KEY)||"[]")}catch(e){
 const setA=a=>{try{localStorage.setItem(KEY,JSON.stringify(a))}catch(e){}};
 const code=r=>[r.n,r.g,r.t,r.l,r.m,r.ok,r.pts,r.ts].join("|");
 const hs=(s,seed=0)=>{let h1=0xdeadbeef^seed,h2=0x41c6ce57^seed;for(let i=0,ch;i<s.length;i++){ch=s.charCodeAt(i);h1=Math.imul(h1^ch,2654435761);h2=Math.imul(h2^ch,1597334677)}h1=Math.imul(h1^(h1>>>16),2246822507)^Math.imul(h2^(h2>>>13),3266489909);h2=Math.imul(h2^(h2>>>16),2246822507)^Math.imul(h1^(h1>>>13),3266489909);return String(4294967296*(2097151&h2)+(h1>>>0))};
-function login(msg){clearInterval(timer);S.name=null;sessionStorage.removeItem("asc_student");location.replace("index.html");return;
+function login(msg){clearInterval(timer);S.name=null;
  app.innerHTML=`<div class="card" style="text-align:center;margin-top:8vh"><div class="big">🚀</div><h1>数学星球探险队 · ${GN[GR]}</h1><p>请输入你的 ID 和密码，再开始探险！</p>
  <p><input id="uid" autocomplete="off" autocapitalize="off" placeholder="ID（就是你的名字）" style="font:inherit;font-size:20px;padding:12px;border-radius:12px;border:2px solid var(--line);background:var(--bg);color:var(--text);width:100%;max-width:320px;text-align:center" onkeydown="if(event.key==='Enter')document.getElementById('upw').focus()"></p>
  <p><input id="upw" type="password" autocomplete="off" placeholder="密码" style="font:inherit;font-size:20px;padding:12px;border-radius:12px;border:2px solid var(--line);background:var(--bg);color:var(--text);width:100%;max-width:320px;text-align:center" onkeydown="if(event.key==='Enter')doLogin()"></p>
@@ -608,7 +608,7 @@ if(G==3){mixIn(6,0,[prism,faceGen]);mixIn(6,1,[polyN,axis]);mixIn(6,2,[prism,axi
 if(G==6){mixIn(5,0,[polySum,triMiss,lineAng,around]);mixIn(5,1,[polySum,triMiss,lineAng,around]);mixIn(5,2,[polySum,triMiss])}
 })();
 
-(function(){let z=null;try{z=JSON.parse(sessionStorage.getItem("asc_student")||"null")}catch(e){}if(!z||!z.name){const q=new URLSearchParams(location.search).get("s");if(q)z={name:q,year:1}}const ok=z&&z.year==1&&ACC.some(a=>a.n===z.name);if(ok){S.name=z.name;try{sessionStorage.setItem("asc_student",JSON.stringify({name:z.name,year:1}))}catch(e){}home()}else{location.replace("index.html")}})();
+login();
 </script>
 </body>
 </html>
