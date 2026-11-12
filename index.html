@@ -148,8 +148,10 @@
       if(sess.year === 3){ b.classList.remove('off'); b.href = "#"; b.dataset.sub = key; b.dataset.name = sess.name; }
       else { b.classList.add('off'); b.removeAttribute('href'); delete b.dataset.sub; }
     });
+    const cnb = $('cnBtn');
+    if(sess.year === 1){ cnb.classList.remove('off'); cnb.href = "year1-chinese.html?s=" + encodeURIComponent(sess.name); delete cnb.dataset.sub; }
     const bm = $('bmBtn');
-    if(sess.year === 3){ bm.classList.remove('off'); bm.href = "year3-bm.html?s=" + encodeURIComponent(sess.name); }
+    if(sess.year === 3){ bm.classList.remove('off'); bm.href = "#"; bm.dataset.sub = "bm"; bm.dataset.name = sess.name; }
     else { bm.classList.add('off'); bm.removeAttribute('href'); }
     show('menu');
   }
@@ -157,11 +159,13 @@
   function showTestMenu(){
     let html = "";
     for(let y = 1; y <= 6; y++){
-      const cn = y === 3
+      const cn = y === 1
+        ? `<a class="tile cn" href="year1-chinese.html?s=Alex"><span class="ic">文</span>华文 Chinese</a><div class="tile off"><span class="ic">Aa</span>English<small>Coming soon</small></div>`
+        : y === 3
         ? `<a class="tile cn" href="#" data-sub="cn" data-name="Alex"><span class="ic">文</span>华文 Chinese</a><a class="tile en" href="#" data-sub="en" data-name="Alex"><span class="ic">Aa</span>English</a>`
         : `<div class="tile off"><span class="ic">文</span>华文 Chinese<small>Coming soon</small></div><div class="tile off"><span class="ic">Aa</span>English<small>Coming soon</small></div>`;
       const bmT = y === 3
-        ? `<a class="tile bm" href="year3-bm.html?s=Alex"><span class="ic">BM</span>Bahasa Melayu</a>`
+        ? `<a class="tile bm" href="#" data-sub="bm" data-name="Alex"><span class="ic">BM</span>Bahasa Melayu</a>`
         : `<div class="tile off"><span class="ic">BM</span>Bahasa Melayu<small>Coming soon</small></div>`;
       html += `<div class="yrow"><div class="ylabel">Year ${y}</div><div class="tiles">
         <a class="tile math" href="${MATHS[y]}?s=Alex"><span class="ic">+ −</span>数学 Maths</a>${cn}${bmT}</div></div>`;
@@ -196,6 +200,9 @@
     cn: { title: "文 华文 Chinese", tag: "三年级 · 选一个练习 Choose one", items: [
       { t: "看图学华文", s: "Picture practice", f: "year3-chinese.html", c: "cn", i: '<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="3"/><circle cx="9" cy="10" r="2"/><path d="m21 16-5-5-9 9"/></svg>' },
       { t: "课堂评估", s: "Classroom assessment", f: "year3-chinese-2.html", c: "cn2", i: '<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 3v2h6V3"/><path d="m9 13 2 2 4-4"/></svg>' } ] },
+    bm: { title: "Bahasa Melayu", tag: "Tahun 3 · Pilih latihan", items: [
+      { t: "国语书写填充", s: "Tulis ayat (Latihan 1)", f: "year3-bm.html", c: "bm", i: '<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="m13 7 4 4"/></svg>' },
+      { t: "Latihan 2", s: "Akan datang · Coming soon", f: "", c: "bm2", i: '<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 3v2h6V3"/></svg>' } ] },
     en: { title: "Aa English", tag: "Year 3 · Choose one 选一个练习", items: [
       { t: "English Learning", s: "Praktis Prima KSSR · Year 3", f: "year3-english.html", c: "en", i: '<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 21V5"/><path d="M9 8h6"/></svg>' },
       { t: "English Writing Practice", s: "Year 1–3 writing", f: "year3-english-writing.html", c: "en2", i: '<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="m13 7 4 4"/></svg>' } ] }
