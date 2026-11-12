@@ -149,7 +149,7 @@
       else { b.classList.add('off'); b.removeAttribute('href'); delete b.dataset.sub; }
     });
     const cnb = $('cnBtn');
-    if(sess.year === 1){ cnb.classList.remove('off'); cnb.href = "year1-chinese.html?s=" + encodeURIComponent(sess.name); delete cnb.dataset.sub; }
+    if(sess.year === 1){ cnb.classList.remove('off'); cnb.href = "#"; cnb.dataset.sub = "cn1"; cnb.dataset.name = sess.name; }
     const bm = $('bmBtn');
     if(sess.year === 3){ bm.classList.remove('off'); bm.href = "#"; bm.dataset.sub = "bm"; bm.dataset.name = sess.name; }
     else { bm.classList.add('off'); bm.removeAttribute('href'); }
@@ -160,7 +160,7 @@
     let html = "";
     for(let y = 1; y <= 6; y++){
       const cn = y === 1
-        ? `<a class="tile cn" href="year1-chinese.html?s=Alex"><span class="ic">文</span>华文 Chinese</a><div class="tile off"><span class="ic">Aa</span>English<small>Coming soon</small></div>`
+        ? `<a class="tile cn" href="#" data-sub="cn1" data-name="Alex"><span class="ic">文</span>华文 Chinese</a><div class="tile off"><span class="ic">Aa</span>English<small>Coming soon</small></div>`
         : y === 3
         ? `<a class="tile cn" href="#" data-sub="cn" data-name="Alex"><span class="ic">文</span>华文 Chinese</a><a class="tile en" href="#" data-sub="en" data-name="Alex"><span class="ic">Aa</span>English</a>`
         : `<div class="tile off"><span class="ic">文</span>华文 Chinese<small>Coming soon</small></div><div class="tile off"><span class="ic">Aa</span>English<small>Coming soon</small></div>`;
@@ -197,6 +197,9 @@
 
   // Year 3 subject pages. Change the file names here if yours are different.
   const SUB = {
+    cn1: { title: "华文 Chinese", tag: "Tahun 1 · Pilih buku", items: [
+      { t: "华文 1A", s: "课堂评估 · Buku 1A", f: "year1-chinese.html", c: "cn1a", i: '<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="m13 7 4 4"/></svg>' },
+      { t: "华文 1B", s: "课堂评估 · Buku 1B", f: "year1-chinese-2.html", c: "cn1b", i: '<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="m13 7 4 4"/></svg>' } ] },
     cn: { title: "文 华文 Chinese", tag: "三年级 · 选一个练习 Choose one", items: [
       { t: "看图学华文", s: "Picture practice", f: "year3-chinese.html", c: "cn", i: '<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="3"/><circle cx="9" cy="10" r="2"/><path d="m21 16-5-5-9 9"/></svg>' },
       { t: "课堂评估", s: "Classroom assessment", f: "year3-chinese-2.html", c: "cn2", i: '<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 3v2h6V3"/><path d="m9 13 2 2 4-4"/></svg>' } ] },
