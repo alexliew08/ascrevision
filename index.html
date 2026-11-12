@@ -107,7 +107,7 @@
       <a class="tile math" id="mathBtn" href="#"><span class="ic">+ −</span>数学 Maths</a>
       <a class="tile cn" id="cnBtn" href="#"><span class="ic">文</span>华文 Chinese<small>Coming soon</small></a>
       <a class="tile en" id="enBtn" href="#"><span class="ic">Aa</span>English<small>Coming soon</small></a>
-      <div class="tile off"><span class="ic">BM</span>Bahasa Melayu<small>Coming soon</small></div>
+      <a class="tile bm off" id="bmBtn" href="#"><span class="ic">BM</span>Bahasa Melayu<small>Coming soon</small></a>
       <div class="tile off"><span class="ic"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 2 3h10a2 2 0 0 0 2-3l-5-9V3"/><path d="M7 15h10"/></svg></span>Science<small>Coming soon</small></div>
     </div>
   </div>
@@ -148,6 +148,9 @@
       if(sess.year === 3){ b.classList.remove('off'); b.href = "#"; b.dataset.sub = key; b.dataset.name = sess.name; }
       else { b.classList.add('off'); b.removeAttribute('href'); delete b.dataset.sub; }
     });
+    const bm = $('bmBtn');
+    if(sess.year === 3){ bm.classList.remove('off'); bm.href = "year3-bm.html?s=" + encodeURIComponent(sess.name); }
+    else { bm.classList.add('off'); bm.removeAttribute('href'); }
     show('menu');
   }
 
@@ -157,8 +160,11 @@
       const cn = y === 3
         ? `<a class="tile cn" href="#" data-sub="cn" data-name="Alex"><span class="ic">文</span>华文 Chinese</a><a class="tile en" href="#" data-sub="en" data-name="Alex"><span class="ic">Aa</span>English</a>`
         : `<div class="tile off"><span class="ic">文</span>华文 Chinese<small>Coming soon</small></div><div class="tile off"><span class="ic">Aa</span>English<small>Coming soon</small></div>`;
+      const bmT = y === 3
+        ? `<a class="tile bm" href="year3-bm.html?s=Alex"><span class="ic">BM</span>Bahasa Melayu</a>`
+        : `<div class="tile off"><span class="ic">BM</span>Bahasa Melayu<small>Coming soon</small></div>`;
       html += `<div class="yrow"><div class="ylabel">Year ${y}</div><div class="tiles">
-        <a class="tile math" href="${MATHS[y]}?s=Alex"><span class="ic">+ −</span>数学 Maths</a>${cn}</div></div>`;
+        <a class="tile math" href="${MATHS[y]}?s=Alex"><span class="ic">+ −</span>数学 Maths</a>${cn}${bmT}</div></div>`;
     }
     $('yearList').innerHTML = html;
     show('testMenu');
