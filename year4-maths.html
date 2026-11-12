@@ -545,7 +545,7 @@ function gradeSel(){app.innerHTML=`<div class="card" style="text-align:center"><
 function setG(g){S.g=g;T=TG[g];home()}
 const BADGES=[["🥇","首次满分",()=>S.perfect>0],["🔥","连对 5 题",()=>S.streakMax>=5],["🌍","探索全部星球",()=>T.every((_,i)=>S.stars[S.g+"-"+i])],["👑","专家达人",()=>S.expertOK]];
 function home(){clearInterval(timer);const st=T.reduce((a,_,i)=>a+(S.stars[S.g+"-"+i]||0),0);
- app.innerHTML=`<div class="bar"><div><h1>🚀 数学星球探险队 · ${GN[S.g]}</h1><small style="color:var(--mute)">欢迎，${S.name}！点选星球出发 </small> <button class="pill" onclick="login()">换人</button> ${BACKL}</div><div><span class="pill">⭐ ${st}/${T.length*3}</span> <span class="pill">🏆 ${S.score}</span></div></div>
+ app.innerHTML=`<div class="bar"><div><h1>🚀 数学星球探险队 · ${GN[S.g]}</h1><small style="color:var(--mute)">欢迎，${S.name}！点选星球出发 </small> <button class="pill" onclick="hubName()?hubLogout():login()">🚪 登出</button> ${BACKL}</div><div><span class="pill">⭐ ${st}/${T.length*3}</span> <span class="pill">🏆 ${S.score}</span></div></div>
  <div class="card"><b>玩法：</b>每关最多：简单 20 题、中等 15 题、困难 10 题、专家 5 题（有些星球题目较少，会少一点）。答对得分（难度越高越多），用提示减半。<br>
  <button class="btn ${S.mode=="practice"?"":"alt"}" onclick="S.mode='practice';home()">练习（不计时）</button>
  <button class="btn ${S.mode=="challenge"?"":"alt"}" onclick="S.mode='challenge';home()">挑战（每题 25 秒，得分 ×1.5 + 快答奖励）</button></div>
@@ -737,7 +737,13 @@ function wpCard(){const A=getW();const rows=ROSTER.map(n=>{const a=A.filter(x=>x
  return `<tr><td><b>${n}</b></td><td>${a.length}次</td><td>${pc(a)}%</td><td>${a.reduce((s,x)=>s+x.pts,0)}</td><td>${wk}</td></tr>`}).join("");
  return `<div class="card" style="overflow-x:auto"><b>📝 应用题成绩</b><table style="border-collapse:collapse;min-width:480px;text-align:center;font-size:14px;margin-top:6px"><tr style="color:var(--mute)"><th>学生</th><th>次数</th><th>完全答对率</th><th>总分</th><th>最弱单元</th></tr>${rows}</table></div>`}
 
-login();
+/* 从学习中心（index.html）登入后直接进入，不用再登入一次 */
+function hubName(){try{const s=JSON.parse(sessionStorage.getItem("asc_student")||"null");if(s&&s.name)return s.name}catch(e){}
+ try{const q=new URLSearchParams(location.search).get("s");if(q)return q}catch(e){}return null}
+function hubLogout(){try{sessionStorage.removeItem("asc_student")}catch(e){}location.href="index.html"}
+function autoStart(){const n=hubName();if(n){S.name=n;home()}else login()}
+autoStart();
+
 </script>
 </body>
 </html>

@@ -467,7 +467,7 @@ const BADGES=[["🥇","首次满分",()=>S.perfect>0],["🔥","连对 5 题",()=
 function home(){
  clearInterval(timer);
  const st=Object.values(S.stars).reduce((a,b)=>a+b,0);
- app.innerHTML=`<div class="bar"><div><h1>🚀 数学星球探险队 · 六年级</h1><small style="color:var(--mute)">欢迎，${S.name}！点选星球出发 </small><button class="pill" onclick="login()">换人</button> ${BACKL}</div><div><span class="pill">⭐ ${st}/27</span> <span class="pill">🏆 ${S.score}</span></div></div>
+ app.innerHTML=`<div class="bar"><div><h1>🚀 数学星球探险队 · 六年级</h1><small style="color:var(--mute)">欢迎，${S.name}！点选星球出发 </small><button class="pill" onclick="hubName()?hubLogout():login()">🚪 登出</button> ${BACKL}</div><div><span class="pill">⭐ ${st}/27</span> <span class="pill">🏆 ${S.score}</span></div></div>
  <div class="card"><b>玩法：</b>选一个星球与难度，每关最多：简单 20 题、中等 15 题、困难 10 题、专家 5 题（有些星球题目较少，会少一点）。答对得分（难度越高分数越多），用提示会减半。完成后可拿到 1–3 颗星！<br>
  模式：<button class="btn ${S.mode=="practice"?"":"alt"}" onclick="S.mode='practice';home()">练习（不计时）</button>
  <button class="btn ${S.mode=="challenge"?"":"alt"}" onclick="S.mode='challenge';home()">挑战（每题 25 秒，得分 ×1.5 + 快答奖励）</button></div>
@@ -707,7 +707,13 @@ if(G==3){mixIn(6,0,[prism,faceGen]);mixIn(6,1,[polyN,axis]);mixIn(6,2,[prism,axi
 if(G==6){mixIn(5,0,[polySum,triMiss,lineAng,around]);mixIn(5,1,[polySum,triMiss,lineAng,around]);mixIn(5,2,[polySum,triMiss])}
 })();
 
-login();
+/* 从学习中心（index.html）登入后直接进入，不用再登入一次 */
+function hubName(){try{const s=JSON.parse(sessionStorage.getItem("asc_student")||"null");if(s&&s.name)return s.name}catch(e){}
+ try{const q=new URLSearchParams(location.search).get("s");if(q)return q}catch(e){}return null}
+function hubLogout(){try{sessionStorage.removeItem("asc_student")}catch(e){}location.href="index.html"}
+function autoStart(){const n=hubName();if(n){S.name=n;home()}else login()}
+autoStart();
+
 </script>
 
 </body>
