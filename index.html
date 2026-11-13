@@ -151,7 +151,7 @@
     const cnb = $('cnBtn');
     if(sess.year === 1){ cnb.classList.remove('off'); cnb.href = "#"; cnb.dataset.sub = "cn1"; cnb.dataset.name = sess.name; }
     const enb = $('enBtn');
-    if(sess.year === 1){ enb.classList.remove('off'); enb.href = "year1-english.html?s=" + encodeURIComponent(sess.name); delete enb.dataset.sub; }
+    if(sess.year === 1){ enb.classList.remove('off'); enb.href = "#"; enb.dataset.sub = "en1"; enb.dataset.name = sess.name; }
     const bm = $('bmBtn');
     if(sess.year === 3){ bm.classList.remove('off'); bm.href = "#"; bm.dataset.sub = "bm"; bm.dataset.name = sess.name; }
     else { bm.classList.add('off'); bm.removeAttribute('href'); }
@@ -162,7 +162,7 @@
     let html = "";
     for(let y = 1; y <= 6; y++){
       const cn = y === 1
-        ? `<a class="tile cn" href="#" data-sub="cn1" data-name="Alex"><span class="ic">文</span>华文 Chinese</a><a class="tile en" href="year1-english.html?s=Alex"><span class="ic">Aa</span>English</a>`
+        ? `<a class="tile cn" href="#" data-sub="cn1" data-name="Alex"><span class="ic">文</span>华文 Chinese</a><a class="tile en" href="#" data-sub="en1" data-name="Alex"><span class="ic">Aa</span>English</a>`
         : y === 3
         ? `<a class="tile cn" href="#" data-sub="cn" data-name="Alex"><span class="ic">文</span>华文 Chinese</a><a class="tile en" href="#" data-sub="en" data-name="Alex"><span class="ic">Aa</span>English</a>`
         : `<div class="tile off"><span class="ic">文</span>华文 Chinese<small>Coming soon</small></div><div class="tile off"><span class="ic">Aa</span>English<small>Coming soon</small></div>`;
@@ -199,6 +199,9 @@
 
   // Year 3 subject pages. Change the file names here if yours are different.
   const SUB = {
+    en1: { title: "Aa English", tag: "Tahun 1 · Pilih latihan", items: [
+      { t: "Praktis Pre-UASA", s: "Latihan Pre-UASA · Practice", f: "year1-english.html", c: "en1a", i: '<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="m13 7 4 4"/></svg>' },
+      { t: "Latihan 2", s: "Akan datang · Coming soon", f: "", c: "en1b", i: '<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="m13 7 4 4"/></svg>' } ] },
     cn1: { title: "华文 Chinese", tag: "Tahun 1 · Pilih buku", items: [
       { t: "华文 1A", s: "课堂评估 · Buku 1A", f: "year1-chinese.html", c: "cn1a", i: '<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="m13 7 4 4"/></svg>' },
       { t: "华文 1B", s: "课堂评估 · Buku 1B", f: "year1-chinese-2.html", c: "cn1b", i: '<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="m13 7 4 4"/></svg>' } ] },
