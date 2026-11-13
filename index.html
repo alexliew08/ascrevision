@@ -150,6 +150,8 @@
     });
     const cnb = $('cnBtn');
     if(sess.year === 1){ cnb.classList.remove('off'); cnb.href = "#"; cnb.dataset.sub = "cn1"; cnb.dataset.name = sess.name; }
+    const enb = $('enBtn');
+    if(sess.year === 1){ enb.classList.remove('off'); enb.href = "year1-english.html?s=" + encodeURIComponent(sess.name); delete enb.dataset.sub; }
     const bm = $('bmBtn');
     if(sess.year === 3){ bm.classList.remove('off'); bm.href = "#"; bm.dataset.sub = "bm"; bm.dataset.name = sess.name; }
     else { bm.classList.add('off'); bm.removeAttribute('href'); }
@@ -160,7 +162,7 @@
     let html = "";
     for(let y = 1; y <= 6; y++){
       const cn = y === 1
-        ? `<a class="tile cn" href="#" data-sub="cn1" data-name="Alex"><span class="ic">文</span>华文 Chinese</a><div class="tile off"><span class="ic">Aa</span>English<small>Coming soon</small></div>`
+        ? `<a class="tile cn" href="#" data-sub="cn1" data-name="Alex"><span class="ic">文</span>华文 Chinese</a><a class="tile en" href="year1-english.html?s=Alex"><span class="ic">Aa</span>English</a>`
         : y === 3
         ? `<a class="tile cn" href="#" data-sub="cn" data-name="Alex"><span class="ic">文</span>华文 Chinese</a><a class="tile en" href="#" data-sub="en" data-name="Alex"><span class="ic">Aa</span>English</a>`
         : `<div class="tile off"><span class="ic">文</span>华文 Chinese<small>Coming soon</small></div><div class="tile off"><span class="ic">Aa</span>English<small>Coming soon</small></div>`;
