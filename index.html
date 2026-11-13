@@ -8,59 +8,74 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&display=swap">
 <style>
-  :root{--navy:#1d1d1f;--orange:#ff6b35;--orange-d:#c94a1a;--cream:#ffffff;--mute:#6b6b70;--off:#6b6b70;--offline:#b5b5ba;--yel:#ffd166;--teal:#06d6a0;--peach:#ffe4cc;--pink:#ef476f}
-  *{box-sizing:border-box}
-  body{margin:0;min-height:100vh;font-family:Fredoka,"Microsoft YaHei","PingFang SC",system-ui,sans-serif;background:var(--cream);color:var(--navy);display:flex;flex-direction:column;align-items:center;padding:24px 16px 40px}
-  .screen{display:none;width:100%;max-width:420px}
-  .screen.active{display:block}
-  .banner{background:#FFF3B0;border:2px dashed #B98A00;border-radius:12px;padding:9px 12px;font-weight:700;font-size:14px;text-align:center;color:#5C4300;margin-bottom:14px}
-  .brand{text-align:center;margin:0 0 18px}
-  .brand img{width:200px;max-width:60%;height:auto;display:block;margin:0 auto}
-  .brand small{display:block;font-size:16px;font-weight:600;color:var(--mute);margin-top:2px}
-  .card{background:#fff;border:3px solid var(--navy);border-radius:22px;padding:20px 20px 24px;box-shadow:0 6px 0 var(--navy)}
-  label{display:block;font-weight:700;font-size:16px;margin:14px 0 6px}
-  label:first-child{margin-top:0}
-  input,select{width:100%;height:50px;padding:0 14px;font:inherit;font-size:17px;border:3px solid var(--navy);border-radius:12px;background:#fff;color:var(--navy)}
-  input:focus,select:focus{outline:none;border-color:var(--orange);box-shadow:0 0 0 4px #FFD9B8}
-  .btn{width:100%;margin-top:22px;height:58px;font:inherit;font-size:20px;font-weight:700;color:#fff;background:var(--orange);border:3px solid var(--navy);border-radius:16px;box-shadow:0 5px 0 var(--navy);cursor:pointer}
-  .btn:active{transform:translateY(3px);box-shadow:0 2px 0 var(--navy)}
-  .err{color:#C62828;font-weight:700;text-align:center;min-height:20px;margin-top:12px}
-  .topbar{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:18px}
-  .topbar img{width:78px;height:auto}
-  .logout{display:inline-flex;align-items:center;gap:8px;height:48px;padding:0 16px;font:inherit;font-size:16px;font-weight:700;color:var(--navy);background:#fff;border:3px solid var(--navy);border-radius:999px;box-shadow:0 4px 0 var(--navy);cursor:pointer;white-space:nowrap}
-  .logout:hover{background:#ffe4cc}
-  .logout:active{transform:translateY(3px);box-shadow:0 1px 0 var(--navy)}
-  .hello{font-size:22px;font-weight:700}
-  .hello span{color:var(--orange-d)}
-  .yr{color:var(--mute);font-weight:600;margin:2px 0 16px}
-  .tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
-  a.tile,div.tile{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;height:112px;border:3px solid var(--navy);border-radius:16px;background:#fff;color:var(--navy);text-decoration:none;font-weight:700;font-size:18px;text-align:center;box-shadow:0 4px 0 var(--navy);padding:6px}
-  a.tile:active{transform:translateY(3px);box-shadow:0 1px 0 var(--navy)}
-  .tile .ic{font-size:30px;line-height:1;font-weight:700;display:flex;align-items:center;justify-content:center;height:32px}
-  .tile.math{background:#ffe4cc}
-  .tile.cn{background:#ffd166}
-  .tile.cn .ic{font-weight:900}
-  .tile small{font-size:12px;font-weight:600;color:var(--off);display:none}
-  a.tile.off,div.tile.off{background:#fff;border:3px dashed var(--offline);box-shadow:none;color:var(--off);font-size:17px;cursor:not-allowed}
-  .tile.off .ic{font-size:26px}
-  .tile.off small{display:block}
-  .yrow{margin-top:16px}.yrow:first-child{margin-top:0}
-  .ylabel{font-weight:700;font-size:17px;margin-bottom:8px}
-  .yrow a.tile,.yrow div.tile{height:64px;flex-direction:row;gap:8px;font-size:16px}
-  .yrow .tile .ic{font-size:20px;height:auto}
-  .yrow .tile.off small{display:none}
-  .yrow .tiles:has(> :nth-child(3)){grid-template-columns:repeat(3,minmax(0,1fr))}
-  .yrow .tiles:has(> :nth-child(3)) .tile{font-size:15px;gap:6px;white-space:nowrap;padding:4px}
-  .yrow .tiles:has(> :nth-child(3)) .tile.math .ic{display:none}
-  [hidden]{display:none!important}
-  .tiles.one{grid-template-columns:1fr}
-  a.tile.wide,div.tile.wide{height:120px;font-size:22px}
-  a.tile.wide .ic{height:38px}
-  .tile .sub{font-size:13px;font-weight:600;color:var(--mute)}
-  .tile.cn2{background:#cfe8ff}
-  .tile.en{background:#c8f7e4}
-  .tile.en2{background:#e6dcff}
-  .yrow .tiles:has(> :nth-child(3)) .tile .ic{display:none}
+:root{
+  --bg:#faf4e8; --card:#fffdf8; --ink:#1f3d31; --muted:#6d6a5c; --line:#eadfcb;
+  --green:#2f5e4a; --green2:#3f7a60; --cream2:#fff6df; --red:#b03a2e;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:"Noto Sans SC","Noto Sans","Segoe UI",system-ui,sans-serif;min-height:100vh;-webkit-font-smoothing:antialiased}
+.screen{display:none;max-width:1080px;margin:0 auto;padding:14px 16px 40px}
+.screen.active{display:block}
+
+/* top bar */
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 4px 14px}
+.topbar img{width:56px;height:56px;border-radius:14px;object-fit:contain;background:#fff;border:1px solid var(--line)}
+.logout{background:#fff;color:var(--ink);border:1.5px solid var(--line);border-radius:999px;padding:8px 14px;font-size:15px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+.logout:hover{background:var(--cream2)}
+
+/* hero card */
+.card{background:var(--card);border:1.5px solid var(--line);border-radius:26px;padding:22px 20px;box-shadow:0 6px 0 #efe4cf}
+.hello{font-size:30px;font-weight:800;color:var(--ink);line-height:1.25;margin:0 0 6px}
+.yr{display:inline-block;background:#e8f1ea;color:var(--green);border-radius:999px;padding:6px 14px;font-size:15px;font-weight:700;margin:4px 0 16px}
+.hero{border-radius:22px;overflow:hidden;border:1.5px solid var(--line);margin:12px 0 18px;background:#fbe3b8}
+.hero svg{display:block;width:100%;height:auto}
+.sub{display:block;font-size:13px;font-weight:500;color:var(--muted);margin-top:4px;line-height:1.4}
+
+/* banner (test mode) */
+.banner{background:#fff3c9;border:1.5px solid #ecd58a;color:#6b5210;border-radius:16px;padding:12px 16px;font-size:15px;margin:0 0 14px;font-weight:600}
+
+/* login */
+#login .brand{display:flex;flex-direction:column;align-items:center;gap:8px;margin:10px 0 18px;font-size:16px;font-weight:800;color:var(--green)}
+#login .brand img{width:96px;height:96px;border-radius:24px;background:#fff;border:1.5px solid var(--line);object-fit:contain}
+#login .card{max-width:440px;margin:0 auto}
+label{display:block;font-size:15px;font-weight:700;color:var(--ink);margin:14px 0 6px}
+input,select{width:100%;font-size:19px;padding:13px 14px;border:2px solid var(--line);border-radius:16px;background:#fff;color:var(--ink);font-family:inherit;outline:none}
+input:focus,select:focus{border-color:var(--green2);box-shadow:0 0 0 4px #dfeee5}
+.btn{width:100%;margin-top:20px;background:var(--green);color:#fff;border:none;border-radius:999px;padding:15px;font-size:20px;font-weight:800;cursor:pointer;box-shadow:0 5px 0 #1f4636}
+.btn:active{transform:translateY(3px);box-shadow:0 2px 0 #1f4636}
+.err{color:var(--red);font-size:15px;min-height:20px;margin-top:10px;font-weight:600}
+
+/* subject tiles */
+.tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:6px}
+.tiles.one{grid-template-columns:repeat(1,minmax(0,1fr))}
+.yrow{margin-bottom:18px}
+.ylabel{display:inline-block;background:var(--green);color:#fff;border-radius:999px;padding:6px 16px;font-size:15px;font-weight:800;margin:6px 0 10px}
+.tile{position:relative;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:8px;min-height:138px;padding:18px 16px;border-radius:22px;border:2px solid transparent;text-decoration:none;color:var(--ink);font-size:20px;font-weight:800;cursor:pointer;box-shadow:0 5px 0 rgba(0,0,0,.06);transition:transform .08s}
+.tile:hover{transform:translateY(-2px)}
+.tile:active{transform:translateY(2px)}
+.tile .ic{width:52px;height:52px;border-radius:16px;background:#fff;display:flex;align-items:center;justify-content:center;font-size:19px;font-weight:800;color:var(--green);border:1.5px solid rgba(0,0,0,.06);box-shadow:0 2px 0 rgba(0,0,0,.05)}
+.tile .ic svg{width:30px;height:30px}
+.tile small{display:block;font-size:13px;font-weight:600;color:var(--muted)}
+.tile.math{background:#fff4cf;border-color:#ebcf73}
+.tile.cn{background:#fde4d7;border-color:#eeb59a}
+.tile.en{background:#e3ecfb;border-color:#a2b8e4}
+.tile.bm{background:#e4f3de;border-color:#a1d095}
+.tile.wide{min-height:120px}
+.tile.off{background:#f1ece2;border-color:#e4dccb;color:#a39e8e;cursor:not-allowed;pointer-events:none;box-shadow:none}
+.tile.off .ic{color:#b5ae9b}
+.tile.off small{color:#a39e8e}
+.tile:not(.off) > small{display:none}
+
+/* widescreen */
+@media (min-width:760px){
+  .tiles{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .tiles.one{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .hello{font-size:34px}
+}
+@media (min-width:1000px){
+  .tiles{grid-template-columns:repeat(4,minmax(0,1fr))}
+}
 </style>
 </head>
 <body>
@@ -102,6 +117,52 @@
   </div>
   <div class="card">
     <div class="hello">欢迎 Welcome, <span id="who"></span></div>
+    <div class="hero"><svg viewBox="0 0 640 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A cosy study room with a bookshelf, desk, lamp and a student">
+  <rect width="640" height="190" fill="#fbe3b8"/>
+  <rect y="190" width="640" height="60" fill="#e9c28f"/>
+  <g stroke="#d9ad72" stroke-width="2"><line x1="0" y1="205" x2="640" y2="205"/><line x1="0" y1="222" x2="640" y2="222"/><line x1="0" y1="239" x2="640" y2="239"/></g>
+  <ellipse cx="330" cy="230" rx="170" ry="16" fill="#cfe3c4" stroke="#a9c99a" stroke-width="3"/>
+  <!-- window with city skyline -->
+  <path d="M400 185 V100 A75 75 0 0 1 550 100 V185 Z" fill="#cfe9f7" stroke="#7a5a3a" stroke-width="7"/>
+  <rect x="455" y="112" width="26" height="73" fill="#5aa88a"/>
+  <rect x="487" y="98" width="22" height="87" fill="#3f8a6c"/>
+  <rect x="418" y="128" width="22" height="57" fill="#8fc7a8"/>
+  <circle cx="520" cy="62" r="12" fill="#ffd66b"/>
+  <line x1="475" y1="100" x2="475" y2="185" stroke="#7a5a3a" stroke-width="5"/>
+  <!-- bookshelf -->
+  <rect x="40" y="40" width="120" height="150" rx="6" fill="#c98f56" stroke="#8a5a2c" stroke-width="5"/>
+  <line x1="40" y1="90" x2="160" y2="90" stroke="#8a5a2c" stroke-width="5"/>
+  <line x1="40" y1="140" x2="160" y2="140" stroke="#8a5a2c" stroke-width="5"/>
+  <rect x="52" y="52" width="14" height="36" fill="#e46f5c"/><rect x="68" y="56" width="12" height="32" fill="#f2b84b"/>
+  <rect x="82" y="50" width="14" height="38" fill="#4f8fd6"/><rect x="100" y="60" width="12" height="28" fill="#6dbf8a"/>
+  <rect x="54" y="102" width="20" height="34" fill="#8a6fd0"/><rect x="78" y="106" width="14" height="30" fill="#e46f5c"/>
+  <rect x="98" y="104" width="16" height="32" fill="#f2b84b"/>
+  <rect x="52" y="152" width="26" height="22" rx="3" fill="#f7d9b5"/><circle cx="130" cy="164" r="11" fill="#6dbf8a"/>
+  <!-- plant -->
+  <path d="M580 150 q-18 -30 0 -58 q18 28 0 58z" fill="#6dbf8a"/>
+  <path d="M600 150 q-20 -18 -6 -46 q20 22 6 46z" fill="#4f9d74"/>
+  <rect x="566" y="150" width="46" height="36" rx="6" fill="#e46f5c"/>
+  <!-- desk and lamp -->
+  <rect x="180" y="150" width="200" height="14" rx="4" fill="#a86d3c"/>
+  <rect x="192" y="164" width="12" height="28" fill="#8a5a2c"/><rect x="356" y="164" width="12" height="28" fill="#8a5a2c"/>
+  <rect x="214" y="132" width="50" height="18" rx="2" fill="#ffffff" stroke="#7a5a3a" stroke-width="2"/>
+  <line x1="222" y1="140" x2="256" y2="140" stroke="#4f8fd6" stroke-width="3"/><line x1="222" y1="146" x2="250" y2="146" stroke="#4f8fd6" stroke-width="3"/>
+  <rect x="300" y="122" width="8" height="28" fill="#5b5b5b"/>
+  <path d="M278 122 L320 122 L306 92 L292 92 Z" fill="#f6d56b" stroke="#c9a53a" stroke-width="2"/>
+  <!-- student -->
+  <circle cx="520" cy="112" r="22" fill="#f5d2b0"/>
+  <path d="M497 108 Q498 84 520 84 Q543 84 543 108 Q536 96 520 96 Q504 96 497 108 Z" fill="#2b2b2b"/>
+  <circle cx="512" cy="114" r="2.6" fill="#2b2b2b"/><circle cx="528" cy="114" r="2.6" fill="#2b2b2b"/>
+  <path d="M512 124 Q520 129 528 124" stroke="#b5654a" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+  <rect x="496" y="136" width="48" height="58" rx="12" fill="#2f5e4a"/>
+  <path d="M508 136 L520 152 L532 136" fill="#ffffff"/>
+  <rect x="500" y="192" width="18" height="34" rx="6" fill="#2f3b5a"/><rect x="522" y="192" width="18" height="34" rx="6" fill="#2f3b5a"/>
+  <rect x="494" y="222" width="24" height="8" rx="4" fill="#ffffff"/><rect x="520" y="222" width="24" height="8" rx="4" fill="#ffffff"/>
+  <rect x="470" y="150" width="14" height="38" rx="6" fill="#f5d2b0" transform="rotate(-18 477 150)"/>
+  <!-- speech bubble -->
+  <path d="M352 62 h118 a14 14 0 0 1 14 14 v20 a14 14 0 0 1 -14 14 h-88 l-12 12 v-12 h-18 a14 14 0 0 1 -14 -14 v-20 a14 14 0 0 1 14 -14z" fill="#ffffff" stroke="#2f5e4a" stroke-width="3"/>
+  <text x="411" y="93" text-anchor="middle" font-family="Noto Sans SC, Noto Sans, sans-serif" font-size="17" font-weight="800" fill="#2f5e4a">一起复习吧!</text>
+</svg></div>
     <div class="yr" id="yrTag"></div>
     <div class="tiles">
       <a class="tile math" id="mathBtn" href="#"><span class="ic">+ −</span>数学 Maths</a>
@@ -153,8 +214,8 @@
     const enb = $('enBtn');
     if(sess.year === 1){ enb.classList.remove('off'); enb.href = "#"; enb.dataset.sub = "en1"; enb.dataset.name = sess.name; }
     const bm = $('bmBtn');
-    if(sess.year === 1){ bm.classList.remove('off'); bm.href = "year1-bm.html"; delete bm.dataset.sub; }
-    else if(sess.year === 3){ bm.classList.remove('off'); bm.href = "#"; bm.dataset.sub = "bm"; bm.dataset.name = sess.name; }
+    if(sess.year === 3){ bm.classList.remove('off'); bm.href = "#"; bm.dataset.sub = "bm"; bm.dataset.name = sess.name; }
+    if(sess.year === 1){ bm.classList.remove('off'); bm.href = "#"; bm.dataset.sub = "bm1"; bm.dataset.name = sess.name; }
     else { bm.classList.add('off'); bm.removeAttribute('href'); }
     show('menu');
   }
@@ -167,10 +228,10 @@
         : y === 3
         ? `<a class="tile cn" href="#" data-sub="cn" data-name="Alex"><span class="ic">文</span>华文 Chinese</a><a class="tile en" href="#" data-sub="en" data-name="Alex"><span class="ic">Aa</span>English</a>`
         : `<div class="tile off"><span class="ic">文</span>华文 Chinese<small>Coming soon</small></div><div class="tile off"><span class="ic">Aa</span>English<small>Coming soon</small></div>`;
-      const bmT = y === 1
-        ? `<a class="tile bm" href="year1-bm.html"><span class="ic">BM</span>Bahasa Melayu</a>`
-        : y === 3
+      const bmT = y === 3
         ? `<a class="tile bm" href="#" data-sub="bm" data-name="Alex"><span class="ic">BM</span>Bahasa Melayu</a>`
+        : y === 1
+        ? `<a class="tile bm" href="#" data-sub="bm1" data-name="Alex"><span class="ic">BM</span>Bahasa Melayu</a>`
         : `<div class="tile off"><span class="ic">BM</span>Bahasa Melayu<small>Coming soon</small></div>`;
       html += `<div class="yrow"><div class="ylabel">Year ${y}</div><div class="tiles">
         <a class="tile math" href="${MATHS[y]}?s=Alex"><span class="ic">+ −</span>数学 Maths</a>${cn}${bmT}</div></div>`;
@@ -202,6 +263,10 @@
 
   // Year 3 subject pages. Change the file names here if yours are different.
   const SUB = {
+    bm1: { title: "Bahasa Melayu", tag: "Tahun 1 · Pilih latihan", items: [
+      { t: "Latihan Pemahaman", s: "Baca petikan, jawab soalan", f: "year1-pemahaman.html", c: "bm1a", i: '<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="m13 7 4 4"/></svg>' },
+      { t: "Latihan Tatabahasa", s: "Kata nama, kata ganti nama · Akan datang", f: "", c: "bm1b", i: '<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="m13 7 4 4"/></svg>' },
+      { t: "国语书写填充 Std 1", s: "Tulis ayat · dengan jawapan", f: "year1-bm.html", c: "bm1c", i: '<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="m13 7 4 4"/></svg>' } ] },
     en1: { title: "Aa English", tag: "Tahun 1 · Pilih latihan", items: [
       { t: "Praktis Pre-UASA", s: "Latihan Pre-UASA · Practice", f: "year1-english.html", c: "en1a", i: '<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="m13 7 4 4"/></svg>' },
       { t: "Latihan 2", s: "Akan datang · Coming soon", f: "", c: "en1b", i: '<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="m13 7 4 4"/></svg>' } ] },
