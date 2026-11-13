@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&display=swap">
 <style>
-  :root{--navy:#263A5A;--orange:#F7913F;--orange-d:#C95F0E;--cream:#FFF8EE;--mute:#5A6680;--off:#6B7488;--offline:#A7B0C2}
+  :root{--navy:#1d1d1f;--orange:#ff6b35;--orange-d:#c94a1a;--cream:#ffffff;--mute:#6b6b70;--off:#6b6b70;--offline:#b5b5ba;--yel:#ffd166;--teal:#06d6a0;--peach:#ffe4cc;--pink:#ef476f}
   *{box-sizing:border-box}
   body{margin:0;min-height:100vh;font-family:Fredoka,"Microsoft YaHei","PingFang SC",system-ui,sans-serif;background:var(--cream);color:var(--navy);display:flex;flex-direction:column;align-items:center;padding:24px 16px 40px}
   .screen{display:none;width:100%;max-width:420px}
@@ -17,7 +17,7 @@
   .brand{text-align:center;margin:0 0 18px}
   .brand img{width:200px;max-width:60%;height:auto;display:block;margin:0 auto}
   .brand small{display:block;font-size:16px;font-weight:600;color:var(--mute);margin-top:2px}
-  .card{background:#fff;border:3px solid var(--navy);border-radius:20px;padding:20px 20px 24px;box-shadow:0 6px 0 var(--navy)}
+  .card{background:#fff;border:3px solid var(--navy);border-radius:22px;padding:20px 20px 24px;box-shadow:0 6px 0 var(--navy)}
   label{display:block;font-weight:700;font-size:16px;margin:14px 0 6px}
   label:first-child{margin-top:0}
   input,select{width:100%;height:50px;padding:0 14px;font:inherit;font-size:17px;border:3px solid var(--navy);border-radius:12px;background:#fff;color:var(--navy)}
@@ -28,7 +28,7 @@
   .topbar{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:18px}
   .topbar img{width:78px;height:auto}
   .logout{display:inline-flex;align-items:center;gap:8px;height:48px;padding:0 16px;font:inherit;font-size:16px;font-weight:700;color:var(--navy);background:#fff;border:3px solid var(--navy);border-radius:999px;box-shadow:0 4px 0 var(--navy);cursor:pointer;white-space:nowrap}
-  .logout:hover{background:#FFE3CC}
+  .logout:hover{background:#ffe4cc}
   .logout:active{transform:translateY(3px);box-shadow:0 1px 0 var(--navy)}
   .hello{font-size:22px;font-weight:700}
   .hello span{color:var(--orange-d)}
@@ -37,8 +37,8 @@
   a.tile,div.tile{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;height:112px;border:3px solid var(--navy);border-radius:16px;background:#fff;color:var(--navy);text-decoration:none;font-weight:700;font-size:18px;text-align:center;box-shadow:0 4px 0 var(--navy);padding:6px}
   a.tile:active{transform:translateY(3px);box-shadow:0 1px 0 var(--navy)}
   .tile .ic{font-size:30px;line-height:1;font-weight:700;display:flex;align-items:center;justify-content:center;height:32px}
-  .tile.math{background:#FFE3CC}
-  .tile.cn{background:#FFF3B0}
+  .tile.math{background:#ffe4cc}
+  .tile.cn{background:#ffd166}
   .tile.cn .ic{font-weight:900}
   .tile small{font-size:12px;font-weight:600;color:var(--off);display:none}
   a.tile.off,div.tile.off{background:#fff;border:3px dashed var(--offline);box-shadow:none;color:var(--off);font-size:17px;cursor:not-allowed}
@@ -57,9 +57,9 @@
   a.tile.wide,div.tile.wide{height:120px;font-size:22px}
   a.tile.wide .ic{height:38px}
   .tile .sub{font-size:13px;font-weight:600;color:var(--mute)}
-  .tile.cn2{background:#DDF0FF}
-  .tile.en{background:#E3F7E8}
-  .tile.en2{background:#EDE7FF}
+  .tile.cn2{background:#cfe8ff}
+  .tile.en{background:#c8f7e4}
+  .tile.en2{background:#e6dcff}
   .yrow .tiles:has(> :nth-child(3)) .tile .ic{display:none}
 </style>
 </head>
@@ -153,7 +153,8 @@
     const enb = $('enBtn');
     if(sess.year === 1){ enb.classList.remove('off'); enb.href = "#"; enb.dataset.sub = "en1"; enb.dataset.name = sess.name; }
     const bm = $('bmBtn');
-    if(sess.year === 3){ bm.classList.remove('off'); bm.href = "#"; bm.dataset.sub = "bm"; bm.dataset.name = sess.name; }
+    if(sess.year === 1){ bm.classList.remove('off'); bm.href = "year1-bm.html"; delete bm.dataset.sub; }
+    else if(sess.year === 3){ bm.classList.remove('off'); bm.href = "#"; bm.dataset.sub = "bm"; bm.dataset.name = sess.name; }
     else { bm.classList.add('off'); bm.removeAttribute('href'); }
     show('menu');
   }
@@ -166,7 +167,9 @@
         : y === 3
         ? `<a class="tile cn" href="#" data-sub="cn" data-name="Alex"><span class="ic">文</span>华文 Chinese</a><a class="tile en" href="#" data-sub="en" data-name="Alex"><span class="ic">Aa</span>English</a>`
         : `<div class="tile off"><span class="ic">文</span>华文 Chinese<small>Coming soon</small></div><div class="tile off"><span class="ic">Aa</span>English<small>Coming soon</small></div>`;
-      const bmT = y === 3
+      const bmT = y === 1
+        ? `<a class="tile bm" href="year1-bm.html"><span class="ic">BM</span>Bahasa Melayu</a>`
+        : y === 3
         ? `<a class="tile bm" href="#" data-sub="bm" data-name="Alex"><span class="ic">BM</span>Bahasa Melayu</a>`
         : `<div class="tile off"><span class="ic">BM</span>Bahasa Melayu<small>Coming soon</small></div>`;
       html += `<div class="yrow"><div class="ylabel">Year ${y}</div><div class="tiles">
