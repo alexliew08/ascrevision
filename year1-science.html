@@ -1,0 +1,959 @@
+﻿<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Science Year 1 · 一年级单元评估</title>
+<style>
+:root{--bg:#e8f7f2;--ink:#1f3d31;--muted:#5d7a6e;--panel:#fff;--soft:#f1fbf7;--line:#2f5e4a;--accent:#2f9e7a;--good:#1f9d5a;--bad:#d9434a}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:"Microsoft YaHei","PingFang SC","Trebuchet MS",system-ui,sans-serif}
+.top{position:sticky;top:0;z-index:6;background:var(--panel);border-bottom:3px solid var(--line)}
+.top-in{max-width:1100px;margin:0 auto;padding:8px 14px;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.top h1{margin:0;font-size:21px}
+.chip{font-size:16px;font-weight:700;background:var(--soft);border:2px solid var(--line);border-radius:14px;padding:6px 12px;white-space:nowrap}
+.wrap{max-width:1100px;margin:0 auto;padding:10px 14px 16px}
+.bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:6px}
+.bar select{font:inherit;font-size:17px;font-weight:700;min-height:48px;padding:6px 10px;border:3px solid var(--line);border-radius:14px;background:var(--panel);color:var(--ink);flex:1 1 260px;max-width:100%}
+.btn{font:inherit;font-size:16px;font-weight:700;min-height:44px;padding:6px 14px;border:3px solid var(--line);border-radius:14px;background:var(--accent);color:#fff;box-shadow:0 4px 0 var(--line);cursor:pointer;white-space:nowrap;text-decoration:none;display:inline-flex;align-items:center}
+.btn.alt{background:var(--panel);color:var(--ink)}
+.btn:active{transform:translateY(3px);box-shadow:0 1px 0 var(--line)}
+.btn:disabled{opacity:.35;box-shadow:none;cursor:default}
+.navline{font-size:15px;margin:8px 0 0;display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center}
+.navline a{color:var(--ink);font-weight:700}
+.muted{color:var(--muted)}
+.card{background:var(--panel);border:3px solid var(--line);border-radius:18px;box-shadow:0 5px 0 var(--line);padding:10px;margin:12px 0 8px}
+.ptitle{display:flex;justify-content:space-between;align-items:center;margin:0 4px 8px;gap:8px;flex-wrap:wrap}
+.ptitle b{font-size:18px}
+.tag{display:inline-block;background:var(--line);color:#fff;border-radius:10px;padding:3px 10px;font-size:14px;font-weight:700;margin-right:6px}
+.stage{position:relative;margin:0 auto;max-width:900px;border:2px solid #cfe6dd;border-radius:10px;overflow:hidden;background:#fff;container-type:inline-size}
+.stage img{display:block;width:100%;height:auto;user-select:none;-webkit-user-select:none}
+.ov{position:absolute;height:2.6cqw;font:inherit;font-size:1.9cqw;line-height:1;color:#1a3fb0;background:#fff;border:1.5px solid #9bb6e8;border-radius:5px;padding:0 4px;margin:0;min-width:0;text-align:center}
+.ov.ok{background:#ddf6e6;border-color:var(--good)}
+.ov.bad{background:#ffe3e3;border-color:var(--bad)}
+.ov:focus{outline:3px solid var(--accent);outline-offset:1px}
+.noboxes{padding:12px;color:var(--muted)}
+.stage select.ov{padding:0 2px;cursor:pointer}
+.stage canvas.draw{position:absolute;left:0;top:0;width:100%;height:100%;touch-action:none;cursor:crosshair}
+.btn.on{background:var(--accent);color:#fff}
+.stage textarea.ov{resize:none;text-align:left;line-height:1.35;padding:4px 6px;font-size:1.7cqw;height:6.5cqw}
+.stage textarea.ov.ta{height:auto}
+.zone{position:absolute;border:2px dashed #2f9e7a;background:rgba(241,251,247,.55);border-radius:10px;display:flex;flex-wrap:wrap;align-content:flex-start;gap:4px;padding:4px;cursor:pointer}
+.zone .zl{width:100%;font-size:1.9cqw;color:var(--green);pointer-events:none}
+.chip-n{display:inline-flex;align-items:center;justify-content:center;min-width:2.6em;padding:2px 6px;border:2px solid var(--line);border-radius:999px;background:#fff;font-weight:700;cursor:grab;user-select:none;margin:2px}
+.chip-n.sel{background:#ffe9a8}
+.chip-n.ok{background:#ddf6e6;border-color:var(--good)}
+.chip-n.bad{background:#ffe3e3;border-color:var(--bad)}
+.tray{display:flex;flex-wrap:wrap;gap:6px;align-items:center;padding:8px;margin:8px 0;border:2px dashed var(--line);border-radius:14px;background:var(--soft);min-height:48px}
+.tray[hidden]{display:none}
+.teacher{margin-top:10px;border:2px solid var(--line);border-radius:14px;padding:10px;background:#fff}
+.teacher[hidden]{display:none}
+.tahead{font-weight:800;margin-bottom:8px}
+.trow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:6px 0;border-top:1px dashed #cfe6dd}
+.trow .tstu{flex:1 1 220px}
+.trow .tref{flex:1 1 220px;color:var(--muted)}
+.trow .btn{min-height:38px;padding:4px 10px}
+.trow .btn.bad{background:var(--bad);color:#fff;border-color:var(--bad)}
+.trow .btn.ok{background:var(--good);color:#fff;border-color:var(--good)}
+.trow .btn:not(.on){opacity:.55}
+.result{margin-top:10px;font-size:17px;font-weight:700;padding:10px 12px;border-radius:12px;border:2px solid var(--line);background:var(--soft)}
+.result[hidden]{display:none}
+.pager{position:sticky;bottom:0;z-index:5;background:var(--bg);border-top:3px solid var(--line)}
+.pager-in{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 14px calc(10px + env(safe-area-inset-bottom,0px))}
+.pager .btn{min-width:112px;font-size:18px}
+.pmid{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;gap:4px}
+.pmid select{font:inherit;font-size:16px;font-weight:700;min-height:44px;max-width:100%;padding:4px 8px;border:3px solid var(--line);border-radius:12px;background:var(--panel);color:var(--ink)}
+@media (max-width:520px){.pager .btn{min-width:84px;font-size:16px;padding:4px 10px}.top h1{font-size:17px}}
+</style>
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <h1>🔬 Science Year 1 · 一年级单元评估</h1>
+  <span class="chip" id="pgChip"></span>
+</div></header>
+<main class="wrap">
+  <div class="bar">
+    <select id="secSel" aria-label="选择单元"></select>
+    <button class="btn" id="checkBtn">✓ 检查答案 Check</button>
+    <button class="btn alt" id="showBtn">👀 显示答案 Show</button>
+    <button class="btn alt" id="resetBtn">↺ 重做 Redo</button>
+    <button class="btn alt" id="teacherBtn" hidden>👩‍🏫 老师检查 Teacher check</button>
+    <span class="chip" id="score">未检查</span>
+  </div>
+  <div class="bar" id="penBar" hidden>
+    <button class="btn alt" id="pencilBtn">✏️ 铅笔 Pencil</button>
+    <button class="btn alt" id="rulerBtn">📏 尺子 Ruler</button>
+    <button class="btn alt" id="eraserBtn">🧽 橡皮 Eraser</button>
+    <button class="btn alt" id="clearBtn">🗑 清除 Clear</button>
+  </div>
+  <div class="navline">
+    <a href="index.html">← 返回学习中心 Learning Hub</a>
+    <span class="muted">在格子里写答案，然后按“检查答案”。Write in the boxes, then press Check.</span>
+  </div>
+  <section class="card">
+    <div class="ptitle"><span><span class="tag" id="secTag"></span><b id="pTitle"></b></span></div>
+    <div class="stage" id="stage"><img id="pimg" alt="一年级单元评估"></div>
+    <div class="tray" id="tray" hidden></div>
+    <div class="noboxes" id="noBoxes" hidden>本页没有需要填写的格子。No boxes on this page.</div>
+    <div class="result" id="result" hidden></div>
+    <div class="teacher" id="teacher" hidden></div>
+  </section>
+</main>
+<nav class="pager" aria-label="翻页"><div class="pager-in">
+  <button class="btn alt" id="prevBtn">← 上一页</button>
+  <div class="pmid"><select id="pageSel" aria-label="跳到页"></select></div>
+  <button class="btn" id="nextBtn">下一页 →</button>
+</div></nav>
+<script>
+'use strict';
+const N = 41;   // last page shown (pages 42–48 are hidden)
+const IMG = p => "year1-science-clean/p-" + String(p).padStart(2, '0') + ".jpg";
+const KEY = 'sci1_v3';
+const $ = id => document.getElementById(id);
+
+// Units follow the book's contents page.
+const SECS = [
+  {t:"单元一 科学技能 · 第 2–6 页", a:2, b:6, short:"单元一"},
+  {t:"单元二 科学实验规则 · 第 7 页", a:7, b:7, short:"单元二"},
+  {t:"单元三 生物和非生物 · 第 8–13 页", a:8, b:13, short:"单元三"},
+  {t:"单元四 人类 · 第 14–17 页", a:14, b:17, short:"单元四"},
+  {t:"单元五 动物 · 第 18–20 页", a:18, b:20, short:"单元五"},
+  {t:"单元六 植物 · 第 21–24 页", a:21, b:24, short:"单元六"},
+  {t:"单元七 磁铁 · 第 25–29 页", a:25, b:29, short:"单元七"},
+  {t:"单元八 吸水能力 · 第 30–34 页", a:30, b:34, short:"单元八"},
+  {t:"单元九 地球 · 第 35–36 页", a:35, b:36, short:"单元九"},
+  {t:"单元十 基本建筑 · 第 37–41 页", a:37, b:41, short:"单元十"},
+];
+
+// Answer boxes. Each box: [left %, top %, width %, answer, mode, height in cqw (optional)]
+// left/top = position on the page image as % of its width/height.
+// mode: 'tf' = √/× (or 对/错); 'sort' = letters in any order. '|' separates accepted answers.
+const BOX = {
+  3: [
+    [6.0,33.4,24,"视觉","","听觉|视觉|触觉|嗅觉|味觉"],
+    [35.4,33.4,24,"听觉","","听觉|视觉|触觉|嗅觉|味觉"],
+    [64.8,33.4,24,"味觉","","听觉|视觉|触觉|嗅觉|味觉"],
+    [6.0,51.4,24,"嗅觉","","听觉|视觉|触觉|嗅觉|味觉"],
+    [35.4,51.4,24,"触觉","","听觉|视觉|触觉|嗅觉|味觉"],
+    [12.1,63.8,25,"耳朵","","耳朵|鼻子|皮肤|眼睛|舌头"],
+    [64.4,63.8,28,"听觉","","听觉|视觉|触觉|嗅觉|味觉"],
+    [12.1,69.2,25,"鼻子","","耳朵|鼻子|皮肤|眼睛|舌头"],
+    [38.2,69.2,25,"嗅","","听|嗅|尝|摸|看"],
+    [38.2,74.5,25,"尝","","听|嗅|尝|摸|看"],
+    [64.4,74.5,28,"味觉","","听觉|视觉|触觉|嗅觉|味觉"],
+    [12.1,79.8,25,"皮肤","","耳朵|鼻子|皮肤|眼睛|舌头"],
+    [64.4,79.8,28,"触觉","","听觉|视觉|触觉|嗅觉|味觉"],
+    [12.1,85.2,25,"眼睛","","耳朵|鼻子|皮肤|眼睛|舌头"],
+    [38.2,85.2,25,"看","","听|嗅|尝|摸|看"]
+  ],
+  4: [
+    [29.7,35.1,45,"信息与通信技术","","书写|口述|绘图|信息与通信技术"],
+    [6.0,58.8,28.9,"书写","","书写|口述|绘图|信息与通信技术"],
+    [67.8,58.8,28.9,"绘图","","书写|口述|绘图|信息与通信技术"],
+    [36.5,71.5,28.9,"口述","","书写|口述|绘图|信息与通信技术"]
+  ],
+  5: [
+    [35.2,53.3,22,"视觉","","视觉|触觉|味觉|嗅觉"],
+    [59.3,53.3,33,"绿色果皮","","绿色果皮|有尖刺|果肉香甜|浓烈的香气"],
+    [35.2,61.3,22,"触觉","","视觉|触觉|味觉|嗅觉"],
+    [59.3,61.3,33,"有尖刺","","绿色果皮|有尖刺|果肉香甜|浓烈的香气"],
+    [35.2,69.3,22,"味觉","","视觉|触觉|味觉|嗅觉"],
+    [59.3,69.3,33,"果肉香甜","","绿色果皮|有尖刺|果肉香甜|浓烈的香气"],
+    [35.2,77.3,22,"嗅觉","","视觉|触觉|味觉|嗅觉"],
+    [59.3,77.3,33,"浓烈的香气","","绿色果皮|有尖刺|果肉香甜|浓烈的香气"]
+  ],
+  6: [
+    [37.6,24.7,9,"R","","P|Q|R|S|T"],
+    [81.5,24.7,9,"P","","P|Q|R|S|T"],
+    [37.6,40.1,9,"R","","P|Q|R|S|T"],
+    [81.5,40.1,9,"T","","P|Q|R|S|T"],
+    [37.6,56.2,9,"S","","P|Q|R|S|T"],
+    [81.5,56.2,9,"Q","","P|Q|R|S|T"]
+  ],
+  7: [
+    [13.0,25.7,10.2,"√","tf","√|×"],
+    [57.1,25.7,10.2,"×","tf","√|×"],
+    [13.2,43.0,10.2,"×","tf","√|×"],
+    [57.6,43.0,10.2,"×","tf","√|×"],
+    [13.5,60.6,10.2,"√","tf","√|×"],
+    [57.3,60.6,10.2,"√","tf","√|×"],
+    [13.5,78.0,10.2,"×","tf","√|×"],
+    [57.6,78.0,10.2,"√","tf","√|×"]
+  ],
+  8: [
+    [26.4,22.7,8,"×","tf","√|×"],
+    [55.7,22.7,8,"×","tf","√|×"],
+    [84.9,22.7,8,"√","tf","√|×"],
+    [26.4,33.1,8,"×","tf","√|×"],
+    [55.7,33.1,8,"√","tf","√|×"],
+    [84.9,33.1,8,"×","tf","√|×"],
+    [26.4,43.0,8,"√","tf","√|×"],
+    [55.7,43.0,8,"×","tf","√|×"],
+    [84.9,43.0,8,"×","tf","√|×"],
+    [26.4,52.7,8,"×","tf","√|×"],
+    [55.7,52.7,8,"√","tf","√|×"],
+    [84.9,52.7,8,"√","tf","√|×"],
+    [26.4,62.7,8,"√","tf","√|×"],
+    [55.7,62.7,8,"×","tf","√|×"],
+    [84.9,62.7,8,"√","tf","√|×"]
+  ],
+  9: [
+    [14.5,36.1,27,"会成长","","会呼吸|会移动|会繁殖|会成长|需要水和食物"],
+    [53,36.1,27,"会繁殖","","会呼吸|会移动|会繁殖|会成长|需要水和食物"],
+    [13.7,59.6,27,"会移动","","会呼吸|会移动|会繁殖|会成长|需要水和食物"],
+    [52.8,60.5,27,"需要水和食物","","会呼吸|会移动|会繁殖|会成长|需要水和食物"],
+    [13.5,83.3,27,"会呼吸","","会呼吸|会移动|会繁殖|会成长|需要水和食物"]
+  ],
+  10: [
+    [33.5,29.6,11,"M","","M|N|O"],
+    [53.8,29.6,11,"N","","M|N|O"],
+    [74.2,29.6,11,"O","","M|N|O"],
+    [33.5,48.8,11,"Q","","P|Q|R"],
+    [53.8,48.8,11,"R","","P|Q|R"],
+    [74.2,48.8,11,"P","","P|Q|R"],
+    [33.5,67.2,11,"T","","S|T|U"],
+    [53.8,67.2,11,"S","","S|T|U"],
+    [74.2,67.2,11,"U","","S|T|U"],
+    [50.5,78.3,42,"不是。风扇不需要食物和水，也不会繁殖和成长。","manual",12]
+  ],
+  11: [
+    [7.2,28.6,22,"水","","水|食物|空气"],
+    [38.5,28.6,22,"食物","","水|食物|空气"],
+    [70.7,28.6,22,"空气","","水|食物|空气"],
+    [56,47.8,14,"空气","","水|空气|食物"],
+    [67,58.6,14,"食物","","水|空气|食物"],
+    [74,69.9,14,"食物","","水|空气|食物"],
+    [59,80.8,14,"水","","水|空气|食物"]
+  ],
+  12: [
+    [14.0,78.7,17,"遮阳","","遮阳|避雨|躲避危险"],
+    [41.5,78.7,17,"避雨","","遮阳|避雨|躲避危险"],
+    [68.6,79.6,20,"躲避危险","","遮阳|避雨|躲避危险"]
+  ],
+  13: [
+    [16.8,39.1,29.7,"植物A的叶子枯萎","manual",22],
+    [57.5,39.1,29.7,"植物B生长良好","manual",22],
+    [31.9,65.0,8,"√","","√|×"],
+    [58.2,65.0,8,"×","","√|×"],
+    [13.5,77.0,77,"植物A的叶子表面被涂上了食油，所以无法呼吸。植物没有获取空气便枯萎了。","manual",14]
+  ],
+  14: [
+    [6.5,22.5,23,"眼睛","","眼睛|皮肤|耳朵|鼻子|舌头"],
+    [7.3,36.4,23,"皮肤","","眼睛|皮肤|耳朵|鼻子|舌头"],
+    [68,19.1,23,"耳朵","","眼睛|皮肤|耳朵|鼻子|舌头"],
+    [70,29.6,23,"鼻子","","眼睛|皮肤|耳朵|鼻子|舌头"],
+    [67.8,42.2,23,"舌头","","眼睛|皮肤|耳朵|鼻子|舌头"],
+    [4.4,52.2,25,"嗅觉","","嗅觉|听觉|视觉|味觉|触觉"],
+    [67,53.3,25,"听觉","","嗅觉|听觉|视觉|味觉|触觉"],
+    [69.9,66.2,25,"视觉","","嗅觉|听觉|视觉|味觉|触觉"],
+    [66.1,78.3,25,"味觉","","嗅觉|听觉|视觉|味觉|触觉"],
+    [6.1,77.4,25,"触觉","","嗅觉|听觉|视觉|味觉|触觉"]
+  ],
+  15: [
+    
+  ],
+  16: [
+    [18.0,42.0,9,"Q","","P|Q|R|S|T|U|V|W"],
+    [34.5,42.0,9,"W","","P|Q|R|S|T|U|V|W"],
+    [63.6,42.0,9,"S","","P|Q|R|S|T|U|V|W"],
+    [79.9,42.0,9,"U","","P|Q|R|S|T|U|V|W"],
+    [18.0,49.2,9,"R","","P|Q|R|S|T|U|V|W"],
+    [34.5,49.2,9,"T","","P|Q|R|S|T|U|V|W"],
+    [63.6,49.2,9,"P","","P|Q|R|S|T|U|V|W"],
+    [79.9,49.2,9,"V","","P|Q|R|S|T|U|V|W"],
+    [22.8,68.5,10.4,"软","","冷|热|软|硬|滑|粗"],
+    [51.6,68.5,10.4,"冷","","冷|热|软|硬|滑|粗"],
+    [81.1,68.5,10.4,"粗","","冷|热|软|硬|滑|粗"],
+    [22.8,79.9,10.4,"滑","","冷|热|软|硬|滑|粗"],
+    [52.0,79.9,10.4,"热","","冷|热|软|硬|滑|粗"],
+    [81.1,79.9,10.4,"硬","","冷|热|软|硬|滑|粗"]
+  ],
+  17: [
+    [46,31.3,9,"QR","sort","PR|PS|QR|QS"],
+    [46,41.9,9,"PS","sort","PR|PS|QR|QS"],
+    [46,51.5,9,"QR","sort","PR|PS|QR|QS"],
+    [46,61.2,9,"PR","sort","PR|PS|QR|QS"],
+    [46,70.8,9,"P","","P|Q"],
+    [52.5,77.5,41.5,"开放题，老师判断","manual",15]
+  ],
+  18: [
+    [76.5,19.5,10,"A","","A|B|C|D|E|F|G|H|I|J|K|L|M|N|O"],
+    [52.1,31.4,11,"N","","A|B|C|D|E|F|G|H|I|J|K|L|M|N|O"],
+    [81,31.3,11,"H","","A|B|C|D|E|F|G|H|I|J|K|L|M|N|O"],
+    [8.4,42.6,11,"B","","A|B|C|D|E|F|G|H|I|J|K|L|M|N|O"],
+    [33.6,37.2,11,"E","","A|B|C|D|E|F|G|H|I|J|K|L|M|N|O"],
+    [30.8,49.0,11,"C","","A|B|C|D|E|F|G|H|I|J|K|L|M|N|O"],
+    [57.4,36.9,11,"J","","A|B|C|D|E|F|G|H|I|J|K|L|M|N|O"],
+    [77.4,36.7,11,"F","","A|B|C|D|E|F|G|H|I|J|K|L|M|N|O"],
+    [50.8,47.0,11,"D","","A|B|C|D|E|F|G|H|I|J|K|L|M|N|O"],
+    [79.8,48.9,11,"I","","A|B|C|D|E|F|G|H|I|J|K|L|M|N|O"],
+    [36.4,59.3,11,"L","","A|B|C|D|E|F|G|H|I|J|K|L|M|N|O"],
+    [10.9,55.0,11,"K","","A|B|C|D|E|F|G|H|I|J|K|L|M|N|O"],
+    [8.0,65.8,11,"H","","A|B|C|D|E|F|G|H|I|J|K|L|M|N|O"],
+    [80.7,55.6,11,"G","","A|B|C|D|E|F|G|H|I|J|K|L|M|N|O"],
+    [51.8,64.6,11,"E","","A|B|C|D|E|F|G|H|I|J|K|L|M|N|O"],
+    [33.7,73.5,11,"N","","A|B|C|D|E|F|G|H|I|J|K|L|M|N|O"],
+    [7.4,73.3,11,"H","","A|B|C|D|E|F|G|H|I|J|K|L|M|N|O"],
+    [50.7,73.5,11,"M","","A|B|C|D|E|F|G|H|I|J|K|L|M|N|O"],
+    [51.6,83.3,11,"F","","A|B|C|D|E|F|G|H|I|J|K|L|M|N|O"],
+    [80.9,81.8,11,"H","","A|B|C|D|E|F|G|H|I|J|K|L|M|N|O"]
+  ],
+  19: [
+    [42.0,17.8,18.8,"翅膀","","翅膀|触角|鳍|鳞|喙|蹼|犀角|硬皮|外壳|感觉外界环境|毛发|耳朵"],
+    [42.0,22.1,18.8,"触角","","翅膀|触角|鳍|鳞|喙|蹼|犀角|硬皮|外壳|感觉外界环境|毛发|耳朵"],
+    [42.0,28.4,24.5,"鳍","","翅膀|触角|鳍|鳞|喙|蹼|犀角|硬皮|外壳|感觉外界环境|毛发|耳朵"],
+    [42.0,32.7,21.5,"鳞","","翅膀|触角|鳍|鳞|喙|蹼|犀角|硬皮|外壳|感觉外界环境|毛发|耳朵"],
+    [42.0,38.9,30,"喙","","翅膀|触角|鳍|鳞|喙|蹼|犀角|硬皮|外壳|感觉外界环境|毛发|耳朵"],
+    [42.0,43.2,30,"蹼","","翅膀|触角|鳍|鳞|喙|蹼|犀角|硬皮|外壳|感觉外界环境|毛发|耳朵"],
+    [42.0,49.5,30,"犀角","","翅膀|触角|鳍|鳞|喙|蹼|犀角|硬皮|外壳|感觉外界环境|毛发|耳朵"],
+    [36.6,53.8,30,"硬皮","","翅膀|触角|鳍|鳞|喙|蹼|犀角|硬皮|外壳|感觉外界环境|毛发|耳朵"],
+    [63.5,59.9,24.7,"外壳","","翅膀|触角|鳍|鳞|喙|蹼|犀角|硬皮|外壳|感觉外界环境|毛发|耳朵"],
+    [47.5,64.0,40.5,"感觉外界环境|感知外界环境","","翅膀|触角|鳍|鳞|喙|蹼|犀角|硬皮|外壳|感觉外界环境|毛发|耳朵"],
+    [47.5,70.2,27,"毛发","","翅膀|触角|鳍|鳞|喙|蹼|犀角|硬皮|外壳|感觉外界环境|毛发|耳朵"],
+    [47.5,74.5,18.7,"耳朵","","翅膀|触角|鳍|鳞|喙|蹼|犀角|硬皮|外壳|感觉外界环境|毛发|耳朵"],
+    [40.5,83.2,51,"开放题，老师判断","manual",8.5]
+  ],
+  20: [
+    [34.3,24.2,7,"√","tf","√|×"],
+    [46.7,24.2,7,"√","tf","√|×"],
+    [59.1,24.2,7,"×","tf","√|×"],
+    [71.6,24.2,7,"√","tf","√|×"],
+    [84.1,24.2,7,"×","tf","√|×"],
+    [34.3,32.3,7,"√","tf","√|×"],
+    [46.7,32.3,7,"×","tf","√|×"],
+    [59.1,32.3,7,"√","tf","√|×"],
+    [71.6,32.3,7,"√","tf","√|×"],
+    [84.1,32.3,7,"√","tf","√|×"],
+    [34.3,40.3,7,"√","tf","√|×"],
+    [46.7,40.3,7,"√","tf","√|×"],
+    [59.1,40.3,7,"×","tf","√|×"],
+    [71.6,40.3,7,"√","tf","√|×"],
+    [84.1,40.3,7,"×","tf","√|×"],
+    [34.3,48.3,7,"√","tf","√|×"],
+    [46.7,48.3,7,"×","tf","√|×"],
+    [59.1,48.3,7,"√","tf","√|×"],
+    [71.6,48.3,7,"√","tf","√|×"],
+    [84.1,48.3,7,"√","tf","√|×"],
+    [34.3,56.4,7,"√","tf","√|×"],
+    [46.7,56.4,7,"√","tf","√|×"],
+    [59.1,56.4,7,"×","tf","√|×"],
+    [71.6,56.4,7,"√","tf","√|×"],
+    [84.1,56.4,7,"×","tf","√|×"],
+    [29.0,64.0,18,"头","","头|尾巴|蛇|鱼|鳄鱼|鹿|羊"],
+    [61.0,64.0,18,"尾巴","","头|尾巴|蛇|鱼|鳄鱼|鹿|羊"],
+    [14.5,67.6,14,"蛇","","头|尾巴|蛇|鱼|鳄鱼|鹿|羊"],
+    [42.5,67.6,16.5,"鱼","","头|尾巴|蛇|鱼|鳄鱼|鹿|羊"],
+    [74.5,67.6,14,"鳄鱼","","头|尾巴|蛇|鱼|鳄鱼|鹿|羊"],
+    [28.5,71.4,9,"鹿","","头|尾巴|蛇|鱼|鳄鱼|鹿|羊"],
+    [58.1,71.4,9,"羊","","头|尾巴|蛇|鱼|鳄鱼|鹿|羊"],
+    [37.0,82.0,55,"开放题，老师判断","manual",11]
+  ],
+  21: [
+    [16.0,35.0,11,"Q","","P|Q|R|S"],
+    [74.6,30.6,11,"P","","P|Q|R|S"],
+    [76.8,47.5,9,"R","","P|Q|R|S"],
+    [16.3,51.4,11,"S","","P|Q|R|S"],
+    [9.0,79.1,16,"叶子","","叶子|花|茎|根"],
+    [31.0,79.1,16,"花","","叶子|花|茎|根"],
+    [53.0,79.1,16,"茎","","叶子|花|茎|根"],
+    [75.0,79.1,16,"根","","叶子|花|茎|根"]
+  ],
+  22: [
+    [31.3,22.1,16,"网状脉","","网状脉|平行脉"],
+    [74.4,21.9,16,"平行脉","","网状脉|平行脉"],
+    [30.0,37.7,16,"木质茎","","木质茎|草质茎"],
+    [75.4,37.1,16,"草质茎","","木质茎|草质茎"],
+    [30.8,60.3,16,"主根","","主根|须根"],
+    [74.3,60.0,16,"须根","","主根|须根"],
+    [30.3,75.3,16,"会开花","","会开花|不会开花"],
+    [75.3,75.3,16,"不会开花","","会开花|不会开花"]
+  ],
+  23: [
+    [45.0,22.4,40,"制造食物","","制造食物|繁殖后代|输送水分、食物和养料|吸收水分和养料"],
+    [45.0,31.7,40,"繁殖后代","","制造食物|繁殖后代|输送水分、食物和养料|吸收水分和养料"],
+    [45.0,41.5,40,"输送水分、食物和养料|输送水分食物和养料","","制造食物|繁殖后代|输送水分、食物和养料|吸收水分和养料"],
+    [45.0,51.2,40,"吸收水分和养料","","制造食物|繁殖后代|输送水分、食物和养料|吸收水分和养料"],
+    [46.5,79.6,42,"开放题，老师判断","manual",10]
+  ],
+  24: [
+    [25.3,27.8,18.5,"会开花","","会开花|不会开花"],
+    [44.2,27.8,16.5,"网状脉","","网状脉|平行脉"],
+    [60.9,27.8,16.5,"草质茎","","草质茎|木质茎"],
+    [77.6,27.8,16,"主根","","主根|须根"],
+    [25.3,37.7,18.5,"会开花","","会开花|不会开花"],
+    [44.2,37.7,16.5,"平行脉","","网状脉|平行脉"],
+    [60.9,37.7,16.5,"草质茎","","草质茎|木质茎"],
+    [77.6,37.7,16,"须根","","主根|须根"],
+    [25.3,47.7,18.5,"会开花","","会开花|不会开花"],
+    [44.2,47.7,16.5,"网状脉","","网状脉|平行脉"],
+    [60.9,47.7,16.5,"木质茎","","草质茎|木质茎"],
+    [77.6,47.7,16,"主根","","主根|须根"],
+    [25.3,57.4,18.5,"会开花","","会开花|不会开花"],
+    [44.2,57.4,16.5,"平行脉","","网状脉|平行脉"],
+    [60.9,57.4,16.5,"草质茎","","草质茎|木质茎"],
+    [77.6,57.4,16,"须根","","主根|须根"],
+    [25.3,66.9,18.5,"会开花","","会开花|不会开花"],
+    [44.2,66.9,16.5,"平行脉","","网状脉|平行脉"],
+    [60.9,66.9,16.5,"草质茎","","草质茎|木质茎"],
+    [77.6,66.9,16,"须根","","主根|须根"],
+    [6.5,79.6,88,"开放题，老师判断","manual",10.5]
+  ],
+  25: [
+    [27.8,21.4,7,"√","tf","√|×"],
+    [56.9,21.2,7,"×","tf","√|×"],
+    [86.5,21.4,7,"√","tf","√|×"],
+    [27.7,34.9,7,"×","tf","√|×"],
+    [57.0,34.9,7,"×","tf","√|×"],
+    [86.6,34.9,7,"√","tf","√|×"],
+    [27.7,48.5,7,"√","tf","√|×"],
+    [56.9,48.5,7,"√","tf","√|×"],
+    [86.6,48.5,7,"×","tf","√|×"],
+    [27.8,71.7,7,"S","","P|Q|R|S|T|U"],
+    [57.2,71.7,7,"U","","P|Q|R|S|T|U"],
+    [86.0,71.7,7,"Q","","P|Q|R|S|T|U"],
+    [27.8,80.7,7,"R","","P|Q|R|S|T|U"],
+    [57.2,80.7,7,"P","","P|Q|R|S|T|U"],
+    [86.0,80.7,7,"T","","P|Q|R|S|T|U"]
+  ],
+  26: [
+    [30.2,28.6,19,"条形","","条形|棒形|U形|马蹄形|纽扣形|环形"],
+    [74.2,28.6,19,"棒形","","条形|棒形|U形|马蹄形|纽扣形|环形"],
+    [30.0,42.5,19,"U形","","条形|棒形|U形|马蹄形|纽扣形|环形"],
+    [74.3,42.1,19,"马蹄形","","条形|棒形|U形|马蹄形|纽扣形|环形"],
+    [29.9,55.6,19,"纽扣形","","条形|棒形|U形|马蹄形|纽扣形|环形"],
+    [74.1,55.3,19,"环形","","条形|棒形|U形|马蹄形|纽扣形|环形"],
+    [46.0,70.5,45,"开放题，老师判断","manual",19]
+  ],
+  27: [
+    [6.4,36.0,21,"回形针","","回形针|铝罐|铁罐|订书机|20仙硬币|金块|木筷|铁钉"],
+    [28.4,36.0,21,"铝罐","","回形针|铝罐|铁罐|订书机|20仙硬币|金块|木筷|铁钉"],
+    [50.3,36.0,21,"铁罐","","回形针|铝罐|铁罐|订书机|20仙硬币|金块|木筷|铁钉"],
+    [72.2,36.0,21,"订书机","","回形针|铝罐|铁罐|订书机|20仙硬币|金块|木筷|铁钉"],
+    [6.6,52.0,21,"20仙硬币|20","","回形针|铝罐|铁罐|订书机|20仙硬币|金块|木筷|铁钉"],
+    [28.6,52.0,21,"金块","","回形针|铝罐|铁罐|订书机|20仙硬币|金块|木筷|铁钉"],
+    [50.5,52.0,21,"木筷","","回形针|铝罐|铁罐|订书机|20仙硬币|金块|木筷|铁钉"],
+    [72.2,52.0,21,"铁钉","","回形针|铝罐|铁罐|订书机|20仙硬币|金块|木筷|铁钉"]
+  ],
+  28: [
+    [16.2,18.1,9,"N","","N|S|南极|北极"],
+    [58.5,17.8,9,"S","","N|S|南极|北极"],
+    [5.4,27.1,21,"南极","","N|S|南极|北极"],
+    [71.6,27.5,20,"北极","","N|S|南极|北极"],
+    [16.3,53.9,28,"相斥","","相斥|相吸"],
+    [61.3,53.9,28,"相吸","","相斥|相吸"],
+    [16.8,73.4,28,"相斥","","相斥|相吸"],
+    [61.3,73.4,28,"相吸","","相斥|相吸"],
+    [39.0,82.5,16,"同极","","同极|异极|相斥|相吸"],
+    [11.0,86.2,16,"异极","","同极|异极|相斥|相吸"],
+    [40.1,86.2,12.6,"相斥","","同极|异极|相斥|相吸"],
+    [72.0,86.2,14,"相吸","","同极|异极|相斥|相吸"]
+  ],
+  29: [
+    [22.7,39.7,7.5,"√","","√|×"],
+    [52.4,39.7,7.5,"×","","√|×"],
+    [79.3,39.7,7.5,"×","","√|×"],
+    [43.4,47.5,11,"多","","多|少"],
+    [49.7,87.3,8,"远","","远|近"],
+    [21.6,79.9,7.5,"√","","√|×"],
+    [52.2,79.9,7.5,"×","","√|×"],
+    [79.3,79.9,7.5,"×","","√|×"]
+  ],
+  30: [
+    [43.0,36.1,36,"没有被吸收|没有","","被吸收|没有被吸收"],
+    [43.0,44.1,36,"被吸收|被","","被吸收|没有被吸收"],
+    [43.0,52.1,36,"被吸收|被","","被吸收|没有被吸收"],
+    [43.0,60.1,36,"没有被吸收|没有","","被吸收|没有被吸收"],
+    [5.3,83.0,20,"纸张|纸","","纸张|毛衣|回形针|玻璃弹珠"],
+    [28.3,83.0,20,"毛衣","","纸张|毛衣|回形针|玻璃弹珠"],
+    [53.0,83.0,20,"回形针","","纸张|毛衣|回形针|玻璃弹珠"],
+    [76.0,83.0,20,"玻璃弹珠|玻璃珠|弹珠","","纸张|毛衣|回形针|玻璃弹珠"]
+  ],
+  31: [
+    [28.3,18.8,5,"√","tf","√|×"],
+    [57.5,18.8,5,"×","tf","√|×"],
+    [87.3,18.8,5,"√","tf","√|×"],
+    [28.1,30.6,5,"×","tf","√|×"],
+    [57.5,30.6,5,"√","tf","√|×"],
+    [87.3,30.6,5,"×","tf","√|×"],
+    [28.3,42.3,5,"√","tf","√|×"],
+    [57.8,42.3,5,"√","tf","√|×"],
+    [87.3,42.3,5,"×","tf","√|×"],
+    [28.3,54.8,5,"√","tf","√|×"],
+    [57.8,54.8,5,"√","tf","√|×"],
+    [87.3,54.8,5,"×","tf","√|×"],
+    [9.3,77.3,8,"a","","a|b|c|d|e|f|g|h|i|j|k|l"],
+    [23.9,77.3,8,"c","","a|b|c|d|e|f|g|h|i|j|k|l"],
+    [38.6,77.3,8,"e","","a|b|c|d|e|f|g|h|i|j|k|l"],
+    [53.3,77.3,8,"b","","a|b|c|d|e|f|g|h|i|j|k|l"],
+    [67.9,77.3,8,"d","","a|b|c|d|e|f|g|h|i|j|k|l"],
+    [82.6,77.3,8,"f","","a|b|c|d|e|f|g|h|i|j|k|l"],
+    [9.3,82.6,8,"h","","a|b|c|d|e|f|g|h|i|j|k|l"],
+    [23.9,82.6,8,"j","","a|b|c|d|e|f|g|h|i|j|k|l"],
+    [38.6,82.6,8,"k","","a|b|c|d|e|f|g|h|i|j|k|l"],
+    [53.3,82.6,8,"g","","a|b|c|d|e|f|g|h|i|j|k|l"],
+    [67.9,82.6,8,"i","","a|b|c|d|e|f|g|h|i|j|k|l"],
+    [82.6,82.6,8,"l","","a|b|c|d|e|f|g|h|i|j|k|l"]
+  ],
+  32: [
+    [9.9,62.2,21.5,"马尼拉卡","","马尼拉卡|棉布|毛衣"],
+    [38.7,62.2,21.5,"棉布","","马尼拉卡|棉布|毛衣"],
+    [67.9,62.2,21.5,"毛衣","","马尼拉卡|棉布|毛衣"],
+    [41.0,75.5,25,"棉","","棉|纸|羊毛"],
+    [41.0,79.4,25,"纸","","棉|纸|羊毛"],
+    [41.0,83.4,25,"羊毛","","棉|纸|羊毛"]
+  ],
+  33: [
+    [37.5,35.5,8,"C","","A|B|C|D|E|F"],
+    [37.5,48.8,8,"E","","A|B|C|D|E|F"],
+    [37.5,61.6,8,"B","","A|B|C|D|E|F"],
+    [81.5,35.5,8,"F","","A|B|C|D|E|F"],
+    [81.5,48.8,8,"A","","A|B|C|D|E|F"],
+    [81.5,61.6,8,"D","","A|B|C|D|E|F"],
+    [28.0,79.1,19.8,"开放题，老师判断","manual",7],
+    [47.8,79.1,46.2,"开放题，老师判断","manual",7],
+    [28.0,84.2,19.8,"开放题，老师判断","manual",7],
+    [47.8,84.2,46.2,"开放题，老师判断","manual",7]
+  ],
+  34: [
+    [13.7,60.0,9,"×","","√|×"],
+    [40.1,60.0,9,"√","","√|×"],
+    [68.1,60.0,9,"×","","√|×"],
+    [13.7,79.5,79,"开放题，老师判断","manual",11]
+  ],
+  35: [
+    [37.1,29.4,7,"P","","I|J|K|L|M|N|O|P"],
+    [81.6,29.4,7,"M","","I|J|K|L|M|N|O|P"],
+    [37.2,42.6,7,"J","","I|J|K|L|M|N|O|P"],
+    [81.6,42.6,7,"I","","I|J|K|L|M|N|O|P"],
+    [37.2,55.8,7,"M","","I|J|K|L|M|N|O|P"],
+    [81.6,55.8,7,"N","","I|J|K|L|M|N|O|P"],
+    [37.0,69.4,7,"O","","I|J|K|L|M|N|O|P"],
+    [81.6,69.4,7,"L","","I|J|K|L|M|N|O|P"],
+    [61.8,85.4,7,"√","tf","√|×"],
+    [61.8,81.1,7,"×","","√|×"]
+  ],
+  36: [
+    [9.3,33.7,24.5,"沙土","","沙土|壤土|黏土"],
+    [38.8,33.7,24.5,"壤土","","沙土|壤土|黏土"],
+    [67.8,33.7,24.5,"黏土","","沙土|壤土|黏土"],
+    [10.5,65.6,22,"壤土","","沙土|壤土|黏土"],
+    [37.0,65.6,22,"黏土","","沙土|壤土|黏土"],
+    [67.0,65.6,22,"沙土","","沙土|壤土|黏土"]
+  ],
+  37: [
+    
+  ],
+  38: [
+    [24.4,24.4,24,"正方体","","正方体|长方体|棱锥体|棱柱体|圆锥体|圆柱体|球体"],
+    [68.1,24.7,24,"长方体","","正方体|长方体|棱锥体|棱柱体|圆锥体|圆柱体|球体"],
+    [24.4,41.1,24,"棱锥体","","正方体|长方体|棱锥体|棱柱体|圆锥体|圆柱体|球体"],
+    [68.1,41.1,24,"棱柱体","","正方体|长方体|棱锥体|棱柱体|圆锥体|圆柱体|球体"],
+    [24.5,56.8,24,"圆锥体","","正方体|长方体|棱锥体|棱柱体|圆锥体|圆柱体|球体"],
+    [67.9,56.8,24,"圆柱体","","正方体|长方体|棱锥体|棱柱体|圆锥体|圆柱体|球体"],
+    [24.5,72.2,24,"球体","","正方体|长方体|棱锥体|棱柱体|圆锥体|圆柱体|球体"]
+  ],
+  39: [
+    
+  ],
+  40: [
+    [53.5,19.5,27.5,"棱锥体","","棱锥体|圆柱体|长方体|正方体"],
+    [82.2,19.5,5,"1","","1|2|3"],
+    [53.5,28.6,27.5,"圆柱体","","棱锥体|圆柱体|长方体|正方体"],
+    [82.0,28.4,5,"1","","1|2|3"],
+    [53.5,38.2,27.5,"长方体","","棱锥体|圆柱体|长方体|正方体"],
+    [82.2,38.1,5,"2","","1|2|3"],
+    [53.5,49.0,27.5,"正方体","","棱锥体|圆柱体|长方体|正方体"],
+    [82.2,48.8,5,"2","","1|2|3"]
+  ],
+  41: [
+    [34.0,35.6,52,"不容易倒下，维持秩序","","不容易倒下，维持秩序|可以滚动|方便收纳物品|方便书写|平稳、节省建筑材料"],
+    [34.0,46.1,52,"可以滚动","","不容易倒下，维持秩序|可以滚动|方便收纳物品|方便书写|平稳、节省建筑材料"],
+    [34.0,56.8,52,"方便收纳物品","","不容易倒下，维持秩序|可以滚动|方便收纳物品|方便书写|平稳、节省建筑材料"],
+    [34.0,67.5,52,"方便书写","","不容易倒下，维持秩序|可以滚动|方便收纳物品|方便书写|平稳、节省建筑材料"],
+    [34.0,78.2,52,"平稳、节省建筑材料","","不容易倒下，维持秩序|可以滚动|方便收纳物品|方便书写|平稳、节省建筑材料"]
+  ]
+};
+
+let st = {}; try{ st = JSON.parse(localStorage.getItem(KEY) || '{}'); }catch(e){}
+st.v = st.v || {};
+const save = () => { try{ localStorage.setItem(KEY, JSON.stringify(st)); }catch(e){} };
+const secOf = p => SECS.find(s => p >= s.a && p <= s.b) || SECS[0];
+
+function canon(s, mode){
+  s = (s || '').trim();
+  if(mode === 'tf'){
+    if(/^(√|✓|✔|对|是)$/.test(s)) return 'T';
+    if(/^(×|✗|x|X|错|否)$/.test(s)) return 'F';
+  }
+  s = s.toLowerCase().replace(/[\s　、，,。.．()（）:：;；\-\/]/g, '');
+  if(mode === 'sort') s = s.split('').sort().join('');
+  return s;
+}
+function isRight(ans, user, mode){
+  const u = canon(user, mode);
+  if(!u) return false;
+  return ans.split('|').some(a => canon(a, mode) === u);
+}
+
+$('secSel').innerHTML = SECS.map((s,i)=>`<option value="${i}">${s.t}</option>`).join('');
+const SKIP = [42, 43, 44];   // answer pages are not shown
+const PAGES = Array.from({length:N-1}, (_, i) => i + 2).filter(p => !SKIP.includes(p));
+$('pageSel').innerHTML = PAGES.map(p => `<option value="${p}">第 ${p} 页</option>`).join('');
+function step(p, dir){ let q = p + dir; while(SKIP.includes(q)) q += dir; return q; }
+$('secSel').addEventListener('change', e => go(SECS[+e.target.value].a));
+$('pageSel').addEventListener('change', e => go(+e.target.value));
+$('prevBtn').addEventListener('click', () => go(step(cur, -1)));
+$('nextBtn').addEventListener('click', () => go(step(cur, 1)));
+$('checkBtn').addEventListener('click', check);
+$('showBtn').addEventListener('click', show);
+$('resetBtn').addEventListener('click', reset);
+['pencil','ruler','eraser'].forEach(t => $(t + 'Btn').addEventListener('click', () => { tool = (tool === t ? null : t); setPenMode(); }));
+$('clearBtn').addEventListener('click', () => { strokes = []; saveLines(cur); showingLines = false; drawLines(); $('score').textContent = '未检查'; $('result').hidden = true; });
+window.addEventListener('resize', drawLines);
+
+function boxesFor(p){ return BOX[p] || []; }
+
+// Dot-to-dot pages: anchor points (% of the page image) and the correct pairs (index into L and R).
+const LINES = {
+  2: {L:[[38.7,26.0],[38.7,38.6],[38.7,51.6],[38.7,65.4],[38.7,80.0]],
+      R:[[75.5,26.2],[75.5,39.1],[75.5,52.1],[75.5,65.5],[75.5,80.2]],
+      pairs:[[0,1],[1,4],[2,3],[3,0],[4,2]]},
+  12: {L:[[33.5,21.4],[33.5,32.5],[33.5,43.9]],
+       R:[[67.4,21.4],[67.4,32.5],[67.4,43.9]],
+       pairs:[[0,2],[1,0],[2,1]]}
+};
+let tool = 'pencil', strokes = [], drawing = null, showingLines = false;
+
+// Short closed answers become drop-down lists; long or open answers stay as text boxes.
+// Box kinds: 'manual' = typed answer checked by the teacher; a string in b[5] = drop-down with those choices
+// (separated by |); otherwise a typed box checked automatically.
+function isManual(b){ return b[4] === 'manual'; }
+function isDD(b){ return !isManual(b) && typeof b[5] === 'string'; }
+function optsOf(b){ return b[5].split('|'); }
+function primary(b){ return b[3].split('|')[0]; }
+
+function render(p){
+  const stage = $('stage');
+  stage.querySelectorAll('.ov, canvas.draw, .zone').forEach(n => n.remove());
+  $('pimg').src = IMG(p);
+  const list = boxesFor(p);
+  const cfg = LINES[p];
+  $('noBoxes').hidden = list.length > 0 || !!cfg || !!DRAG[p];
+  $('penBar').hidden = !cfg;
+  list.forEach((b, i) => {
+    const key = `${p}|${i}`;
+    let el;
+    if(isManual(b)){
+      el = document.createElement('textarea');
+      el.rows = 2;
+    } else if(isDD(b)){
+      el = document.createElement('select');
+      el.innerHTML = '<option value=""></option>' + optsOf(b).map(o => `<option value="${o}">${o}</option>`).join('');
+    } else {
+      el = document.createElement('input');
+      el.autocomplete = 'off';
+    }
+    el.className = 'ov' + (isManual(b) ? ' ta' : '');
+    el.id = `b-${p}-${i}`;
+    el.style.left = b[0] + '%';
+    el.style.top = b[1] + '%';
+    el.style.width = b[2] + '%';
+    if(typeof b[5] === 'number') el.style.height = b[5] + 'cqw';
+    el.value = st.v[key] || '';
+    const mark = st.t && st.t[key];
+    if(isManual(b) && mark){ el.classList.add(mark); }
+    el.addEventListener(isDD(b) ? 'change' : 'input', () => {
+      st.v[key] = el.value; save();
+      if(!isManual(b)){ el.classList.remove('ok','bad'); }
+      $('score').textContent = '未检查'; $('result').hidden = true;
+    });
+    stage.appendChild(el);
+  });
+  if(cfg) buildCanvas(p);
+  if(DRAG[p]) renderDrag(p);
+  renderTeacher();
+}
+
+// ---- pencil, ruler and eraser for dot-to-dot ----
+function buildCanvas(p){
+  const stage = $('stage');
+  const cv = document.createElement('canvas');
+  cv.className = 'draw'; cv.id = 'draw';
+  stage.appendChild(cv);
+  strokes = (st.lines && st.lines[p]) || [];
+  showingLines = false;
+  cv.addEventListener('pointerdown', e => {
+    const q = pt(e, cv);
+    if(tool === 'eraser'){ eraseAt(q); drawing = 'erase'; }
+    else if(tool === 'ruler'){ drawing = {type:'ruler', pts:[q, q]}; }
+    else { drawing = {type:'pencil', pts:[q]}; }
+    cv.setPointerCapture(e.pointerId);
+    drawLines();
+  });
+  cv.addEventListener('pointermove', e => {
+    if(!drawing) return;
+    const q = pt(e, cv);
+    if(drawing === 'erase'){ eraseAt(q); }
+    else if(drawing.type === 'ruler'){ drawing.pts[1] = q; }
+    else { drawing.pts.push(q); }
+    drawLines();
+  });
+  const end = () => {
+    if(drawing && drawing !== 'erase'){ strokes.push(drawing); saveLines(p); }
+    if(drawing === 'erase'){ saveLines(p); }
+    drawing = null; drawLines();
+  };
+  cv.addEventListener('pointerup', end);
+  cv.addEventListener('pointercancel', end);
+  setPenMode();
+  drawLines();
+}
+function pt(e, cv){
+  const r = cv.getBoundingClientRect();
+  return [ (e.clientX - r.left) / r.width * 100, (e.clientY - r.top) / r.height * 100 ];
+}
+function setPenMode(){
+  const cv = $('draw'); if(!cv) return;
+  cv.style.pointerEvents = tool ? 'auto' : 'none';
+  ['pencil','ruler','eraser'].forEach(t => $(t + 'Btn').classList.toggle('on', t === tool));
+}
+function eraseAt(q){
+  const before = strokes.length;
+  strokes = strokes.filter(s => !s.pts.some(v => Math.abs(v[0]-q[0]) < 3 && Math.abs(v[1]-q[1]) < 3));
+  if(strokes.length !== before) saveLines(cur);
+}
+function saveLines(p){
+  st.lines = st.lines || {};
+  st.lines[p] = strokes.map(s => ({type: s.type, pts: s.pts}));
+  save();
+}
+function drawLines(){
+  const cv = $('draw'); if(!cv) return;
+  const r = cv.getBoundingClientRect();
+  cv.width = Math.round(r.width); cv.height = Math.round(r.height);
+  const ctx = cv.getContext('2d');
+  ctx.clearRect(0, 0, cv.width, cv.height);
+  const X = v => v[0] / 100 * cv.width, Y = v => v[1] / 100 * cv.height;
+  const path = (pts) => { ctx.beginPath(); pts.forEach((v, k) => k ? ctx.lineTo(X(v), Y(v)) : ctx.moveTo(X(v), Y(v))); ctx.stroke(); };
+  ctx.lineCap = 'round'; ctx.lineJoin = 'round'; ctx.lineWidth = 3;
+  const cfg = LINES[cur];
+  if(showingLines && cfg){
+    ctx.setLineDash([8, 6]); ctx.strokeStyle = '#1f9d5a';
+    cfg.pairs.forEach(([l, rr]) => path([cfg.L[l], cfg.R[rr]]));
+    ctx.setLineDash([]);
+  }
+  strokes.forEach(s => {
+    ctx.strokeStyle = s.ok === true ? '#1f9d5a' : s.ok === false ? '#d9434a' : '#1a4fc4';
+    path(s.pts);
+  });
+  if(drawing && drawing !== 'erase'){ ctx.strokeStyle = '#1a4fc4'; path(drawing.pts); }
+}
+function checkLines(p){
+  const cfg = LINES[p]; const used = new Set(); const near = (v, arr) => {
+    let best = -1, bd = 1e9;
+    arr.forEach((a, i) => { const d = Math.hypot(v[0]-a[0], v[1]-a[1]); if(d < bd){ bd = d; best = i; } });
+    return bd <= 5 ? best : -1;
+  };
+  let ok = 0;
+  strokes.forEach(s => {
+    s.ok = false;
+    if(s.pts.length < 2) return;
+    const A = s.pts[0], B = s.pts[s.pts.length - 1];
+    const tries = [[near(A, cfg.L), near(B, cfg.R)], [near(B, cfg.L), near(A, cfg.R)]];
+    for(const [l, r] of tries){
+      const pair = cfg.pairs.findIndex(pr => pr[0] === l && pr[1] === r);
+      if(l >= 0 && r >= 0 && pair >= 0 && !used.has(pair)){ used.add(pair); s.ok = true; ok++; break; }
+    }
+  });
+  const total = cfg.pairs.length;
+  $('score').textContent = `${ok}/${total}`;
+  const rr = $('result'); rr.hidden = false;
+  rr.textContent = ok === total ? `全对！🎉 ${ok}/${total}` : `已连对 ${ok}/${total} 条。绿色是对的，红色的线再想一想。`;
+  drawLines();
+}
+
+function check(){
+  const p = cur; const list = boxesFor(p);
+  if(LINES[p]){ showingLines = false; checkLines(p); if(!list.length) return; }
+  let ok = 0;
+  const auto = list.map((b, i) => [b, i]).filter(([b]) => !isManual(b));
+  auto.forEach(([b, i]) => {
+    const inp = $(`b-${p}-${i}`);
+    const right = isRight(b[3], inp.value, b[4] || '');
+    inp.classList.toggle('ok', right);
+    inp.classList.toggle('bad', !right && inp.value.trim() !== '');
+    if(right) ok++;
+  });
+  const dd = DRAG[p] ? dragScore(p) : null;
+  if(dd){
+    ok += dd.ok;
+    document.querySelectorAll('.zone .chip-n').forEach(c => {
+      const n = c.textContent.trim(), zi = +c.parentElement.dataset.zone;
+      c.classList.remove('ok', 'bad'); c.classList.add(DRAG[p].zones[zi].ans.includes(n) ? 'ok' : 'bad');
+    });
+  }
+  const total = auto.length + (dd ? dd.total : 0);
+  if(total === 0){ $('score').textContent = '老师检查'; $('result').hidden = false; $('result').textContent = '这一页由老师检查。Teacher check: press 老师检查.'; renderTeacher(); return; }
+  $('score').textContent = `${ok}/${total}`;
+  const r = $('result'); r.hidden = false;
+  r.textContent = ok === total ? `全对！🎉 ${ok}/${total}` : `答对 ${ok}/${total} 题。红色的格子再想一想。`;
+  if(list.some(isManual)){ r.textContent += '  ·  文字题请按“老师检查”。'; }
+}
+function show(){
+  const p = cur;
+  if(LINES[p]){
+    showingLines = true; drawLines();
+    $('score').textContent = '已显示答案';
+    $('result').hidden = false; $('result').textContent = '正确的连线用绿色虚线显示。Correct lines shown in dashed green.';
+    if(!boxesFor(p).length) return;
+  }
+  boxesFor(p).forEach((b, i) => {
+    if(isManual(b)) return;
+    const inp = $(`b-${p}-${i}`);
+    inp.value = primary(b); st.v[`${p}|${i}`] = inp.value;
+    inp.classList.remove('bad'); inp.classList.add('ok');
+  });
+  save();
+  if(DRAG[p]) showDrag(p);
+  $('score').textContent = '已显示答案';
+  const r = $('result'); r.hidden = boxesFor(p).length === 0 && !DRAG[p]; r.textContent = '答案已填入。Answers filled in.';
+}
+function reset(){
+  const p = cur;
+  boxesFor(p).forEach((b, i) => { delete st.v[`${p}|${i}`]; if(st.t) delete st.t[`${p}|${i}`]; });
+  if(DRAG[p]){ st.d = st.d || {}; delete st.d[p]; }
+  if(LINES[p]){ strokes = []; saveLines(p); showingLines = false; }
+  save(); render(p);
+  $('score').textContent = '未检查'; $('result').hidden = true;
+}
+
+// ---- drag-and-drop cards: page 8 B, page 27 F, page 37 A ----
+const DRAG = {
+  8: {items: ['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15'], zones: [
+    {name:'生物',   l:6.0,  t:77.7, w:44.0, h:12.6, ans:['3','5','7','11','12','13','15']},
+    {name:'非生物', l:50.0, t:77.7, w:44.0, h:12.6, ans:['1','2','4','6','8','9','10','14']}
+  ]},
+  27: {items: ['a','b','c','d','e','f','g','h'], zones: [
+    {name:'能被磁铁吸引',   l:12.6, t:70.9, w:35.2, h:16.6, ans:['a','c','d','h']},
+    {name:'不能被磁铁吸引', l:52.5, t:70.9, w:35.2, h:16.6, ans:['b','e','f','g']}
+  ]},
+  15: {items: 'abcdefghijklmnop'.split(''), zones: [
+    {name:'(1)大小', l:6.0,  t:41.2, w:22.0, h:10.5, ans:['b','d']},
+    {name:'(1)大小', l:28.0, t:41.2, w:22.0, h:10.5, ans:['a','c']},
+    {name:'(2)形状', l:50.0, t:41.2, w:22.0, h:10.5, ans:['e','h']},
+    {name:'(2)形状', l:72.0, t:41.2, w:22.0, h:10.5, ans:['f','g']},
+    {name:'(3)颜色', l:6.0,  t:75.8, w:22.0, h:10.3, ans:['i','k']},
+    {name:'(3)颜色', l:28.0, t:75.8, w:22.0, h:10.3, ans:['j','l']},
+    {name:'(4)高矮', l:50.0, t:75.8, w:22.0, h:10.3, ans:['m','n']},
+    {name:'(4)高矮', l:72.0, t:75.8, w:22.0, h:10.3, ans:['o','p']}
+  ]},
+  39: {items: 'abcdefghijklmnop'.split(''), zones: [
+    {name:'(1)正方体', l:6.0,  t:72.5, w:22.0, h:7.4, ans:['a','k','o']},
+    {name:'(2)长方体', l:28.0, t:72.5, w:22.0, h:7.4, ans:['e','n']},
+    {name:'(3)棱锥体', l:50.0, t:72.5, w:22.0, h:7.4, ans:['f','l']},
+    {name:'(4)棱柱体', l:72.0, t:72.5, w:22.0, h:7.4, ans:['c','g','j']},
+    {name:'(5)圆锥体', l:6.0,  t:82.6, w:22.0, h:7.1, ans:['h','m']},
+    {name:'(6)圆柱体', l:28.0, t:82.6, w:22.0, h:7.1, ans:['d','i']},
+    {name:'(7)球体',   l:50.0, t:82.6, w:22.0, h:7.1, ans:['b','p']}
+  ]},
+  37: {items: 'abcdefghijklmnop'.split(''), zones: [
+    {name:'(1)正方形', l:6.0,  t:62.2, w:44.0, h:10.5, ans:['c','e','l','n']},
+    {name:'(2)长方形', l:50.0, t:62.2, w:44.0, h:10.5, ans:['d','g','j','m']},
+    {name:'(3)三角形', l:6.0,  t:75.4, w:44.0, h:10.5, ans:['b','h','i','o']},
+    {name:'(4)圆形',   l:50.0, t:75.4, w:44.0, h:10.5, ans:['a','f','k','p']}
+  ]}
+};
+let selChip = null, dragChecked = false, teacherOpen = false;
+function placements(p){ st.d = st.d || {}; st.d[p] = st.d[p] || {}; return st.d[p]; }
+function chipEl(label){ const c = document.createElement('span'); c.className = 'chip-n'; c.textContent = label; return c; }
+function placeChip(label, zi){ placements(cur)[label] = zi; selChip = null; save(); dragChecked = false; render(cur); }
+function renderDrag(p){
+  const cfg = DRAG[p]; const pl = placements(p); const stage = $('stage');
+  $('tray').hidden = false;
+  cfg.zones.forEach((z, zi) => {
+    const d = document.createElement('div');
+    d.className = 'zone'; d.dataset.zone = zi;
+    d.style.left = z.l + '%'; d.style.top = z.t + '%'; d.style.width = z.w + '%'; d.style.height = z.h + '%';
+    d.innerHTML = `<b class="zl">${z.name}</b>`;
+    d.addEventListener('click', () => { if(selChip !== null) placeChip(selChip, zi); });
+    d.addEventListener('dragover', e => e.preventDefault());
+    d.addEventListener('drop', e => { e.preventDefault(); const lab = e.dataTransfer.getData('text/plain'); if(lab) placeChip(lab, zi); });
+    stage.appendChild(d);
+  });
+  Object.keys(pl).forEach(lab => {
+    const zd = stage.querySelector(`.zone[data-zone="${pl[lab]}"]`); if(!zd) return;
+    const c = chipEl(lab); c.classList.add('in');
+    if(dragChecked) c.classList.add(cfg.zones[pl[lab]].ans.includes(lab) ? 'ok' : 'bad');
+    c.addEventListener('click', e => { e.stopPropagation(); delete placements(p)[lab]; save(); dragChecked = false; render(p); });
+    zd.appendChild(c);
+  });
+  const tray = $('tray'); tray.innerHTML = '';
+  const left = cfg.items.filter(lab => pl[lab] === undefined);
+  if(!left.length) tray.innerHTML = '<span class="muted">所有卡片都放好了。All cards placed.</span>';
+  left.forEach(lab => {
+    const c = chipEl(lab); c.draggable = true;
+    if(selChip === lab) c.classList.add('sel');
+    c.addEventListener('dragstart', e => e.dataTransfer.setData('text/plain', lab));
+    c.addEventListener('click', () => { selChip = (selChip === lab ? null : lab); render(p); });
+    tray.appendChild(c);
+  });
+}
+function dragScore(p){
+  const cfg = DRAG[p]; const pl = placements(p); let ok = 0;
+  cfg.items.forEach(lab => { const zi = pl[lab]; if(zi !== undefined && cfg.zones[zi].ans.includes(lab)) ok++; });
+  return {ok, total: cfg.items.length};
+}
+function showDrag(p){
+  const cfg = DRAG[p]; const pl = placements(p);
+  cfg.zones.forEach((z, zi) => z.ans.forEach(lab => { pl[lab] = zi; }));
+  save(); dragChecked = true; render(p);
+}
+// ---- teacher check for typed answers ----
+function escapeHtml(s){ return s.replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+function manualItems(p){ return boxesFor(p).map((b, i) => [b, i]).filter(([b]) => isManual(b)); }
+function renderTeacher(){
+  const p = cur; const items = manualItems(p);
+  $('teacherBtn').hidden = items.length === 0;
+  const panel = $('teacher');
+  panel.hidden = !(teacherOpen && items.length);
+  if(panel.hidden) return;
+  const marked = items.filter(([, i]) => st.t && st.t[`${p}|${i}`]).length;
+  const rows = items.map(([b, i], k) => {
+    const key = `${p}|${i}`; const sv = (st.v[key] || '').trim() || '（空白 blank）';
+    const mk = st.t && st.t[key];
+    return `<div class="trow"><b>第${k + 1}格</b>` +
+      `<span class="tstu">学生：${escapeHtml(sv)}</span>` +
+      `<span class="tref">参考：${b[3] ? escapeHtml(b[3]) : '开放题，老师判断'}</span>` +
+      `<button class="btn ok${mk === 'ok' ? ' on' : ''}" data-k="${key}" data-m="ok">✓ 对</button>` +
+      `<button class="btn bad${mk === 'bad' ? ' on' : ''}" data-k="${key}" data-m="bad">✗ 错</button></div>`;
+  }).join('');
+  panel.innerHTML = `<div class="tahead">老师检查 Teacher check · ${marked}/${items.length} 已批改</div>` + rows;
+  panel.querySelectorAll('button[data-k]').forEach(btn => btn.addEventListener('click', () => {
+    const k = btn.dataset.k, m = btn.dataset.m;
+    st.t = st.t || {}; st.t[k] = (st.t[k] === m ? '' : m); save();
+    render(cur);
+  }));
+}
+$('teacherBtn').addEventListener('click', () => { teacherOpen = !teacherOpen; renderTeacher(); });
+
+let cur = Math.min(Math.max(+st.page || 2, 2), N);
+function go(p){
+  p = Math.min(Math.max(p, 2), N); if(SKIP.includes(p)) p = p > 43 ? 45 : 41; cur = p; st.page = p; save();
+  const s = secOf(p);
+  $('secSel').value = SECS.indexOf(s);
+  $('pageSel').value = p;
+  $('secTag').textContent = s.short;
+  $('pTitle').textContent = '第 ' + p + ' 页';
+  $('pgChip').textContent = `第 ${p} / ${N} 页`;
+  $('prevBtn').disabled = p === 2;
+  $('nextBtn').disabled = p === N;
+  $('score').textContent = '未检查'; $('result').hidden = true;
+  teacherOpen = false; dragChecked = false; selChip = null;
+  $('tray').hidden = !DRAG[p];
+  render(p);
+  window.scrollTo(0, 0);
+}
+go(cur);
+</script>
+</body>
+</html>
