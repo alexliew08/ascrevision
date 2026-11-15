@@ -176,6 +176,11 @@ input:focus,select:focus{border-color:var(--green2);box-shadow:0 0 0 4px #dfeee5
     if(sess.year === 3){ bm.classList.remove('off'); bm.href = "#"; bm.dataset.sub = "bm"; bm.dataset.name = sess.name; }
     if(sess.year === 1){ bm.classList.remove('off'); bm.href = "#"; bm.dataset.sub = "bm1"; bm.dataset.name = sess.name; }
     else { bm.classList.add('off'); bm.removeAttribute('href'); }
+    ['cnBtn','enBtn','bmBtn','scBtn'].forEach(id => {
+      const b = $(id); const s = b.querySelector('small'); const on = !b.classList.contains('off');
+      if(on && s) s.remove();
+      if(!on && !s){ const n = document.createElement('small'); n.textContent = 'Coming soon'; b.appendChild(n); }
+    });
     show('menu');
   }
 
