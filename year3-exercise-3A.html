@@ -89,7 +89,7 @@ textarea.free{width:100%;min-height:120px;font:inherit;font-size:17px;padding:8p
   <div class="score" id="score"></div>
 </div></header>
 <main class="wrap">
-  <a class="hublink" href="index.html">← 返回学习中心 Learning Hub</a>
+  <a class="hublink" href="index.html?sub=cn">← 返回菜单</a>
   <div class="note">选一个单元。<b>下拉框</b>选择，<b>文本框</b>直接输入，<b>高亮框</b>点选，<b>拖拉框</b>把词语拖到空格里（手机可以先点词语，再点空格）。遇到<b>别字</b>，点一点错的字，再在下面写正确的字。做完每一节按<b>「检查」</b>，不会的可以按<b>「看答案」</b>。</div>
   <div id="view"></div>
   <div class="row" id="units" role="group" aria-label="选择单元" style="margin-top:20px"></div>
@@ -253,12 +253,35 @@ function scoreLine(){
   document.getElementById('score').textContent=`✅ ${r} / ${t}　已检查 ${n} 节`;
 }
 
+let passedUnits=new Set();
+try{ passedUnits=new Set(JSON.parse(localStorage.getItem('ex3A-passed')||'[]')); }catch(err){}
+function savePassedUnits(){ try{ localStorage.setItem('ex3A-passed',JSON.stringify([...passedUnits])); }catch(err){} }
+function unitUnlocked(u){ return u===0 || passedUnits.has(u-1); }
+function unitComplete(u){
+  const unit=DATA[u]; let graded=0;
+  for(let si=0;si<unit.secs.length;si++){
+    const s=unit.secs[si];
+    const hasGraded=s.it.some(it=>!isFreeItem(s,it));
+    if(!hasGraded) continue;
+    const st=secState[sk(u,si)];
+    if(!st||!st.checked||st.shown) return false;
+    const r=scoreSec(u,si);
+    if(r.tot===0||r.ok!==r.tot) return false;
+    graded++;
+  }
+  return graded>0;
+}
+function updatePassedUnits(){
+  DATA.forEach((_,u)=>{ if(!passedUnits.has(u)&&unitComplete(u)){ passedUnits.add(u); savePassedUnits(); } });
+}
 function renderUnit(){
+  updatePassedUnits();
+  if(!unitUnlocked(CUR)){ CUR=Math.max(0,DATA.findIndex((_,u)=>unitUnlocked(u)&&!passedUnits.has(u))); }
   const unit=DATA[CUR];
   let h='<h2 class="unit">第 '+unit.u+' 单元　'+esc(unit.name)+'</h2>';
   unit.secs.forEach((s,si)=>{ h+=sectionHTML(CUR,si,s); });
   document.getElementById('view').innerHTML=h;
-  document.querySelectorAll('#units button').forEach((b,i)=>b.setAttribute('aria-pressed',String(i===CUR)));
+  buildUnitButtons();
   bankRefresh(); scoreLine();
 }
 
@@ -268,9 +291,11 @@ function buildUnitButtons(){
   DATA.forEach((u,i)=>{
     const b=document.createElement('button');
     b.className='btn alt sm'; b.type='button';
-    b.textContent='第 '+u.u+' 单元';
+    const ok=unitUnlocked(i);
+    b.textContent=ok?('第 '+u.u+' 单元'+(passedUnits.has(i)?' ✅':'')):('🔒 第 '+u.u+' 单元');
     b.setAttribute('aria-pressed',String(i===CUR));
-    b.addEventListener('click',()=>{ CUR=i; renderUnit(); window.scrollTo(0,0); });
+    b.disabled=!ok;
+    b.addEventListener('click',()=>{ if(!ok) return; CUR=i; renderUnit(); window.scrollTo(0,0); });
     box.appendChild(b);
   });
 }
