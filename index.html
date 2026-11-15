@@ -169,6 +169,7 @@ input:focus,select:focus{border-color:var(--green2);box-shadow:0 0 0 4px #dfeee5
     if(sess.year === 2){ cnb.classList.remove('off'); cnb.href = "#"; cnb.dataset.sub = "cn2"; cnb.dataset.name = sess.name; }
     const enb = $('enBtn');
     if(sess.year === 1){ enb.classList.remove('off'); enb.href = "#"; enb.dataset.sub = "en1"; enb.dataset.name = sess.name; }
+    if(sess.year === 2){ enb.classList.remove('off'); enb.href = "#"; enb.dataset.sub = "en2"; enb.dataset.name = sess.name; }
     const scb = $('scBtn');
     if(sess.year === 1){ scb.classList.remove('off'); scb.href = "#"; scb.dataset.sub = "sc1"; scb.dataset.name = sess.name; }
     else { scb.classList.add('off'); scb.removeAttribute('href'); delete scb.dataset.sub; }
@@ -190,7 +191,7 @@ input:focus,select:focus{border-color:var(--green2);box-shadow:0 0 0 4px #dfeee5
       const cn = y === 1
         ? `<a class="tile cn" href="#" data-sub="cn1" data-name="Alex"><span class="ic">文</span>华文 Chinese</a><a class="tile en" href="#" data-sub="en1" data-name="Alex"><span class="ic">Aa</span>English</a>`
         : y === 2
-        ? `<a class="tile cn" href="#" data-sub="cn2" data-name="Alex"><span class="ic">文</span>华文 Chinese</a><div class="tile off"><span class="ic">Aa</span>English<small>Coming soon</small></div>`
+        ? `<a class="tile cn" href="#" data-sub="cn2" data-name="Alex"><span class="ic">文</span>华文 Chinese</a><a class="tile en" href="#" data-sub="en2" data-name="Alex"><span class="ic">Aa</span>English</a>`
         : y === 3
         ? `<a class="tile cn" href="#" data-sub="cn" data-name="Alex"><span class="ic">文</span>华文 Chinese</a><a class="tile en" href="#" data-sub="en" data-name="Alex"><span class="ic">Aa</span>English</a>`
         : `<div class="tile off"><span class="ic">文</span>华文 Chinese<small>Coming soon</small></div><div class="tile off"><span class="ic">Aa</span>English<small>Coming soon</small></div>`;
@@ -254,6 +255,10 @@ input:focus,select:focus{border-color:var(--green2);box-shadow:0 0 0 4px #dfeee5
     bm: { title: "Bahasa Melayu", tag: "Tahun 3 · Pilih latihan", items: [
       { t: "国语书写填充", s: "Tulis ayat (Latihan 1)", f: "year3-bm.html", c: "bm", i: '<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="m13 7 4 4"/></svg>' },
       { t: "Latihan 2", s: "Akan datang · Coming soon", f: "", c: "bm2", i: '<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 3v2h6V3"/></svg>' } ] },
+    en2: { title: "Aa English", tag: "Tahun 2 · Pilih latihan", items: [
+      { t: "Praktis Pre-UASA", s: "Latihan Pre-UASA · Practice", f: "year2-english/Praktis%20KSSR%20Bahasa%20Inggeris%20英文练习%20pre%20uasa%202年级.pdf", c: "en2a", i: '<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="m13 7 4 4"/></svg>' },
+      { t: "Sentence making", s: "Sentence Construction · Year 2", f: "year2-english-sentence.html", c: "en2b", i: '<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="m13 7 4 4"/></svg>' },
+      { t: "Latihan 2", s: "Akan datang · Coming soon", f: "", c: "en2c", i: '<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="m13 7 4 4"/></svg>' } ] },
     en: { title: "Aa English", tag: "Year 3 · Choose one 选一个练习", items: [
       { t: "English Learning", s: "Praktis Prima KSSR · Year 3", f: "year3-english.html", c: "en", i: '<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 21V5"/><path d="M9 8h6"/></svg>' },
       { t: "English Writing Practice", s: "Year 1–3 writing", f: "year3-english-writing.html", c: "en2", i: '<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="m13 7 4 4"/></svg>' } ] }
@@ -264,7 +269,7 @@ input:focus,select:focus{border-color:var(--green2);box-shadow:0 0 0 4px #dfeee5
     const q = "?s=" + encodeURIComponent(name);
     $('subTitle').textContent = S.title; $('subTag').textContent = S.tag;
     $('subTiles').innerHTML = S.items.map(x => x.f
-      ? `<a class="tile ${x.c} wide" href="${x.f + q}"><span class="ic">${x.i}</span>${x.t}<span class="sub">${x.s}</span></a>`
+      ? `<a class="tile ${x.c} wide" href="${x.f.endsWith('.pdf') ? x.f : x.f + q}"><span class="ic">${x.i}</span>${x.t}<span class="sub">${x.s}</span></a>`
       : `<div class="tile off wide"><span class="ic">${x.i}</span>${x.t}<small>Coming soon</small></div>`).join('');
     show('subMenu');
   }
