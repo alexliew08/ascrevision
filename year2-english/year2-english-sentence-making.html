@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sentence Making · Tahun 2</title>
+<style>
+  :root{ --bg:#fff6df; --card:#ffffff; --ink:#2b2b2b; --muted:#6b6b6b; --green:#2f5e4a; --green2:#3f7a60;
+         --field:#fffbe6; --field-b:#c9b77a; --focus:#3f7a60; }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){ --bg:#1d1f1c; --card:#262a26; --ink:#eee; --muted:#aaa; --field:#34382f; --field-b:#6d6a45; }
+  }
+  :root[data-theme="dark"]{ --bg:#1d1f1c; --card:#262a26; --ink:#eee; --muted:#aaa; --field:#34382f; --field-b:#6d6a45; }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--ink);font-family:"Comic Sans MS","Segoe UI",system-ui,sans-serif}
+  body{min-height:100vh;background:var(--bg)}
+  header{position:sticky;top:0;z-index:5;display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;padding:10px 16px;background:var(--card);border-bottom:1px solid var(--field-b)}
+  header h1{font-size:18px;margin:0;color:var(--green)}
+  .nav{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+  .btn{appearance:none;border:1px solid var(--green2);background:var(--green);color:#fff;border-radius:999px;padding:6px 14px;font-size:14px;cursor:pointer;text-decoration:none;font-family:inherit}
+  .btn:disabled{opacity:.4;cursor:default}
+  .btn.alt{background:transparent;color:var(--green)}
+  .btn.ghost{background:transparent;color:var(--green)}
+  #pageNo{font-size:14px;color:var(--muted);min-width:110px;text-align:center}
+  .toolbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:center;padding:10px 16px 0}
+  #score{font-size:14px;color:var(--muted);min-width:90px;text-align:center}
+  main{padding:12px 16px 40px;display:flex;flex-direction:column;align-items:center}
+  .sheet{position:relative;width:100%;max-width:860px;background:var(--card);border-radius:14px;box-shadow:0 2px 14px rgba(0,0,0,.12);overflow:hidden;container-type:inline-size}
+  .sheet img{display:block;width:100%;height:auto;user-select:none;-webkit-user-drag:none}
+  .ov{position:absolute;inset:0}
+  .fld{position:absolute;border:0;background:var(--field);color:var(--ink);border-radius:4px;outline:none;padding:0 4px;font-family:inherit;font-size:2.1cqw;line-height:1.2;box-shadow:inset 0 0 0 1px var(--field-b)}
+  .fld:focus{box-shadow:inset 0 0 0 2px var(--focus)}
+  select.fld{padding:0 2px;cursor:pointer}
+  textarea.fld{resize:none;padding:2px 6px;line-height:1.35;overflow:hidden;background:rgba(255,251,230,.45)}
+  textarea.fld:focus{background:rgba(255,251,230,.8)}
+  .fld.ok{background:#dff3e4;box-shadow:inset 0 0 0 2px #3c9a5a}
+  .fld.bad{background:#fbe1dc;box-shadow:inset 0 0 0 2px #c0503c}
+  .num{position:absolute;font-size:2.2cqw;font-weight:bold;color:var(--green);pointer-events:none;line-height:1}
+  .hint{max-width:860px;margin:10px auto 0;font-size:13px;color:var(--muted);text-align:center}
+  @media (max-width:520px){ header{padding:8px 10px} main{padding:10px 8px 30px} }
+</style>
+</head>
+<body>
+<header>
+  <div class="nav">
+    <a class="btn ghost" href="year2-english-sentence.html">← Menu</a>
+    <h1>Sentence Making · Tahun 2</h1>
+  </div>
+  <div class="nav">
+    <button class="btn" id="prevBtn">‹ Prev</button>
+    <span id="pageNo"></span>
+    <button class="btn" id="nextBtn">Next ›</button>
+  </div>
+</header>
+<div class="toolbar" id="toolbar"></div>
+<main>
+  <div class="sheet" id="sheet">
+    <img id="pageImg" alt="">
+    <div class="ov" id="ov"></div>
+  </div>
+  <p class="hint" id="note"></p>
+</main>
+<script>
+  const MODE = "text";            // "drop" = drop-down boxes, "text" = text boxes
+  const PAGES = [71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100];           // workbook page labels shown in this file
+  const DATA = {"71":{"blanks":[{"x":16.75,"y":66.06,"w":67.05,"h":6.89},{"x":16.75,"y":77.69,"w":67.05,"h":6.89},{"x":16.75,"y":88.94,"w":67.05,"h":6.89}]},"72":{"blanks":[{"x":16.75,"y":66.15,"w":67.05,"h":6.89},{"x":16.75,"y":77.78,"w":67.05,"h":6.89},{"x":16.75,"y":89.53,"w":67.05,"h":6.93}]},"73":{"blanks":[{"x":16.75,"y":56.4,"w":67.05,"h":7.27},{"x":16.75,"y":69.44,"w":67.05,"h":7.27},{"x":16.75,"y":82.61,"w":67.05,"h":7.27}]},"74":{"blanks":[{"x":16.75,"y":65.29,"w":67.05,"h":7.27},{"x":16.75,"y":77.18,"w":67.05,"h":7.27},{"x":16.75,"y":89.36,"w":67.05,"h":7.27}]},"75":{"blanks":[{"x":16.75,"y":62.77,"w":67.05,"h":7.27},{"x":16.75,"y":74.87,"w":67.05,"h":7.27},{"x":16.75,"y":87.1,"w":67.05,"h":7.27}]},"76":{"blanks":[{"x":16.75,"y":65.29,"w":67.05,"h":7.27},{"x":16.75,"y":77.18,"w":67.05,"h":7.27},{"x":16.75,"y":89.36,"w":67.05,"h":7.27}]},"77":{"blanks":[{"x":15.5,"y":55.62,"w":68,"h":9.58},{"x":15.5,"y":66.74,"w":68,"h":9.58},{"x":15.5,"y":77.3,"w":68,"h":9.58},{"x":15.5,"y":87.94,"w":68,"h":9.58}]},"78":{"blanks":[{"x":15.5,"y":56.86,"w":68,"h":9.06},{"x":15.5,"y":67.25,"w":68,"h":9.02},{"x":15.5,"y":77.9,"w":68,"h":9.02},{"x":15.5,"y":88.54,"w":68,"h":9.02}]},"79":{"blanks":[{"x":15.5,"y":57.93,"w":68,"h":8.64},{"x":15.5,"y":68.02,"w":68,"h":8.64},{"x":15.5,"y":78.11,"w":68,"h":8.64},{"x":15.5,"y":88.2,"w":68,"h":8.64}]},"80":{"blanks":[{"x":15.5,"y":61.18,"w":68,"h":8.81},{"x":15.5,"y":71.61,"w":68,"h":9.02},{"x":15.5,"y":82.43,"w":68,"h":9.36}]},"81":{"blanks":[{"x":15.5,"y":56.69,"w":68,"h":8.85},{"x":15.5,"y":67.04,"w":68,"h":8.85},{"x":15.5,"y":77.47,"w":68,"h":9.06},{"x":15.5,"y":88.11,"w":68,"h":9.06}]},"82":{"blanks":[{"x":15.5,"y":54.21,"w":68,"h":8.51},{"x":15.5,"y":64.6,"w":68,"h":9.58},{"x":15.5,"y":76.06,"w":68,"h":9.58},{"x":15.5,"y":87.52,"w":68,"h":9.58}]},"83":{"blanks":[{"x":15.5,"y":56.01,"w":68,"h":8.85},{"x":15.5,"y":66.74,"w":68,"h":8.72},{"x":15.5,"y":76.74,"w":68,"h":9.58},{"x":15.5,"y":87.09,"w":68,"h":9.58}]},"84":{"blanks":[{"x":15.5,"y":57.5,"w":68,"h":9.36},{"x":15.5,"y":68.11,"w":68,"h":8.38},{"x":15.5,"y":77.73,"w":68,"h":8.76},{"x":15.5,"y":87.64,"w":68,"h":9.36}]},"85":{"blanks":[{"x":15.5,"y":61.05,"w":68,"h":3.85},{"x":15.5,"y":67.68,"w":68,"h":3.85},{"x":15.5,"y":74.26,"w":68,"h":3.85},{"x":15.5,"y":80.89,"w":68,"h":3.85},{"x":15.5,"y":87.52,"w":68,"h":3.85}]},"86":{"blanks":[{"x":15.5,"y":63.45,"w":68,"h":3.85},{"x":15.5,"y":69.9,"w":68,"h":3.85},{"x":15.5,"y":76.36,"w":68,"h":3.85},{"x":15.5,"y":82.77,"w":68,"h":3.85},{"x":15.5,"y":89.23,"w":68,"h":3.85}]},"87":{"blanks":[{"x":15.5,"y":65.97,"w":68,"h":3.85},{"x":15.5,"y":72.38,"w":68,"h":3.85},{"x":15.5,"y":78.84,"w":68,"h":3.85},{"x":15.5,"y":85.29,"w":68,"h":3.85},{"x":15.5,"y":91.71,"w":68,"h":3.85}]},"88":{"blanks":[{"x":16.75,"y":48.45,"w":67.05,"h":6.55},{"x":16.75,"y":59.61,"w":67.05,"h":6.55},{"x":16.75,"y":70.68,"w":67.05,"h":6.5},{"x":16.75,"y":81.88,"w":67.05,"h":6.55}]},"89":{"blanks":[{"x":16.75,"y":52.08,"w":67.05,"h":6.5},{"x":16.75,"y":62.77,"w":67.05,"h":6.55},{"x":16.75,"y":73.93,"w":67.05,"h":6.5},{"x":16.75,"y":86.41,"w":67.05,"h":6.5}]},"90":{"blanks":[{"x":16.75,"y":52.08,"w":67.05,"h":6.5},{"x":16.75,"y":62.04,"w":67.05,"h":6.55},{"x":16.75,"y":72.01,"w":67.05,"h":6.55},{"x":16.75,"y":82.01,"w":67.05,"h":6.5}]},"91":{"blanks":[{"x":16.75,"y":52.08,"w":67.05,"h":6.5},{"x":16.75,"y":62.04,"w":67.05,"h":6.55},{"x":16.75,"y":72.01,"w":67.05,"h":6.55},{"x":16.75,"y":82.01,"w":67.05,"h":6.5}]},"92":{"blanks":[{"x":16.75,"y":52.08,"w":67.05,"h":6.5},{"x":16.75,"y":62.04,"w":67.05,"h":6.55},{"x":16.75,"y":72.01,"w":67.05,"h":6.55},{"x":16.75,"y":82.01,"w":67.05,"h":6.5}]},"93":{"blanks":[{"x":16.75,"y":52.08,"w":67.05,"h":6.5},{"x":16.75,"y":62.04,"w":67.05,"h":6.55},{"x":16.75,"y":72.01,"w":67.05,"h":6.55},{"x":16.75,"y":82.01,"w":67.05,"h":6.5}]},"94":{"blanks":[{"x":16.75,"y":52.08,"w":67.05,"h":6.5},{"x":16.75,"y":62.04,"w":67.05,"h":6.55},{"x":16.75,"y":72.01,"w":67.05,"h":6.55},{"x":16.75,"y":82.01,"w":67.05,"h":6.5}]},"95":{"blanks":[{"x":16.75,"y":52.08,"w":67.05,"h":6.5},{"x":16.75,"y":62.04,"w":67.05,"h":6.55},{"x":16.75,"y":72.01,"w":67.05,"h":6.55},{"x":16.75,"y":82.01,"w":67.05,"h":6.5}]},"96":{"blanks":[{"x":8.4,"y":43.36,"w":75.39,"h":4.92},{"x":8.4,"y":55.97,"w":75.39,"h":4.84},{"x":8.4,"y":67.77,"w":75.39,"h":4.84},{"x":8.4,"y":80,"w":75.39,"h":5.01},{"x":8.4,"y":92.4,"w":75.39,"h":4.49}]},"97":{"blanks":[{"x":8.4,"y":48.32,"w":75.39,"h":4.49},{"x":8.4,"y":59.22,"w":75.39,"h":4.49},{"x":8.4,"y":70.12,"w":75.39,"h":4.49},{"x":8.4,"y":80.98,"w":75.39,"h":4.49},{"x":8.4,"y":91.89,"w":75.39,"h":4.49}]},"98":{"blanks":[{"x":8.4,"y":47.55,"w":75.39,"h":4.49},{"x":8.4,"y":58.41,"w":75.39,"h":4.49},{"x":8.4,"y":69.31,"w":75.39,"h":4.49},{"x":8.4,"y":80.21,"w":75.39,"h":4.49},{"x":8.4,"y":91.07,"w":75.39,"h":4.49}]},"99":{"blanks":[{"x":8.4,"y":42.55,"w":75.39,"h":4.49},{"x":8.4,"y":53.71,"w":75.39,"h":4.41},{"x":8.4,"y":64.99,"w":75.39,"h":4.49},{"x":8.4,"y":75.85,"w":75.39,"h":4.49},{"x":8.4,"y":86.76,"w":75.39,"h":4.49}]},"100":{"blanks":[{"x":8.4,"y":47.55,"w":75.39,"h":4.49},{"x":8.4,"y":58.41,"w":75.39,"h":4.49},{"x":8.4,"y":69.31,"w":75.39,"h":4.49},{"x":8.4,"y":80.13,"w":75.39,"h":4.41},{"x":8.4,"y":91.67,"w":75.39,"h":4.49}]}};             // label -> { blanks:[{x,y,w,h}] } in % of the page image
+  const ANS = {"71":["My brother is a pianist.","He plays the piano very well.","I love to listen to the music that he plays."],"72":["There are a lot of pupils at the school library.","They are reading books.","The library is so quiet."],"73":["Today is a bright sunny day.","Father and mother bring us to the beach.","We have a picnic at the beach."],"74":["Adam is having a birthday party.","All of his friends come to his birthday party.","They are having lots of fun."],"75":["Lynn has a pet rabbit.","It has white fur.","It likes to eat carrot and vegetables."],"76":["My favourite hobby is collecting badges .","I arrange them carefully in a box.","Sometimes, I exchange them with my friends."],"77":["John has a pet rabbit.","It has soft white fur and short tail.","John feeds it some vegetables every day.","His pet sleeps in a hutch."],"78":["Mrs Ling is taking her son on an aeroplane trip.","She buys a ticket from the counter.","On the aeroplane they look for their seats.","They enjoy their long trip."],"79":["My classmates and I visited the zoo last Saturday.","The animals resting in their cages.","Some workers were feeding the monkeys.","We did not touch the animals."],"80":["Lina and her classmates are at the Flower Garden in the city.","There are big and pretty roses, bougainvillea, hibiscus, daisies, and orchids.","Some flowers have big petals."],"81":["Mrs Lim loves to cook for her family.","She keeps the pots inside the cabinets.","She puts the toaster on the counter.","She keeps the forks and knives inside the drawers."],"82":["Anita and her family took a train to Penang.","They arrived in the afternoon and took a taxi to a hotel by the beach.","They also ate delicious food by the beach.","They had a good time in Penang."],"83":["Many people are shopping at the supermarket.","The baker is selling many types of buns.","A sales assistant at a boutique is giving away free gifts.","The waiters at the restaurants are busy taking orders."],"84":["My father is mending the broken fence.","My mother is cleaning the porch.","My brother is sweeping the leaves in the garden.","My grandfather is feeding the kitten."],"85":["My school has a huge and fantastic library.","There are many informative books and magazines there.","It is a quiet and comfortable place to study.","The students usually go there to do their revision.","They also go there to borrow books to study at home."],"86":["There was a grand concert in the sea.","The sea was decorated with beautiful sea corals.","The seahorses were making melodious music.","The crabs were dancing and singing beautifully.","Father took many interesting photos of them."],"87":["Amy and family went to the zoo this morning.","They fed the gigantic elephants.","They saw the fierce and majestic lions.","They laughed at the cheeky and funny monkeys.","Father took many interesting photos of them."],"88":["I have a lovely house.","It is a big bunglow.","There is a beautiful garden in front of the house.","There are several trees in the garden."],"89":["My best friends is Benny.","he is my classmate.","We always play together.","We like to fly kites in the field every evening."],"90":["It is after dinner.","Peter is washing the dishes.","His sister is wiping the dishes.","Their mother is putting the dishes into the cupboard."],"91":["The children are at the playground .","There are two girls sitting on the swings.","There are two boys flying kites.","There are another two boys playing on the slide."],"92":["The blind man wants to cross the road.","There are many cars on the road.","Amir is helping him ti cross the road.","The blind man says thank you to Amir."],"93":["The children are eating some fruits.","There are rambutans, mangosteens and durians.","The rambutans taste juicy and sweet.","The durians taste creamy and sweet."],"94":["Tommy and his little sister are watching television.","It is their favourite cartoon programme.","They always laugh loudly at the funny cartoons.","His little sister is laughing and clapping her hands."],"95":["The children are in the field.","They are having a race.","They are running very fast towards the finishing line.","The crowd is cheering."],"96":["Mr and Mrs Thomson took their children to the circus.","It was very entertaining and exciting.","A skilful elephant juggled three balls with its trunk.","A courageous tiger jumped through a hoop lit with fire.","A funny clown performed a cute dance."],"97":["James usually brings his family out for dinner on Sunday.","His wife does not cook on weekends.","He likes to brings them to a Chinese restaurant.","The curry noodles in that restaurant are delicious and popular.","The restaurant is usually crowded on Sunday."],"98":["My mother loves to do gardening.","She waters her plants every morning.","The flowers in her garden always look lovely and fresh.","My mother enjoys admiring the enchanting flowers.","She sells some flowers in the market."],"99":["It was a bright beautiful morning.","The birds were chirping and the roaster was crowing.","It was a great day to have some outdoor activities.","The children went out to do some exercise.","It was very refreshing and healthy for them."],"100":["Tim needs to take a train to the city to meet his friends.","He went to the train station early in the morning..","There was a long queue at the ticket counter when he reached there.","He got his ticket just before the train arrived.","He was glad that he didn\u0026apos;t have to wait for the train."]};               // label -> model answers, one per box (in order)
+  const NUM_SKIP = [];      // pages without question numbers
+  const NUM_MAX = 0;        // question numbers are shown on boxes up to this page
+  const IMG_DIR = "year2-english/sentence-pages/";
+
+  const $ = id => document.getElementById(id);
+  const pad = n => String(n).padStart(3, '0');
+  let idx = 0;
+  const state = {};                  // label -> [values]
+
+  function label(){ return PAGES[idx]; }
+
+  // answers that differ only in case, punctuation or spacing count as the same;
+  // for typed sentences, most of the model's words must appear in the answer
+  function norm(s){ return (s || '').toLowerCase().replace(/[^a-z0-9 ]+/g, ' ').replace(/\s+/g, ' ').trim(); }
+  function sameDrop(a, b){ return a === b; }
+  function sameText(a, b){
+    const A = norm(a), B = norm(b);
+    if(!A || !B) return false;
+    if(A === B) return true;
+    const ta = new Set(A.split(' ')), tb = new Set(B.split(' '));
+    let hit = 0; tb.forEach(w => { if(ta.has(w)) hit++; });
+    return hit / tb.size >= 0.75 && hit / ta.size >= 0.6;
+  }
+
+  function buildToolbar(){
+    const tb = $('toolbar');
+    tb.innerHTML = '<button class="btn" id="checkBtn">✓ Check answer</button>'
+                 + '<button class="btn alt" id="showBtn">👀 Show</button>'
+                 + '<button class="btn alt" id="redoBtn">↺ Redo</button>'
+                 + '<span id="score"></span>';
+    $('checkBtn').addEventListener('click', checkPage);
+    $('showBtn').addEventListener('click', showPage);
+    $('redoBtn').addEventListener('click', redoPage);
+  }
+
+  function render(i){
+    idx = Math.max(0, Math.min(PAGES.length - 1, i));
+    const L = label();
+    $('pageImg').src = IMG_DIR + 'p-' + pad(L + 1) + '.jpg';
+    $('pageImg').alt = 'Page ' + L;
+    $('pageNo').textContent = 'Page ' + L + ' / ' + PAGES[PAGES.length - 1];
+    $('prevBtn').disabled = idx === 0;
+    $('nextBtn').disabled = idx === PAGES.length - 1;
+    const ov = $('ov'); ov.innerHTML = '';
+    const d = DATA[L] || { blanks: [] };
+    const vals = state[L] = state[L] || [];
+    d.blanks.forEach((b, k) => {
+      let el;
+      if(MODE === 'drop'){
+        el = document.createElement('select');
+        el.className = 'fld';
+        const opts = (ANS[L] || []).slice().sort((a, c) => a.localeCompare(c, 'en', { sensitivity: 'base' }));
+        el.innerHTML = '<option value="">—</option>' + opts.map(w => '<option>' + w.replace(/&/g,'&amp;').replace(/</g,'&lt;') + '</option>').join('');
+        if(vals[k] !== undefined) el.value = vals[k];
+        el.addEventListener('change', () => { vals[k] = el.value; el.classList.remove('ok','bad'); updateScore(); });
+      } else {
+        el = document.createElement('textarea');
+        el.rows = 1; el.spellcheck = false; el.className = 'fld txt';
+        if(vals[k] !== undefined) el.value = vals[k];
+        el.addEventListener('input', () => { vals[k] = el.value; el.classList.remove('ok','bad'); updateScore(); });
+      }
+      el.style.left = b.x + '%';
+      el.style.top = (MODE === 'drop' ? b.y - 2.3 : b.y) + '%';
+      el.style.width = Math.max(b.w, 6) + '%';
+      el.style.height = (b.h || 2.5) + '%';
+      el.setAttribute('aria-label', 'Answer ' + (k + 1));
+      ov.appendChild(el);
+      if(MODE !== 'drop' && L <= NUM_MAX && !NUM_SKIP.includes(L)){ const num = document.createElement('span'); num.className = 'num'; num.textContent = (k + 1) + '.'; num.style.left = Math.max(0, b.x - 3.4) + '%'; num.style.top = (b.y + 0.4) + '%'; ov.appendChild(num); }
+    });
+    $('note').textContent = d.blanks.length ? '' : 'No boxes on this page.';
+    updateScore();
+  }
+
+  function fields(){ return [...document.querySelectorAll('#ov select, #ov textarea')]; }
+
+  function checkPage(){
+    const L = label(), ans = ANS[L] || [];
+    const same = MODE === 'drop' ? sameDrop : sameText;
+    let ok = 0, asked = 0;
+    fields().forEach((el, k) => {
+      el.classList.remove('ok','bad');
+      if(!ans[k]) return;
+      asked++;
+      if(el.value.trim() === '') return;
+      if(same(el.value, ans[k])){ el.classList.add('ok'); ok++; } else el.classList.add('bad');
+    });
+    $('score').textContent = ans.length ? ok + ' / ' + asked + (MODE === 'drop' ? ' correct' : ' match model') : 'No model answer';
+  }
+  function showPage(){
+    const L = label(), ans = ANS[L] || [];
+    fields().forEach((el, k) => {
+      if(!ans[k]) return;
+      el.value = ans[k];
+      state[L][k] = el.value;
+      el.classList.remove('bad'); el.classList.add('ok');
+    });
+    $('score').textContent = 'Model answers shown';
+  }
+  function redoPage(){
+    const L = label();
+    state[L] = [];
+    fields().forEach(el => { el.value = ''; el.classList.remove('ok','bad'); });
+    $('score').textContent = '';
+    updateScore();
+  }
+  function updateScore(){
+    const sc = $('score'); if(!sc) return;
+    const f = fields();
+    if(!f.length){ sc.textContent = ''; return; }
+    const filled = f.filter(el => el.value.trim() !== '').length;
+    sc.textContent = filled + ' / ' + f.length + ' filled';
+  }
+
+  $('prevBtn').addEventListener('click', () => render(idx - 1));
+  $('nextBtn').addEventListener('click', () => render(idx + 1));
+  document.addEventListener('keydown', e => {
+    if(e.target.matches('input,select,textarea')) return;
+    if(e.key === 'ArrowRight') render(idx + 1);
+    if(e.key === 'ArrowLeft') render(idx - 1);
+  });
+
+  buildToolbar();
+  render(0);
+</script>
+</body>
+</html>
