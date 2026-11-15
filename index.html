@@ -175,8 +175,9 @@ input:focus,select:focus{border-color:var(--green2);box-shadow:0 0 0 4px #dfeee5
     else { scb.classList.add('off'); scb.removeAttribute('href'); delete scb.dataset.sub; }
     const bm = $('bmBtn');
     if(sess.year === 3){ bm.classList.remove('off'); bm.href = "#"; bm.dataset.sub = "bm"; bm.dataset.name = sess.name; }
-    if(sess.year === 1){ bm.classList.remove('off'); bm.href = "#"; bm.dataset.sub = "bm1"; bm.dataset.name = sess.name; }
-    else { bm.classList.add('off'); bm.removeAttribute('href'); }
+    else if(sess.year === 1){ bm.classList.remove('off'); bm.href = "#"; bm.dataset.sub = "bm1"; bm.dataset.name = sess.name; }
+    else if(sess.year === 2){ bm.classList.remove('off'); bm.href = "#"; bm.dataset.sub = "bm2"; bm.dataset.name = sess.name; }
+    else { bm.classList.add('off'); bm.removeAttribute('href'); delete bm.dataset.sub; }
     ['cnBtn','enBtn','bmBtn','scBtn'].forEach(id => {
       const b = $(id); const s = b.querySelector('small'); const on = !b.classList.contains('off');
       if(on && s) s.remove();
@@ -197,6 +198,8 @@ input:focus,select:focus{border-color:var(--green2);box-shadow:0 0 0 4px #dfeee5
         : `<div class="tile off"><span class="ic">文</span>华文 Chinese<small>Coming soon</small></div><div class="tile off"><span class="ic">Aa</span>English<small>Coming soon</small></div>`;
       const bmT = y === 3
         ? `<a class="tile bm" href="#" data-sub="bm" data-name="Alex"><span class="ic">BM</span>Bahasa Melayu</a>`
+        : y === 2
+        ? `<a class="tile bm" href="#" data-sub="bm2" data-name="Alex"><span class="ic">BM</span>Bahasa Melayu</a>`
         : y === 1
         ? `<a class="tile bm" href="#" data-sub="bm1" data-name="Alex"><span class="ic">BM</span>Bahasa Melayu</a>`
         : `<div class="tile off"><span class="ic">BM</span>Bahasa Melayu<small>Coming soon</small></div>`;
@@ -252,6 +255,10 @@ input:focus,select:focus{border-color:var(--green2);box-shadow:0 0 0 4px #dfeee5
     cn: { title: "文 华文 Chinese", tag: "三年级 · 选一个练习 Choose one", items: [
       { t: "看图学华文", s: "Picture practice", f: "year3-chinese.html", c: "cn", i: '<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="3"/><circle cx="9" cy="10" r="2"/><path d="m21 16-5-5-9 9"/></svg>' },
       { t: "课堂评估", s: "Classroom assessment", f: "year3-chinese-2.html", c: "cn2", i: '<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 3v2h6V3"/><path d="m9 13 2 2 4-4"/></svg>' } ] },
+    bm2: { title: "Bahasa Melayu", tag: "Tahun 2 · Pilih latihan", items: [
+      { t: "Tatabahasa Bahagian A", s: "Unit 1–11 · Halaman 2–67", f: "year2-tatabahasa.html?part=A", c: "bm", i: '<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="m13 7 4 4"/></svg>' },
+      { t: "Tatabahasa Bahagian B", s: "Unit 12–23 · Halaman 68–120", f: "year2-tatabahasa.html?part=B", c: "bm", i: '<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="m13 7 4 4"/></svg>' },
+      { t: "Latihan Pemahaman", s: "Akan datang · Coming soon", f: "", c: "bm", i: '<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 3v2h6V3"/></svg>' } ] },
     bm: { title: "Bahasa Melayu", tag: "Tahun 3 · Pilih latihan", items: [
       { t: "国语书写填充", s: "Tulis ayat (Latihan 1)", f: "year3-bm.html", c: "bm", i: '<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="m13 7 4 4"/></svg>' },
       { t: "Latihan 2", s: "Akan datang · Coming soon", f: "", c: "bm2", i: '<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 3v2h6V3"/></svg>' } ] },
@@ -269,7 +276,7 @@ input:focus,select:focus{border-color:var(--green2);box-shadow:0 0 0 4px #dfeee5
     const q = "?s=" + encodeURIComponent(name);
     $('subTitle').textContent = S.title; $('subTag').textContent = S.tag;
     $('subTiles').innerHTML = S.items.map(x => x.f
-      ? `<a class="tile ${x.c} wide" href="${x.f.endsWith('.pdf') ? x.f : x.f + q}"><span class="ic">${x.i}</span>${x.t}<span class="sub">${x.s}</span></a>`
+      ? `<a class="tile ${x.c} wide" href="${x.f.endsWith('.pdf') ? x.f : x.f + (x.f.includes('?') ? '&' : '?') + q.slice(1)}"><span class="ic">${x.i}</span>${x.t}<span class="sub">${x.s}</span></a>`
       : `<div class="tile off wide"><span class="ic">${x.i}</span>${x.t}<small>Coming soon</small></div>`).join('');
     show('subMenu');
   }
