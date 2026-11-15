@@ -171,7 +171,7 @@ input:focus,select:focus{border-color:var(--green2);box-shadow:0 0 0 4px #dfeee5
     if(sess.year === 1){ enb.classList.remove('off'); enb.href = "#"; enb.dataset.sub = "en1"; enb.dataset.name = sess.name; }
     if(sess.year === 2){ enb.classList.remove('off'); enb.href = "#"; enb.dataset.sub = "en2"; enb.dataset.name = sess.name; }
     const scb = $('scBtn');
-    if(sess.year === 1){ scb.classList.remove('off'); scb.href = "#"; scb.dataset.sub = "sc1"; scb.dataset.name = sess.name; }
+    if(sess.year === 1 || sess.year === 2){ scb.classList.remove('off'); scb.href = "#"; scb.dataset.sub = "sc" + sess.year; scb.dataset.name = sess.name; }
     else { scb.classList.add('off'); scb.removeAttribute('href'); delete scb.dataset.sub; }
     const bm = $('bmBtn');
     if(sess.year === 3){ bm.classList.remove('off'); bm.href = "#"; bm.dataset.sub = "bm"; bm.dataset.name = sess.name; }
@@ -203,8 +203,8 @@ input:focus,select:focus{border-color:var(--green2);box-shadow:0 0 0 4px #dfeee5
         : y === 1
         ? `<a class="tile bm" href="#" data-sub="bm1" data-name="Alex"><span class="ic">BM</span>Bahasa Melayu</a>`
         : `<div class="tile off"><span class="ic">BM</span>Bahasa Melayu<small>Coming soon</small></div>`;
-      const scT = y === 1
-        ? `<a class="tile sc" href="#" data-sub="sc1" data-name="Alex"><span class="ic">🔬</span>Science</a>`
+      const scT = y === 1 || y === 2
+        ? `<a class="tile sc" href="#" data-sub="sc${y}" data-name="Alex"><span class="ic">🔬</span>Science</a>`
         : "";
       html += `<div class="yrow"><div class="ylabel">Year ${y}</div><div class="tiles">
         <a class="tile math" href="${MATHS[y]}?s=Alex"><span class="ic">+ −</span>数学 Maths</a>${cn}${bmT}${scT}</div></div>`;
@@ -246,6 +246,8 @@ input:focus,select:focus{border-color:var(--green2);box-shadow:0 0 0 4px #dfeee5
       { t: "Latihan 2", s: "Akan datang · Coming soon", f: "", c: "en1b", i: '<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="m13 7 4 4"/></svg>' } ] },
     sc1: { title: "Science 科学", tag: "一年级 · Year 1 SC", items: [
       { t: "一年级单元评估", s: "Penilaian unit · Year 1 Science", f: "year1-science.html", c: "sc1a", i: '<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 2 3h10a2 2 0 0 0 2-3l-5-9V3"/><path d="M7 15h10"/></svg>' } ] },
+    sc2: { title: "Science 科学", tag: "二年级 · Year 2 SC", items: [
+      { t: "二年级单元评估", s: "Penilaian unit · Year 2 Science", f: "year2-science.html", c: "sc2a", i: '<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 2 3h10a2 2 0 0 0 2-3l-5-9V3"/><path d="M7 15h10"/></svg>' } ] },
     cn1: { title: "华文 Chinese", tag: "Tahun 1 · Pilih buku", items: [
       { t: "华文 1A", s: "课堂评估 · Buku 1A", f: "year1-chinese.html", c: "cn1a", i: '<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="m13 7 4 4"/></svg>' },
       { t: "华文 1B", s: "课堂评估 · Buku 1B", f: "year1-chinese-2.html", c: "cn1b", i: '<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="m13 7 4 4"/></svg>' } ] },
