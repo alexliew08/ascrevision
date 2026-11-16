@@ -167,6 +167,7 @@ input:focus,select:focus{border-color:var(--green2);box-shadow:0 0 0 4px #dfeee5
     const cnb = $('cnBtn');
     if(sess.year === 1){ cnb.classList.remove('off'); cnb.href = "#"; cnb.dataset.sub = "cn1"; cnb.dataset.name = sess.name; }
     if(sess.year === 2){ cnb.classList.remove('off'); cnb.href = "#"; cnb.dataset.sub = "cn2"; cnb.dataset.name = sess.name; }
+    if(sess.year === 4){ cnb.classList.remove('off'); cnb.href = "#"; cnb.dataset.sub = "cn4"; cnb.dataset.name = sess.name; }
     const enb = $('enBtn');
     if(sess.year === 1){ enb.classList.remove('off'); enb.href = "#"; enb.dataset.sub = "en1"; enb.dataset.name = sess.name; }
     if(sess.year === 2){ enb.classList.remove('off'); enb.href = "#"; enb.dataset.sub = "en2"; enb.dataset.name = sess.name; }
@@ -195,6 +196,8 @@ input:focus,select:focus{border-color:var(--green2);box-shadow:0 0 0 4px #dfeee5
         ? `<a class="tile cn" href="#" data-sub="cn2" data-name="Alex"><span class="ic">文</span>华文 Chinese</a><a class="tile en" href="#" data-sub="en2" data-name="Alex"><span class="ic">Aa</span>English</a>`
         : y === 3
         ? `<a class="tile cn" href="#" data-sub="cn" data-name="Alex"><span class="ic">文</span>华文 Chinese</a><a class="tile en" href="#" data-sub="en" data-name="Alex"><span class="ic">Aa</span>English</a>`
+        : y === 4
+        ? `<a class="tile cn" href="#" data-sub="cn4" data-name="Alex"><span class="ic">文</span>华文 Chinese</a><div class="tile off"><span class="ic">Aa</span>English<small>Coming soon</small></div>`
         : `<div class="tile off"><span class="ic">文</span>华文 Chinese<small>Coming soon</small></div><div class="tile off"><span class="ic">Aa</span>English<small>Coming soon</small></div>`;
       const bmT = y === 3
         ? `<a class="tile bm" href="#" data-sub="bm" data-name="Alex"><span class="ic">BM</span>Bahasa Melayu</a>`
@@ -254,6 +257,11 @@ input:focus,select:focus{border-color:var(--green2);box-shadow:0 0 0 4px #dfeee5
     cn2: { title: "华文 Chinese", tag: "Tahun 2 · Pilih buku", items: [
       { t: "华文 2A", s: "课堂评估 · Buku 2A", f: "year2-chinese.html", c: "cn2a", i: '<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="m13 7 4 4"/></svg>' },
       { t: "华文 2B", s: "课堂评估 · Buku 2B", f: "year2-chinese-2.html", c: "cn2b", i: '<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="m13 7 4 4"/></svg>' } ] },
+    cn4: { title: "华文 Chinese", tag: "四年级 · 选一个练习 Choose one", items: [
+      { t: "词语填充 4A", s: "上半年 · 495 题", f: "year4-chinesefill-4A.html", c: "cn4a", i: '<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 3v2h6V3"/><path d="M8 10h8M8 14h5"/></svg>' },
+      { t: "词语填充 4B", s: "下半年 · 595 题", f: "year4-chinesefill-4B.html", c: "cn4b", i: '<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 3v2h6V3"/><path d="M8 10h8M8 14h5"/></svg>' },
+      { t: "词语填充 4C", s: "全册 · 483 题 + 变调/关联词", f: "year4-chinesefill-4C.html", c: "cn4c", i: '<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 3v2h6V3"/><path d="M8 10h8M8 14h5"/></svg>' },
+      { t: "词句重组", s: "整册 · 26 篇", f: "year4-sentence-reorder.html", c: "cn4d", i: '<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="m13 7 4 4"/></svg>' } ] },
     cn: { title: "文 华文 Chinese", tag: "三年级 · 选一个练习 Choose one", items: [
       { t: "课堂评估", s: "Classroom assessment", f: "year3-chinese-2.html", c: "cn2", i: '<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 3v2h6V3"/><path d="m9 13 2 2 4-4"/></svg>' },
       { t: "单元练习 3A", s: "Latihan unit · Buku 3A", f: "year3-exercise-3A.html", c: "cn", i: '<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="m13 7 4 4"/></svg>' },
@@ -296,13 +304,12 @@ input:focus,select:focus{border-color:var(--green2);box-shadow:0 0 0 4px #dfeee5
   });
 
   const existing = getSess();
+  const deepSub = new URLSearchParams(location.search).get('sub');
   if(existing && existing.test) showTestMenu();
-  else if(existing && ROST[existing.year]){
-    showMenu(existing);
-    const deepSub = new URLSearchParams(location.search).get('sub');
-    if(deepSub && SUB[deepSub]) showSub(deepSub, existing.name, 'menu');
-  }
+  else if(existing && ROST[existing.year]) showMenu(existing);
   else show('login');
+  // "返回练习菜单" from an exercise page: open that subject's exercise list (works for test sessions too)
+  if(existing && deepSub && SUB[deepSub]) showSub(deepSub, existing.name || 'Alex', 'menu');
 </script>
 </body>
 </html>
