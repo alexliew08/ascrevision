@@ -135,7 +135,7 @@
 </head>
 <body>
 <header>
-  <a class="back" href="index.html">← Kembali</a>
+  <a class="back" href="index.html?sub=bm2">← Kembali</a>
   <h1>Bahasa Melayu · Latihan Tatabahasa Tahun 2</h1>
   <span></span>
 </header>
@@ -2627,5 +2627,6 @@ $("checkAll").addEventListener("click", () => { pageSections().forEach(s => chec
 $("resetAll").addEventListener("click", () => { pageSections().forEach(s => delete ST[s.uid]); render(); });
 if(PAGES.length) render();
 </script>
+<script src="score-sync.js"></script>
 </body>
 </html>
