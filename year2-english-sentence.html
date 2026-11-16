@@ -38,6 +38,7 @@
   .fld.ok{background:#dff3e4;box-shadow:inset 0 0 0 2px #3c9a5a}
   .fld.bad{background:#fbe1dc;box-shadow:inset 0 0 0 2px #c0503c}
   .num{position:absolute;font-size:2.2cqw;font-weight:bold;color:var(--green);pointer-events:none;line-height:1}
+  .bottombar{width:100%;max-width:860px;margin-top:14px;display:flex;flex-direction:column;gap:10px;align-items:center}
   .hint{max-width:860px;margin:10px auto 0;font-size:13px;color:var(--muted);text-align:center}
   @media (max-width:520px){ main{padding:10px 8px 30px} }
 </style>
@@ -45,22 +46,25 @@
 <body>
 <header>
   <div class="title">
+    <a class="btn alt" href="index.html">← Menu</a>
     <h1>Aa English · Tahun 2 · Sentence</h1>
-    <div class="nav">
-      <button class="btn alt" id="prevBtn">‹ Prev</button>
-      <span id="pageNo"></span>
-      <button class="btn" id="nextBtn">Next ›</button>
-    </div>
   </div>
   <div class="tabs" id="tabs"></div>
 </header>
-<div class="toolbar" id="toolbar"></div>
 <main>
   <div class="sheet" id="sheet">
     <img id="pageImg" alt="">
     <div class="ov" id="ov"></div>
   </div>
   <p class="hint" id="note"></p>
+  <div class="bottombar">
+    <div class="nav">
+      <button class="btn alt" id="prevBtn">‹ Prev</button>
+      <span id="pageNo"></span>
+      <button class="btn" id="nextBtn">Next ›</button>
+    </div>
+    <div class="toolbar" id="toolbar"></div>
+  </div>
 </main>
 <script>
   const TABS = [
