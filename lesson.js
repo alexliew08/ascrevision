@@ -111,8 +111,14 @@
   document.addEventListener("click", function (e) {
     var b = e.target && e.target.closest ? e.target.closest(CHECK_SEL) : null;
     if (!b || b.disabled) return;
+    // Score only the exercise (练习) whose button was clicked, not the whole page.
+    var attr = ["data-ex", "data-s", "data-es", "data-card"].filter(function (a) { return b.hasAttribute(a); })[0];
+    var val = attr ? b.getAttribute(attr) : null;
     setTimeout(function () {
-      onChecked(document.getElementById("score") || document.querySelector(".score"));
+      var cur = attr ? document.querySelector("[" + attr + '="' + val + '"]') : null;
+      var box = cur && cur.closest ? cur.closest("section, .card") : null;
+      var own = box ? box.querySelector(".muted, .fbline") : null;
+      onChecked(own || document.getElementById("score") || document.querySelector(".score"));
     }, 80);
   }, true);
 })();

@@ -184,7 +184,9 @@ const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',
 const BLANK=/[_＿]{2,}/;
 const CHOICE=/（\s*([^（）]+?)\s*）/;
 let total=0,right=0,checked=0;
-const state={}; // key -> {picked:[], done:bool}
+const SAVE_KEY='fill-state-'+location.pathname.split('/').pop();
+let state={}; // key -> {picked:[], done:bool}
+try{state=JSON.parse(localStorage.getItem(SAVE_KEY)||'{}')||{};}catch(e){state={};}
 
 function parts(e,it){
   // returns {before, after, opts, kind} where kind: 'blank' | 'choice' | 'none'
@@ -221,6 +223,7 @@ function exHTML(e,ei){
 const CN=['零','一','二','三','四','五','六','七','八','九','十'];
 function numCN(n){if(n<=10)return CN[n];if(n<20)return '十'+(n%10?CN[n%10]:'');if(n<100){const a=Math.floor(n/10),b=n%10;return CN[a]+'十'+(b?CN[b]:'');}return '一百';}
 function render(){
+  try{localStorage.setItem(SAVE_KEY,JSON.stringify(state));}catch(e){}
   const view=document.getElementById('view');
   let h='',lastU=null,lastL=null;
   DATA.forEach((e,ei)=>{
