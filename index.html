@@ -157,7 +157,6 @@ input:focus,select:focus{border-color:var(--green2);box-shadow:0 0 0 4px #dfeee5
   function setSess(v){ try{ v ? sessionStorage.setItem(SESS_KEY, JSON.stringify(v)) : sessionStorage.removeItem(SESS_KEY); }catch(e){} }
 
   function showMenu(sess){
-    location.replace("home.html"); return; // the new home page replaces the old menu
     $('who').textContent = sess.name;
     $('yrTag').textContent = "Year " + sess.year + " · " + "一二三四五六"[sess.year-1] + "年级";
     $('mathBtn').href = MATHS[sess.year] + "?s=" + encodeURIComponent(sess.name);
@@ -227,7 +226,6 @@ input:focus,select:focus{border-color:var(--green2);box-shadow:0 0 0 4px #dfeee5
   }
 
   function showTestMenu(){
-    location.replace("home.html"); return; // the new home page replaces the old menu
     let html = "";
     for(let y = 1; y <= 6; y++){
       const cn = y === 1
