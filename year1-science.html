@@ -75,7 +75,7 @@ html,body{margin:0;background:var(--bg);color:var(--ink);font-family:"Microsoft 
   <div class="bar">
     <select id="secSel" aria-label="选择单元"></select>
     <button class="btn" id="checkBtn">✓ 检查答案 Check</button>
-    <button class="btn alt" id="showBtn" disabled>👀 显示答案 Show</button>
+    <button class="btn alt" id="showBtn">👀 显示答案 Show</button>
     <button class="btn alt" id="resetBtn">↺ 重做 Redo</button>
     <button class="btn alt" id="teacherBtn" hidden>👩‍🏫 老师检查 Teacher check</button>
     <span class="chip" id="score">未检查</span>
@@ -997,5 +997,6 @@ function go(p){
 }
 go(cur);
 </script>
+<script src="shared/lesson.js"></script>
 </body>
 </html>
