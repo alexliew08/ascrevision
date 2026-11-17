@@ -242,7 +242,7 @@ function slotRight(ci,k){const w=wordAt(ci,k);return w!==null&&w===CARDS[ci].ans
 function wnorm(x){return String(x).replace(/[\s，。？！,.?!、；;：:“”"'‘’（）()…—\-]/g,'');}
 function wRight(c,s,k){const a=wnorm(s.written[k]||'');return a!==''&&a===wnorm(c.ans[k]||'');}
 function wStatus(c,s,k){return s.wchecked?(wRight(c,s,k)?' ok':' bad'):'';}
-function wFix(c,s,k){return s.wchecked&&!wRight(c,s,k)?`<div class="ansline">答案：${esc(c.ans[k]||'')}</div>`:'';}
+function wFix(c,s,k){return s.wchecked&&!wRight(c,s,k)?``:'';}
 function wRow(c,ci,s){
   const n=c.items.length, right=c.items.filter((_,k)=>wRight(c,s,k)).length;
   const msg=s.wchecked?(right===n?`<div class="muted">全部正确！</div>`:`<div class="muted">${n-right} 题不对，看看红色的方框。</div>`):'';
@@ -330,7 +330,7 @@ function cardHTML(c,ci){
     if(chkJ){
       const wrong=[];
       for(let q=0;q<nb;q++){const k=slot-nb+q;if(!slotRight(ci,k))wrong.push(c.ans[k]);}
-      if(wrong.length)fix=`<div class="ansline">答案：${esc(wrong.join('、'))}</div>`;
+      if(wrong.length)fix=``;
     }
     const pool=(!c.top&&Array.isArray(it.bank)&&it.bank.length&&nb>0)?tilesHTML(ci,j,it,s,m):'';
     if(c.rowB){

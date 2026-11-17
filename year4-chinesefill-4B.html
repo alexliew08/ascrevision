@@ -208,7 +208,7 @@ function exHTML(e,ei){
     let sel=`<select data-ex="${ei}" data-k="${k}" class="${cls}" aria-label="第${it.n}题"><option value="">＿＿</option>${p.opts.map(o=>`<option value="${esc(o)}"${pk===o?' selected':''}>${esc(o)}</option>`).join('')}</select>`;
     let body=p.kind==='none'?esc(p.before):esc(p.before)+sel+esc(p.after);
     const numTag=`<b>${it.n}.</b> `;
-    const ansTxt=st.done&&hasAns&&pk!==e.ans[k]&&e.ans[k]?`<div class="ansline">答案：${esc(e.ans[k])}</div>`:'';
+    const ansTxt=st.done&&hasAns&&pk!==e.ans[k]&&e.ans[k]?``:'';
     h+=`<div class="line">${numTag}${body}${ansTxt}</div>`;
   });
   h+=`<div class="row">`;
