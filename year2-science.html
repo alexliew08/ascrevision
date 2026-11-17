@@ -596,6 +596,7 @@ const BOX = Object.assign({}, BOX_P0, BOX_PART1, BOX_PART2, BOX_PART3, BOX_PART4
 let st = {}; try{ st = JSON.parse(localStorage.getItem(KEY) || '{}'); }catch(e){}
 st.v = st.v || {};
 const save = () => { try{ localStorage.setItem(KEY, JSON.stringify(st)); }catch(e){} };
+window.LESSON_STATE_KEY = KEY; // lets the shared layer (lesson.js) send these answers to the sheet
 const secOf = p => SECS.find(s => p >= s.a && p <= s.b) || SECS[0];
 
 function canon(s, mode){
