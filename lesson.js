@@ -46,9 +46,12 @@
     var part = new URLSearchParams(location.search).get("part");
     return part ? f + "?part=" + part : f;
   }
-  function nextFor(name) {
+  // Next exercise not yet done, only from the student's own year (e.g. Year 3 gets year3-* files).
+  function nextFor(name, year) {
     var pages = ((loadP()[name] || {}).pages) || {};
+    var prefix = year ? "year" + year + "-" : "";
     for (var i = 0; i < ORDER.length; i++) {
+      if (prefix && ORDER[i].indexOf(prefix) !== 0) continue;
       if (!(pages[ORDER[i]] || {}).done) return ORDER[i];
     }
     return null;

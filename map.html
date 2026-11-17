@@ -3,17 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>AfterSkoolClub 冒险地图</title>
+<title>Quest Map</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Noto+Sans+SC:wght@400;500;700;800&display=swap">
 <style>
-:root{--bg:#faf4e8;--card:#fffdf8;--ink:#1f3d31;--muted:#6d6a5c;--line:#eadfcb;--green:#2f5e4a;--cream2:#fff6df}
-*{box-sizing:border-box}
-html,body{margin:0;padding:0}
-body{background:var(--bg);color:var(--ink);font-family:"Noto Sans SC","Fredoka",system-ui,sans-serif;min-height:100vh;-webkit-font-smoothing:antialiased}
+body{margin:0;background:#faf4e8}
 a{color:inherit;text-decoration:none}
-button{font-family:inherit;cursor:pointer;transition:transform .15s ease}
+button{transition:transform .15s ease;font-family:inherit}
 button:hover{transform:translateY(-3px)}
 button:active{transform:scale(.97)}
 @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(47,94,74,.35)}50%{box-shadow:0 0 0 14px rgba(47,94,74,0)}}
@@ -21,150 +18,124 @@ button:active{transform:scale(.97)}
 .pulse{animation:pulse 2.2s ease-in-out infinite}
 .pop{animation:pop .5s ease-out both}
 @media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
-
-header{height:88px;padding:0 32px;display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--card);border-bottom:1.5px solid var(--line);flex-wrap:wrap;padding-top:12px;padding-bottom:12px;min-height:88px}
-.hl{display:flex;align-items:center;gap:12px}
-.logo{width:46px;height:46px;border-radius:15px;background:var(--green);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:21px}
-.hl b{font-size:22px;font-weight:800;display:block}
-.hl span{font-size:14px;color:var(--muted)}
-.back{background:var(--card);border:1.5px solid var(--line);border-radius:999px;padding:10px 18px;font-size:16px;font-weight:700;color:var(--ink)}
-.streak{background:#e8f1ea;color:var(--green);border-radius:999px;padding:12px 18px;font-size:18px;font-weight:800}
-
-.wrap{padding:32px;display:flex;flex-direction:column;gap:28px}
-.path{background:var(--card);border:1.5px solid var(--line);border-radius:30px;padding:36px 40px}
-.hint{font-size:18px;font-weight:700;color:var(--muted);margin-bottom:24px}
-.track{position:relative;display:flex;justify-content:space-between;align-items:flex-start;padding-top:8px;overflow-x:auto}
-.rail,.fill{position:absolute;left:60px;right:60px;top:52px;height:10px;border-radius:999px}
-.rail{background:var(--line)}
-.fill{background:#6fb08c}
-.node{position:relative;z-index:1;width:120px;display:flex;flex-direction:column;align-items:center;gap:10px;background:transparent;border:none;padding:0;color:var(--ink);flex-shrink:0}
-.node .c{width:92px;height:92px;border-radius:50%;border:4px solid;display:flex;align-items:center;justify-content:center;font-size:36px;font-weight:800;box-shadow:0 6px 0 #efe4cf}
-.node .u{font-size:17px;font-weight:800}
-.node .st{font-size:16px;letter-spacing:2px;color:#b8842a}
-
-.row{display:flex;gap:28px;align-items:stretch}
-.detail{flex:1;min-width:0;background:var(--green);color:#fff;border-radius:30px;padding:32px;display:flex;flex-direction:column;justify-content:space-between;gap:20px}
-.detail .k{font-size:15px;font-weight:700;opacity:.9}
-.detail .t{font-size:34px;font-weight:800;margin-top:6px}
-.detail .d{font-size:18px;margin-top:8px;opacity:.95}
-.detail .s{font-size:24px;letter-spacing:4px;margin-top:14px;color:#ecd58a}
-.play{display:flex;align-items:center;justify-content:center;min-height:68px;border-radius:999px;background:var(--cream2);color:var(--green);font-size:24px;font-weight:800}
-.locked{display:flex;align-items:center;justify-content:center;min-height:68px;border-radius:999px;background:rgba(255,255,255,.18);font-size:18px;font-weight:700}
-.side{width:340px;flex-shrink:0;background:var(--card);border:1.5px solid var(--line);border-radius:26px;padding:24px;display:flex;flex-direction:column;gap:14px}
-.side h4{margin:0;font-size:18px;font-weight:800}
-.side p{margin:0;font-size:15px;line-height:1.6;color:var(--muted)}
-.side a{display:block;text-align:center;min-height:48px;line-height:48px;border-radius:999px;border:1.5px solid var(--line);background:#fff;font-size:16px;font-weight:800}
-
-@media (max-width:900px){
-  header{padding:12px 16px}
-  .wrap{padding:16px}
-  .path{padding:24px 16px}
-  .row{flex-direction:column}
-  .side{width:auto}
-  .detail .t{font-size:26px}
+@media (max-width:1000px){
+  .page{width:100%!important;height:auto!important;min-height:100vh}
+  .track{overflow-x:auto}
+  .detail-row{flex-direction:column!important}
+  .hdr{padding:12px 16px!important;height:auto!important;flex-wrap:wrap;gap:10px}
+  .body{padding:16px!important}
+  .path{padding:20px 16px!important}
 }
 </style>
 </head>
 <body>
-<header>
-  <div class="hl">
-    <div class="logo">A</div>
-    <div>
-      <b>你的冒险地图 Your quest map</b>
-      <span id="sub">Year 3 · 华文 Chinese</span>
-    </div>
-  </div>
-  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
-    <div class="streak">Streak 连胜 2</div>
-    <a class="back" href="home.html">Home 首页</a>
-  </div>
-</header>
 
-<div class="wrap">
-  <section class="path">
-    <div class="hint">Tap a level to see it. 点一关看看。</div>
-    <div class="track" id="track">
-      <div class="rail"></div>
-      <div class="fill" id="fill"></div>
-    </div>
-  </section>
+<div class="page" style="width:1280px;height:900px;box-sizing:border-box;display:flex;flex-direction:column;background:#faf4e8;color:#1f3d31;font-family:'Noto Sans SC','Fredoka',system-ui,sans-serif">
 
-  <div class="row">
-    <section class="detail" id="detail"></section>
-    <aside class="side">
-      <h4>Need help? 需要帮助？</h4>
-      <p>Read the instructions carefully, then try each question. Ask your teacher if you get stuck. 仔细看题目，卡住了请问老师。</p>
-      <a href="index.html">All subjects 所有科目</a>
-    </aside>
+  <header class="hdr" style="box-sizing:border-box;height:88px;padding:0 32px;display:flex;align-items:center;justify-content:space-between;background:#fffdf8;border-bottom:1.5px solid #eadfcb">
+    <div style="display:flex;align-items:center;gap:12px">
+      <div style="width:46px;height:46px;border-radius:15px;background:#2f5e4a;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:21px">A</div>
+      <div>
+        <div style="font-size:22px;font-weight:800">Your quest map 你的冒险地图</div>
+        <div id="sub" style="font-size:14px;color:#6d6a5c">Year 3 · 华文 Chinese</div>
+      </div>
+    </div>
+    <div style="display:flex;gap:10px">
+      <div style="background:#e8f1ea;color:#2f5e4a;border-radius:999px;padding:12px 18px;font-size:18px;font-weight:800">Streak 连胜 2</div>
+      <a href="home.html" style="background:#fffdf8;border:1.5px solid #eadfcb;border-radius:999px;padding:12px 18px;font-size:18px;font-weight:800;color:#1f3d31">Home 首页</a>
+    </div>
+  </header>
+
+  <div class="body" style="flex:1;min-height:0;box-sizing:border-box;padding:32px;display:flex;flex-direction:column;gap:28px">
+
+    <section class="path" style="background:#fffdf8;border:1.5px solid #eadfcb;border-radius:30px;padding:36px 40px">
+      <div style="font-size:18px;font-weight:700;color:#6d6a5c;margin-bottom:24px">Tap a level to see it. 点一关看看。</div>
+      <div class="track" id="track" style="position:relative;display:flex;justify-content:space-between;align-items:flex-start;padding-top:8px">
+        <div style="position:absolute;left:60px;right:60px;top:52px;height:10px;border-radius:999px;background:#eadfcb"></div>
+        <div id="fill" style="position:absolute;left:60px;top:52px;height:10px;border-radius:999px;background:#6fb08c"></div>
+      </div>
+    </section>
+
+    <div class="detail-row" style="display:flex;gap:28px;flex:1;min-height:0">
+      <section id="detail" class="pop" style="flex:1;min-width:0;background:#2f5e4a;color:#fff;border-radius:30px;padding:32px;display:flex;flex-direction:column;justify-content:space-between;gap:20px"></section>
+    </div>
   </div>
 </div>
 
+<script src="lesson.js"></script>
 <script>
 (function(){
   var SESS_KEY = "asc_student";
   var sess = null;
   try { sess = JSON.parse(sessionStorage.getItem(SESS_KEY) || "null"); } catch(e) { sess = null; }
   if (!sess) { location.replace("index.html"); return; }
-  var q = sess.name ? "?s=" + encodeURIComponent(sess.name) : "";
+  var year = sess.year || 3;
+  var name = sess.name || "";
+  var q = name ? "?s=" + encodeURIComponent(name) : "";
 
-  // Chinese units. Only Unit 4 has an exercise page today.
+  document.getElementById("sub").textContent = "Year " + year + " · 华文 Chinese";
+
+  // Unit 4 opens the student's next unfinished exercise for their year.
+  var nextEx = (name && window.LessonFlow) ? LessonFlow.nextFor(name, year) : null;
+  var unit4Href = nextEx ? nextEx + (nextEx.indexOf("?") > -1 ? "&" : "?") + "s=" + encodeURIComponent(name) : "year3-chinesefill-3A.html" + q;
+
   var UNITS = [
-    { n: 1, stars: 3, status: "done" },
-    { n: 2, stars: 3, status: "done" },
-    { n: 3, stars: 2, status: "done" },
-    { n: 4, stars: 0, status: "current", title: "Unit 4 · 词句填充", href: "year3-chinesefill-3A.html" + q },
-    { n: 5, stars: 0, status: "locked" },
-    { n: 6, stars: 0, status: "locked" }
+    { n: 1, title: "Unit 1 · 上学的路", stars: 3, status: "done" },
+    { n: 2, title: "Unit 2 · 第二单元", stars: 3, status: "done" },
+    { n: 3, title: "Unit 3 · 第三单元", stars: 2, status: "done" },
+    { n: 4, title: "Unit 4 · 词句填充", stars: 0, status: "current", href: unit4Href },
+    { n: 5, title: "Unit 5 · 第五单元", stars: 0, status: "locked" },
+    { n: 6, title: "Unit 6 · 第六单元", stars: 0, status: "locked" }
   ];
   var selected = 4;
 
   var track = document.getElementById("track");
-  var fill = document.getElementById("fill");
   var nodes = [];
   UNITS.forEach(function(u){
-    var b = document.createElement("button");
-    b.type = "button";
-    b.className = "node";
-    b.setAttribute("aria-label", "Unit " + u.n + ", " + u.status);
     var done = u.status === "done", current = u.status === "current";
     var edge = done ? "#2f7a4a" : current ? "#2f5e4a" : "#d8cdb8";
     var bg = done ? "#e8f5ec" : current ? "#2f5e4a" : "#f5f0e6";
     var ink = current ? "#fff" : u.status === "locked" ? "#9c9582" : "#2f7a4a";
     var mark = done ? "✓" : current ? "▶" : "×";
-    var stars = "★".repeat(u.stars) + "☆".repeat(3 - u.stars);
-    b.innerHTML = '<span class="c"></span><span class="u">Unit ' + u.n + '</span><span class="st">' + stars + '</span>';
-    var c = b.querySelector(".c");
-    c.textContent = mark;
-    c.style.background = bg; c.style.color = ink; c.style.borderColor = edge;
-    if (current) c.classList.add("pulse");
+    var b = document.createElement("button");
+    b.type = "button";
+    b.setAttribute("aria-label", "Unit " + u.n + ", " + u.status);
+    b.style.cssText = "position:relative;z-index:1;width:120px;display:flex;flex-direction:column;align-items:center;gap:10px;background:transparent;border:none;padding:0;color:#1f3d31;cursor:pointer";
+    b.innerHTML =
+      '<span class="' + (current ? "pulse" : "") + '" style="width:92px;height:92px;border-radius:50%;background:' + bg +
+      ';border:4px solid ' + edge + ';color:' + ink + ';display:flex;align-items:center;justify-content:center;font-size:36px;font-weight:800;box-shadow:0 6px 0 #efe4cf">' + mark + '</span>' +
+      '<span style="font-size:17px;font-weight:800">Unit ' + u.n + '</span>' +
+      '<span style="font-size:16px;letter-spacing:2px;color:#b8842a">' + "★".repeat(u.stars) + "☆".repeat(3 - u.stars) + '</span>';
     b.addEventListener("click", function(){ selected = u.n; render(); });
-    track.insertBefore(b, fill);
+    track.appendChild(b);
     nodes.push(b);
   });
 
+  // Fill the track up to the last completed unit.
+  var doneCount = UNITS.filter(function(u){ return u.status === "done"; }).length;
+  var fillPct = Math.round(doneCount / (UNITS.length - 1) * 100);
+  document.getElementById("fill").style.width = "calc(" + fillPct + "% - 0px)";
+
   function render(){
     nodes.forEach(function(b, i){
-      b.querySelector(".c").style.outline = (i + 1 === selected) ? "4px solid #ecd58a" : "none";
+      b.firstChild.style.outline = (i + 1 === selected) ? "4px solid #ecd58a" : "none";
     });
     var u = UNITS[selected - 1];
     var playable = u.status !== "locked";
     var text = u.status === "done" ? "Completed 已完成" : u.status === "current" ? "Your next level 你的下一关" : "Locked 未解锁";
-    var title = u.title || ("Unit " + u.n);
     var stars = "★".repeat(u.stars) + "☆".repeat(3 - u.stars);
-    var btn = playable && u.href
-      ? '<a class="play" href="' + u.href + '">Play 开始 ▶</a>'
-      : '<div class="locked">' + (playable ? "Coming soon 即将推出" : "Finish the level before this one 先完成上一关") + '</div>';
-    document.getElementById("detail").className = "detail pop";
-    document.getElementById("detail").innerHTML =
-      '<div><div class="k">Selected level 已选关卡</div>' +
-      '<div class="t"></div><div class="d">' + text + '</div><div class="s">' + stars + '</div></div>' + btn;
-    document.getElementById("detail").querySelector(".t").textContent = title;
+    var action = (playable && u.href)
+      ? '<a href="' + u.href + '" style="display:flex;align-items:center;justify-content:center;min-height:68px;border-radius:999px;background:#fff6df;color:#2f5e4a;font-size:24px;font-weight:800">Play 开始 ▶</a>'
+      : '<div style="display:flex;align-items:center;justify-content:center;min-height:68px;border-radius:999px;background:rgba(255,255,255,.18);font-size:18px;font-weight:700">' +
+        (playable ? "Coming soon 即将推出" : "Finish the level before this one 先完成上一关") + '</div>';
+    var det = document.getElementById("detail");
+    det.innerHTML =
+      '<div><div style="font-size:15px;font-weight:700;opacity:.9">Selected level 已选关卡</div>' +
+      '<div id="dTitle" style="font-size:34px;font-weight:800;margin-top:6px"></div>' +
+      '<div style="font-size:18px;margin-top:8px;opacity:.95">' + text + '</div>' +
+      '<div style="font-size:24px;letter-spacing:4px;margin-top:14px;color:#ecd58a">' + stars + '</div></div>' + action;
+    document.getElementById("dTitle").textContent = u.title;
   }
-
-  // Fill the track up to the current unit
-  var pct = Math.round(((UNITS.filter(function(u){ return u.status === "done"; }).length) / (UNITS.length - 1)) * 100);
-  fill.style.width = "calc(" + pct + "% - 0px)";
-
   render();
 })();
 </script>

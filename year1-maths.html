@@ -426,7 +426,7 @@ function ans(k){if(G.ans)return;G.ans=true;clearInterval(timer);const q=G.qs[G.i
  const ok=k>=0&&q.opts[k]===q.ans;const f=document.getElementById("fb");f.classList.remove("hide");b.forEach(x=>{if(x.textContent===q.ans)x.classList.add("ok")});
  if(ok){const ch=S.mode=="challenge";const base=10*(G.l+1)/(G.hint?2:1);const bonus=ch?(G.left>=18?6:G.left>=10?3:0):0;const g=Math.round(base*(ch?1.5:1))+bonus;G.pts+=g;S.score+=g;G.ok++;G.streak++;S.streakMax=Math.max(S.streakMax,G.streak);mas(P(CHEER),1);if(G.streak%5===0)burst(16);
   f.innerHTML=`🎉 ${P(["太棒了！","答对了！","真聪明！","继续保持！"])} +${g} 分${ch?`（挑战加成 ×1.5${bonus?`，快答奖励 +${bonus}`:""}）`:""}<br>${q.exp}`}
- else{if(k>=0)b[k].classList.add("no");G.streak=0;G.wrongs.push(q);mas(P(COMFORT),0);f.innerHTML=`${k<0?"⏰ 时间到了，":""}没关系，错误是进步的机会！💪<br><b>正确答案：${q.ans}</b><br>${q.exp}`}
+ else{if(k>=0)b[k].classList.add("no");G.streak=0;G.wrongs.push(q);mas(P(COMFORT),0);f.innerHTML=`${k<0?"⏰ 时间到了，":""}没关系，错误是进步的机会！💪<br>${q.exp}`}
  document.getElementById("nx").innerHTML=`<button class="btn" onclick="next()">${G.i<G.n-1?"下一题 →":"查看成绩 🏁"}</button>`}
 function next(){G.i++;G.i>=G.n?end():show()}
 function end(){const N=G.n,ok=G.ok,r=ok/N,s=r>=1?3:r>=.8?2:r>=.6?1:0,key=S.g+"-"+G.t;
@@ -580,7 +580,7 @@ function wpCheck(){if(WS.done)return;const q=WS.qs[WS.i],e=document.getElementBy
  if(Math.abs(v-a)<0.005){const pts=Math.round((WS.tries==1?10:5)/(WS.hint?2:1));WS.pts+=pts;S.score+=pts;WS.ok++;WS.done=true;e.disabled=true;e.style.background="var(--ok)";e.style.color="#fff";
   say(`🎉 答对了！+${pts} 分<br>${q.e}`);mas(P(CHEER),1);burst(12);fin()}
  else if(WS.tries==1){e.style.borderColor="var(--bad)";say("再想一想～检查一下重点字和运算顺序，还有一次机会！💪")}
- else{WS.done=true;WS.wrongs.push(q);e.disabled=true;e.style.background="var(--bad)";e.style.color="#fff";say(`没关系！<b>正确答案：${fmt(a)} ${q.u}</b><br>${q.e}`);fin()}}
+ else{WS.done=true;WS.wrongs.push(q);e.disabled=true;e.style.background="var(--bad)";e.style.color="#fff";say(`没关系！${q.e}`);fin()}}
 function fin(){document.getElementById("wpc").classList.add("hide");document.getElementById("wph").classList.add("hide");document.getElementById("nx").innerHTML=`<button class="btn" onclick="wpNext()">${WS.i<WS.n-1?"下一题 →":"查看成绩 🏁"}</button>`}
 function wpNext(){WS.i++;WS.i>=WS.n?wpEnd():wpShow()}
 function wpEnd(){const ok=WS.ok,r=ok/WS.n,s=r>=1?3:r>=.8?2:r>=.6?1:0;S.wpStars[WS.t]=Math.max(S.wpStars[WS.t]||0,s);

@@ -157,6 +157,7 @@ input:focus,select:focus{border-color:var(--green2);box-shadow:0 0 0 4px #dfeee5
   function setSess(v){ try{ v ? sessionStorage.setItem(SESS_KEY, JSON.stringify(v)) : sessionStorage.removeItem(SESS_KEY); }catch(e){} }
 
   function showMenu(sess){
+    location.replace("home.html"); return; // the new home page replaces the old menu
     $('who').textContent = sess.name;
     $('yrTag').textContent = "Year " + sess.year + " · " + "一二三四五六"[sess.year-1] + "年级";
     $('mathBtn').href = MATHS[sess.year] + "?s=" + encodeURIComponent(sess.name);
@@ -207,7 +208,7 @@ input:focus,select:focus{border-color:var(--green2);box-shadow:0 0 0 4px #dfeee5
     // Test student: menu opens first, with a button to the next exercise not yet done.
     const oldBn = document.getElementById('nextBanner'); if(oldBn) oldBn.remove();
     if(sess.name === "Test" && $('menu')){
-      const nx = LessonFlow.nextFor("Test");
+      const nx = LessonFlow.nextFor("Test", sess.year);
       const bn = document.createElement('div');
       bn.id = 'nextBanner';
       bn.style.cssText = 'margin:0 0 14px;padding:12px 14px;border-radius:14px;background:#e8f8ee;border:2px solid #2e9e5b;font-weight:600;text-align:center';
@@ -226,6 +227,7 @@ input:focus,select:focus{border-color:var(--green2);box-shadow:0 0 0 4px #dfeee5
   }
 
   function showTestMenu(){
+    location.replace("home.html"); return; // the new home page replaces the old menu
     let html = "";
     for(let y = 1; y <= 6; y++){
       const cn = y === 1
