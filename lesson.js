@@ -101,7 +101,8 @@
         fetch(SHEET_URL, {
           method: "POST", mode: "no-cors", headers: { "Content-Type": "text/plain" },
           body: JSON.stringify({ at: new Date().toISOString(), student: who, page: key,
-            right: sc ? sc.r : "", total: sc ? sc.t : "", tries: rec.tries })
+            right: sc ? sc.r : "", total: sc ? sc.t : "", tries: rec.tries,
+            state: savedAnswers() })
         });
       } catch (err) {}
     }
@@ -120,7 +121,13 @@
     }
   }
 
-  // On load, restore this student's progress saved on other devices (merged into this browser).
+  // Answers of the current page (saved by the page itself under fill-state-<file>), as text.
+  function savedAnswers() {
+    try { return localStorage.getItem("fill-state-" + location.pathname.split("/").pop()) || ""; } catch (e) { return ""; }
+  }
+
+  // On load, restore this student's progress and answers saved on the sheet (any device).
+  // If something new was restored, reload once so the page shows it.
   if (SHEET_ON && who) {
     fetch(SHEET_URL + "?student=" + encodeURIComponent(who))
       .then(function (r) { return r.json(); })
@@ -128,13 +135,31 @@
         var p = loadP();
         p[who] = p[who] || {};
         p[who].pages = p[who].pages || {};
+        var changed = false, latestAnswers = {};
         rows.forEach(function (row) {
           var local = p[who].pages[row.page];
           if (!local || !local.done) {
             p[who].pages[row.page] = { tries: row.tries || 1, done: true, right: row.right, total: row.total };
+            changed = true;
+          }
+          if (row.state) latestAnswers[row.page] = row.state; // rows are in time order, so the last one wins
+        });
+        Object.keys(latestAnswers).forEach(function (page) {
+          var k = "fill-state-" + page;
+          var cur = null;
+          try { cur = localStorage.getItem(k); } catch (e) {}
+          if (cur !== latestAnswers[page]) {
+            try { localStorage.setItem(k, latestAnswers[page]); changed = true; } catch (e) {}
           }
         });
         saveP(p);
+        var flag = "asc_synced_" + location.pathname;
+        if (changed && !sessionStorage.getItem(flag)) {
+          sessionStorage.setItem(flag, "1");
+          location.reload();
+        } else if (!changed) {
+          sessionStorage.removeItem(flag);
+        }
       })
       .catch(function () {});
   }
@@ -153,4 +178,17 @@
       onChecked(own || document.getElementById("score") || document.querySelector(".score"));
     }, 80);
   }, true);
+
+  // Open the page at the first exercise (练习) not yet checked, instead of the top.
+  function scrollToNext() {
+    var cards = document.querySelectorAll("section.card");
+    for (var i = 0; i < cards.length; i++) {
+      var c = cards[i];
+      if (!c.querySelector('button[data-act="check"]')) continue;
+      if (c.querySelector(".muted")) continue;
+      c.scrollIntoView({ block: "start" });
+      return;
+    }
+  }
+  if (document.querySelector("section.card")) setTimeout(scrollToNext, 300);
 })();
