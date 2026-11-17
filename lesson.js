@@ -61,7 +61,18 @@
   }
   window.LessonFlow = { nextFor: nextFor, ORDER: ORDER };
   // Only Alex can call this (the button is shown only on Alex's menu). Clears the test student's saved progress.
-  window.LessonFlow.resetTest = function () { var p = loadP(); delete p.Test; saveP(p); };
+  // Resets a student's progress on this device, and ignores their older rows on the sheet from now on.
+  window.LessonFlow.resetTest = function (name) {
+    name = name || "Test";
+    var p = loadP();
+    delete p[name];
+    p.__resets = p.__resets || {};
+    p.__resets[name] = new Date().toISOString();
+    saveP(p);
+    try {
+      Object.keys(localStorage).forEach(function (k) { if (k.indexOf("fill-state-") === 0) localStorage.removeItem(k); });
+    } catch (e) {}
+  };
 
   // 2. Check-answer feedback.
   function toast(msg, cls) {
@@ -136,7 +147,9 @@
         p[who] = p[who] || {};
         p[who].pages = p[who].pages || {};
         var changed = false, latestAnswers = {};
+        var resetAt = (p.__resets || {})[who];
         rows.forEach(function (row) {
+          if (resetAt && row.at && new Date(row.at) < new Date(resetAt)) return; // older than the last reset
           var local = p[who].pages[row.page];
           if (!local || !local.done) {
             p[who].pages[row.page] = { tries: row.tries || 1, done: true, right: row.right, total: row.total };
