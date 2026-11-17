@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-Hans">
 <head>
 <meta charset="utf-8">
@@ -44,7 +44,7 @@ select.bad{background:#f6d9cf;border-color:#b03a2a}
   <div class="score" id="score">0 / 0</div>
 </div></header>
 <main class="wrap">
-  <a class="hublink" href="index.html">← 返回学习中心 Learning Hub</a>
+  <a class="hublink" href="index.html?sub=cn">← 返回练习菜单</a>
   <div class="note">点每一格的 ▼ 选出正确的词语，再按<b>「检查」</b>。写完一题看一题，错的会变红，答案会显示出来。答案缺的题目会标示「暂无答案」。</div>
   <div class="nav"><select id="jump" aria-label="跳到单元"></select></div>
   <div class="row" id="units"></div>
@@ -86,7 +86,7 @@ function exHTML(e,ei){
     h+=`<div class="line">${numTag}${body}${ansTxt}</div>`;
   });
   h+=`<div class="row">`;
-  if(hasAns)h+=`<button class="btn" data-act="check" data-ex="${ei}">✔ 检查</button><button class="btn alt sm" data-act="show" data-ex="${ei}">👀 看答案</button>`;
+  if(hasAns)h+=`<button class="btn" data-act="check" data-ex="${ei}">✔ 检查</button><button class="btn alt sm" disabled data-act="show" data-ex="${ei}">👀 看答案</button>`;
   else h+=`<span class="none">暂无答案（资料里没有这一练习的答案）</span>`;
   h+=`</div>`;
   if(st.done&&hasAns){const ok=e.items.filter((_,k)=>st.picked[k]===e.ans[k]).length;h+=`<div class="muted">本练习：${ok} / ${e.items.length} 对</div>`;}
@@ -164,7 +164,7 @@ render();
   }
   function unitComplete(u){ return DATA.every((e,ei)=>e.u!==u||exPassed(ei)); }
   document.addEventListener('click',ev=>{
-    const b=ev.target.closest('[data-act="show"]');if(!b)return;
+    const b=ev.target.closest('[disabled data-act="show"]');if(!b)return;
     const i=+b.dataset.ex;state[i]=state[i]||{picked:{},done:false};state[i].revealed=true;
   },true);
   function hashUnit(){
