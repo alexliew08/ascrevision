@@ -70,7 +70,7 @@
     p.__resets[name] = new Date().toISOString();
     saveP(p);
     try {
-      Object.keys(localStorage).forEach(function (k) { if (k.indexOf("fill-state-") === 0) localStorage.removeItem(k); });
+      Object.keys(localStorage).forEach(function (k) { if (k.indexOf("fill-state-") === 0 || k.indexOf("form-state-") === 0) localStorage.removeItem(k); });
     } catch (e) {}
   };
 
@@ -113,7 +113,7 @@
           method: "POST", mode: "no-cors", headers: { "Content-Type": "text/plain" },
           body: JSON.stringify({ at: new Date().toISOString(), student: who, page: key,
             right: sc ? sc.r : "", total: sc ? sc.t : "", tries: rec.tries,
-            state: savedAnswers() })
+            state: (saveForm(), savedAnswers()) })
         });
       } catch (err) {}
     }
@@ -133,9 +133,77 @@
   }
 
   // Answers of the current page (saved by the page itself under fill-state-<file>), as text.
-  function savedAnswers() {
-    try { return localStorage.getItem("fill-state-" + location.pathname.split("/").pop()) || ""; } catch (e) { return ""; }
+  // Every answer box on the page (dropdowns, typed boxes, tick boxes), kept in order and saved on this device.
+  function formKey() { return "form-state-" + pageKey(); }
+  function formControls() {
+    // Never on the login page (it would save the password), and never password boxes.
+    if (/(^|\/)index\.html$/.test(location.pathname) || /\/$/.test(location.pathname)) return [];
+    return Array.prototype.slice.call(document.querySelectorAll(
+      "select, textarea, input:not([type=button]):not([type=submit]):not([type=hidden]):not([type=password])"));
   }
+  var restoring = false;
+  function saveForm() {
+    if (restoring) return;
+    try {
+      var list = formControls().map(function (el) {
+        return (el.type === "checkbox" || el.type === "radio") ? { c: el.checked } : { v: el.value };
+      });
+      if (list.length) localStorage.setItem(formKey(), JSON.stringify({ f: list, d: dropSnapshot() }));
+    } catch (e) {}
+  }
+  // Pages that keep their own answers set window.LESSON_STATE_KEY; otherwise the shared form snapshot is used.
+  function stateKeyNow() { return window.LESSON_STATE_KEY || formKey(); }
+  function savedAnswers() {
+    try { return localStorage.getItem(stateKeyNow()) || ""; } catch (e) { return ""; }
+  }
+  // Put the saved answers back into the boxes, then let the page's own handlers see each change.
+  function restoreFormAnswers() {
+    var saved = null;
+    try { saved = JSON.parse(localStorage.getItem(formKey()) || "null"); } catch (e) {}
+    var f = Array.isArray(saved) ? saved : (saved && saved.f) || [];
+    var d = Array.isArray(saved) ? [] : (saved && saved.d) || [];
+    if (!f.length && !d.length) return;
+    var tries = 0;
+    (function run() {
+      if (!formControls().length && tries++ < 25) return setTimeout(run, 200); // wait for the page to draw its boxes
+      restoring = true;
+      try {
+        f.forEach(function (s, i) {
+          var el = formControls()[i];
+          if (!el) return;
+          if (s.c !== undefined) {
+            if (el.checked !== s.c) { el.checked = s.c; el.dispatchEvent(new Event("change", { bubbles: true })); }
+          } else if (s.v !== undefined && el.value !== s.v) {
+            el.value = s.v;
+            el.dispatchEvent(new Event("input", { bubbles: true }));
+            el.dispatchEvent(new Event("change", { bubbles: true }));
+          }
+        });
+        // Drag-and-drop answers: put each word back into its box by sending the same drop the page listens for.
+        d.forEach(function (x) {
+          if (!x.w) return;
+          var el = document.querySelectorAll(".drop")[x.i];
+          if (!el || el.dataset.drop !== x.k) return;
+          var dt = new DataTransfer();
+          dt.setData("text/plain", x.w);
+          el.dispatchEvent(new DragEvent("drop", { bubbles: true, cancelable: true, dataTransfer: dt }));
+        });
+      } finally { restoring = false; }
+      saveForm();
+    })();
+  }
+  // Drag-and-drop boxes: which word is in each box, in order.
+  function dropSnapshot() {
+    return Array.prototype.slice.call(document.querySelectorAll(".drop")).map(function (el, i) {
+      var t = (el.textContent || "").trim();
+      var empty = el.classList.contains("empty") || t === "" || t === "seret ke sini";
+      return { i: i, k: el.dataset.drop || "", w: empty ? "" : t };
+    });
+  }
+  document.addEventListener("drop", function () { setTimeout(saveForm, 150); }, true);
+  document.addEventListener("click", function () { setTimeout(saveForm, 150); }, true);
+  document.addEventListener("change", saveForm, true);
+  document.addEventListener("input", saveForm, true);
 
   // On load, restore this student's progress and answers saved on the sheet (any device).
   // If something new was restored, reload once so the page shows it.
@@ -159,7 +227,7 @@
           if (row.state && row.state !== "{}") latestAnswers[row.page] = row.state;
         });
         Object.keys(latestAnswers).forEach(function (page) {
-          var k = "fill-state-" + page;
+          var k = (page === pageKey() && window.LESSON_STATE_KEY) ? window.LESSON_STATE_KEY : "form-state-" + page;
           var cur = null;
           try { cur = localStorage.getItem(k); } catch (e) {}
           if (cur !== latestAnswers[page]) {
@@ -192,6 +260,8 @@
       onChecked(own || document.getElementById("score") || document.querySelector(".score"));
     }, 80);
   }, true);
+
+  restoreFormAnswers();
 
   // Open the page at the first exercise (练习) not yet checked, instead of the top.
   function scrollToNext() {
