@@ -198,12 +198,25 @@ input:focus,select:focus{border-color:var(--green2);box-shadow:0 0 0 4px #dfeee5
       const selStyle = 'font-size:16px;padding:10px 12px;border:2px solid #eadfcb;border-radius:12px;background:#fff;font-family:inherit;color:#1f3d31;max-width:280px';
       selS.style.cssText = selStyle; selE.style.cssText = selStyle;
       const all = document.createElement('option'); all.value = '*'; all.textContent = 'All exercises 全部练习'; selE.appendChild(all);
-      LessonFlow.ORDER.forEach(f => { const o = document.createElement('option'); o.value = f; o.textContent = f; selE.appendChild(o); });
+      // Only the exercises this student has checked (from the sheet), so Alex picks from real progress.
+      const fillPages = () => {
+        selE.innerHTML = '';
+        const wait = document.createElement('option'); wait.value = ''; wait.textContent = 'Loading… 加载中'; selE.appendChild(wait);
+        LessonFlow.donePages(selS.value).then(list => {
+          selE.innerHTML = '';
+          if(!list.length){ const none = document.createElement('option'); none.value = ''; none.textContent = 'No progress yet 暂无记录'; selE.appendChild(none); return; }
+          const all = document.createElement('option'); all.value = '*'; all.textContent = 'All exercises 全部练习'; selE.appendChild(all);
+          list.forEach(f => { const o = document.createElement('option'); o.value = f; o.textContent = f; selE.appendChild(o); });
+        });
+      };
+      selS.addEventListener('change', fillPages);
+      fillPages();
       const rbtn = document.createElement('button');
       rbtn.className = 'btn alt';
       rbtn.textContent = '↺ Reset 重置';
       rbtn.style.cssText = 'width:auto;margin:0;min-height:44px;padding:0 22px;font-size:16px';
       rbtn.addEventListener('click', () => {
+        if(!selE.value){ alert('Nothing to reset for this student. 没有可重置的记录。'); return; }
         const what = selE.value === '*' ? 'all exercises' : selE.value;
         if(confirm('Reset ' + selS.value + ' — ' + what + '? 确定重置吗？')){
           LessonFlow.resetPage(selS.value, selE.value);
@@ -258,6 +271,8 @@ input:focus,select:focus{border-color:var(--green2);box-shadow:0 0 0 4px #dfeee5
     show('testMenu');
   }
 
+  // Enter in the ID or password box logs in, same as the button.
+  ['uid','pw'].forEach(id => $(id).addEventListener('keydown', e => { if(e.key === 'Enter'){ e.preventDefault(); $('loginBtn').click(); } }));
   $('loginBtn').addEventListener('click', () => {
     const idRaw = $('uid').value;
     const pw = $('pw').value.replace(/\s+/g, "");

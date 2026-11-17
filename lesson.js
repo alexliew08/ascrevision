@@ -96,6 +96,27 @@
     }
   };
   window.LessonFlow.resetTest = function (name) { window.LessonFlow.resetPage(name || "Test", "*"); };
+  // The exercises a student has checked, from the sheet (and this device), leaving out ones reset since.
+  window.LessonFlow.donePages = function (name) {
+    var local = Object.keys(((loadP()[name] || {}).pages) || {});
+    if (!SHEET_ON) return Promise.resolve(local);
+    return fetch(SHEET_URL + "?student=" + encodeURIComponent(name))
+      .then(function (r) { return r.json(); })
+      .then(function (rows) {
+        var resets = {}, latest = {};
+        rows.forEach(function (row) {
+          var t = new Date(row.at).getTime();
+          if (row.state === "RESET") { if (!resets[row.page] || t > resets[row.page]) resets[row.page] = t; }
+          else if (!latest[row.page] || t > latest[row.page]) latest[row.page] = t;
+        });
+        var resetTime = function (page) { return Math.max(resets[page] || 0, resets["*"] || 0); };
+        var pages = {};
+        Object.keys(latest).forEach(function (page) { if (latest[page] > resetTime(page)) pages[page] = true; });
+        local.forEach(function (page) { pages[page] = true; });
+        return Object.keys(pages);
+      })
+      .catch(function () { return local; });
+  };
 
   // 2. Check-answer feedback.
   function toast(msg, cls) {
