@@ -186,7 +186,12 @@ function shuffle(arr,seed){
   return a;
 }
 
+const CF_KEY='cf4c-state-v1';   // saved on this device, and sent to the sheet by lesson.js
+window.LESSON_STATE_KEY=CF_KEY;
+// The click/drop target can be a text node, which has no .closest(); use its parent element instead.
+function evEl(ev){ return ev.target.nodeType===1 ? ev.target : ev.target.parentElement; }
 const state={};   // card index -> {placed:[], sel:null, done:false, shownKey:null, revealed:false, written:{}, wchecked:false}
+try{ Object.assign(state, JSON.parse(localStorage.getItem(CF_KEY)||'{}')||{}); }catch(e){}
 let CUR='fill';   // (the reorder build replaces this line)
 let ALL_OPEN=false;   // "全部开放" for checking
 const NO_ALL_OPEN=['fill','reorder','fillcomp'];   // these tabs ignore 全部开放 and keep their one-by-one order
@@ -342,8 +347,11 @@ function cardHTML(c,ci){
         return;
       }
       const sp=tileSpans(ci,j,it,s,m);
+      const ikeys=m.itemOf.map((jj,k)=>jj===j?k:-1).filter(k=>k>=0);
+      const iok=ikeys.filter(k=>slotRight(ci,k)).length;
+      const imsg=(s.ich&&s.ich[j])?`<div class="muted">本题：${iok} / ${ikeys.length} 空 正确</div>`:'';
       h+=`<div class="qcard"><div class="qleft"><div class="qtext">${it.n?`<b>${it.n}.</b> `:''}${body}</div>${fix}`+
-         `<div class="row"><button class="btn" data-act="icheck" data-card="${ci}" data-j="${j}">✔ 检查</button><button class="btn alt sm" data-act="iclear" data-card="${ci}" data-j="${j}">清空</button></div></div>`+
+         `<div class="row"><button class="btn" data-act="icheck" data-card="${ci}" data-j="${j}">✔ 检查</button><button class="btn alt sm" data-act="iclear" data-card="${ci}" data-j="${j}">清空</button></div>${imsg}</div>`+
          `<div class="qright"><div class="itiles">${sp}</div></div></div>`;
     } else {
       h+=`<div class="${c.cols?'cell':'line'}">${pool}${it.n?`<b>${it.n}.</b> `:''}${body}${fix}</div>`;
@@ -387,6 +395,7 @@ function lockedHTML(c,ci){
 }
 
 function renderTab(){
+  try{ if(Object.keys(state).length) localStorage.setItem(CF_KEY,JSON.stringify(state)); }catch(e){}
   const view=document.getElementById('view');
   const list=cardsOf(CUR);
   const name=(TABS.find(t=>t.id===CUR)||{}).name||'';
@@ -449,17 +458,17 @@ function place(ci,k,ti){
 
 /* ---- drag & drop (desktop) and tap-to-place (touch); a tile only goes to a blank under the same question ---- */
 document.addEventListener('dragstart',ev=>{
-  const t=ev.target.closest('[data-tc]');if(!t||t.classList.contains('used'))return;
+  const t=evEl(ev).closest('[data-tc]');if(!t||t.classList.contains('used'))return;
   const ci=+t.dataset.tc,ij=t.dataset.ij,ti=+t.dataset.ti;
   ev.dataTransfer.setData('text/plain',`${ci}:${ij}:${ti}`);
   ev.dataTransfer.effectAllowed='move';
   st(ci).sel=`${ij}:${ti}`;
 });
 document.addEventListener('dragover',ev=>{
-  if(ev.target.closest('[data-sc]'))ev.preventDefault();
+  if(evEl(ev).closest('[data-sc]'))ev.preventDefault();
 });
 document.addEventListener('drop',ev=>{
-  const sc=ev.target.closest('[data-sc]');if(!sc)return;
+  const sc=evEl(ev).closest('[data-sc]');if(!sc)return;
   ev.preventDefault();
   const ci=+sc.dataset.sc,k=+sc.dataset.slot,ij=sc.dataset.ij;
   let parsed=(ev.dataTransfer.getData('text/plain')||'').split(':');
@@ -480,20 +489,20 @@ document.addEventListener('input',ev=>{
 });
 
 document.addEventListener('click',ev=>{
-  const r=ev.target.closest('[data-reveal]');
+  const r=evEl(ev).closest('[data-reveal]');
   if(r){
     const ci=+r.dataset.reveal;const s=st(ci);s.revealed=!s.revealed;
     const y=window.scrollY;renderTab();window.scrollTo(0,y);
     return;
   }
-  const tile=ev.target.closest('[data-tc]');
+  const tile=evEl(ev).closest('[data-tc]');
   if(tile&&!tile.classList.contains('used')){
     const ci=+tile.dataset.tc,key=`${tile.dataset.ij}:${tile.dataset.ti}`;const s=ensurePlaced(ci);
     s.sel=(s.sel===key)?null:key;
     const y=window.scrollY;renderTab();window.scrollTo(0,y);
     return;
   }
-  const slot=ev.target.closest('[data-sc]');
+  const slot=evEl(ev).closest('[data-sc]');
   if(slot){
     const ci=+slot.dataset.sc,k=+slot.dataset.slot,ij=slot.dataset.ij;const s=ensurePlaced(ci);
     if(s.placed[k]!==null){s.placed[k]=null;s.done=false;}
@@ -501,7 +510,7 @@ document.addEventListener('click',ev=>{
     const y=window.scrollY;renderTab();window.scrollTo(0,y);
     return;
   }
-  const b=ev.target.closest('[data-act]');if(!b)return;
+  const b=evEl(ev).closest('[data-act]');if(!b)return;
   const ci=+b.dataset.card,card=CARDS[ci];const s=ensurePlaced(ci);
   if(b.dataset.act==='icheck'){
     const j=+b.dataset.j;
