@@ -54,6 +54,8 @@
     return null;
   }
   window.LessonFlow = { nextFor: nextFor, ORDER: ORDER };
+  // Only Alex can call this (the button is shown only on Alex's menu). Clears the test student's saved progress.
+  window.LessonFlow.resetTest = function () { var p = loadP(); delete p.Test; saveP(p); };
 
   // 2. Check-answer feedback.
   function toast(msg, cls) {

@@ -185,6 +185,43 @@ input:focus,select:focus{border-color:var(--green2);box-shadow:0 0 0 4px #dfeee5
       if(on && s) s.remove();
       if(!on && !s){ const n = document.createElement('small'); n.textContent = 'Coming soon'; b.appendChild(n); }
     });
+    // Alex only: button to reset the Test student's saved progress.
+    const oldRb = document.getElementById('resetBanner'); if(oldRb) oldRb.remove();
+    if(sess.name === "Alex" && $('menu')){
+      const rb = document.createElement('div');
+      rb.id = 'resetBanner';
+      rb.style.cssText = 'margin:0 0 14px;text-align:center';
+      const rbtn = document.createElement('button');
+      rbtn.className = 'btn alt';
+      rbtn.textContent = '↺ Reset test progress 重置测试进度';
+      rbtn.addEventListener('click', () => {
+        if(confirm('Reset the test student\'s saved progress? 确定重置吗？')){
+          LessonFlow.resetTest();
+          alert('Test progress reset. 已重置。');
+          showMenu(sess);
+        }
+      });
+      rb.appendChild(rbtn);
+      $('menu').insertBefore(rb, $('menu').firstChild);
+    }
+    // Test student: menu opens first, with a button to the next exercise not yet done.
+    const oldBn = document.getElementById('nextBanner'); if(oldBn) oldBn.remove();
+    if(sess.name === "Test" && $('menu')){
+      const nx = LessonFlow.nextFor("Test");
+      const bn = document.createElement('div');
+      bn.id = 'nextBanner';
+      bn.style.cssText = 'margin:0 0 14px;padding:12px 14px;border-radius:14px;background:#e8f8ee;border:2px solid #2e9e5b;font-weight:600;text-align:center';
+      if(nx){
+        const a = document.createElement('a');
+        a.href = nx + (nx.includes("?") ? "&" : "?") + "s=Test";
+        a.textContent = '➡️ Continue: next exercise 继续下一个练习';
+        a.style.cssText = 'color:#1d6b3a;text-decoration:none';
+        bn.appendChild(a);
+      } else {
+        bn.textContent = '🎉 All exercises done! 全部完成！';
+      }
+      $('menu').insertBefore(bn, $('menu').firstChild);
+    }
     show('menu');
   }
 
@@ -229,9 +266,6 @@ input:focus,select:focus{border-color:var(--green2);box-shadow:0 0 0 4px #dfeee5
     $('loginError').textContent = "";
     const sess = { name: acc.n, year: year };
     setSess(sess);
-    // Test student: go straight to the next exercise not yet done.
-    const nxt = acc.n === "Test" ? LessonFlow.nextFor("Test") : null;
-    if(nxt){ location.href = nxt + (nxt.includes("?") ? "&" : "?") + "s=Test"; return; }
     showMenu(sess);
   });
 
@@ -309,11 +343,6 @@ input:focus,select:focus{border-color:var(--green2);box-shadow:0 0 0 4px #dfeee5
 
   const existing = getSess();
   const deepSub = new URLSearchParams(location.search).get('sub');
-  // Returning Test student (fresh visit, not "back to menu"): continue at the next exercise.
-  if(existing && existing.name === "Test" && !deepSub){
-    const nxt = LessonFlow.nextFor("Test");
-    if(nxt){ location.replace(nxt + (nxt.includes("?") ? "&" : "?") + "s=Test"); }
-  }
   if(existing && existing.test) showTestMenu();
   else if(existing && ROST[existing.year]) showMenu(existing);
   else show('login');
