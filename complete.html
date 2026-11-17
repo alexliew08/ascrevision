@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AfterSkoolClub 单元完成</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Noto+Sans+SC:wght@400;500;700;800&display=swap">
+<style>
+:root{--bg:#faf4e8;--card:#fffdf8;--ink:#1f3d31;--muted:#6d6a5c;--line:#eadfcb;--green:#2f5e4a;--cream2:#fff6df}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:"Noto Sans SC","Fredoka",system-ui,sans-serif;min-height:100vh;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+a{transition:transform .15s ease}
+a:hover{transform:translateY(-2px)}
+.wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:40px 24px}
+.inner{width:100%;max-width:1040px;display:flex;gap:28px;align-items:stretch}
+.hero{flex:1;min-width:0;background:var(--green);color:#fff;border-radius:30px;padding:40px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:16px}
+.hero .k{font-size:16px;font-weight:700;opacity:.9}
+.hero h1{margin:0;font-size:44px;font-weight:800;line-height:1.2}
+.hero .p{font-size:18px;opacity:.95}
+.stats{display:flex;gap:12px;margin-top:8px;width:100%}
+.stats div{flex:1;background:rgba(255,255,255,.14);border-radius:18px;padding:14px}
+.stats b{display:block;font-size:28px;font-weight:800}
+.stats span{font-size:13px;opacity:.9}
+.btn{display:block;text-align:center;border-radius:999px;padding:16px 32px;font-size:18px;font-weight:800;margin-top:12px;width:100%}
+.btn.main{background:var(--cream2);color:var(--green)}
+.btn.ghost{background:transparent;border:1.5px solid rgba(255,255,255,.6);color:#fff;padding:14px 28px;font-size:16px;font-weight:700}
+.aside{width:340px;flex-shrink:0;display:flex;flex-direction:column;gap:18px}
+.card{background:var(--card);border:1.5px solid var(--line);border-radius:24px;padding:24px}
+.card h3{margin:0 0 12px;font-size:20px;font-weight:800}
+.rev{display:flex;gap:12px;align-items:flex-start;padding:14px;border-radius:16px;background:#fbe9e6}
+.rev .no{font-size:18px;font-weight:800;color:#b03a2e;width:24px}
+.rev .w{font-size:18px;font-weight:800;color:#b03a2e}
+.rev .x{font-size:14px;color:var(--muted);margin-top:4px;line-height:1.5}
+.again{display:block;margin-top:14px;text-align:center;min-height:48px;line-height:48px;border-radius:999px;border:1.5px solid var(--line);background:#fff;font-size:16px;font-weight:800}
+.tip{background:var(--cream2);border-radius:20px;padding:18px;font-size:15px;line-height:1.5;color:#6b5210}
+@media (max-width:860px){
+  .inner{flex-direction:column}
+  .aside{width:auto}
+  .hero{padding:28px 20px}
+  .hero h1{font-size:32px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="inner">
+    <section class="hero">
+      <div class="k">Unit 4 complete 第4单元完成</div>
+      <h1 id="title">Well done!<br>做得很好！</h1>
+      <div class="p">You got 9 out of 10 right. 你答对了 10 题中的 9 题。</div>
+      <div class="stats">
+        <div><b>90%</b><span>Score 得分</span></div>
+        <div><b>1</b><span>Try again 再试</span></div>
+      </div>
+      <a class="btn main" href="map.html">Next unit 下一单元 →</a>
+      <a class="btn ghost" href="home.html">Back to home 返回主页</a>
+    </section>
+
+    <aside class="aside">
+      <div class="card">
+        <h3>Review 复习</h3>
+        <div class="rev">
+          <div class="no">3.</div>
+          <div>
+            <div class="w">疑问</div>
+            <div class="x">Look at the picture: the girl is asking something. 女孩在提问。</div>
+          </div>
+        </div>
+        <a class="again" href="year3-chinesefill-3A.html">Try this one again 再做一次</a>
+      </div>
+      <div class="tip">Keep practising every day to build your streak. 每天练习，保持连胜！</div>
+    </aside>
+  </div>
+</div>
+<script>
+(function(){
+  try {
+    var s = JSON.parse(sessionStorage.getItem("asc_student") || "null");
+    if (!s) { location.replace("index.html"); return; }
+    if (s.name) document.getElementById("title").innerHTML = "Well done, " + s.name.replace(/[<>&]/g, "") + "!<br>做得很好！";
+  } catch(e) { location.replace("index.html"); }
+})();
+</script>
+</body>
+</html>

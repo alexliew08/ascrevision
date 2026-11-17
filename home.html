@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AfterSkoolClub 学习主页</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Noto+Sans+SC:wght@400;500;700;800&display=swap">
+<style>
+:root{--bg:#faf4e8;--card:#fffdf8;--ink:#1f3d31;--muted:#6d6a5c;--line:#eadfcb;--green:#2f5e4a;--green2:#3f7a60;--cream2:#fff6df;--red:#b03a2e}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:"Noto Sans SC","Fredoka",system-ui,sans-serif;min-height:100vh;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;transition:transform .15s ease;cursor:pointer}
+button:hover{transform:translateY(-2px)}
+button:active{transform:scale(.97)}
+.app{display:flex;min-height:100vh}
+.side{width:240px;flex-shrink:0;padding:28px 20px;background:var(--card);border-right:1.5px solid var(--line);display:flex;flex-direction:column;gap:6px}
+.brand{display:flex;align-items:center;gap:10px;margin-bottom:22px}
+.logo{width:44px;height:44px;border-radius:14px;background:var(--green);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:20px}
+.brand b{font-size:16px;line-height:1.25;display:block}
+.brand span{font-size:13px;font-weight:500;color:var(--muted)}
+.nav{padding:12px 14px;border-radius:14px;font-weight:600;font-size:16px}
+.nav.on{background:#e8f1ea;color:var(--green);font-weight:700}
+.side .note{margin-top:auto;padding:16px;border-radius:16px;background:var(--cream2);font-size:14px;line-height:1.5;color:var(--muted)}
+main{flex:1;min-width:0;padding:32px 40px;display:flex;flex-direction:column;gap:24px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.hello{display:flex;align-items:center;gap:16px}
+.hello h1{margin:0;font-size:40px;font-weight:800;line-height:1.2}
+.pill{display:inline-block;margin-top:6px;background:#e8f1ea;color:var(--green);border-radius:999px;padding:6px 14px;font-size:15px;font-weight:700}
+.logout{background:var(--card);border:1.5px solid var(--line);border-radius:999px;padding:10px 18px;font-size:16px;font-weight:700;color:var(--ink)}
+.bubble{position:relative;align-self:flex-start;margin-left:80px;background:var(--card);border:1.5px solid var(--line);border-radius:20px;padding:12px 18px;font-size:17px;font-weight:700;color:var(--green);box-shadow:0 4px 0 #efe4cf}
+.bubble:before{content:"";position:absolute;left:-10px;top:16px;width:18px;height:18px;background:var(--card);border-left:1.5px solid var(--line);border-bottom:1.5px solid var(--line);transform:rotate(45deg)}
+.cont{display:flex;align-items:center;gap:32px;background:var(--green);color:#fff;border-radius:26px;padding:28px 32px}
+.cont .txt{flex:1;min-width:0}
+.cont .k{font-size:14px;font-weight:700;opacity:.85}
+.cont .t{font-size:28px;font-weight:800;margin-top:4px}
+.cont .s{font-size:15px;margin-top:6px;opacity:.9}
+.bar{margin-top:16px;height:12px;border-radius:999px;background:rgba(255,255,255,.25);overflow:hidden}
+.bar i{display:block;width:70%;height:100%;background:var(--cream2);border-radius:999px}
+.cont a.go{flex-shrink:0;background:var(--cream2);color:var(--green);border-radius:999px;padding:16px 28px;font-size:18px;font-weight:800}
+h2{margin:0 0 14px;font-size:24px;font-weight:800;display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+h2 small{font-size:15px;font-weight:500;color:var(--muted)}
+.tiles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
+.tile{text-align:left;color:var(--ink);background:var(--card);border:1.5px solid var(--line);border-radius:24px;padding:20px;box-shadow:0 6px 0 #efe4cf}
+.tile .ic{width:56px;height:56px;border-radius:16px;color:#fff;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800}
+.tile .n{font-size:20px;font-weight:800;margin-top:14px}
+.tile .d{font-size:14px;color:var(--muted);margin-top:4px}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.stat{text-align:left;background:var(--card);border:1.5px solid var(--line);border-radius:20px;padding:18px 20px;color:var(--ink)}
+.stat .v{font-size:34px;font-weight:800}
+.stat .l{font-size:14px;color:var(--muted)}
+.overlay{position:fixed;inset:0;background:rgba(31,61,49,.35);display:none;align-items:center;justify-content:center;padding:16px;z-index:10}
+.overlay.open{display:flex}
+.modal{width:460px;max-width:100%;background:var(--card);border:1.5px solid var(--line);border-radius:26px;padding:32px;box-shadow:0 8px 0 #efe4cf}
+.modal h3{margin:0;font-size:30px;font-weight:800;line-height:1.25}
+.modal p{margin:12px 0 0;font-size:17px;line-height:1.6;color:#4d4a3d}
+.acts{display:flex;gap:10px;margin-top:26px}
+.acts button,.acts a{flex:1;min-height:52px;display:flex;align-items:center;justify-content:center;border-radius:999px;font-size:17px;font-weight:800}
+.acts button{background:#fff;border:1.5px solid var(--line);color:var(--ink)}
+.acts a{background:var(--green);color:#fff;box-shadow:0 5px 0 #1f3d31}
+@media (max-width:1000px){
+  .tiles{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .side{display:none}
+  main{padding:20px 16px}
+}
+@media (max-width:600px){
+  .hello h1{font-size:28px}
+  .bubble{margin-left:0}
+  .cont{flex-direction:column;align-items:stretch;gap:16px;padding:22px}
+  .cont a.go{text-align:center}
+  .stats{grid-template-columns:1fr}
+  .tiles{grid-template-columns:1fr 1fr;gap:12px}
+  .tile{padding:14px}
+}
+@media (prefers-reduced-motion: reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="side">
+    <div class="brand"><div class="logo">A</div><div><b>AfterSkool</b><span>Learning Hub</span></div></div>
+    <a class="nav on" href="home.html">Home 首页</a>
+    <a class="nav" href="map.html">Practice 练习</a>
+    <a class="nav" href="index.html">Subjects 科目</a>
+    <div class="note">Stuck on a question? Ask your teacher. 有问题请问老师。</div>
+  </aside>
+
+  <main>
+    <div class="top">
+      <div class="hello">
+        <button type="button" id="mascot" aria-label="Say hi 打招呼" style="border:none;background:none;padding:0">
+          <svg width="64" height="64" viewBox="0 0 56 56" aria-hidden="true"><circle cx="28" cy="28" r="26" fill="#fff6df" stroke="#eadfcb" stroke-width="2"/><circle cx="20" cy="24" r="3" fill="#1f3d31"/><circle cx="36" cy="24" r="3" fill="#1f3d31"/><path d="M19 33 Q28 41 37 33" fill="none" stroke="#2f5e4a" stroke-width="3" stroke-linecap="round"/></svg>
+        </button>
+        <div>
+          <h1 id="hello">你好！</h1>
+          <span class="pill" id="yrTag">Year 3 · 三年级</span>
+        </div>
+      </div>
+      <button type="button" class="logout" id="logoutBtn">Log out 退出</button>
+    </div>
+
+    <div class="bubble" id="bubble">Hi! 你好！Ready to learn today?</div>
+
+    <div class="cont">
+      <div class="txt">
+        <div class="k">Continue 继续</div>
+        <div class="t">词句填充 3A · Unit 4</div>
+        <div class="s">华文 Chinese · 7 of 10 done</div>
+        <div class="bar"><i></i></div>
+      </div>
+      <a class="go" href="map.html">Continue → 继续</a>
+    </div>
+
+    <div>
+      <h2>Subjects 科目 <small>Tap a subject to see what's next</small></h2>
+      <div class="tiles" id="tiles"></div>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><div class="v">12</div><div class="l">Exercises done this week 本周完成</div></div>
+      <div class="stat"><div class="v">78%</div><div class="l">Average score 平均分</div></div>
+      <button type="button" class="stat" id="streakBtn"><div class="v">3 days 🔥</div><div class="l">Practice streak 连续练习 · tap for details</div></button>
+    </div>
+  </main>
+</div>
+
+<div class="overlay" id="overlay" role="dialog" aria-modal="true">
+  <div class="modal">
+    <h3 id="mTitle"></h3>
+    <p id="mBody"></p>
+    <div class="acts">
+      <button type="button" id="mLater">Later 稍后</button>
+      <a href="#" id="mCta">Start 开始</a>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var SESS_KEY = "asc_student";
+  var sess = null;
+  try { sess = JSON.parse(sessionStorage.getItem(SESS_KEY) || "null"); } catch(e) { sess = null; }
+  if (!sess) { location.replace("index.html"); return; }
+  var year = sess.year || 3;
+  var name = sess.name || "";
+  var q = name ? "?s=" + encodeURIComponent(name) : "";
+
+  if (name) document.getElementById("hello").textContent = "你好，" + name + "！";
+  document.getElementById("yrTag").textContent = "Year " + year + " · " + "一二三四五六"[year - 1] + "年级";
+
+  var HI = [
+    "Hi! 你好！Ready to learn today?",
+    "Yay, you're back! 你回来啦！",
+    "Let's earn some stars! 一起攒星星吧！",
+    "Keep your streak going! 继续保持！"
+  ];
+  var hiCount = 0;
+
+  var subjects = [
+    { key: "zh", name: "华文 Chinese", badge: "文", color: "#b03a2e", sub: "3 exercises · 2 done",
+      href: year === 3 ? "year3-chinesefill-3A.html" + q : "index.html",
+      msg: "One more exercise and you finish the unit. 再做一题就完成单元啦！" },
+    { key: "ma", name: "Maths 数学", badge: "+−", color: "#2c5d8f", sub: "4 exercises · 1 done",
+      href: (["", "year1-maths.html","year2-maths.html","year3-maths.html","year4-maths.html","year5-maths.html","year6-maths.html"][year] || "year3-maths.html") + q,
+      msg: "Three to go. Try the word problems first. 还有三题，先试试应用题。" },
+    { key: "en", name: "English", badge: "Aa", color: "#b8642a", sub: "2 exercises · 0 done",
+      href: year === 3 ? "year3-english.html" + q : "index.html",
+      msg: "A fresh start! Earn your first star today. 新的开始，今天就拿第一颗星！" },
+    { key: "bm", name: "Bahasa Melayu", badge: "BM", color: "#6b4c9a", sub: "3 exercises · 1 done",
+      href: year === 3 ? "year3-bm.html" + q : "index.html",
+      msg: "Two new exercises are waiting for you. 两个新练习等你来！" }
+  ];
+
+  var tiles = document.getElementById("tiles");
+  subjects.forEach(function(x){
+    var b = document.createElement("button");
+    b.type = "button";
+    b.className = "tile";
+    b.innerHTML = '<div class="ic" style="background:' + x.color + '">' + x.badge + '</div>' +
+      '<div class="n"></div><div class="d"></div>';
+    b.querySelector(".n").textContent = x.name;
+    b.querySelector(".d").textContent = x.sub;
+    b.addEventListener("click", function(){
+      open_(x.name, x.sub + ". " + x.msg, "Start 开始", x.href);
+    });
+    tiles.appendChild(b);
+  });
+
+  var overlay = document.getElementById("overlay");
+  function open_(title, body, cta, href){
+    document.getElementById("mTitle").textContent = title;
+    document.getElementById("mBody").textContent = body;
+    var a = document.getElementById("mCta");
+    a.textContent = cta;
+    a.href = href;
+    overlay.classList.add("open");
+  }
+  function close_(){ overlay.classList.remove("open"); }
+
+  document.getElementById("mLater").addEventListener("click", close_);
+  overlay.addEventListener("click", function(e){ if (e.target === overlay) close_(); });
+  document.addEventListener("keydown", function(e){ if (e.key === "Escape") close_(); });
+
+  document.getElementById("mascot").addEventListener("click", function(){
+    hiCount++;
+    var line = HI[hiCount % HI.length];
+    document.getElementById("bubble").textContent = line;
+    open_("Hi" + (name ? " " + name : "") + "! 你好！", line, "Let's go! 出发", "map.html");
+  });
+  document.getElementById("streakBtn").addEventListener("click", function(){
+    open_("3 day streak 连续3天 🔥",
+      "Great work! Practise again tomorrow to keep the streak. 明天再来练习，保持连续！",
+      "Got it 好的", "#");
+  });
+  document.getElementById("logoutBtn").addEventListener("click", function(){
+    try { sessionStorage.removeItem(SESS_KEY); } catch(e) {}
+    location.href = "index.html";
+  });
+})();
+</script>
+</body>
+</html>
