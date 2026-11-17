@@ -255,7 +255,7 @@
     var val = attr ? b.getAttribute(attr) : null;
     setTimeout(function () {
       var cur = attr ? document.querySelector("[" + attr + '="' + val + '"]') : null;
-      var box = cur && cur.closest ? cur.closest("section, .card") : null;
+      var box = cur && cur.closest ? cur.closest("section, .card, .qcard") : null;
       var own = box ? box.querySelector(".muted, .fbline") : null;
       onChecked(own || document.getElementById("score") || document.querySelector(".score"));
     }, 80);
