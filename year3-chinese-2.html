@@ -401,10 +401,10 @@ function checkAll(){
     total++;
     if(kind === 'mc' || kind === 'ms'){
       el.classList.add(good ? 'ok' : 'bad');
-      if(good) right++; else el.insertAdjacentHTML('beforeend', `<span class="hint">答案：${esc(answerText)}</span>`);
+      if(good) right++;
     } else {
       el.classList.add(good ? 'ok' : 'bad');
-      if(good) right++; else el.insertAdjacentHTML('afterend', `<span class="hint">答案：${esc(answerText)}</span>`);
+      if(good) right++;
     }
   });
   $('score').textContent = total ? `得分 ${right} / ${total}` : '本页没有可自动检查的题目';
@@ -504,6 +504,6 @@ $('resetBtn').addEventListener('click', resetAll);
 fillSelector();
 showSheet('3A-0');
 </script>
-<script src="shared/lesson.js"></script>
+<script src="lesson.js"></script>
 </body>
 </html>

@@ -322,6 +322,6 @@ $('secSel').onchange = e => go(PAGES.findIndex(p => p.sec == e.target.value));
 document.addEventListener('keydown', e => { if(e.target.closest('textarea,select,input')) return; if(e.key === 'ArrowRight') go(cur + 1); if(e.key === 'ArrowLeft') go(cur - 1); });
 go(cur);
 </script>
-<script src="shared/lesson.js"></script>
+<script src="lesson.js"></script>
 </body>
 </html>
