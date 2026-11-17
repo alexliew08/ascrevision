@@ -6,6 +6,9 @@
 (function () {
   var SESS_KEY = "asc_student";
   var PROG_KEY = "asc_lesson_progress_v1";
+  // Paste the Google Apps Script web app URL here (see sheet-script\Code.gs). Leave as is to keep progress on this device only.
+  var SHEET_URL = "https://script.google.com/macros/s/AKfycbwfpSs2biONcgBbbWnG5WW3QKec1ShM9c5LUCrb7TtI5jeKlGUm0sHvH5odTN1l8oSV/exec";
+  var SHEET_ON = !!SHEET_URL && SHEET_URL.indexOf("PASTE_") !== 0;
 
   // Exercise order for the test student (same files as the index menu).
   var ORDER = [
@@ -92,6 +95,16 @@
     if (scored) { rec.right = sc.r; rec.total = sc.t; }
     p[u].pages[key] = rec;
     saveP(p);
+    // Send this check to the shared sheet, so other devices can see it.
+    if (SHEET_ON && who) {
+      try {
+        fetch(SHEET_URL, {
+          method: "POST", mode: "no-cors", headers: { "Content-Type": "text/plain" },
+          body: JSON.stringify({ at: new Date().toISOString(), student: who, page: key,
+            right: sc ? sc.r : "", total: sc ? sc.t : "", tries: rec.tries })
+        });
+      } catch (err) {}
+    }
 
     if (!scored) {
       toast(pick(["✅ Checked! Keep going. 已检查，继续加油！", "✅ Submitted. Well done for finishing! 已提交，做得好！"]), "good");
@@ -105,6 +118,25 @@
         "🙂 Not quite. " + sc.r + " / " + sc.t + " correct. Have another go! 再想想！"
       ]), "retry");
     }
+  }
+
+  // On load, restore this student's progress saved on other devices (merged into this browser).
+  if (SHEET_ON && who) {
+    fetch(SHEET_URL + "?student=" + encodeURIComponent(who))
+      .then(function (r) { return r.json(); })
+      .then(function (rows) {
+        var p = loadP();
+        p[who] = p[who] || {};
+        p[who].pages = p[who].pages || {};
+        rows.forEach(function (row) {
+          var local = p[who].pages[row.page];
+          if (!local || !local.done) {
+            p[who].pages[row.page] = { tries: row.tries || 1, done: true, right: row.right, total: row.total };
+          }
+        });
+        saveP(p);
+      })
+      .catch(function () {});
   }
 
   var CHECK_SEL = '#checkBtn,#checkAll,[data-act="check"],[data-act="wcheck"],button.check';
