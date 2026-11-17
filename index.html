@@ -141,11 +141,12 @@ input:focus,select:focus{border-color:var(--green2);box-shadow:0 0 0 4px #dfeee5
   </div>
 </div>
 
+<script src="shared/lesson.js"></script>
 <script>
   const hs=(s,seed=0)=>{let h1=0xdeadbeef^seed,h2=0x41c6ce57^seed;for(let i=0,ch;i<s.length;i++){ch=s.charCodeAt(i);h1=Math.imul(h1^ch,2654435761);h2=Math.imul(h2^ch,1597334677)}h1=Math.imul(h1^(h1>>>16),2246822507)^Math.imul(h2^(h2>>>13),3266489909);h2=Math.imul(h2^(h2>>>16),2246822507)^Math.imul(h1^(h1>>>13),3266489909);return String(4294967296*(2097151&h2)+(h1>>>0))};
   const norm=s=>s.replace(/[\s\u3000]+/g,"").toLowerCase();
   // Student accounts by year. Only Alex is listed for now.
-  const ROST = {"1": [{"n": "Alex", "i": "Alex", "h": "7624984167397427"}], "2": [{"n": "Alex", "i": "Alex", "h": "7624984167397427"}], "3": [{"n": "Alex", "i": "Alex", "h": "7624984167397427"}], "4": [{"n": "Alex", "i": "Alex", "h": "7624984167397427"}], "5": [{"n": "Alex", "i": "Alex", "h": "7624984167397427"}], "6": [{"n": "Alex", "i": "Alex", "h": "7624984167397427"}]};
+  const ROST = {"1": [{"n": "Alex", "i": "Alex", "h": "7624984167397427"}, {"n": "Test", "i": "test", "h": "7781877145881421"}], "2": [{"n": "Alex", "i": "Alex", "h": "7624984167397427"}, {"n": "Test", "i": "test", "h": "7781877145881421"}], "3": [{"n": "Alex", "i": "Alex", "h": "7624984167397427"}, {"n": "Test", "i": "test", "h": "7781877145881421"}], "4": [{"n": "Alex", "i": "Alex", "h": "7624984167397427"}, {"n": "Test", "i": "test", "h": "7781877145881421"}], "5": [{"n": "Alex", "i": "Alex", "h": "7624984167397427"}, {"n": "Test", "i": "test", "h": "7781877145881421"}], "6": [{"n": "Alex", "i": "Alex", "h": "7624984167397427"}, {"n": "Test", "i": "test", "h": "7781877145881421"}]};
   const MATHS = {1:"year1-maths.html",2:"year2-maths.html",3:"year3-maths.html",4:"year4-maths.html",5:"year5-maths.html",6:"year6-maths.html"};
   const SESS_KEY = "asc_student";
 
@@ -228,6 +229,9 @@ input:focus,select:focus{border-color:var(--green2);box-shadow:0 0 0 4px #dfeee5
     $('loginError').textContent = "";
     const sess = { name: acc.n, year: year };
     setSess(sess);
+    // Test student: go straight to the next exercise not yet done.
+    const nxt = acc.n === "Test" ? LessonFlow.nextFor("Test") : null;
+    if(nxt){ location.href = nxt + (nxt.includes("?") ? "&" : "?") + "s=Test"; return; }
     showMenu(sess);
   });
 
@@ -305,6 +309,11 @@ input:focus,select:focus{border-color:var(--green2);box-shadow:0 0 0 4px #dfeee5
 
   const existing = getSess();
   const deepSub = new URLSearchParams(location.search).get('sub');
+  // Returning Test student (fresh visit, not "back to menu"): continue at the next exercise.
+  if(existing && existing.name === "Test" && !deepSub){
+    const nxt = LessonFlow.nextFor("Test");
+    if(nxt){ location.replace(nxt + (nxt.includes("?") ? "&" : "?") + "s=Test"); }
+  }
   if(existing && existing.test) showTestMenu();
   else if(existing && ROST[existing.year]) showMenu(existing);
   else show('login');

@@ -68,7 +68,7 @@ body.pen .stage canvas{pointer-events:auto;touch-action:none;cursor:crosshair}
   <div class="bar">
     <select id="secSel" aria-label="选择单元"></select>
     <button class="btn" id="checkBtn">✓ 检查答案 Check</button>
-    <button class="btn alt" id="showBtn" disabled>👀 显示答案 Show</button>
+    <button class="btn alt" id="showBtn">👀 显示答案 Show</button>
     <button class="btn alt" id="resetBtn">↺ 重做 Redo</button>
     <span class="chip" id="score">未检查</span>
   </div>
@@ -291,5 +291,6 @@ $('rulerBtn').onclick = () => { ruler = !ruler; $('rulerBtn').classList.toggle('
 setPen(true);
 go(cur);
 </script>
+<script src="shared/lesson.js"></script>
 </body>
 </html>
