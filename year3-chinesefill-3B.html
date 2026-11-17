@@ -61,6 +61,7 @@ let total=0,right=0,checked=0;
 const SAVE_KEY='fill-state-'+location.pathname.split('/').pop();
 let state={}; // key -> {picked:[], done:bool}
 try{state=JSON.parse(localStorage.getItem(SAVE_KEY)||'{}')||{};}catch(e){state={};}
+window.LESSON_STATE_KEY=SAVE_KEY; // lets lesson.js send these answers to the sheet
 
 function parts(e,it){
   // returns {before, after, opts, kind} where kind: 'blank' | 'choice' | 'none'
@@ -97,7 +98,9 @@ function exHTML(e,ei){
 const CN=['零','一','二','三','四','五','六','七','八','九','十'];
 function numCN(n){if(n<=10)return CN[n];if(n<20)return '十'+(n%10?CN[n%10]:'');if(n<100){const a=Math.floor(n/10),b=n%10;return CN[a]+'十'+(b?CN[b]:'');}return '一百';}
 function render(){
-  try{localStorage.setItem(SAVE_KEY,JSON.stringify(state));}catch(e){}
+  // An exercise with all answers correct counts as done, even if the 检查 flag was lost.
+  DATA.forEach((e,ei)=>{const st=state[ei];if(st&&e.ans&&e.ans.some(x=>x)&&!st.revealed&&e.items.every((_,k)=>st.picked[k]===e.ans[k]))st.done=true;});
+  try{ if(Object.keys(state).length) localStorage.setItem(SAVE_KEY,JSON.stringify(state)); }catch(e){}
   const view=document.getElementById('view');
   let h='',lastU=null,lastL=null;
   DATA.forEach((e,ei)=>{
@@ -119,6 +122,7 @@ document.addEventListener('change',ev=>{
   const s=ev.target;if(s.tagName!=='SELECT'||s.dataset.ex===undefined)return;
   const ei=+s.dataset.ex,k=+s.dataset.k;const st=state[ei]||(state[ei]={picked:{},done:false});
   st.picked[k]=s.value;
+  try{localStorage.setItem(SAVE_KEY,JSON.stringify(state));}catch(e){}
 });
 document.addEventListener('click',ev=>{
   const b=ev.target.closest('[data-act]');if(!b)return;
