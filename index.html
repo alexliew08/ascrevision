@@ -190,16 +190,19 @@ input:focus,select:focus{border-color:var(--green2);box-shadow:0 0 0 4px #dfeee5
     if(sess.name === "Alex" && $('menu')){
       const rb = document.createElement('div');
       rb.id = 'resetBanner';
-      rb.style.cssText = 'margin:0 0 14px;padding:12px;border:1.5px solid #eadfcb;border-radius:14px;background:#fffdf8;display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:center';
+      rb.style.cssText = 'margin:0 0 16px;padding:16px 18px;border:1.5px solid #eadfcb;border-radius:18px;background:#fffdf8;display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:center;box-shadow:0 4px 0 #efe4cf';
       const names = [...new Set(Object.values(ROST).flat().map(x => x.n))].filter(n => n !== 'Alex');
       const selS = document.createElement('select'); selS.id = 'rsStudent';
       names.forEach(n => { const o = document.createElement('option'); o.value = n; o.textContent = n; selS.appendChild(o); });
       const selE = document.createElement('select'); selE.id = 'rsPage';
+      const selStyle = 'font-size:16px;padding:10px 12px;border:2px solid #eadfcb;border-radius:12px;background:#fff;font-family:inherit;color:#1f3d31;max-width:280px';
+      selS.style.cssText = selStyle; selE.style.cssText = selStyle;
       const all = document.createElement('option'); all.value = '*'; all.textContent = 'All exercises 全部练习'; selE.appendChild(all);
       LessonFlow.ORDER.forEach(f => { const o = document.createElement('option'); o.value = f; o.textContent = f; selE.appendChild(o); });
       const rbtn = document.createElement('button');
       rbtn.className = 'btn alt';
       rbtn.textContent = '↺ Reset 重置';
+      rbtn.style.cssText = 'width:auto;margin:0;min-height:44px;padding:0 22px;font-size:16px';
       rbtn.addEventListener('click', () => {
         const what = selE.value === '*' ? 'all exercises' : selE.value;
         if(confirm('Reset ' + selS.value + ' — ' + what + '? 确定重置吗？')){
@@ -207,8 +210,20 @@ input:focus,select:focus{border-color:var(--green2);box-shadow:0 0 0 4px #dfeee5
           alert('Reset done. 已重置。');
         }
       });
-      const label = document.createElement('b'); label.textContent = 'Reset progress 重置进度：';
-      rb.append(label, selS, selE, rbtn);
+      // Collapsed by default: tap the heading to open the reset controls.
+      const head = document.createElement('button');
+      head.type = 'button';
+      head.textContent = 'Reset progress 重置进度 ▾';
+      head.style.cssText = 'width:100%;margin:0;min-height:44px;background:none;border:none;font-size:16px;font-weight:700;color:#2f5e4a;cursor:pointer;text-align:center';
+      const body = document.createElement('div');
+      body.style.cssText = 'display:none;width:100%;flex-direction:column;align-items:center;gap:10px';
+      body.append(selS, selE, rbtn);
+      head.addEventListener('click', () => {
+        const open = body.style.display !== 'none';
+        body.style.display = open ? 'none' : 'flex';
+        head.textContent = 'Reset progress 重置进度 ' + (open ? '▾' : '▴');
+      });
+      rb.append(head, body);
       $('menu').insertBefore(rb, $('menu').firstChild);
     }
     show('menu');
