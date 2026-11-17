@@ -177,7 +177,7 @@ function exHTML(e,ei){
     h+=`<div class="line">${numTag}${body}${ansTxt}</div>`;
   });
   h+=`<div class="row">`;
-  if(hasAns)h+=`<button class="btn" data-act="check" data-ex="${ei}">✔ 检查</button><button class="btn alt sm" disabled data-act="show" data-ex="${ei}">👀 看答案</button>`;
+  if(hasAns)h+=`<button class="btn" data-act="check" data-ex="${ei}">✔ 检查</button><button class="btn alt sm" data-act="show" data-ex="${ei}">👀 看答案</button>`;
   else h+=`<span class="none">暂无答案（资料里没有这一练习的答案）</span>`;
   h+=`</div>`;
   if(st.done&&hasAns){const ok=e.items.filter((_,k)=>st.picked[k]===e.ans[k]).length;h+=`<div class="muted">本练习：${ok} / ${e.items.length} 对</div>`;}
@@ -255,7 +255,7 @@ render();
   }
   function unitComplete(u){ return DATA.every((e,ei)=>e.u!==u||exPassed(ei)); }
   document.addEventListener('click',ev=>{
-    const b=ev.target.closest('[disabled data-act="show"]');if(!b)return;
+    const b=ev.target.closest('[data-act="show"]');if(!b)return;
     const i=+b.dataset.ex;state[i]=state[i]||{picked:{},done:false};state[i].revealed=true;
   },true);
   function hashUnit(){
@@ -307,5 +307,6 @@ render();
   render();
 })();
 </script>
+<script src="shared/lesson.js"></script>
 </body>
 </html>

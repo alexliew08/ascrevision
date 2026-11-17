@@ -246,7 +246,7 @@ function wFix(c,s,k){return s.wchecked&&!wRight(c,s,k)?`<div class="ansline">答
 function wRow(c,ci,s){
   const n=c.items.length, right=c.items.filter((_,k)=>wRight(c,s,k)).length;
   const msg=s.wchecked?(right===n?`<div class="muted">全部正确！</div>`:`<div class="muted">${n-right} 题不对，看看红色的方框。</div>`):'';
-  return `<div class="row"><button class="btn" data-act="wcheck" data-card="${ci}">✔ 检查答案</button><button class="btn alt sm" disabled data-reveal="${ci}">${s.revealed?'🙈 收起答案':'👀 看答案'}</button></div>${msg}`;
+  return `<div class="row"><button class="btn" data-act="wcheck" data-card="${ci}">✔ 检查答案</button><button class="btn alt sm" data-reveal="${ci}">${s.revealed?'🙈 收起答案':'👀 看答案'}</button></div>${msg}`;
 }
 
 function pdfWriteHTML(c,ci){
@@ -350,7 +350,7 @@ function cardHTML(c,ci){
     }
   });
   if(c.cols)h+=`</div>`;
-  if(!c.rowB)h+=`<div class="row"><button class="btn" data-act="check" data-card="${ci}">✔ 检查</button><button class="btn alt sm" disabled data-act="show" data-card="${ci}">👀 看答案</button><button class="btn alt sm" data-act="clear" data-card="${ci}">清空</button></div>`;
+  if(!c.rowB)h+=`<div class="row"><button class="btn" data-act="check" data-card="${ci}">✔ 检查</button><button class="btn alt sm" data-act="show" data-card="${ci}">👀 看答案</button><button class="btn alt sm" data-act="clear" data-card="${ci}">清空</button></div>`;
   if(s.done){const n=s.placed.length;let ok=0;for(let k=0;k<n;k++)if(slotRight(ci,k))ok++;h+=`<div class="muted">本练习：${ok} / ${n} 空 正确</div>`;}
   return h+`</section>`;
 }
@@ -564,5 +564,6 @@ document.addEventListener('click',ev=>{
   renderTab();
 })();
 </script>
+<script src="shared/lesson.js"></script>
 </body>
 </html>
