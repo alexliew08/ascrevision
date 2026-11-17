@@ -246,7 +246,7 @@
       .catch(function () {});
   }
 
-  var CHECK_SEL = '#checkBtn,#checkAll,[data-act="check"],[data-act="wcheck"],button.check';
+  var CHECK_SEL = '#checkBtn,#checkAll,[data-act="check"],[data-act="wcheck"],[data-act="icheck"],button.check';
   document.addEventListener("click", function (e) {
     var b = e.target && e.target.closest ? e.target.closest(CHECK_SEL) : null;
     if (!b || b.disabled) return;
