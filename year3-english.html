@@ -111,10 +111,10 @@ textarea{width:100%;font:inherit;font-size:19px;line-height:1.6;padding:10px 12p
   <div class="bar">
     <select id="secSel" aria-label="Choose a set"></select>
     <button class="btn sm" id="checkBtn">✓ Check answers</button>
-    <button class="btn sm alt" id="showBtn">👀 Show answers</button>
+    <button class="btn sm alt" id="showBtn" disabled>👀 Show answers</button>
     <button class="btn sm alt" id="resetBtn">↺ Redo</button>
   </div>
-  <div class="navline"><a href="index.html">← 返回学习中心 Learning Hub</a><span class="muted">Answer in the boxes under the worksheet. Your answers are saved on this device.</span></div>
+  <div class="navline"><a href="index.html?sub=en">← 返回练习菜单</a><span class="muted">Answer in the boxes under the worksheet. Your answers are saved on this device.</span></div>
 
   <section class="card">
     <div class="ptitle"><span><span class="tag" id="secTag"></span><b id="pTitle"></b></span>
@@ -183,7 +183,7 @@ function render(){
     else if(b.k === 'seq') b.items.forEach((t, i) => { h += `<div class="seqrow">${sel(bi + '_' + i, b.items.map((_, k) => String(k + 1)))}<span>${esc(t)}</span></div>`; });
     else if(b.k === 'table') h += `<div class="tbl"><table><tr>${b.cols.map(c => `<th>${esc(c)}</th>`).join('')}</tr>${b.rows.map((r, ri) => `<tr>${r.map((c, ci) => `<td>${typeof c === 'string' ? esc(c) : inp(bi + '_' + ri + '_' + ci, c.ph)}</td>`).join('')}</tr>`).join('')}</table></div>`;
     else if(b.k === 'build') h += `<div class="row"><span class="n">${esc(b.n)}.</span>${b.parts.map((pt, i) => typeof pt === 'string' ? `<span>${esc(pt)}</span>` : sel(bi + '_' + i, pt)).join('')}</div>`;
-    else if(b.k === 'write') h += `<div class="write${b.big ? ' big' : ''}" data-id="${bi}"><h3>✍️ ${esc(b.t)}</h3>${b.words.length ? `<div class="kw">${[...new Set(b.words)].map(w => `<span data-w="${esc(w)}">${esc(w)}</span>`).join('')}</div>` : ''}<textarea data-id="w${bi}" placeholder="Write here…"></textarea><div class="wfoot"><span class="wc">0 words</span>${b.model ? `<button class="btn sm alt" data-model="${bi}">💡 ${b.mtitle ? 'Model story' : 'Model answer'}</button>` : ''}</div><div class="model" hidden></div></div>`;
+    else if(b.k === 'write') h += `<div class="write${b.big ? ' big' : ''}" data-id="${bi}"><h3>✍️ ${esc(b.t)}</h3>${b.words.length ? `<div class="kw">${[...new Set(b.words)].map(w => `<span data-w="${esc(w)}">${esc(w)}</span>`).join('')}</div>` : ''}<textarea data-id="w${bi}" placeholder="Write here…"></textarea><div class="wfoot"><span class="wc">0 words</span>${b.model ? `<button class="btn sm alt" disabled data-model="${bi}">💡 ${b.mtitle ? 'Model story' : 'Model answer'}</button>` : ''}</div><div class="model" hidden></div></div>`;
   });
   el.innerHTML = h;
   // restore answers

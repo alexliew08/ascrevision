@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-Hans">
 <head>
 <meta charset="utf-8">
@@ -89,7 +89,7 @@ textarea.free{width:100%;min-height:120px;font:inherit;font-size:17px;padding:8p
   <div class="score" id="score"></div>
 </div></header>
 <main class="wrap">
-  <a class="hublink" href="index.html?sub=cn">← 返回菜单</a>
+  <a class="hublink" href="index.html?sub=cn">← 返回练习菜单</a>
   <div class="note">选一个单元。<b>下拉框</b>选择，<b>文本框</b>直接输入，<b>高亮框</b>点选，<b>拖拉框</b>把词语拖到空格里（手机可以先点词语，再点空格）。遇到<b>别字</b>，点一点错的字，再在下面写正确的字。做完每一节按<b>「检查」</b>，不会的可以按<b>「看答案」</b>。</div>
   <div id="view"></div>
   <div class="row" id="units" role="group" aria-label="选择单元" style="margin-top:20px"></div>
@@ -214,7 +214,7 @@ function sectionHTML(u,si,s){
   });
   if(s.cols) h+='</div>';
   if(graded||s.btn){
-    h+=`<div class="row"><button class="btn" data-act="check" data-s="${si}">✔ 检查</button><button class="btn alt sm" data-act="show" data-s="${si}">👀 看答案</button><button class="btn alt sm" data-act="redo" data-s="${si}">↺ 重做</button></div>`;
+    h+=`<div class="row"><button class="btn" data-act="check" data-s="${si}">✔ 检查</button><button class="btn alt sm" disabled data-act="show" data-s="${si}">👀 看答案</button><button class="btn alt sm" data-act="redo" data-s="${si}">↺ 重做</button></div>`;
     if(st.checked&&graded){ const r=scoreSec(u,si); h+=`<div class="muted">本节：${r.ok} / ${r.tot} 对${r.ok===r.tot?' 🎉 全对了！':''}</div>`; }
   }
   if(st.shown){
