@@ -251,10 +251,10 @@
     var b = e.target && e.target.closest ? e.target.closest(CHECK_SEL) : null;
     if (!b || b.disabled) return;
     // Score only the exercise (练习) whose button was clicked, not the whole page.
-    var attr = ["data-ex", "data-s", "data-es", "data-card"].filter(function (a) { return b.hasAttribute(a); })[0];
-    var val = attr ? b.getAttribute(attr) : null;
+    var keys = ["data-ex", "data-s", "data-es", "data-card", "data-j"].filter(function (a) { return b.hasAttribute(a); });
+    var selector = keys.map(function (a) { return "[" + a + '="' + b.getAttribute(a) + '"]'; }).join("");
     setTimeout(function () {
-      var cur = attr ? document.querySelector("[" + attr + '="' + val + '"]') : null;
+      var cur = keys.length ? document.querySelector(selector) : null;
       var box = cur && cur.closest ? cur.closest("section, .card, .qcard") : null;
       var own = box ? box.querySelector(".muted, .fbline") : null;
       onChecked(own || document.getElementById("score") || document.querySelector(".score"));

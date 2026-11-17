@@ -303,8 +303,11 @@ function cardHTML(c,ci){
         return;
       }
       const sp=tileSpans(ci,j,it,s,m);
+      const ikeys=m.itemOf.map((jj,k)=>jj===j?k:-1).filter(k=>k>=0);
+      const iok=ikeys.filter(k=>slotRight(ci,k)).length;
+      const imsg=(s.ich&&s.ich[j])?`<div class="muted">本题：${iok} / ${ikeys.length} 空 正确</div>`:'';
       h+=`<div class="qcard"><div class="qleft"><div class="qtext">${it.n?`<b>${it.n}.</b> `:''}${body}</div>${fix}`+
-         `<div class="row"><button class="btn" data-act="icheck" data-card="${ci}" data-j="${j}">✔ 检查</button><button class="btn alt sm" data-act="iclear" data-card="${ci}" data-j="${j}">清空</button></div></div>`+
+         `<div class="row"><button class="btn" data-act="icheck" data-card="${ci}" data-j="${j}">✔ 检查</button><button class="btn alt sm" data-act="iclear" data-card="${ci}" data-j="${j}">清空</button></div>${imsg}</div>`+
          `<div class="qright"><div class="itiles">${sp}</div></div></div>`;
     } else {
       h+=`<div class="${c.cols?'cell':'line'}">${pool}${it.n?`<b>${it.n}.</b> `:''}${body}${fix}</div>`;
