@@ -203,7 +203,7 @@ body.py .chip,body.py .tile{padding-top:2px;padding-bottom:2px}
     <button class="btn sm alt" id="revealBtn">显示答案</button>
     <button class="btn sm alt" id="resetBtn">重做</button>
   </div>
-  <div class="navline"><a href="index.html">← 返回学习中心 Learning Hub</a>　<span class="muted">图片题请对照纸质练习本作答。</span></div>
+  <div class="navline"><a href="index.html?sub=cn">← 返回练习菜单</a>　<span class="muted">图片题请对照纸质练习本作答。</span></div>
   <div id="view"></div>
 </main>
 <script>
@@ -504,5 +504,6 @@ $('resetBtn').addEventListener('click', resetAll);
 fillSelector();
 showSheet('3A-0');
 </script>
+<script src="shared/lesson.js"></script>
 </body>
 </html>

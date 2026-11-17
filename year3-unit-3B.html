@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>三年级华文｜单元练习 3B</title>
+<style>
+:root{--bg:#eaf6ff;--bg2:#f4fbe9;--ink:#2a2340;--muted:#6a6184;--panel:#ffffff;--soft:#fff6de;--line:#3b2f5c;--accent:#ff8a3d;--good:#1f9d5a;--blue:#3a7bf0;color-scheme:light dark}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1b2045;--bg2:#271c3d;--ink:#f3eeff;--muted:#bbb0d6;--panel:#2c2650;--soft:#3a3060;--line:#0c0820}}
+:root[data-theme="dark"]{--bg:#1b2045;--bg2:#271c3d;--ink:#f3eeff;--muted:#bbb0d6;--panel:#2c2650;--soft:#3a3060;--line:#0c0820}
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0}
+body{background:linear-gradient(180deg,var(--bg),var(--bg2)) fixed;color:var(--ink);font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans SC","Noto Sans CJK SC",sans-serif;font-size:17px;line-height:1.6;min-height:100vh}
+header.top{position:sticky;top:0;z-index:5;background:var(--panel);border-bottom:3px solid var(--line)}
+.top-in{max-width:960px;margin:0 auto;padding:8px 14px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between}
+.top h1{margin:0;font-size:22px;line-height:1.25}
+.wrap{max-width:960px;margin:0 auto;padding:10px 14px 40px}
+.hublink{display:inline-flex;align-items:center;min-height:44px;font-weight:700;font-size:16px;color:var(--ink);text-decoration:underline}
+.seg{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}
+.btn{font:inherit;font-size:17px;font-weight:700;min-height:46px;padding:6px 16px;border:3px solid var(--line);border-radius:14px;background:var(--panel);color:var(--ink);box-shadow:0 3px 0 var(--line);cursor:pointer}
+.btn[aria-pressed="true"]{background:var(--accent);color:#fff}
+select{font:inherit;font-size:16px;padding:6px 10px;border:3px solid var(--line);border-radius:12px;background:var(--panel);color:var(--ink);min-height:44px}
+.note{background:var(--soft);border:2px dashed var(--line);border-radius:14px;padding:8px 12px;margin:10px 0;font-size:15px}
+.pg{background:var(--panel);border:3px solid var(--line);border-radius:14px;padding:6px;margin:12px auto;max-width:720px;box-shadow:0 4px 0 var(--line)}
+.pg img{display:block;width:100%;height:auto;border-radius:8px;background:#fff}
+.pg .cap{font-size:14px;color:var(--muted);text-align:center;margin:2px 0 4px}
+.mode{font-weight:700}
+</style>
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <h1>📘 三年级华文 · 单元练习 3B</h1>
+  <div class="seg" role="group" aria-label="题目或答案">
+    <button class="btn" id="bq" aria-pressed="true" data-m="q">📝 题目</button>
+    <button class="btn" id="ba" aria-pressed="false" data-m="a">✅ 答案</button>
+  </div>
+</div></header>
+<main class="wrap">
+  <a class="hublink" href="index.html?sub=cn">← 返回练习菜单</a>
+  <div class="note">这是练习册原本的页面（图片）。点上面的 <b>📝 题目</b> 看练习，点 <b>✅ 答案</b> 对答案。用手指上下滑动就可以看每一页；想跳到某一页，用下面的选择框。</div>
+  <div class="seg"><select id="jump" aria-label="跳到页数"></select></div>
+  <div id="pages"></div>
+</main>
+<script>
+'use strict';
+const SETS={
+  q:{dir:'year3-unit/3B/p-', n:65, label:'题目页'},
+  a:{dir:'year3-unit/3B-ans/p-', n:44, label:'答案页'}
+};
+const pad=n=>String(n).padStart(2,'0');
+let mode='q';
+function show(m){
+  mode=m;
+  document.getElementById('bq').setAttribute('aria-pressed',m==='q');
+  document.getElementById('ba').setAttribute('aria-pressed',m==='a');
+  const S=SETS[m];let h='';
+  for(let i=1;i<=S.n;i++){
+    h+=`<figure class="pg" id="p${m}${i}"><img loading="lazy" src="${S.dir}${pad(i)}.jpg" alt="${S.label} ${i}"><figcaption class="cap">${S.label} ${i} / ${S.n}</figcaption></figure>`;
+  }
+  document.getElementById('pages').innerHTML=h;
+  const j=document.getElementById('jump');j.innerHTML='<option value="">跳到第几页…</option>';
+  for(let i=1;i<=S.n;i++){const o=document.createElement('option');o.value=i;o.textContent='第 '+i+' 页';j.appendChild(o);}
+  window.scrollTo(0,0);
+}
+document.getElementById('bq').addEventListener('click',()=>show('q'));
+document.getElementById('ba').addEventListener('click',()=>show('a'));
+document.getElementById('jump').addEventListener('change',ev=>{const v=ev.target.value;if(!v)return;const el=document.getElementById('p'+mode+v);if(el)el.scrollIntoView({block:'start'});ev.target.value='';});
+show('q');
+</script>
+<script src="shared/lesson.js"></script>
+</body>
+</html>

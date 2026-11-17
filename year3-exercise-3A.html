@@ -214,7 +214,7 @@ function sectionHTML(u,si,s){
   });
   if(s.cols) h+='</div>';
   if(graded||s.btn){
-    h+=`<div class="row"><button class="btn" data-act="check" data-s="${si}">✔ 检查</button><button class="btn alt sm" disabled data-act="show" data-s="${si}">👀 看答案</button><button class="btn alt sm" data-act="redo" data-s="${si}">↺ 重做</button></div>`;
+    h+=`<div class="row"><button class="btn" data-act="check" data-s="${si}">✔ 检查</button><button class="btn alt sm" data-act="show" data-s="${si}">👀 看答案</button><button class="btn alt sm" data-act="redo" data-s="${si}">↺ 重做</button></div>`;
     if(st.checked&&graded){ const r=scoreSec(u,si); h+=`<div class="muted">本节：${r.ok} / ${r.tot} 对${r.ok===r.tot?' 🎉 全对了！':''}</div>`; }
   }
   if(st.shown){
@@ -390,5 +390,6 @@ document.addEventListener('click',e=>{
 renderUnit();
 buildUnitButtons();
 </script>
+<script src="shared/lesson.js"></script>
 </body>
 </html>

@@ -87,7 +87,7 @@ function essayHTML(e,i){
     const wrong=e.ans.map((a,k)=>({n:k+1,a,p:s.picked[k+1]||''})).filter(x=>x.p!==x.a);
     if(wrong.length)h+=`<div class="ansline">${wrong.map(x=>`第${x.n}空：${esc(x.a)}`).join('　')}</div>`;
   }
-  h+=`<div class="row"><button class="btn" data-act="check" data-es="${i}">✔ 检查</button><button class="btn alt sm" disabled data-act="show" data-es="${i}">👀 看答案</button><button class="btn alt sm" data-act="clear" data-es="${i}">↺ 重来</button></div>`;
+  h+=`<div class="row"><button class="btn" data-act="check" data-es="${i}">✔ 检查</button><button class="btn alt sm" data-act="show" data-es="${i}">👀 看答案</button><button class="btn alt sm" data-act="clear" data-es="${i}">↺ 重来</button></div>`;
   return h+`</section>`;
 }
 function render(){
@@ -130,5 +130,6 @@ document.addEventListener('click',ev=>{
   j.addEventListener('change',ev=>{const el=document.getElementById('es'+ev.target.value);if(el)el.scrollIntoView({block:'start'});ev.target.value='';});})();
 render();
 </script>
+<script src="shared/lesson.js"></script>
 </body>
 </html>
