@@ -101,6 +101,8 @@ function saveAnswers(){
   try{ if(Object.keys(state).length) localStorage.setItem(SAVE_KEY,JSON.stringify(state)); }catch(e){}
 }
 function render(){
+  // An exercise with all answers correct counts as done, even if the 检查 flag was lost.
+  DATA.forEach((e,ei)=>{const st=state[ei];if(st&&e.ans&&e.ans.some(x=>x)&&!st.revealed&&e.items.every((_,k)=>st.picked[k]===e.ans[k]))st.done=true;});
   saveAnswers();
   const view=document.getElementById('view');
   let h='',lastU=null,lastL=null;
