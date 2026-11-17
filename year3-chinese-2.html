@@ -58,6 +58,14 @@ details.tip summary{cursor:pointer;font-weight:700;min-height:36px}
 .pic-wrap{max-width:440px;margin:6px auto}
 .pics3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
 @media (max-width:560px){.pics3{grid-template-columns:1fr}}
+.drop{cursor:pointer;touch-action:manipulation}
+.drop.ok{border-color:var(--good)!important;background:var(--okbg)}
+.drop.bad{border-color:var(--bad)!important;background:var(--badbg)}
+.bank2{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 6px}
+.chip2{font-size:16px;padding:6px 14px;border:2px solid var(--line);border-radius:12px;background:var(--panel);cursor:grab;user-select:none;touch-action:manipulation}
+.chip2.sel{background:var(--accent);color:#fff}
+.sec-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:12px}
+.sec-score{font-size:15px;font-weight:700;color:var(--good)}
 .item{display:grid;grid-template-columns:minmax(220px,300px) 1fr;gap:14px;align-items:start}
 @media (max-width:640px){.item{grid-template-columns:1fr}}
 .qn{font-weight:700;font-size:20px}
@@ -198,7 +206,7 @@ body.py .chip,body.py .tile{padding-top:2px;padding-bottom:2px}
 </div></header>
 <main class="wrap">
   <div class="sheetbar">
-    <select id="sheetSel" aria-label="选择课堂评估"></select>
+    <select id="sheetSel" data-nosave aria-label="选择课堂评估"></select>
     <button class="btn sm" id="checkBtn">检查答案</button>
     <button class="btn sm alt" id="revealBtn">显示答案</button>
     <button class="btn sm alt" id="resetBtn">重做</button>
@@ -260,7 +268,7 @@ function renderSel(it){
   const ctrl = i => {
     uid++;
     const b = it.b[i];
-    return `<select class="sel gr" id="c${uid}" data-kind="sel" data-a="${esc(b.a)}">${opts(b.o)}</select>`;
+    return `<span class="gr drop" id="c${uid}" data-kind="sel" data-a="${esc(b.a)}" data-v="" role="button" tabindex="0" aria-label="空格" style="display:inline-block;min-width:90px;min-height:34px;text-align:center;border:2px dashed var(--border-strong);border-radius:10px;padding:2px 10px;margin:0 4px;vertical-align:middle;font-weight:700;background:var(--panel)">＿＿</span>`;
   };
   return `<div class="qline">${fillParts(it.s, ctrl, n)}</div>`;
 }
@@ -352,7 +360,7 @@ function showSheet(key){
     <p class="inst">${esc(sh.title)}</p></section>`;
   sh.secs.forEach(sec => {
     if(sec.overlay && sec.overlay.skip) return;
-    h += sec.overlay ? `<section class="card pg">` : `<section class="card pg"><p class="inst" style="color:var(--ink);font-weight:700">${esc(sec.ins)}</p>`;
+    h += sec.overlay ? `<section class="card pg">` : `<section class="card pg"><p class="inst" style="color:var(--ink);font-weight:700">${esc(sec.ins)}</p>${bankHTML(sec)}`;
     const pk = book + '-' + sh.no + '-' + sh.secs.indexOf(sec);
     if(!sec.overlay && PICS[pk] && !sec.items.some((it, idx) => PICS[pk + '-' + idx])) h += `<img class="pic-strip" src="${PICS[pk]}" alt="题目图片" loading="lazy">`;
     if(sec.overlay){ h += renderOverlay(sec.overlay); }
@@ -362,11 +370,79 @@ function showSheet(key){
       else h += `<div class="item-block" style="margin:10px 0">${renderItem(it)}</div>`;
     });
     if(sec.note) h += `<div class="note">${esc(sec.note)}</div>`;
+    if(!sec.overlay) h += `<div class="sec-row"><button class="btn sm" type="button" onclick="checkSection(this)">✔ 检查本部分</button><button class="btn sm alt" type="button" onclick="clearSection(this)">↺ 清空</button><span class="sec-score"></span></div>`;
     h += '</section>';
   });
   $('view').innerHTML = h + PAGER;
+  restoreState();
   $('score').textContent = '未检查';
   goPage(0);
+}
+
+/* ===== word bank, per-section check, and saving (text questions) ===== */
+const SAVE_KEY2 = 'cc2-state-v1';
+window.LESSON_STATE_KEY = SAVE_KEY2; // lets lesson.js send these answers to the sheet
+function bankHTML(sec){
+  const words = [];
+  sec.items.forEach(it => { if(it.b) it.b.forEach(b => b.o.forEach(w => { if(!words.includes(w)) words.push(w); })); });
+  if(!words.length) return '';
+  return `<div class="bank2">${words.map(w => `<span class="chip2" draggable="true" data-word="${esc(w)}">${esc(w)}</span>`).join('')}</div>`;
+}
+function checkSection(btn){
+  const sec = btn.closest('.pg');
+  checkAll(sec);
+  const total = sec.querySelectorAll('.gr').length;
+  const ok = sec.querySelectorAll('.gr.ok').length;
+  sec.querySelector('.sec-score').textContent = `本部分：${ok} / ${total} 对`;
+  saveState();
+}
+function clearSection(btn){
+  const sec = btn.closest('.pg');
+  sec.querySelectorAll('.gr').forEach(el => {
+    el.classList.remove('ok', 'bad');
+    if(el.dataset.kind === 'sel'){ el.dataset.v = ''; el.textContent = '＿＿'; }
+    else if(el.dataset.kind === 'in') el.value = '';
+    else if(el.dataset.kind === 'mc' || el.dataset.kind === 'ms') el.querySelectorAll('input').forEach(x => x.checked = false);
+  });
+  sec.querySelector('.sec-score').textContent = '';
+  saveState();
+}
+function placeWord(d, w){
+  d.dataset.v = w; d.textContent = w; d.classList.remove('ok', 'bad');
+  saveState();
+}
+let selWord = null;
+const elOfE = ev => ev.target.nodeType === 1 ? ev.target : ev.target.parentElement;
+document.addEventListener('dragstart', ev => { const c = elOfE(ev).closest('.chip2'); if(c) ev.dataTransfer.setData('text/plain', c.dataset.word); });
+document.addEventListener('dragover', ev => { if(elOfE(ev).closest('.drop')) ev.preventDefault(); });
+document.addEventListener('drop', ev => { const d = elOfE(ev).closest('.drop'); if(!d) return; ev.preventDefault(); const w = ev.dataTransfer.getData('text/plain'); if(w) placeWord(d, w); });
+document.addEventListener('click', ev => {
+  const el = elOfE(ev);
+  const c = el.closest('.chip2');
+  if(c){ selWord = (selWord === c.dataset.word) ? null : c.dataset.word; document.querySelectorAll('.chip2').forEach(x => x.classList.toggle('sel', x.dataset.word === selWord)); return; }
+  const d = el.closest('.drop'); if(!d) return;
+  if(selWord){ placeWord(d, selWord); selWord = null; document.querySelectorAll('.chip2.sel').forEach(x => x.classList.remove('sel')); return; }
+  if(d.dataset.v){ d.dataset.v = ''; d.textContent = '＿＿'; d.classList.remove('ok', 'bad'); saveState(); }
+});
+document.addEventListener('input', ev => { if(ev.target.dataset && ev.target.dataset.kind === 'in') saveState(); });
+document.addEventListener('change', ev => { const k = ev.target.dataset && ev.target.dataset.kind; if(k === 'in' || k === 'mc' || k === 'ms') saveState(); });
+function saveState(){
+  try{
+    const s = JSON.parse(localStorage.getItem(SAVE_KEY2) || '{}');
+    s[current] = [...$('view').querySelectorAll('.gr')].map(el => el.dataset.kind === 'sel' ? (el.dataset.v || '') : el.dataset.kind === 'in' ? el.value : null);
+    localStorage.setItem(SAVE_KEY2, JSON.stringify(s));
+  }catch(e){}
+}
+function restoreState(){
+  try{
+    const s = JSON.parse(localStorage.getItem(SAVE_KEY2) || '{}');
+    const arr = s[current]; if(!arr) return;
+    [...$('view').querySelectorAll('.gr')].forEach((el, i) => {
+      const v = arr[i]; if(v == null) return;
+      if(el.dataset.kind === 'sel'){ el.dataset.v = v; el.textContent = v || '＿＿'; }
+      else if(el.dataset.kind === 'in') el.value = v;
+    });
+  }catch(e){}
 }
 
 function valueOf(el){
@@ -376,8 +452,8 @@ function valueOf(el){
 
 function norm(s){ return String(s).replace(/\s+/g, '').toLowerCase(); }
 
-function checkAll(){
-  const els = document.querySelectorAll('#view .gr');
+function checkAll(root){
+  const els = (root || $('view')).querySelectorAll('.gr');
   let right = 0, total = 0;
   els.forEach(el => {
     el.classList.remove('ok', 'bad');
@@ -385,7 +461,7 @@ function checkAll(){
     const kind = el.dataset.kind;
     let good = false, answerText = '';
     if(kind === 'sel'){
-      answerText = el.dataset.a; good = el.value === el.dataset.a;
+      answerText = el.dataset.a; good = (el.dataset.v || el.value) === el.dataset.a;
     } else if(kind === 'in'){
       answerText = el.dataset.a; good = norm(el.value) === norm(el.dataset.a);
     } else if(kind === 'mc'){
@@ -407,7 +483,7 @@ function checkAll(){
       if(good) right++;
     }
   });
-  $('score').textContent = total ? `得分 ${right} / ${total}` : '本页没有可自动检查的题目';
+  if(!root) $('score').textContent = total ? `得分 ${right} / ${total}` : '本页没有可自动检查的题目';
   markPages();
 }
 
@@ -415,7 +491,8 @@ function revealAll(){
   document.querySelectorAll('#view .gr').forEach(el => {
     el.classList.remove('ok', 'bad');
     const kind = el.dataset.kind;
-    if(kind === 'sel' || kind === 'in'){ el.value = el.dataset.a; }
+    if(kind === 'sel'){ el.dataset.v = el.dataset.a; el.textContent = el.dataset.a; }
+    else if(kind === 'in'){ el.value = el.dataset.a; }
     else if(kind === 'mc'){
       el.querySelectorAll('input').forEach(x => x.checked = (x.value === el.dataset.a));
     } else if(kind === 'ms'){
@@ -431,7 +508,8 @@ function resetAll(){
   document.querySelectorAll('#view .gr').forEach(el => {
     el.classList.remove('ok', 'bad');
     el.querySelectorAll('.hint').forEach(x => x.remove());
-    if(el.dataset.kind === 'sel' || el.dataset.kind === 'in') el.value = '';
+    if(el.dataset.kind === 'sel'){ el.dataset.v = ''; el.textContent = '＿＿'; }
+    else if(el.dataset.kind === 'in') el.value = '';
     if(el.dataset.kind === 'mc' || el.dataset.kind === 'ms') el.querySelectorAll('input').forEach(x => x.checked = false);
   });
   document.querySelectorAll('#view textarea').forEach(t => t.value = '');

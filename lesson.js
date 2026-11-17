@@ -183,7 +183,7 @@
     // Never on the login page (it would save the password), and never password boxes.
     if (/(^|\/)index\.html$/.test(location.pathname) || /\/$/.test(location.pathname)) return [];
     return Array.prototype.slice.call(document.querySelectorAll(
-      "select, textarea, input:not([type=button]):not([type=submit]):not([type=hidden]):not([type=password])"));
+      "select:not([data-nosave]), textarea, input:not([type=button]):not([type=submit]):not([type=hidden]):not([type=password])"));
   }
   var restoring = false;
   function saveForm() {
