@@ -142,7 +142,8 @@
             p[who].pages[row.page] = { tries: row.tries || 1, done: true, right: row.right, total: row.total };
             changed = true;
           }
-          if (row.state) latestAnswers[row.page] = row.state; // rows are in time order, so the last one wins
+          // Rows are in time order, so the last non-empty answer set wins. An empty "{}" must never overwrite real answers.
+          if (row.state && row.state !== "{}") latestAnswers[row.page] = row.state;
         });
         Object.keys(latestAnswers).forEach(function (page) {
           var k = "fill-state-" + page;
