@@ -107,7 +107,7 @@
 
   function buildToolbar(){
     $('toolbar').innerHTML = '<button class="btn" id="checkBtn">✓ Check answer</button>'
-                 + '<button class="btn alt" id="showBtn" disabled>👀 Show</button>'
+                 + '<button class="btn alt" id="showBtn">👀 Show</button>'
                  + '<button class="btn alt" id="redoBtn">↺ Redo</button>'
                  + '<span id="score"></span>';
     $('checkBtn').addEventListener('click', checkPage);
@@ -214,5 +214,6 @@
   buildToolbar();
   render();
 </script>
+<script src="shared/lesson.js"></script>
 </body>
 </html>
