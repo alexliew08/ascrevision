@@ -68,7 +68,7 @@ body.pen .stage canvas{pointer-events:auto;touch-action:none;cursor:crosshair}
   <div class="bar">
     <select id="secSel" aria-label="选择单元"></select>
     <button class="btn" id="checkBtn">✓ 检查答案 Check</button>
-    <button class="btn alt" id="showBtn">👀 显示答案 Show</button>
+    <button class="btn alt" id="showBtn" disabled>👀 显示答案 Show</button>
     <button class="btn alt" id="resetBtn">↺ 重做 Redo</button>
     <span class="chip" id="score">未检查</span>
   </div>
@@ -77,7 +77,7 @@ body.pen .stage canvas{pointer-events:auto;touch-action:none;cursor:crosshair}
     <button class="btn alt" id="rulerBtn">📏 尺子 Ruler</button>
     <button class="btn alt" id="eraseBtn">🧽 橡皮 Eraser</button>
   </div>
-  <div class="navline"><a href="index.html">← 返回学习中心 Learning Hub</a><span class="muted">用铅笔在图上作答，用橡皮擦掉。Write on the page with the pencil; use the eraser to fix mistakes.</span></div>
+  <div class="navline"><a href="index.html?sub=en1">← 返回练习菜单</a><span class="muted">用铅笔在图上作答，用橡皮擦掉。Write on the page with the pencil; use the eraser to fix mistakes.</span></div>
   <section class="card">
     <div class="ptitle"><span><span class="tag" id="secTag"></span><b id="pTitle"></b></span></div>
     <div class="stage" id="stage"><img id="pimg" alt="课堂评估页"><svg id="lines" viewBox="0 0 100 100" preserveAspectRatio="none"></svg><canvas id="cv"></canvas></div>

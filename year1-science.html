@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh">
 <head>
 <meta charset="UTF-8">
@@ -75,7 +75,7 @@ html,body{margin:0;background:var(--bg);color:var(--ink);font-family:"Microsoft 
   <div class="bar">
     <select id="secSel" aria-label="选择单元"></select>
     <button class="btn" id="checkBtn">✓ 检查答案 Check</button>
-    <button class="btn alt" id="showBtn">👀 显示答案 Show</button>
+    <button class="btn alt" id="showBtn" disabled>👀 显示答案 Show</button>
     <button class="btn alt" id="resetBtn">↺ 重做 Redo</button>
     <button class="btn alt" id="teacherBtn" hidden>👩‍🏫 老师检查 Teacher check</button>
     <span class="chip" id="score">未检查</span>
@@ -87,7 +87,7 @@ html,body{margin:0;background:var(--bg);color:var(--ink);font-family:"Microsoft 
     <button class="btn alt" id="clearBtn">🗑 清除 Clear</button>
   </div>
   <div class="navline">
-    <a href="index.html">← 返回学习中心 Learning Hub</a>
+    <a href="index.html?sub=sc1">← 返回练习菜单</a>
     <span class="muted">在格子里写答案，然后按“检查答案”。Write in the boxes, then press Check.</span>
   </div>
   <section class="card">
