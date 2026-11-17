@@ -410,18 +410,20 @@ function place(ci,k,ti){
 }
 
 /* ---- drag & drop (desktop) and tap-to-place (touch); a tile only goes to a blank under the same question ---- */
+// The click/drop target can be a text node, which has no .closest(); use its parent element instead.
+function evEl(ev){ return ev.target.nodeType===1 ? ev.target : ev.target.parentElement; }
 document.addEventListener('dragstart',ev=>{
-  const t=ev.target.closest('[data-tc]');if(!t||t.classList.contains('used'))return;
+  const t=evEl(ev).closest('[data-tc]');if(!t||t.classList.contains('used'))return;
   const ci=+t.dataset.tc,ij=t.dataset.ij,ti=+t.dataset.ti;
   ev.dataTransfer.setData('text/plain',`${ci}:${ij}:${ti}`);
   ev.dataTransfer.effectAllowed='move';
   st(ci).sel=`${ij}:${ti}`;
 });
 document.addEventListener('dragover',ev=>{
-  if(ev.target.closest('[data-sc]'))ev.preventDefault();
+  if(evEl(ev).closest('[data-sc]'))ev.preventDefault();
 });
 document.addEventListener('drop',ev=>{
-  const sc=ev.target.closest('[data-sc]');if(!sc)return;
+  const sc=evEl(ev).closest('[data-sc]');if(!sc)return;
   ev.preventDefault();
   const ci=+sc.dataset.sc,k=+sc.dataset.slot,ij=sc.dataset.ij;
   let parsed=(ev.dataTransfer.getData('text/plain')||'').split(':');
@@ -442,20 +444,20 @@ document.addEventListener('input',ev=>{
 });
 
 document.addEventListener('click',ev=>{
-  const r=ev.target.closest('[data-reveal]');
+  const r=evEl(ev).closest('[data-reveal]');
   if(r){
     const ci=+r.dataset.reveal;const s=st(ci);s.revealed=!s.revealed;
     const y=window.scrollY;renderTab();window.scrollTo(0,y);
     return;
   }
-  const tile=ev.target.closest('[data-tc]');
+  const tile=evEl(ev).closest('[data-tc]');
   if(tile&&!tile.classList.contains('used')){
     const ci=+tile.dataset.tc,key=`${tile.dataset.ij}:${tile.dataset.ti}`;const s=ensurePlaced(ci);
     s.sel=(s.sel===key)?null:key;
     const y=window.scrollY;renderTab();window.scrollTo(0,y);
     return;
   }
-  const slot=ev.target.closest('[data-sc]');
+  const slot=evEl(ev).closest('[data-sc]');
   if(slot){
     const ci=+slot.dataset.sc,k=+slot.dataset.slot,ij=slot.dataset.ij;const s=ensurePlaced(ci);
     if(s.placed[k]!==null){s.placed[k]=null;s.done=false;}
@@ -463,7 +465,7 @@ document.addEventListener('click',ev=>{
     const y=window.scrollY;renderTab();window.scrollTo(0,y);
     return;
   }
-  const b=ev.target.closest('[data-act]');if(!b)return;
+  const b=evEl(ev).closest('[data-act]');if(!b)return;
   const ci=+b.dataset.card,card=CARDS[ci];const s=ensurePlaced(ci);
   if(b.dataset.act==='icheck'){
     const j=+b.dataset.j;
