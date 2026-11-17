@@ -60,19 +60,42 @@
     return null;
   }
   window.LessonFlow = { nextFor: nextFor, ORDER: ORDER };
-  // Only Alex can call this (the button is shown only on Alex's menu). Clears the test student's saved progress.
-  // Resets a student's progress on this device, and ignores their older rows on the sheet from now on.
-  window.LessonFlow.resetTest = function (name) {
-    name = name || "Test";
-    var p = loadP();
-    delete p[name];
-    p.__resets = p.__resets || {};
-    p.__resets[name] = new Date().toISOString();
-    saveP(p);
+  // Only Alex can call this (from the reset panel on Alex's menu).
+  // Resets one exercise (page) or all ('*') for a student: on this device, and on the sheet as a RESET row,
+  // so the student's other devices clear it the next time they open a page.
+  function clearAnswers(page) {
+    var removed = false;
     try {
-      Object.keys(localStorage).forEach(function (k) { if (k.indexOf("fill-state-") === 0 || k.indexOf("form-state-") === 0) localStorage.removeItem(k); });
+      Object.keys(localStorage).forEach(function (k) {
+        if (k.indexOf("form-state-") === 0 || k.indexOf("fill-state-") === 0) {
+          var pg = k.replace(/^(form|fill)-state-/, "");
+          if (page === "*" || pg === page) { localStorage.removeItem(k); removed = true; }
+        }
+      });
+      if (window.LESSON_STATE_KEY && (page === "*" || page === pageKey()) && localStorage.getItem(window.LESSON_STATE_KEY) !== null) {
+        localStorage.removeItem(window.LESSON_STATE_KEY); removed = true;
+      }
     } catch (e) {}
+    return removed;
+  }
+  window.LessonFlow.resetPage = function (name, page) {
+    name = name || "Test"; page = page || "*";
+    var p = loadP();
+    if (page === "*") delete p[name];
+    else if (p[name] && p[name].pages) delete p[name].pages[page];
+    saveP(p);
+    clearAnswers(page);
+    if (SHEET_ON) {
+      try {
+        fetch(SHEET_URL, {
+          method: "POST", mode: "no-cors", headers: { "Content-Type": "text/plain" },
+          body: JSON.stringify({ at: new Date().toISOString(), student: name, page: page,
+            right: "", total: "", tries: 0, state: "RESET" })
+        });
+      } catch (e) {}
+    }
   };
+  window.LessonFlow.resetTest = function (name) { window.LessonFlow.resetPage(name || "Test", "*"); };
 
   // 2. Check-answer feedback.
   function toast(msg, cls) {
@@ -215,9 +238,25 @@
         p[who] = p[who] || {};
         p[who].pages = p[who].pages || {};
         var changed = false, latestAnswers = {};
-        var resetAt = (p.__resets || {})[who];
+        // The last reset time for each page ("*" = all pages), from RESET rows on the sheet.
+        var resets = {};
         rows.forEach(function (row) {
-          if (resetAt && row.at && new Date(row.at) < new Date(resetAt)) return; // older than the last reset
+          if (row.state !== "RESET") return;
+          var t = new Date(row.at).getTime();
+          if (!resets[row.page] || t > resets[row.page]) resets[row.page] = t;
+        });
+        var resetTime = function (page) { return Math.max(resets[page] || 0, resets["*"] || 0); };
+        // 1. Apply resets on this device: clear progress and saved answers for those pages.
+        Object.keys(resets).forEach(function (page) {
+          if (page === "*") {
+            if (Object.keys(p[who].pages).length) { p[who].pages = {}; changed = true; }
+          } else if (p[who].pages[page]) { delete p[who].pages[page]; changed = true; }
+          if (clearAnswers(page)) changed = true;
+        });
+        // 2. Progress rows after the last reset for their page.
+        rows.forEach(function (row) {
+          if (row.state === "RESET") return;
+          if (new Date(row.at).getTime() <= resetTime(row.page)) return;
           var local = p[who].pages[row.page];
           if (!local || !local.done) {
             p[who].pages[row.page] = { tries: row.tries || 1, done: true, right: row.right, total: row.total };
