@@ -229,6 +229,7 @@ render();
       if(e.lesson&&e.lesson!==lastL){h+='<div class="lesson">'+esc(e.lesson)+'</div>';lastL=e.lesson;}
       h+=(k>0&&!exPassed(ex[k-1].ei))?lockedCard(e,ei):exHTML(e,ei);
     });
+    try{ if(Object.keys(state).length) localStorage.setItem(SAVE_KEY,JSON.stringify(state)); }catch(e){} // save before redrawing, so the answers reach the sheet
     document.getElementById('view').innerHTML=h;
     score();
     buildUnits();
