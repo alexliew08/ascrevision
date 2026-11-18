@@ -207,7 +207,6 @@ body.py .chip,body.py .tile{padding-top:2px;padding-bottom:2px}
 <main class="wrap">
   <div class="sheetbar">
     <select id="sheetSel" data-nosave aria-label="选择课堂评估"></select>
-    <button class="btn sm" id="checkBtn">检查答案</button>
     <button class="btn sm alt" id="revealBtn">显示答案</button>
     <button class="btn sm alt" id="resetBtn">重做</button>
   </div>
@@ -268,7 +267,7 @@ function renderSel(it){
   const ctrl = i => {
     uid++;
     const b = it.b[i];
-    return `<span class="gr drop" id="c${uid}" data-kind="sel" data-a="${esc(b.a)}" data-v="" role="button" tabindex="0" aria-label="空格" style="display:inline-block;min-width:90px;min-height:34px;text-align:center;border:2px dashed var(--border-strong);border-radius:10px;padding:2px 10px;margin:0 4px;vertical-align:middle;font-weight:700;background:var(--panel)">＿＿</span>`;
+    return `<select class="sel gr" id="c${uid}" data-kind="sel" data-a="${esc(b.a)}">${opts(b.o)}</select>`;
   };
   return `<div class="qline">${fillParts(it.s, ctrl, n)}</div>`;
 }
@@ -360,7 +359,7 @@ function showSheet(key){
     <p class="inst">${esc(sh.title)}</p></section>`;
   sh.secs.forEach(sec => {
     if(sec.overlay && sec.overlay.skip) return;
-    h += sec.overlay ? `<section class="card pg">` : `<section class="card pg"><p class="inst" style="color:var(--ink);font-weight:700">${esc(sec.ins)}</p>${bankHTML(sec)}`;
+    h += sec.overlay ? `<section class="card pg">` : `<section class="card pg"><p class="inst" style="color:var(--ink);font-weight:700">${esc(sec.ins)}</p>`;
     const pk = book + '-' + sh.no + '-' + sh.secs.indexOf(sec);
     if(!sec.overlay && PICS[pk] && !sec.items.some((it, idx) => PICS[pk + '-' + idx])) h += `<img class="pic-strip" src="${PICS[pk]}" alt="题目图片" loading="lazy">`;
     if(sec.overlay){ h += renderOverlay(sec.overlay); }
@@ -370,7 +369,6 @@ function showSheet(key){
       else h += `<div class="item-block" style="margin:10px 0">${renderItem(it)}</div>`;
     });
     if(sec.note) h += `<div class="note">${esc(sec.note)}</div>`;
-    if(!sec.overlay) h += `<div class="sec-row"><button class="btn sm" type="button" onclick="checkSection(this)">✔ 检查本部分</button><button class="btn sm alt" type="button" onclick="clearSection(this)">↺ 清空</button><span class="sec-score"></span></div>`;
     h += '</section>';
   });
   $('view').innerHTML = h + PAGER;
@@ -425,11 +423,11 @@ document.addEventListener('click', ev => {
   if(d.dataset.v){ d.dataset.v = ''; d.textContent = '＿＿'; d.classList.remove('ok', 'bad'); saveState(); }
 });
 document.addEventListener('input', ev => { if(ev.target.dataset && ev.target.dataset.kind === 'in') saveState(); });
-document.addEventListener('change', ev => { const k = ev.target.dataset && ev.target.dataset.kind; if(k === 'in' || k === 'mc' || k === 'ms') saveState(); });
+document.addEventListener('change', ev => { const k = ev.target.dataset && ev.target.dataset.kind; if(k === 'sel' || k === 'in' || k === 'mc' || k === 'ms') saveState(); });
 function saveState(){
   try{
     const s = JSON.parse(localStorage.getItem(SAVE_KEY2) || '{}');
-    s[current] = [...$('view').querySelectorAll('.gr')].map(el => el.dataset.kind === 'sel' ? (el.dataset.v || '') : el.dataset.kind === 'in' ? el.value : null);
+    s[current] = [...$('view').querySelectorAll('.gr')].map(el => el.dataset.kind === 'sel' ? (el.tagName === 'SELECT' ? el.value : (el.dataset.v || '')) : el.dataset.kind === 'in' ? el.value : null);
     localStorage.setItem(SAVE_KEY2, JSON.stringify(s));
   }catch(e){}
 }
@@ -439,7 +437,7 @@ function restoreState(){
     const arr = s[current]; if(!arr) return;
     [...$('view').querySelectorAll('.gr')].forEach((el, i) => {
       const v = arr[i]; if(v == null) return;
-      if(el.dataset.kind === 'sel'){ el.dataset.v = v; el.textContent = v || '＿＿'; }
+      if(el.dataset.kind === 'sel'){ if(el.tagName === 'SELECT') el.value = v; else { el.dataset.v = v; el.textContent = v || '＿＿'; } }
       else if(el.dataset.kind === 'in') el.value = v;
     });
   }catch(e){}
@@ -484,14 +482,14 @@ function checkAll(root){
     }
   });
   if(!root) $('score').textContent = total ? `得分 ${right} / ${total}` : '本页没有可自动检查的题目';
-  markPages();
+  if(!root) markPages(); // the whole-page check (bottom button) jumps to the first wrong page
 }
 
 function revealAll(){
   document.querySelectorAll('#view .gr').forEach(el => {
     el.classList.remove('ok', 'bad');
     const kind = el.dataset.kind;
-    if(kind === 'sel'){ el.dataset.v = el.dataset.a; el.textContent = el.dataset.a; }
+    if(kind === 'sel'){ if(el.tagName === 'SELECT') el.value = el.dataset.a; else { el.dataset.v = el.dataset.a; el.textContent = el.dataset.a; } }
     else if(kind === 'in'){ el.value = el.dataset.a; }
     else if(kind === 'mc'){
       el.querySelectorAll('input').forEach(x => x.checked = (x.value === el.dataset.a));
@@ -508,7 +506,7 @@ function resetAll(){
   document.querySelectorAll('#view .gr').forEach(el => {
     el.classList.remove('ok', 'bad');
     el.querySelectorAll('.hint').forEach(x => x.remove());
-    if(el.dataset.kind === 'sel'){ el.dataset.v = ''; el.textContent = '＿＿'; }
+    if(el.dataset.kind === 'sel'){ if(el.tagName === 'SELECT') el.value = ''; else { el.dataset.v = ''; el.textContent = '＿＿'; } }
     else if(el.dataset.kind === 'in') el.value = '';
     if(el.dataset.kind === 'mc' || el.dataset.kind === 'ms') el.querySelectorAll('input').forEach(x => x.checked = false);
   });
