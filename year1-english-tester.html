@@ -389,7 +389,16 @@ document.addEventListener('drop', e => {
   place(sec, n, e.dataTransfer.getData('text/plain'));
 });
 
-$('checkBtn').addEventListener('click', () => { checked[cur] = true; render(); });
+// Check: mark the sheet, let lesson.js record the result on the sheet, then go to the next sheet.
+$('checkBtn').addEventListener('click', () => {
+  checked[cur] = true; render();
+  const was = cur;
+  if (was < ANSWERS.length - 1) {
+    setTimeout(() => {
+      if (cur === was) { cur++; selWord = null; render(); window.scrollTo(0, 0); }
+    }, 1500);
+  }
+});
 $('clearBtn').addEventListener('click', () => { state[cur] = {}; checked[cur] = false; selWord = null; render(); });
 
 render();
