@@ -233,6 +233,7 @@ render();
       if(e.lesson&&e.lesson!==lastL){h+='<div class="lesson">'+esc(e.lesson)+'</div>';lastL=e.lesson;}
       h+=(k>0&&!exPassed(ex[k-1].ei))?lockedCard(e,ei):exHTML(e,ei);
     });
+    saveAnswers(); // the unit view redraws the page, so save the answers here too (this is what sends them to the sheet)
     document.getElementById('view').innerHTML=h;
     score();
     buildUnits();
