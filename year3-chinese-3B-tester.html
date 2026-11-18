@@ -114,6 +114,8 @@ try {
   state = saved.s || {};
   checked = saved.c || {};
 } catch (e) { state = {}; checked = {}; }
+// Open at the first sheet not yet checked (so a returning student continues from there).
+for(let i = 0; i < ANSWERS.length; i++){ if(!checked[i]){ cur = i; break; } }
 
 const $ = id => document.getElementById(id);
 const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
