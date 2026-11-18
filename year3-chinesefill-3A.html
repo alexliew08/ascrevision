@@ -59,6 +59,7 @@ const BLANK=/[_＿]{2,}/;
 const CHOICE=/（([^（）]+?)[、，,]([^（）]+?)）/;
 let total=0,right=0,checked=0;
 const SAVE_KEY='fill-state-'+location.pathname.split('/').pop();
+window.LESSON_STATE_KEY=SAVE_KEY; // lets lesson.js send these answers to the sheet and restore them on any device
 let state={}; // key -> {picked:[], done:bool}
 try{state=JSON.parse(localStorage.getItem(SAVE_KEY)||'{}')||{};}catch(e){state={};}
 
