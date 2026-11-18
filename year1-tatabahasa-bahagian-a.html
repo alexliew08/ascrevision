@@ -1322,7 +1322,11 @@ PAGES.forEach(p => p.sections.forEach(s => {
   else if(s.shared){ if(PICS[base]) s.sharedImg = PICS[base][0]; } else put(PICS[base], s.items);
 }));
 
+const TB_KEY = "tb1-state-" + (new URLSearchParams(location.search).get("part") || "A") + "-v1";
+window.LESSON_STATE_KEY = TB_KEY; // lets lesson.js send these answers to the sheet and restore them on any device
 const ST = {};
+try { Object.assign(ST, JSON.parse(localStorage.getItem(TB_KEY) || "{}") || {}); } catch (e) {}
+function saveST(){ try { localStorage.setItem(TB_KEY, JSON.stringify(ST)); } catch (e) {} }
 let cur = 0;
 const $ = id => document.getElementById(id);
 const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
@@ -1535,6 +1539,7 @@ function secHTML(s){
   </section>`;
 }
 function refresh(s){
+  saveST();
   const old = document.querySelector(`section[data-uid="${s.uid}"]`);
   if(!old) return;
   const tmp = document.createElement("div");
@@ -1709,7 +1714,11 @@ function updateScore(){
   $("score").textContent = checked ? (ok === total ? "🌟 Semua betul! " + ok + "/" + total : "Betul: " + ok + " / " + total) : "Not checked";
 }
 $("checkAll").addEventListener("click", () => { pageSections().forEach(s => check(s)); updateScore(); });
-$("resetAll").addEventListener("click", () => { pageSections().forEach(s => delete ST[s.uid]); render(); });
+$("resetAll").addEventListener("click", () => { pageSections().forEach(s => delete ST[s.uid]); saveST(); render(); });
+// Open at the first page that still has a section not yet checked.
+for(let i = 0; i < PAGES.length; i++){
+  if(PAGES[i].sections.some(s => s.type !== "info" && s.type !== "free" && !(ST[s.uid] && ST[s.uid].checked))){ cur = i; break; }
+}
 if(PAGES.length) render();
 </script>
 <script src="lesson.js"></script>
