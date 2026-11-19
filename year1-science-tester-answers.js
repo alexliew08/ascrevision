@@ -6,8 +6,8 @@
    Pages 2, 15, 37 and 39 are picture-only (drawing, joining, colouring): no score. */
 const ANSWERS = [
   {no:2, sections:[
-    {id:'A', kind:'blank', bank:['眼睛','鼻子','舌头','耳朵','皮肤'], items:[
-      {n:1, pre:'听', ans:'耳朵'}, {n:2, pre:'看', ans:'眼睛'}, {n:3, pre:'摸', ans:'皮肤'}, {n:4, pre:'尝', ans:'舌头'}, {n:5, pre:'嗅', ans:'鼻子'}
+    {id:'A', kind:'blank', bank:['听','看','摸','尝','嗅'], items:[
+      {n:1, pre:'眼睛', ans:'看'}, {n:2, pre:'鼻子', ans:'嗅'}, {n:3, pre:'舌头', ans:'尝'}, {n:4, pre:'耳朵', ans:'听'}, {n:5, pre:'皮肤', ans:'摸'}
     ]}
   ]},
   {no:3, sections:[

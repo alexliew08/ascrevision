@@ -3,7 +3,7 @@
    uncertain:true = still worth checking against the printed key. */
 const ANSWERS = [
   {no:1, sections:[
-    {id:'A', kind:'blank', bank:['太','天','字','小','书','上'], items:[
+    {id:'A', kind:'blank', shuffle:true, bank:['太','天','字','小','书','上'], items:[
       {n:1, ans:'太'},{n:2, ans:'天'},{n:3, ans:'字'},{n:4, ans:'小'},{n:5, ans:'书'},{n:6, ans:'上'}]},
     {id:'B', kind:'choice', items:[{n:1, word:'', opts:['6画','7画'], ans:'6画'},{n:2, word:'', opts:['3画','4画'], ans:'4画'},{n:3, word:'', opts:['5画','6画'], ans:'6画'},{n:4, word:'', opts:['8画','9画'], ans:'8画'},{n:5, word:'', opts:['9画','10画'], ans:'10画'}]}
   ]},

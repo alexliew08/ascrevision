@@ -94,6 +94,17 @@ const PAGE_IMG = {"03":"data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAbgBuAAD/4QA6R
 </script>
 <script src="year1-chinese-1A-answers.js"></script>
 <script>
+// Drag-and-drop word banks marked shuffle:true are put in a random order once per page load.
+ANSWERS.forEach(s => s.sections.forEach(sec => {
+  if (sec.shuffle && sec.bank) {
+    for (let i = sec.bank.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [sec.bank[i], sec.bank[j]] = [sec.bank[j], sec.bank[i]];
+    }
+  }
+}));
+</script>
+<script>
 // Answers are saved per device and to the progress sheet through lesson.js.
 const KEY_STATE = 'cc1A-state-v1';
 window.LESSON_STATE_KEY = KEY_STATE;

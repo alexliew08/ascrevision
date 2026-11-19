@@ -3,11 +3,11 @@
    Items with opts show highlight boxes; items with bank or pre show drop boxes. */
 const ANSWERS = [
   {no:1, sections:[
-    {id:'A', kind:'blank', bank:['名','马','荷','运','蛙','翘'], items:[
-      {n:1, tpl:'{0}叶', slots:['荷'], ans:'荷'},{n:2, tpl:'{0}膀', slots:['翘'], ans:'翘'},
+    {id:'A', kind:'blank', shuffle:true, bank:['名','马','荷','运','蛙','翅'], items:[
+      {n:1, tpl:'{0}叶', slots:['荷'], ans:'荷'},{n:2, tpl:'{0}膀', slots:['翅'], ans:'翅'},
       {n:3, tpl:'海{0}', slots:['马'], ans:'马'},{n:4, tpl:'青{0}', slots:['蛙'], ans:'蛙'},
       {n:5, tpl:'第一{0}', slots:['名'], ans:'名'},{n:6, tpl:'{0}动会', slots:['运'], ans:'运'}]},
-    {id:'B', kind:'blank', bank:['海','忙','想','捉','膀','没'], items:[
+    {id:'B', kind:'blank', shuffle:true, bank:['海','忙','想','捉','膀','没'], items:[
       {n:1, pre:'氵 + 每 =', ans:'海'},{n:2, pre:'忄 + 亡 =', ans:'忙'},{n:3, pre:'相 + 心 =', ans:'想'},
       {n:4, pre:'扌 + 足 =', ans:'捉'},{n:5, pre:'月 + 旁 =', ans:'膀'},{n:6, pre:'氵 + 没 =', ans:'没'}]},
     {id:'C', kind:'tick', items:[
