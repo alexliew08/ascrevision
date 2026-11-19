@@ -16,7 +16,7 @@
     "year1-isi-tempat-kosong.html", "year1-english-tester.html", "year1-science-tester.html",
     "year1-chinese.html", "year1-chinese-2.html",
     "year2-tatabahasa.html?part=A", "year2-tatabahasa.html?part=B", "year2-pemahaman.html",
-    "year2-english-sentence.html", "year2-science.html", "year2-chinese.html", "year2-chinese-2.html",
+    "year2-english-sentence.html", "year2-science.html", "year2-chinese-2A-tester.html", "year2-chinese-2B-tester.html",
     "year3-chinese-2.html", "year3-exercise-3A.html", "year3-composition-fill.html",
     "year3-chinesefill-3A.html", "year3-chinesefill-3B.html", "year3-bm.html", "year3-english-writing.html",
     "year4-chinesefill-4A.html", "year4-chinesefill-4B.html", "year4-chinesefill-4C.html", "year4-sentence-reorder.html"
