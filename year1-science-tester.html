@@ -101,6 +101,17 @@ const CHIP_IMG = {"地下洞穴":"data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAYAB
 </script>
 <script src="year1-science-tester-answers.js"></script>
 <script>
+// Every drag-and-drop word bank (blank and grid sections) is put in a random order once per page load.
+ANSWERS.forEach(s => s.sections.forEach(sec => {
+  if ((sec.kind === 'blank' || sec.kind === 'grid' || sec.shuffle) && sec.bank) {
+    for (let i = sec.bank.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [sec.bank[i], sec.bank[j]] = [sec.bank[j], sec.bank[i]];
+    }
+  }
+}));
+</script>
+<script>
 // Answers are saved per device and to the progress sheet through lesson.js.
 const KEY_STATE = 'sci1-tester-v1';
 window.LESSON_STATE_KEY = KEY_STATE;

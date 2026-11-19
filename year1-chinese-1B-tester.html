@@ -94,9 +94,9 @@ const PAGE_IMG = {"03":"data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAbgBuAAD/4QA6R
 </script>
 <script src="year1-chinese-1B-answers.js"></script>
 <script>
-// Drag-and-drop word banks marked shuffle:true are put in a random order once per page load.
+// Every drag-and-drop word bank (blank and grid sections) is put in a random order once per page load.
 ANSWERS.forEach(s => s.sections.forEach(sec => {
-  if (sec.shuffle && sec.bank) {
+  if ((sec.kind === 'blank' || sec.kind === 'grid' || sec.shuffle) && sec.bank) {
     for (let i = sec.bank.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [sec.bank[i], sec.bank[j]] = [sec.bank[j], sec.bank[i]];
