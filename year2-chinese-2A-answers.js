@@ -3,7 +3,19 @@
    uncertain:true = still worth checking against the printed key. */
 const ANSWERS = [
   {no:1, sections:[
-    {id:'A', kind:'text', uncertain:true, items:[{n:1, ans:'字典'},{n:2, ans:'画画'},{n:3, ans:'台灯'},{n:4, ans:'椅子'},{n:5, ans:'扑满'},{n:6, ans:'书桌'}]},
+    {id:'A', kind:'blank', items:[], uncertain:true,
+      layout:{rows:4, cols:6, cells:[
+        {r:0,c:0,t:'椅'},{r:0,c:1,t:'笔'},{r:0,c:2,t:'字'},{r:0,c:3,t:'典'},{r:0,c:4,t:'桌'},{r:0,c:5,t:'做'},
+        {r:1,c:0,t:'工'},{r:1,c:1,t:'子'},{r:1,c:2,t:'读'},{r:1,c:3,t:'筒'},{r:1,c:4,t:'扑'},{r:1,c:5,t:'满'},
+        {r:2,c:0,t:'画'},{r:2,c:1,t:'手'},{r:2,c:2,t:'书'},{r:2,c:3,t:'盒'},{r:2,c:4,t:'画'},{r:2,c:5,t:'邮'},
+        {r:3,c:0,t:'画'},{r:3,c:1,t:'橱'},{r:3,c:2,t:'桌'},{r:3,c:3,t:'台'},{r:3,c:4,t:'灯'},{r:3,c:5,t:'书'}]},
+      picks:[
+        {n:1, ans:'字典', cells:[[0,2],[0,3]]},
+        {n:2, ans:'画画', cells:[[2,0],[3,0]]},
+        {n:3, ans:'台灯', cells:[[3,3],[3,4]]},
+        {n:4, ans:'椅子', cells:[[0,0],[1,1]]},
+        {n:5, ans:'扑满', cells:[[1,4],[1,5]]},
+        {n:6, ans:'书桌', cells:[[2,2],[3,2]]}]},
     {id:'B', kind:'text', items:[{n:1, ans:'台'},{n:2, ans:'典'},{n:3, ans:'筒'},{n:4, ans:'满'},{n:5, ans:'集'}]},
     {id:'C', kind:'blank', shuffle:true, bank:['笔筒','集邮','书橱'], items:[
       {n:1, pre:'妹妹的爱好是', ans:'集邮'},{n:2, pre:'爸爸在书房里整理', ans:'书橱'},{n:3, pre:'妈妈给我买了一个', ans:'笔筒'}]}
@@ -72,8 +84,8 @@ const ANSWERS = [
   ]},
   {no:7, sections:[
     {id:'A', kind:'blank', shuffle:true, bank:['野兔','袋鼠','池塘','锄头','肥料'], uncertain:true, items:[
-      {n:1, pre:'图一 →', ans:'池塘'},{n:2, pre:'图二 →', ans:'袋鼠'},{n:3, pre:'图三 →', ans:'野兔'},
-      {n:4, pre:'图四 →', ans:'锄头'},{n:5, pre:'图五 →', ans:'肥料'}]},
+      {n:1, ans:'池塘'},{n:2, ans:'袋鼠'},{n:3, ans:'野兔'},
+      {n:4, ans:'锄头'},{n:5, ans:'肥料'}]},
     {id:'B', kind:'choice', items:[
       {n:1, word:'傍（  ）', opts:['天','晚','上','气'], ans:'晚'},
       {n:2, word:'吸（  ）', opts:['收','瓜','方','望'], ans:'收'},
@@ -212,6 +224,7 @@ const ANSWERS = [
 const PAGE_LABELS = {
   '07': [{t:'图一', x:9.7, y:49.0},{t:'图二', x:9.7, y:62.0},{t:'图三', x:9.7, y:75.3},
          {t:'图四', x:70.5, y:48.7},{t:'图五', x:70.5, y:62.0},{t:'图六', x:70.5, y:75.3}],
-  '13': [{t:'图一', x:16.1, y:20.4},{t:'图二', x:61.0, y:20.4},{t:'图三', x:16.1, y:28.6},
-         {t:'图四', x:61.0, y:28.6},{t:'图五', x:16.1, y:36.9},{t:'图六', x:61.0, y:36.9}]
+  '15': [{t:'图一', x:36.5, y:21.0, fs:'clamp(9px,1.5vw,12px)'},{t:'图二', x:10.5, y:37.8, fs:'clamp(9px,1.5vw,12px)'},
+         {t:'图三', x:65.2, y:57.3, fs:'clamp(9px,1.5vw,12px)'},{t:'图四', x:28.0, y:63.2, fs:'clamp(9px,1.5vw,12px)'},
+         {t:'图五', x:10.0, y:63.2, fs:'clamp(9px,1.5vw,12px)'}]
 };
