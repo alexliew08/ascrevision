@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Pemahaman UASA 4 · Bahasa Melayu</title>
+<style>
+:root{color-scheme:light;--green:#2f5e4a;--green2:#3f7a60;--line:#d6e3da;--cream:#fffdf8;--ink:#23302a;--muted:#6b7a72;--ok:#2e7d46;--okbg:#dcf0df;--bad:#b03a2e;--badbg:#f8ddd9;--warn:#8a6200;--warnbg:#fff3d6}
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0}
+body{background:#f4f8f5;color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI","Microsoft YaHei",sans-serif;font-size:16px;line-height:1.6;min-height:100vh;overflow-x:hidden}
+header.top{position:sticky;top:0;z-index:5;background:var(--cream);border-bottom:2px solid var(--line)}
+.top-in{max-width:1280px;margin:0 auto;padding:8px 12px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between}
+.left-h{display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+.top h1{margin:0;font-size:19px;line-height:1.25;color:var(--green)}
+.hublink{display:inline-flex;align-items:center;min-height:40px;font-size:15px;font-weight:700;color:var(--green2);text-decoration:none}
+.pill{font-size:14px;font-weight:700;background:#ece9e2;color:var(--muted);border-radius:999px;padding:4px 12px;white-space:nowrap}
+.pill.partial{background:var(--warnbg);color:var(--warn)}
+.pill.done{background:var(--okbg);color:var(--ok)}
+.right-h{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.btn{font:inherit;font-size:15px;font-weight:700;min-height:40px;padding:6px 14px;border:2px solid var(--green);border-radius:999px;background:var(--green);color:#fff;box-shadow:0 3px 0 #1f4636;cursor:pointer}
+.btn.alt{background:var(--cream);color:var(--green);box-shadow:0 3px 0 var(--line)}
+.btn:disabled{opacity:.4;cursor:default}
+.btn.check{background:var(--green);color:#fff;min-height:40px}
+.tabs{display:flex;flex-wrap:wrap;gap:6px;max-width:1280px;margin:8px auto 0;padding:0 12px}
+.tab{font:inherit;font-size:14px;font-weight:700;min-height:38px;padding:4px 12px;border:2px solid var(--line);border-radius:999px;background:var(--cream);color:var(--green);cursor:pointer;white-space:nowrap}
+.tab.on{background:var(--green);color:#fff;border-color:var(--green)}
+.split{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:12px;max-width:1280px;margin:10px auto 16px;padding:0 12px;height:calc(100vh - 190px);min-height:460px}
+.pane{background:var(--cream);border:2px solid var(--line);border-radius:14px;overflow:auto;padding:16px 18px;min-width:0}
+.paper-head{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:13px;color:var(--muted);border-bottom:1px solid var(--line);padding-bottom:8px;margin-bottom:12px}
+.paper-title{font-size:19px;font-weight:800;color:var(--green);margin:4px 0 6px}
+.pic{font-size:13px;color:var(--muted);font-style:italic;margin:0 0 8px}
+.pline{display:flex;gap:10px;font-size:17px;line-height:2;margin:4px 0}
+.pline .pn{flex:0 0 auto;min-width:2.2em;font-weight:800;color:#c46a2d}
+.passage{font-size:17px;line-height:2;background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px 14px}
+.bl{display:inline-block;min-width:3.4em;text-align:center;font-weight:700;color:var(--green);border-bottom:2px solid var(--green2);padding:0 4px}
+.grp{border:1.5px solid var(--line);border-radius:12px;padding:10px 12px;margin-bottom:14px;background:#fff}
+.grp-h{font-weight:800;color:var(--green);margin-bottom:4px}
+.arow{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;padding:6px 0;border-bottom:1px dashed var(--line)}
+.arow:last-of-type{border-bottom:none}
+.arow .an{min-width:2.4em;font-weight:800;color:#c46a2d}
+.ans{font:inherit;font-size:16px;min-height:42px;min-width:200px;max-width:100%;padding:6px 10px;border:2px solid var(--line);border-radius:10px;background:#fff;color:var(--ink);cursor:pointer}
+.ans:focus{outline:3px solid #dfeee5;border-color:var(--green2)}
+.ans.ok{border-color:var(--ok);background:var(--okbg)}
+.ans.bad{border-color:var(--bad);background:var(--badbg)}
+.amsg{font-size:14px;font-weight:700;min-height:20px}
+.amsg.ok{color:var(--ok)}
+.amsg.bad{color:var(--bad)}
+.blockcheck{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:10px}
+.blockmsg{font-size:15px;font-weight:700;color:var(--green)}
+.note{font-size:14px;color:var(--muted);margin:0 0 8px}
+@media (max-width:820px){
+  .split{grid-template-columns:1fr;height:auto;min-height:0}
+  .pane{overflow:visible}
+  .ans{min-width:0;width:100%}
+  .arow .an{min-width:2em}
+}
+.tin{font:inherit;font-size:16px;min-height:40px;width:8.5em;min-width:0;max-width:100%;padding:6px 10px;border:none;border-radius:10px;background:#eef5f0;color:var(--ink);outline:none;box-shadow:none}
+.tin:focus{background:#dfeee5}
+.tin.ok{background:var(--okbg)}
+.tin.bad{background:var(--badbg)}
+.slot.ok{border-color:var(--ok);background:var(--okbg)}
+.slot.bad{border-color:var(--bad);background:var(--badbg)}
+.bank{display:flex;flex-wrap:wrap;gap:8px;align-items:center;background:#f2f7f3;border:1px dashed var(--line);border-radius:12px;padding:8px 10px;margin-bottom:12px}
+.bank-h{font-size:14px;font-weight:700;color:var(--muted);width:100%}
+.tile{font-size:16px;font-weight:700;min-height:40px;display:inline-flex;align-items:center;padding:4px 14px;border:2px solid var(--green2);border-radius:10px;background:#fff;color:var(--green);cursor:grab;user-select:none;-webkit-user-select:none;touch-action:manipulation}
+.tile.sel{background:var(--green);color:#fff}
+.slot{display:inline-flex;align-items:center;justify-content:center;min-width:110px;min-height:40px;padding:4px 10px;border:2px dashed #b3c7b9;border-radius:10px;background:#fff;color:var(--muted);font-weight:700;cursor:pointer;user-select:none;-webkit-user-select:none}
+.slot.filled{border-style:solid;border-color:var(--green2);color:var(--ink)}
+.qimg{display:block;height:auto;max-height:120px;max-width:170px;flex:0 0 auto;border-radius:8px;border:1px solid var(--line);background:#fff}
+.nm{cursor:pointer;border-bottom:2px dotted var(--green2);border-radius:4px;padding:0 2px}
+.nm:hover{background:#e3f0e8}
+.nm.sel{background:var(--green);color:#fff;border-bottom-color:var(--green)}
+.lab{font-size:13px;color:var(--muted);flex:0 0 auto;margin-right:4px}
+.tab.done{background:#2e7d46;color:#fff;border-color:#2e7d46}
+.tab.on{outline:3px solid #23302a;outline-offset:1px}
+.arow .tin{flex:1 1 240px;width:auto;min-width:200px;font-size:18px;min-height:50px;padding:8px 12px}
+.tin.essay{width:100%;min-height:240px;font-size:18px;line-height:1.7;resize:vertical}
+.pane img.qimg.panel{width:100% !important;height:auto !important;max-width:100% !important;max-height:none !important;display:block}
+.tileimg{height:70px;width:auto;max-width:150px;display:block}
+.slotimg{height:90px;width:auto;max-width:200px;display:block}
+.qt{flex:1 1 100%;font-size:17px;line-height:1.6;color:var(--ink)}
+.sec-t{font-weight:800;color:var(--green);font-size:17px;margin:0 0 8px}
+</style>
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <div class="left-h">
+    <a class="hublink" href="index.html?sub=bm4">← Kembali ke menu</a>
+    <h1 id="title">Pemahaman UASA 4</h1>
+    <span class="pill" id="status">Belum disemak</span>
+  </div>
+  <div class="right-h">
+    <button class="btn alt" id="prevBtn" type="button">← Sebelumnya</button>
+    <button class="btn alt" id="nextBtn" type="button">Seterusnya →</button>
+    <button class="btn alt" id="resetBtn" type="button">↺ Ulang semula</button>
+  </div>
+</div></header>
+<nav class="tabs" id="tabs" aria-label="Parts"></nav>
+<main class="split">
+  <section class="pane" id="paper" aria-label="Worksheet"></section>
+  <section class="pane" id="answers" aria-label="Answers"></section>
+</main>
+<script>
+'use strict';
+/* Each question: {n, t (text, "____" = blank), o:[4 options], a: index of correct option (0=A)}
+   Passage groups: {title, pic, passage (text with [n] markers), qs:[...]} */
+/* Split every section into tabs of 10 questions. */
+function splitSection(s){
+  const out = [];
+  let i = 0;
+  while (i < s.qs.length) {
+    const take = (s.qs.length - i) > 12 ? 10 : (s.qs.length - i);
+    out.push({ title: s.title, kind: s.kind, bank: s.bank, bankImgs: s.bankImgs, pic: s.pic, panel: s.panel, fullpage: s.fullpage, panels: s.panels, gallery: s.gallery, passage: s.passage, qs: s.qs.slice(i, i + take) });
+    i += take;
+  }
+  return out;
+}
+const LET = ['A','B','C','D'];
+const NEW_SECTIONS = [
+{ title: 'Teks Tunggal 1 · Program Bijak Bahasa', kind: 'choose', fullpage: true, panels: ['year4-comp-img/p03.jpg'], qs: [
+ {n:1,qt:'Siapakah yang melancarkan Program Bijak Bahasa tersebut?',o:['Murid-murid Sekolah Kebangsaan Taman Permai','Panitia Bahasa Sekolah Kebangsaan Taman Permai','Panitia Bahasa Melayu Sekolah Kebangsaan Taman Permai','Persatuan Ibu Bapa dan Guru Sekolah Kebangsaan Taman Permai'],a:2},
+ {n:2,qt:'Pilih pernyataan yang benar tentang petikan.',o:['Program Bijak Bahasa dilaksanakan semasa mata pelajaran Bahasa Melayu','Matlamat Program Bijak Bahasa untuk melahirkan murid yang bijak pandai','Program Bijak Bahasa merangkumi bahasa Melayu dan bahasa Inggeris','Program Bijak Bahasa diadakan supaya murid dapat menguasai kemahiran asas bahasa Melayu'],a:3},
+ {n:3,qt:'Berikut merupakan objektif Program Bijak Bahasa berdasarkan petikan, kecuali:',o:['meningkatkan kebolehan mengarang cerita dan pidato dalam bahasa Melayu','dapat berkomunikasi dalam bahasa Melayu dengan berhemah, fasih dan lancar','dapat membudayakan penggunaan bahasa Melayu yang gramatis sesama kawan','murid dapat menguasai kemahiran pengajaran dan pembelajaran dengan baik'],a:0}
+]},
+{ title: 'Teks Tunggal 2 · Kedai kraf tangan', kind: 'choose', fullpage: true, panels: ['year4-comp-img/p04.jpg'], qs: [
+ {n:4,qt:'Apakah yang sedang dilakukan oleh Puan Nurin ketika Aliya datang ke kedai kraf tangannya?',o:['Menjual bakul','Menganyam bakul','Mengambil daun mengkuang','Mengajarkan cara menganyam bakul'],a:1},
+ {n:5,qt:'Pilih pernyataan yang benar tentang petikan.',o:['Nurin akan menjadi mahir jika selalu menganyam','Ibu Aliya mengusahakan sebuah kedai kraf tangan','Aliya tidak berminat untuk mempelajari cara menganyam bakul','Langkah-langkah untuk menganyam bakul agak sukar bagi Aliya'],a:0},
+ {n:6,qt:'Berikut ialah cara untuk membuat anyaman bakul, kecuali:',o:['buang duri pada daun mengkuang','daun mengkuang diwarnakan sebelum dianyam','daun mengkuang direbus selama beberapa minit','potong daun mengikut lebar yang dikehendaki'],a:2}
+]},
+{ title: 'Teks Tunggal 3 · Aktiviti fizikal', kind: 'choose', fullpage: true, panels: ['year4-comp-img/p05.jpg'], qs: [
+ {n:7,qt:'Tujuan Zahari melakukan aktiviti fizikal adalah untuk:',o:['mengisi masa lapangnya','mengurangkan masalah stres','mengubati penyakit kencing manisnya','menyihatkan dan mencergaskan badannya'],a:3},
+ {n:8,qt:'Pilih pernyataan yang benar.',o:['Ibu Zahari sering mengikut Zahari berjoging','Kita akan mengalami stres jika melakukan aktiviti fizikal','Zahari dan abangnya amat mementingkan kesihatan diri','Zahari sering melakukan aktiviti fizikal pada waktu tengah hari'],a:2},
+ {n:9,qt:'Berikut ialah kebaikan melakukan aktiviti fizikal berdasarkan petikan, kecuali:',o:['mengurangkan stres','mencergaskan badan','menghilangkan keletihan','mengelakkan penyakit kencing manis'],a:2}
+]},
+{ title: 'Teks Tunggal 4 · Gemilang Budaya', kind: 'choose', fullpage: true, panels: ['year4-comp-img/p06.jpg'], qs: [
+ {n:10,qt:'Apakah aktiviti yang disertai oleh Jamil dan rakan-rakannya?',o:['Permainan gasing','Persembahan angklung','Persembahan gamelan','Pertandingan galah panjang'],a:3},
+ {n:11,qt:'Pilih pernyataan yang benar.',o:['Gasing ialah sejenis alat muzik tradisional','Aktiviti yang dijalankan semasa program itu agak membosankan','Program Gemilang Budaya dianjurkan pada bulan Julai yang lalu','Penduduk Taman Warisan mempunyai semangat cinta akan seni budaya'],a:3},
+ {n:12,qt:'Berikut ialah permainan tradisional yang dipertandingkan dalam program itu, kecuali:',o:['guli','gasing','gamelan','galah panjang'],a:2}
+]},
+{ title: 'Teks Tunggal 5 · Lelaki berbaju biru', kind: 'choose', fullpage: true, panels: ['year4-comp-img/p07.jpg'], qs: [
+ {n:13,qt:'Siapakah lelaki berbaju biru?',o:['pejalan kaki','pemandu kereta','penunggang basikal','penunggang motosikal'],a:3},
+ {n:14,qt:'Pernyataan berikut ialah kesalahan lelaki berbaju biru kecuali:',o:['bermain telefon bimbit','tidak mematuhi lampu isyarat','melebihi had kelajuan di jalan raya','tidak memakai topi keledar semasa menunggang motosikal'],a:2},
+ {n:15,qt:'Perkataan berwaspada bermaksud:',o:['bahaya','berhati-hati','berkejar-kejaran','melihat ke kiri dan ke kanan'],a:1}
+]},
+{ title: 'Teks Tunggal 6 · Berhemat', kind: 'choose', fullpage: true, panels: ['year4-comp-img/p09.jpg'], qs: [
+ {n:16,qt:'Perkataan berhemat dalam petikan bermaksud:',o:['boros','berjimat','berkira-kira','bersopan santun'],a:1},
+ {n:17,qt:'Mengapakah kita perlu menyimpan sebahagian wang perbelanjaan harian?',o:['Untuk diberi kepada orang lain','Untuk membantu orang yang susah','Untuk dicatat di dalam buku simpanan','Untuk membeli perkara-perkara yang penting'],a:3},
+ {n:18,qt:'Pilih pernyataan yang benar tentang petikan.',o:['Kita boleh berbelanja dengan mewah','Buku catatan ialah buku menyimpan wang','Makanan dan minuman merupakan barang-barang keperluan','Kita haruslah menghabiskan wang peruntukan perbelanjaan harian'],a:2},
+ {n:19,qt:'Nilai yang sesuai berdasarkan petikan di atas ialah:',o:['berjimat cermat','berdikari','pemurah','jujur'],a:0}
+]},
+{ title: 'Teks Tunggal 7 · Jalur Gemilang', kind: 'choose', fullpage: true, panels: ['year4-comp-img/p11.jpg'], qs: [
+ {n:20,qt:'Mengapakah kawasan sekolah dihiasi dengan bendera Jalur Gemilang?',o:['Untuk menyambut ulang tahun kemerdekaan negara','Untuk menyambut kemerdekaan negara','Untuk menceriakan kawasan sekolah','Untuk menyertai pertandingan'],a:0},
+ {n:21,qt:'Berikut merupakan aktiviti yang dilakukan oleh Adrian dan rakan-rakannya, kecuali:',o:['mengikat bendera','melukis gambar bendera','mengangkat pasu-pasu bunga','menaikkan bendera Jalur Gemilang'],a:1},
+ {n:22,qt:'Pilih pernyataan yang tidak benar.',o:['Bendera Jalur Gemilang digunakan untuk menghias kawasan sekolah','Kawasan sekolah menjadi ceria dengan bendera Jalur Gemilang','Bendera Jalur Gemilang diikat di antara bangunan sekolah','Cikgu Lee membeli pasu-pasu bunga yang cantik'],a:3}
+]},
+{ title: 'Teks Pelbagai 1 · Obesiti (Bahan 1 & 2)', kind: 'choose', fullpage: true, panels: ['year4-comp-img/p12.jpg'], qs: [
+ {n:23,qt:'Kanak-kanak yang mengalami obesiti lebih mudah terdedah kepada:',o:['pelbagai penyakit berjangkit','pelbagai penyakit berbahaya','makanan yang tidak berkhasiat','masalah lemak berlebihan di dalam badan'],a:1},
+ {n:24,qt:'Penjodoh bilangan yang sesuai dengan perkataan bergaris (kanak-kanak) di atas ialah:',o:['angkatan','kawan','orang','baris'],a:2},
+ {n:25,qt:'Perkataan menangani dalam Bahan 1 dan Bahan 2 boleh digantikan dengan perkataan:',o:['mengatasi','mengharungi','menghapuskan','mengendalikan'],a:0},
+ {n:26,qt:'Pilih pernyataan yang benar tentang Bahan 1 dan Bahan 2:',o:['Masalah obesiti dipandang ringan oleh ibu bapa','Kanak-kanak digalakkan makan sayur-sayuran dan buah-buahan','Kekerapan makan di restoran terkenal akan menyebabkan obesiti','Ibu bapa perlu melatih anak-anak untuk menyediakan makanan yang seimbang'],a:1}
+]},
+{ title: 'Teks Pelbagai 2 · Kempen Cegah Kebakaran', kind: 'choose', fullpage: true, panels: ['year4-comp-img/p14.jpg'], qs: [
+ {n:27,qt:'Penjodoh bilangan yang sesuai bagi perkataan bergaris (rumah) di atas ialah:',o:['ekor','buah','batang','keping'],a:1},
+ {n:28,qt:'Kempen Cegah Kebakaran dijalankan pada:',o:['10 Mac 202_','10 Ogos 202_','10 Julai 202_','10 Jun 202_'],a:2},
+ {n:29,qt:'Pilih pernyataan yang tidak benar tentang kempen tersebut.',o:['Kempen dianjurkan oleh Persatuan Penduduk Taman Harmoni dengan kerjasama pihak Bomba dan Penyelamat','Penduduk Taman Harmoni perlu membayar RM20 ringgit untuk mengambil bahagian dalam kempen tersebut','Aktiviti yang dijalankan termasuklah ceramah kebakaran, tip keselamatan di rumah dan demonstrasi penggunaan alat pemadam api','Tujuan kempen diadakan adalah untuk memberikan kesedaran kepada masyarakat, khususnya Penduduk Taman Harmoni tentang keselamatan sekiranya berlaku kebakaran'],a:1}
+]},
+{ title: 'Teks Pelbagai 3 · Pencemaran Sungai (Bahan 1 & 2)', kind: 'choose', fullpage: true, panels: ['year4-comp-img/p16.jpg'], qs: [
+ {n:30,qt:'Dokumentari yang ditonton oleh Zairul adalah tentang:',o:['penjagaan sungai','pengurusan sungai','pencemaran sungai','pembersihan sungai'],a:2},
+ {n:31,qt:'Penjodoh bilangan yang sesuai bagi perkataan bergaris (sungai) di atas ialah:',o:['biji','buah','bentuk','batang'],a:3},
+ {n:32,qt:'Perkataan aktiviti dalam Bahan 1 dan Bahan 2 boleh digantikan dengan:',o:['acara','amalan','kegiatan','perbuatan'],a:2},
+ {n:33,qt:'Pilih pernyataan yang benar tentang Bahan 1 dan Bahan 2:',o:['Pencemaran sungai tidak membahayakan kesihatan manusia','Zairul menonton dokumentari itu beberapa minggu yang lepas','Pencemaran sungai perlu dielakkan supaya air sungai tidak kotor','Dokumentari itu membawa mesej yang negatif kepada penonton'],a:2}
+]},
+{ title: 'Teks Pelbagai 4 · Kebaikan Perpustakaan Awam (Bahan 1 & 2)', kind: 'choose', fullpage: true, panels: ['year4-comp-img/p18.jpg'], qs: [
+ {n:34,qt:'Bagaimanakah perpustakaan awam dapat menjimatkan wang kita?',o:['Perpustakaan awam dibuka kepada orang awam setiap hari','Keadaan di dalam perpustakaan awam sangat selesa dan senyap','Bahan bacaan di perpustakaan awam disediakan secara percuma','Buku-buku yang disediakan di perpustakaan awam amat berkualiti'],a:2},
+ {n:35,qt:'Penjodoh bilangan yang sesuai dengan perkataan bergaris (surat khabar) di atas ialah:',o:['buah','keping','gelung','naskah'],a:3},
+ {n:36,qt:'Perkataan menelaah dalam Bahan 1 dan Bahan 2 boleh digantikan dengan:',o:['membaca','memeriksa','menyiapkan','mengulang kaji'],a:3},
+ {n:37,qt:'Pilih pernyataan yang benar tentang Bahan 1 dan Bahan 2:',o:['Puan Nasriah mengambil berat soal pelajaran anak-anaknya','Anak-anak Puan Nasriah berat hati untuk mengunjungi karnival itu','Puan Nasriah jarang membawa anak-anaknya ke perpustakaan awam','Pengunjung yang membaca buku di perpustakaan awam dikenakan bayaran'],a:0}
+]},
+{ title: 'Teks Pelbagai 5 · Bengkel Usahawan Makanan (Bahan 1 & 2)', kind: 'choose', fullpage: true, panels: ['year4-comp-img/p20.jpg'], qs: [
+ {n:38,qt:'Penjodoh bilangan yang sesuai dengan perkataan bergaris (mangga) di atas ialah:',o:['biji','ulas','buah','keping'],a:0},
+ {n:39,qt:'Perkataan kuih dalam Bahan 1 dan Bahan 2 boleh digantikan dengan perkataan:',o:['jus','roti','biskut','penganan'],a:3},
+ {n:40,qt:'Pilih pernyataan yang benar tentang Bahan 1 dan Bahan 2:',o:['Gerai Kelab Usahawan Muda menjual takoyaki dan air minuman perisa buah','Peserta Bengkel Usahawan Muda dapat mempelajari cara membuat kuih kapit','Puan Elly membantu Cikgu Lisa menyediakan air minuman untuk dijual','Bengkel Usahawan Muda diadakan pada setiap hari Sabtu'],a:1}
+]},
+{ title: 'Teks Pelbagai 6 · Hari Kanak-kanak Sedunia (Bahan 1 & 2)', kind: 'choose', fullpage: true, panels: ['year4-comp-img/p22.jpg'], qs: [
+ {n:41,qt:'Peserta Pertandingan Memperagakan Pakaian Tradisional perlu:',o:['mengambil borang penyertaan di Dataran Arena','memperagakan pakaian masyarakat pelbagai kaum','membayar yuran penyertaan kepada guru penyelaras','menghantar borang penyertaan sebelum atau pada 17 April 202_'],a:3},
+ {n:42,qt:'Penjodoh bilangan yang sesuai dengan perkataan bergaris (Peserta) di atas ialah:',o:['gerombolan','angkatan','kawan','orang'],a:3},
+ {n:43,qt:'Perkataan memperagakan dalam Bahan 1 dan Bahan 2 boleh digantikan dengan perkataan:',o:['menyerikan','menghiaskan','menunjukkan','mencantikkan'],a:2},
+ {n:44,qt:'Pilih pernyataan yang benar tentang Bahan 1 dan Bahan 2 di atas:',o:['Pertandingan tersebut bersempena sambutan Hari Kanak-kanak Sedunia','Peserta akan bertanding di Dewan Arena Sekolah Kebangsaan Seri Indah','Semua peserta akan menerima hadiah wang tunai dan pakaian tradisional','Murid tahap dua sahaja yang boleh menyertai pertandingan tersebut'],a:0}
+]},
+{ title: 'Teks Pelbagai 7 · Jata Negara & Rukun Negara (Bahan 1 & 2)', kind: 'choose', fullpage: true, panels: ['year4-comp-img/p24.jpg'], qs: [
+ {n:45,qt:'Jata Negara hanya digunakan pada Panji-panji Diraja dan:',o:['dokumen rasmi pegawai','dokumen rasmi Menteri Besar','dokumen rasmi Kerajaan Persekutuan','dokumen rasmi Yang Dipertua Negeri'],a:2},
+ {n:46,qt:'Penjodoh bilangan yang sesuai dengan perkataan bergaris (negeri) di atas ialah:',o:['buah','keping','pasang','rangkap'],a:0},
+ {n:47,qt:'Perkataan kesetiaan dalam Bahan 1 dan Bahan 2 boleh digantikan dengan perkataan:',o:['keadaan','kejituan','ketaatan','kehadiran'],a:2},
+ {n:48,qt:'Pilih pernyataan yang benar tentang Bahan 1 dan Bahan 2 di atas:',o:['Rukun Negara ada enam prinsip','Ada tiga ekor harimau pada Jata Negara','Rakyat perlu bersopan terhadap perlembagaan','Setiap rakyat Malaysia hendaklah setia kepada raja dan negara'],a:3}
+]},
+{ title: 'Teks Pelbagai 8 · Keracunan Makanan (Bahan 1 & 2)', kind: 'choose', fullpage: true, panels: ['year4-comp-img/p26.jpg'], qs: [
+ {n:49,qt:'Apakah makanan sama yang dimakan oleh Hairul dan Adib?',o:['Donat','Karipap','Seri muka','Nasi lemak'],a:3},
+ {n:50,qt:'Penjodoh bilangan yang sesuai dengan perkataan bergaris (kuih) di atas ialah:',o:['buku','potong','kawan','gugus'],a:1},
+ {n:51,qt:'Perkataan bermaya dalam Bahan 1 dan Bahan 2 boleh digantikan dengan perkataan:',o:['berdaya','berhasil','bergerak','bernyawa'],a:0},
+ {n:52,qt:'Pilih pernyataan yang benar tentang Bahan 1 dan Bahan 2:',o:['Adib makan nasi lemak dan kuih seri muka sahaja di warung itu','Hairul dan Adib makan di warung itu sebelum pergi ke sekolah','Hairul dan Adib tidak mengambil berat terhadap kebersihan makanan','Hairul dan Adib dimasukkan ke hospital kerana keracunan makanan'],a:2}
+]},
+{ title: 'Bahagian B · 1 Kelab Sains (Minggu Kesihatan)', kind: 'text', fullpage: true, panels: ['year4-comp-img/p28.jpg'], qs: [
+ {n:53,qt:'S1 · Minggu Kesihatan diadakan di ______. (1 markah)',kw:['pei hwa'],ans:[['(kw)']]},
+ {n:54,qt:'S2 · Apakah harapan Kelab Sains terhadap program tersebut? (2 markah)',essay:true,kwg:[['kepentingan','penting'],['kebersihan']],ans:[['(kw)']]},
+ {n:55,qt:'S3 · Gariskan satu kata kerja yang terdapat dalam ayat: "Mereka memasang gegantung tentang kesihatan diri." (1 markah)',kw:['memasang'],ans:[['(kw)']]},
+ {n:56,qt:'S4 · Pilih dan tandakan ayat yang sama maksud dengan: "Seorang murid sedang menyusun beberapa naskhah majalah dan buku kesihatan di rak." (1 markah)',o:['Sedang menyusun beberapa naskhah majalah dan buku kesihatan di rak seorang murid.','Beberapa naskah majalah dan buku kesihatan sedang menyusun seorang murid di rak.'],a:0}
+]},
+{ title: 'Bahagian B · 2 Pertandingan Nyanyian Lagu Kanak-kanak', kind: 'text', fullpage: true, panels: ['year4-comp-img/p29.jpg'], qs: [
+ {n:57,qt:'S1 · Siapakah yang menganjurkan Pertandingan Nyanyian Lagu Kanak-kanak? (1 markah)',kw:['kelab bahasa melayu'],ans:[['(kw)']]},
+ {n:58,qt:'S2 · Apakah tujuan pertandingan itu diadakan? (2 markah)',essay:true,kwg:[['membolehkan'],['mencungkil']],ans:[['(kw)']]},
+ {n:59,qt:'S3 · Gariskan satu kata sendi nama: "Pertandingan ini berlangsung di Dewan SJKC Man Hwa." (1 markah)',kw:['di'],ans:[['(kw)']]},
+ {n:60,qt:'S4 · Pilih dan tandakan ayat yang sama maksud. (1 markah)',o:['Para peserta menyanyikan lagu kanak-kanak berbahasa Melayu.','Berbahasa Melayu lagu kanak-kanak para peserta menyanyikan.'],a:0}
+]},
+{ title: 'Bahagian B · 3 Kampung Bukit Naga', kind: 'text', fullpage: true, panels: ['year4-comp-img/p31.jpg'], qs: [
+ {n:61,qt:'S1 · Bumbung balai raya itu rosak akibat ______. (1 markah)',kw:['pokok'],ans:[['(kw)']]},
+ {n:62,qt:'S2 · Mengapakah aktiviti gotong-royong itu diadakan? (2 markah)',essay:true,kwg:[['memotong'],['membaiki']],ans:[['(kw)']]},
+ {n:63,qt:'S3 · Gariskan satu kata nama khas: "Penduduk Kampung Bukit Naga yang terdiri daripada pelbagai kaum telah bekerjasama untuk menjayakan aktiviti gotong-royong itu." (1 markah)',kw:['bukit naga'],ans:[['(kw)']]},
+ {n:64,qt:'S4 · Pilih dan tandakan ayat yang sama maksud. (1 markah)',o:['Penduduk kampung bersatu hati kerana kerja-kerja pembaikan bumbung balai raya itu cepat dan mudah.','Kerja-kerja pembaikan bumbung balai raya itu menjadi lebih cepat dan mudah kerana penduduk kampung bersatu hati.'],a:1}
+]},
+{ title: 'Bahagian B · 4 Encik Kamarul (Persatuan Penduduk Taman Bahtera)', kind: 'text', fullpage: true, panels: ['year4-comp-img/p32.jpg'], qs: [
+ {n:65,qt:'S1 · Pengerusi Persatuan Penduduk Taman Bahtera ialah ______. (1 markah)',kw:['kamarul'],ans:[['(kw)']]},
+ {n:66,qt:'S2 · Mengapakah Encik Kamarul berasa kecewa? (2 markah)',essay:true,kwg:[['tidak menjaga'],['kebersihan']],ans:[['(kw)']]},
+ {n:67,qt:'S3 · Gariskan satu kata bilangan: "Beliau mencadangkan semua penduduk di kawasan perumahan itu perlu melibatkan diri dalam setiap aktiviti kebersihan yang dijalankan." (1 markah)',kw:['semua'],ans:[['(kw)']]},
+ {n:68,qt:'S4 · Pilih dan tandakan ayat yang sama maksud. (1 markah)',o:['Encik Kamarul menyatakan bahawa Encik Shukor perlu bertindak tegas untuk menangani masalah tersebut.','Encik Kamarul memberitahu Encik Shukor bahawa mereka perlu bertindak tegas untuk menangani masalah tersebut.'],a:1}
+]},
+{ title: 'Bahagian B · 5 Bunga Pahar & Bunga Malai', kind: 'text', fullpage: true, panels: ['year4-comp-img/p33.jpg'], qs: [
+ {n:69,qt:'S1 · Bunga pahar diletakkan di kiri dan kanan ______. (1 markah)',kw:['pelamin'],ans:[['(kw)']]},
+ {n:70,qt:'S2 · Mengapakah bunga malai dikalungkan pada leher tetamu? (2 markah)',essay:true,kwg:[['penghormatan']],ans:[['(kw)']]},
+ {n:71,qt:'S3 · Gariskan satu kata nama khas: "Bunga pahar diletakkan di kiri dan kanan pelamin dalam majlis perkahwinan masyarakat Melayu." (1 markah)',kw:['melayu'],ans:[['(kw)']]},
+ {n:72,qt:'S4 · Diberi: "Bunga malai amat sinonim dalam kalangan masyarakat India." Pilih ayat yang sama maksud. (1 markah)',o:['Masyarakat India amat sinonim dalam kalangan bunga malai.','Amat sinonim dalam kalangan masyarakat India bunga malai.'],a:1}
+]},
+{ title: 'Bahagian B · 6 Joon Xian Berbasikal', kind: 'text', fullpage: true, panels: ['year4-comp-img/p34.jpg'], qs: [
+ {n:73,qt:'S1 · Joon Xian dan abangnya hendak menunggang ______. (1 markah)',kw:['basikal'],ans:[['(kw)']]},
+ {n:74,qt:'S2 · Mengapakah kita perlu memakai topi keselamatan semasa menunggang basikal? (2 markah)',essay:true,kwg:[['topi'],['kepala']],ans:[['(kw)']]},
+ {n:75,qt:'S3 · Gariskan satu kata adjektif: "Joon Xian dan abangnya berbasikal di sebuah taman rekreasi tidak jauh dari rumah mereka." (1 markah)',kw:['jauh'],ans:[['(kw)']]},
+ {n:76,qt:'S4 · Diberi: "Mereka berbasikal sambil menikmati pemandangan indah di taman." Pilih ayat yang sama maksud. (1 markah)',o:['Di taman mereka berbasikal sambil menikmati pemandangan indah.','Pemandangan di taman indah semasa mereka berbasikal.'],a:0}
+]},
+{ title: 'Bahagian B · 7 Ucapan Semangat Patriotik', kind: 'text', fullpage: true, panels: ['year4-comp-img/p35.jpg'], qs: [
+ {n:77,qt:'S1 · Maksud semangat patriotik ialah ______. (1 markah)',kw:['cinta akan negara'],ans:[['(kw)']]},
+ {n:78,qt:'S2 · Bagaimanakah ibu bapa mendidik anak-anak tentang sejarah kemerdekaan negara? (2 markah)',essay:true,kwg:[['membawa','melawat'],['bersejarah']],ans:[['(kw)']]},
+ {n:79,qt:'S3 · Gariskan satu kata sendi nama: "Sebagai warganegara Malaysia, kita hendaklah mempunyai sikap menyayangi dan mencintai negara kita sejak kecil lagi." (1 markah)',kw:['sejak'],ans:[['(kw)']]},
+ {n:80,qt:'S4 · Diberi: "Ibu bapa boleh membawa anak-anak mereka melawat ke tempat-tempat bersejarah seperti muzium." Pilih ayat yang sama maksud. (1 markah)',o:['Anak-anak boleh dibawa oleh ibu bapa melawat ke tempat-tempat bersejarah seperti muzium.','Melawat ke tempat-tempat bersejarah seperti muzium boleh ibu bapa dibawa anak-anak mereka.'],a:0}
+]},
+{ title: 'Bahagian B · 8 Puisi "Sungai itu kian tercemar"', kind: 'text', fullpage: true, panels: ['year4-comp-img/p37.jpg'], qs: [
+ {n:81,qt:'S1 · Apakah maksud rangkap pertama sajak? (1 markah)',kwg:[['tercemar'],['sampah','sisa toksik','bahan buangan']],ans:[['(kw)']]},
+ {n:82,qt:'S2 · Mengapakah ikan-ikan bergelimpangan di permukaan sungai? (2 markah)',essay:true,kwg:[['tercemar'],['sisa toksik']],ans:[['(kw)']]},
+ {n:83,qt:'S3 · Penjodoh bilangan bagi sungai ialah ______. (1 markah)',kw:['batang'],ans:[['(kw)']]},
+ {n:84,qt:'S4 · Pilih pernyataan yang betul berdasarkan puisi. (1 markah)',o:['Air sungai akan jernih dan deras jika ada bahan-bahan buangan dibuang ke dalam sungai.','Pemeliharaan sungai perlu dilakukan dengan segera.'],a:1}
+]},
+{ title: 'Bahagian B · 9 Kilang Batik Azra', kind: 'text', fullpage: true, panels: ['year4-comp-img/p38.jpg'], qs: [
+ {n:85,qt:'S1 · Jawatan Encik Mahyuddin bin Rahim di Kilang Batik Azra ialah ______. (1 markah)',kw:['pengurus'],ans:[['(kw)']]},
+ {n:86,qt:'S2 · Apakah yang dapat dilihat di bahagian pengeluaran kain batik di kilang tersebut? (2 markah)',essay:true,kwg:[['teknik','kaedah'],['kain batik']],ans:[['(kw)']]},
+ {n:87,qt:'S3 · Gariskan satu kata hubung: "Mereka berkesempatan membeli baju batik, kain sarung batik dan cenderamata berasaskan batik yang turut dijual di situ." (1 markah)',kwg:[['dan','yang']],ans:[['(kw)']]},
+ {n:88,qt:'S4 · Diberi: "Mereka juga diberikan peluang melukis corak batik dengan cara mencanting." Pilih ayat yang sama maksud. (1 markah)',o:['Peluang yang diberikan oleh mereka adalah dengan mencanting batik menggunakan lukisan.','Peluang diberikan kepada mereka untuk melukis corak batik dengan cara mencanting.'],a:1}
+]},
+{ title: 'Bahagian B · 10 Kuku', kind: 'text', fullpage: true, panels: ['year4-comp-img/p39.jpg'], qs: [
+ {n:89,qt:'S1 · Kuku yang panjang akan menyebabkan kita mudah dijangkiti ______. (1 markah)',kw:['penyakit kuku'],ans:[['(kw)']]},
+ {n:90,qt:'S2 · Mengapakah kita perlu memotong kuku dengan menggunakan pengetip kuku yang sesuai dan tajam? (2 markah)',essay:true,kwg:[['pengetip'],['terkoyak','mengelakkan']],ans:[['(kw)']]},
+ {n:91,qt:'S3 · Gariskan satu kata kerja aktif tak transitif: "Akhir sekali, kita tidak boleh menggigit kuku kerana kita akan terdedah kepada jangkitan kulit." (1 markah)',kw:['terdedah'],ans:[['(kw)']]},
+ {n:92,qt:'S4 · Diberi: "Semasa kita menggigit kuku, bakteria daripada air liur akan melekat pada kuku kita." Pilih ayat yang sama maksud. (1 markah)',o:['Bakteria daripada air liur akan melekat pada kuku kita semasa kita menggigit kuku.','Bakteria pada kuku kita akan melekat pada air liur semasa kita menggigit kuku.'],a:0}
+]}
+];
+
+const SECTIONS = NEW_SECTIONS.flatMap(splitSection);
+const ALL = [];
+SECTIONS.forEach(s => s.qs.forEach(q => ALL.push(q)));
+const TABS = SECTIONS.map(s => 'Q' + s.qs[0].n + '–' + s.qs[s.qs.length - 1].n);
+const vals = {};         // n -> array: choose items [index], text/drag items [string per blank]
+const checkedQ = {};     // n -> true once its group has been checked
+const blockResult = {};  // first question n of a group -> result text
+let active = 0;
+let selTile = null;      // word tile selected by tap (drag-free placement)
+
+/* Progress is kept in this browser so answers and Check results survive a reload. */
+const PROG_KEY = 'uasa-comp-bm4-progress-v1';
+function saveProgress(){
+  try { localStorage.setItem(PROG_KEY, JSON.stringify({ vals, checkedQ, blockResult })); } catch (e) {}
+}
+function loadProgress(){
+  try {
+    const raw = localStorage.getItem(PROG_KEY);
+    if (!raw) return;
+    const d = JSON.parse(raw);
+    Object.keys(d.vals || {}).forEach(k => { vals[k] = d.vals[k].map(x => x === null ? undefined : x); });
+    Object.assign(checkedQ, d.checkedQ || {});
+    Object.assign(blockResult, d.blockResult || {});
+  } catch (e) {}
+}
+function clearProgress(){
+  try { localStorage.removeItem(PROG_KEY); } catch (e) {}
+}
+
+/* Each Check is also sent to the shared progress sheet (same sheet as the other year pages). */
+const SHEET_URL = 'https://script.google.com/macros/s/AKfycbwfpSs2biONcgBbbWnG5WW3QKec1ShM9c5LUCrb7TtI5jeKlGUm0sHvH5odTN1l8oSV/exec';
+const checkTries = {};
+function sendCheck(first, right, total){
+  let who = '';
+  try { who = (JSON.parse(sessionStorage.getItem('asc_student') || 'null') || {}).name || ''; } catch (e) {}
+  if (!who) return; // no student logged in on the hub: nothing to record
+  checkTries[first] = (checkTries[first] || 0) + 1;
+  const state = {};
+  SECTIONS[active].qs.forEach(q => { state[q.n] = vals[q.n] || []; });
+  try {
+    fetch(SHEET_URL, {
+      method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain' },
+      body: JSON.stringify({ at: new Date().toISOString(), student: who, page: 'year4-comprehension.html?part=' + TABS[active],
+        right: right, total: total, tries: checkTries[first], state: JSON.stringify(state) })
+    });
+  } catch (e) {}
+}
+
+function isChoose(q){ return Array.isArray(q.o); }
+function esc(s){ return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+function fmtText(s){ return esc(s).replace(/_{3,}/g, '<span class="bl">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>'); }
+function fmtPassage(s){ return esc(s).replace(/\[(\d+)\]/g, (m, n) => '<span class="bl">(' + n + ')</span>'); }
+function groups(qs){ return [qs]; } /* each tab is one group with one Check button */
+function norm(s){ return String(s).trim().toLowerCase().replace(/[’`]/g, "'").replace(/[.!?]+$/, '').replace(/\s+/g, ' '); }
+function accepted(list, v){ return v !== undefined && v !== '' && list.some(a => norm(a) === norm(v)); }
+function isQ(q){
+  const v = vals[q.n] || [];
+  if (isChoose(q)) return v[0] === q.a;
+  if (q.kw) return q.kw.every(k => v[0] !== undefined && norm(v[0]).includes(norm(k)));
+  if (q.kwg) return q.kwg.every(g => v[0] !== undefined && g.some(k => norm(v[0]).includes(norm(k))));
+  return q.ans.every((acc, k) => accepted(acc, v[k]));
+}
+function hasAnswer(q){ return (vals[q.n] || []).some(x => x !== undefined && x !== ''); }
+
+function fmtClick(s){ return esc(s).replace(/\{([^}]+)\}/g, (m, w) => '<span class="nm" data-w="' + w + '">' + w + '</span>'); }
+function clickNames(){ return SECTIONS[active].qs.map(q => (vals[q.n] || [])[0]).filter(x => x !== undefined && x !== ''); }
+function syncHighlight(){ const picked = clickNames(); document.querySelectorAll('.nm').forEach(el => el.classList.toggle('sel', picked.includes(el.dataset.w))); }
+function toggleName(w){
+  const sec = SECTIONS[active];
+  let names = clickNames();
+  if (names.includes(w)) names = names.filter(x => x !== w);
+  else if (names.length < sec.qs.length) names = names.concat([w]);
+  sec.qs.forEach((q, k) => { vals[q.n] = [names[k]]; });
+  renderAnswers();
+  syncHighlight();
+  renderHeader();
+}
+document.getElementById('paper').addEventListener('click', e => {
+  const t = e.target.closest ? e.target.closest('.nm') : null;
+  if (t && SECTIONS[active].kind === 'click') toggleName(t.dataset.w);
+});
+
+function renderAll(){ renderTabs(); renderPaper(); renderAnswers(); renderHeader(); }
+
+function renderTabs(){
+  const nav = document.getElementById('tabs');
+  nav.innerHTML = TABS.map((t, i) => '<button type="button" class="tab' + (i === active ? ' on' : '') + (sectionDone(SECTIONS[i]) ? ' done' : '') + '" data-i="' + i + '">' + esc(t) + (sectionDone(SECTIONS[i]) ? ' ✓' : '') + '</button>').join('');
+  nav.querySelectorAll('.tab').forEach(b => b.addEventListener('click', () => goTo(+b.dataset.i)));
+}
+
+function goTo(i){
+  if (i < 0 || i >= SECTIONS.length) return;
+  active = i;
+  selTile = null;
+  renderAll();
+  document.getElementById('answers').scrollTop = 0;
+  document.getElementById('paper').scrollTop = 0;
+}
+
+function renderPaper(){
+  const sec = SECTIONS[active];
+  if (sec.fullpage) { document.getElementById('paper').innerHTML = (sec.panels || [sec.panel]).map(p => '<img class="qimg panel" src="' + p + '" alt="Worksheet">').join(''); syncHighlight(); return; }
+  let html = '<div class="paper-head"><span>Nama: ____________________</span><span>Kelas: ________</span><span>Tarikh: ________</span></div>';
+  html += '<div class="paper-title">' + esc(sec.title) + '</div>';
+  if (sec.panel) html += '<img class="qimg panel" src="' + sec.panel + '" alt="">';
+  if (sec.gallery) html += '<div class="gal">' + sec.gallery.map((s, i) => '<figure><img class="qimg" src="' + s + '" alt=""><figcaption>Gambar ' + (i + 1) + '</figcaption></figure>').join('') + '</div>';
+  if (sec.passage) {
+    html += '<div class="passage">' + (sec.kind === 'click' ? fmtClick(sec.passage) : fmtPassage(sec.passage)) + '</div>';
+    sec.qs.forEach(q => { if (q.img || q.t) html += '<div class="pline">' + (q.img ? '<img class="qimg" src="' + q.img + '" alt="">' : '') + (q.t ? '<span>' + fmtText(q.t) + '</span>' : '') + '</div>'; });
+  } else {
+    sec.qs.forEach(q => { if (q.t) html += '<div class="pline">' + (q.img ? '<img class="qimg" src="' + q.img + '" alt="">' : '') + '<span>' + fmtText(q.t) + '</span></div>'; });
+  }
+  document.getElementById('paper').innerHTML = html;
+  syncHighlight();
+}
+
+function renderAnswers(){
+  const sec = SECTIONS[active];
+  let html = '<p class="note">Jawab di ruangan kanan, kemudian tekan ✔ Semak untuk setiap kumpulan.</p>';
+  html += '<div class="sec-t">' + esc(sec.title || '') + '</div>';
+  if (sec.bank) {
+    html += '<div class="bank"><span class="bank-h">Senarai perkataan · seret ke tempat kosong, atau tekan perkataan kemudian tempat kosong</span>';
+    html += sec.bank.map(w => '<span class="tile" draggable="true" data-word="' + esc(w) + '">' + (sec.bankImgs ? '<img class="tileimg" src="' + sec.bankImgs[w] + '" alt="">' : esc(w)) + '</span>').join('');
+    html += '</div>';
+  }
+  groups(sec.qs).forEach(group => {
+    const first = group[0].n, last = group[group.length - 1].n;
+    html += '<div class="grp"><div class="grp-h">Soalan ' + first + '–' + last + ' · Q' + first + '–' + last + '</div>';
+    group.forEach(q => {
+      html += '<div class="arow"><span class="an">' + q.n + '.</span>' + (q.qt ? '<span class="qt">' + esc(q.qt) + '</span>' : '') + (q.lab ? '<span class="lab">' + esc(q.lab) + '</span>' : '');
+      if (isChoose(q)) {
+        html += '<select class="ans" id="s' + q.n + '" data-n="' + q.n + '" aria-label="Question ' + q.n + '">';
+        html += '<option value="">— Pilih —</option>';
+        q.o.forEach((opt, i) => { html += '<option value="' + i + '">' + LET[i] + '. ' + esc(opt) + '</option>'; });
+        html += '</select>';
+      } else {
+        q.ans.forEach((acc, k) => {
+          const id = 'i' + q.n + '_' + k;
+          if (sec.bank || sec.kind === 'click') html += '<span class="slot" id="' + id + '" data-n="' + q.n + '" data-k="' + k + '" tabindex="0"></span>';
+          else if (q.essay) html += '<textarea class="tin essay" id="' + id + '" data-n="' + q.n + '" data-k="' + k + '"></textarea>'; else html += '<input type="text" class="tin" id="' + id + '" data-n="' + q.n + '" data-k="' + k + '" autocomplete="off" aria-label="Question ' + q.n + ' blank ' + (k + 1) + '">';
+        });
+      }
+      html += '<span class="amsg" id="m' + q.n + '"></span></div>';
+    });
+    html += '<div class="blockcheck"><button type="button" class="btn check" data-first="' + first + '">✔ Semak</button><span class="blockmsg" id="bm' + first + '">' + esc(blockResult[first] || '') + '</span></div></div>';
+  });
+  const box = document.getElementById('answers');
+  box.innerHTML = html;
+  box.querySelectorAll('select.ans').forEach(sel => sel.addEventListener('change', () => setVal(+sel.dataset.n, 0, sel.value === '' ? undefined : +sel.value)));
+  box.querySelectorAll('input.tin, textarea.tin').forEach(inp => inp.addEventListener('input', () => setVal(+inp.dataset.n, +inp.dataset.k, inp.value)));
+  box.querySelectorAll('.slot').forEach(sl => {
+    sl.addEventListener('click', () => {
+      const n = +sl.dataset.n, k = +sl.dataset.k;
+      if (sec.kind === 'click') { const w = (vals[n] || [])[k]; if (w) toggleName(w); return; }
+      if (selTile) { setVal(n, k, selTile); selTile = null; renderBankSel(); }
+      else if (vals[n] && vals[n][k]) setVal(n, k, '');
+    });
+    sl.addEventListener('dragover', e => e.preventDefault());
+    sl.addEventListener('drop', e => { e.preventDefault(); setVal(+sl.dataset.n, +sl.dataset.k, e.dataTransfer.getData('text/plain')); });
+  });
+  box.querySelectorAll('.tile').forEach(tl => {
+    tl.addEventListener('click', () => { selTile = selTile === tl.dataset.word ? null : tl.dataset.word; renderBankSel(); });
+    tl.addEventListener('dragstart', e => { e.dataTransfer.setData('text/plain', tl.dataset.word); selTile = null; renderBankSel(); });
+  });
+  box.querySelectorAll('.btn.check').forEach(btn => btn.addEventListener('click', () => checkGroup(+btn.dataset.first)));
+  sec.qs.forEach(q => paintQuestion(q.n));
+}
+
+function renderBankSel(){
+  document.querySelectorAll('.tile').forEach(tl => tl.classList.toggle('sel', tl.dataset.word === selTile));
+}
+
+function setVal(n, k, val){
+  vals[n] = vals[n] || [];
+  vals[n][k] = (val === '' || val === undefined) ? (isChoose(ALL.find(x => x.n === n)) ? undefined : '') : val;
+  paintQuestion(n);
+  renderHeader();
+}
+
+function checkGroup(first){
+  const group = groups(SECTIONS[active].qs).find(g => g[0].n === first);
+  group.forEach(q => { checkedQ[q.n] = true; paintQuestion(q.n); });
+  const right = group.filter(isQ).length;
+  blockResult[first] = 'Soalan ' + first + '–' + group[group.length - 1].n + ': ' + right + ' / ' + group.length + ' betul';
+  document.getElementById('bm' + first).textContent = blockResult[first];
+  sendCheck(first, right, group.length);
+  renderHeader();
+}
+
+/* Never shows the correct answer: only marks what was entered as right or wrong. */
+function paintQuestion(n){
+  const q = ALL.find(x => x.n === n);
+  const v = vals[n] || [];
+  const msg = document.getElementById('m' + n);
+  if (!msg) return;
+  if (isChoose(q)) {
+    const sel = document.getElementById('s' + n);
+    if (sel) {
+      sel.value = v[0] === undefined ? '' : String(v[0]);
+      sel.classList.remove('ok','bad');
+      if (checkedQ[n]) sel.classList.add(v[0] === q.a ? 'ok' : 'bad');
+    }
+  } else {
+    q.ans.forEach((acc, k) => {
+      const el = document.getElementById('i' + n + '_' + k);
+      if (!el) return;
+      const val = v[k] === undefined ? '' : v[k];
+      if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') { if (el.value !== val) el.value = val; }
+      else { const bi = SECTIONS[active].bankImgs || {}; el.innerHTML = val ? (bi[val] ? '<img class="slotimg" src="' + bi[val] + '" alt="">' : esc(val)) : ''; el.classList.toggle('filled', !!val); }
+      el.classList.remove('ok','bad');
+      if (checkedQ[n]) el.classList.add(q.kwg ? (isQ(q) ? 'ok' : 'bad') : (((q.kw ? (val !== '' && q.kw.every(k => norm(val).includes(norm(k)))) : accepted(acc, val))) ? 'ok' : 'bad'));
+    });
+  }
+  msg.className = 'amsg';
+  msg.textContent = '';
+  if (checkedQ[n]) {
+    if (isQ(q)) { msg.classList.add('ok'); msg.textContent = '✔ Betul'; }
+    else if (!hasAnswer(q)) { msg.classList.add('bad'); msg.textContent = 'Belum dijawab'; }
+    else { msg.classList.add('bad'); msg.textContent = '✘ Salah'; }
+  }
+}
+
+function sectionDone(sec){ return sec.qs.every(q => isQ(q)); }
+function renderHeader(){
+  renderTabs();
+  saveProgress();
+  const qs = SECTIONS[active].qs;
+  const checked = qs.filter(q => checkedQ[q.n]);
+  const right = checked.filter(isQ).length;
+  const pill = document.getElementById('status');
+  pill.className = 'pill';
+  if (checked.length === 0) pill.textContent = 'Belum disemak';
+  else if (checked.length < qs.length) { pill.classList.add('partial'); pill.textContent = 'Sedang disemak ' + checked.length + ' / ' + qs.length + ' · betul ' + right; }
+  else { pill.classList.add('done'); pill.textContent = 'Disemak · betul ' + right + ' / ' + qs.length; }
+  document.getElementById('title').textContent = 'Bahagian ' + (active + 1) + ' / ' + SECTIONS.length + ' · Q' + qs[0].n + '–' + qs[qs.length - 1].n;
+  document.getElementById('prevBtn').disabled = active === 0;
+  document.getElementById('nextBtn').disabled = active === SECTIONS.length - 1;
+}
+
+document.getElementById('prevBtn').addEventListener('click', () => goTo(active - 1));
+document.getElementById('nextBtn').addEventListener('click', () => goTo(active + 1));
+document.getElementById('resetBtn').addEventListener('click', () => {
+  Object.keys(vals).forEach(k => delete vals[k]);
+  Object.keys(checkedQ).forEach(k => delete checkedQ[k]);
+  Object.keys(blockResult).forEach(k => delete blockResult[k]);
+  clearProgress();
+  selTile = null;
+  renderAll();
+  window.scrollTo({top: 0, behavior: 'smooth'});
+});
+
+loadProgress();
+renderAll();
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

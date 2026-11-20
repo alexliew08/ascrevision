@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tatabahasa Tahun 4 · Bahasa Melayu</title>
+<style>
+:root{color-scheme:light;--green:#2f5e4a;--green2:#3f7a60;--line:#d6e3da;--cream:#fffdf8;--ink:#23302a;--muted:#6b7a72;--ok:#2e7d46;--okbg:#dcf0df;--bad:#b03a2e;--badbg:#f8ddd9;--warn:#8a6200;--warnbg:#fff3d6}
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0}
+body{background:#f4f8f5;color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI","Microsoft YaHei",sans-serif;font-size:16px;line-height:1.6;min-height:100vh;overflow-x:hidden}
+header.top{position:sticky;top:0;z-index:5;background:var(--cream);border-bottom:2px solid var(--line)}
+.top-in{max-width:1280px;margin:0 auto;padding:8px 12px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between}
+.left-h{display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+.top h1{margin:0;font-size:19px;line-height:1.25;color:var(--green)}
+.hublink{display:inline-flex;align-items:center;min-height:40px;font-size:15px;font-weight:700;color:var(--green2);text-decoration:none}
+.pill{font-size:14px;font-weight:700;background:#ece9e2;color:var(--muted);border-radius:999px;padding:4px 12px;white-space:nowrap}
+.pill.partial{background:var(--warnbg);color:var(--warn)}
+.pill.done{background:var(--okbg);color:var(--ok)}
+.right-h{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.btn{font:inherit;font-size:15px;font-weight:700;min-height:40px;padding:6px 14px;border:2px solid var(--green);border-radius:999px;background:var(--green);color:#fff;box-shadow:0 3px 0 #1f4636;cursor:pointer}
+.btn.alt{background:var(--cream);color:var(--green);box-shadow:0 3px 0 var(--line)}
+.btn:disabled{opacity:.4;cursor:default}
+.btn.check{background:var(--green);color:#fff;min-height:40px}
+.tabs{display:flex;flex-wrap:wrap;gap:6px;max-width:1280px;margin:8px auto 0;padding:0 12px}
+.tab{font:inherit;font-size:14px;font-weight:700;min-height:38px;padding:4px 12px;border:2px solid var(--line);border-radius:999px;background:var(--cream);color:var(--green);cursor:pointer;white-space:nowrap}
+.tab.on{background:var(--green);color:#fff;border-color:var(--green)}
+.split{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:12px;max-width:1280px;margin:10px auto 16px;padding:0 12px;height:calc(100vh - 190px);min-height:460px}
+.pane{background:var(--cream);border:2px solid var(--line);border-radius:14px;overflow:auto;padding:16px 18px;min-width:0}
+.paper-head{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:13px;color:var(--muted);border-bottom:1px solid var(--line);padding-bottom:8px;margin-bottom:12px}
+.paper-title{font-size:19px;font-weight:800;color:var(--green);margin:4px 0 6px}
+.pic{font-size:13px;color:var(--muted);font-style:italic;margin:0 0 8px}
+.pline{display:flex;gap:10px;font-size:17px;line-height:2;margin:4px 0}
+.pline .pn{flex:0 0 auto;min-width:2.2em;font-weight:800;color:#c46a2d}
+.passage{font-size:17px;line-height:2;background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px 14px}
+.bl{display:inline-block;min-width:3.4em;text-align:center;font-weight:700;color:var(--green);border-bottom:2px solid var(--green2);padding:0 4px}
+.grp{border:1.5px solid var(--line);border-radius:12px;padding:10px 12px;margin-bottom:14px;background:#fff}
+.grp-h{font-weight:800;color:var(--green);margin-bottom:4px}
+.arow{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;padding:6px 0;border-bottom:1px dashed var(--line)}
+.arow:last-of-type{border-bottom:none}
+.arow .an{min-width:2.4em;font-weight:800;color:#c46a2d}
+.ans{font:inherit;font-size:16px;min-height:42px;min-width:200px;max-width:100%;padding:6px 10px;border:2px solid var(--line);border-radius:10px;background:#fff;color:var(--ink);cursor:pointer}
+.ans:focus{outline:3px solid #dfeee5;border-color:var(--green2)}
+.ans.ok{border-color:var(--ok);background:var(--okbg)}
+.ans.bad{border-color:var(--bad);background:var(--badbg)}
+.amsg{font-size:14px;font-weight:700;min-height:20px}
+.amsg.ok{color:var(--ok)}
+.amsg.bad{color:var(--bad)}
+.blockcheck{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:10px}
+.blockmsg{font-size:15px;font-weight:700;color:var(--green)}
+.note{font-size:14px;color:var(--muted);margin:0 0 8px}
+@media (max-width:820px){
+ .split{grid-template-columns:1fr;height:auto;min-height:0}
+ .pane{overflow:visible}
+ .ans{min-width:0;width:100%}
+ .arow .an{min-width:2em}
+}
+.tin{font:inherit;font-size:16px;min-height:40px;width:8.5em;min-width:0;max-width:100%;padding:6px 10px;border:none;border-radius:10px;background:#eef5f0;color:var(--ink);outline:none;box-shadow:none}
+.tin:focus{background:#dfeee5}
+.tin.ok{background:var(--okbg)}
+.tin.bad{background:var(--badbg)}
+.slot.ok{border-color:var(--ok);background:var(--okbg)}
+.slot.bad{border-color:var(--bad);background:var(--badbg)}
+.bank{display:flex;flex-wrap:wrap;gap:8px;align-items:center;background:#f2f7f3;border:1px dashed var(--line);border-radius:12px;padding:8px 10px;margin-bottom:12px}
+.bank-h{font-size:14px;font-weight:700;color:var(--muted);width:100%}
+.tile{font-size:16px;font-weight:700;min-height:40px;display:inline-flex;align-items:center;padding:4px 14px;border:2px solid var(--green2);border-radius:10px;background:#fff;color:var(--green);cursor:grab;user-select:none;-webkit-user-select:none;touch-action:manipulation}
+.tile.sel{background:var(--green);color:#fff}
+.slot{display:inline-flex;align-items:center;justify-content:center;min-width:110px;min-height:40px;padding:4px 10px;border:2px dashed #b3c7b9;border-radius:10px;background:#fff;color:var(--muted);font-weight:700;cursor:pointer;user-select:none;-webkit-user-select:none}
+.slot.filled{border-style:solid;border-color:var(--green2);color:var(--ink)}
+.qimg{display:block;height:auto;max-height:120px;max-width:170px;flex:0 0 auto;border-radius:8px;border:1px solid var(--line);background:#fff}
+.nm{cursor:pointer;border-bottom:2px dotted var(--green2);border-radius:4px;padding:0 2px}
+.nm:hover{background:#e3f0e8}
+.nm.sel{background:var(--green);color:#fff;border-bottom-color:var(--green)}
+.lab{font-size:13px;color:var(--muted);flex:0 0 auto;margin-right:4px}
+.tab.done{background:#2e7d46;color:#fff;border-color:#2e7d46}
+.tab.on{outline:3px solid #23302a;outline-offset:1px}
+</style>
+</head>
+<body>
+<header class="top"><div class="top-in">
+ <div class="left-h">
+ <a class="hublink" href="index.html?sub=bm4">← Kembali ke menu</a>
+ <h1 id="title">Tatabahasa Tahun 4</h1>
+ <span class="pill" id="status">Belum disemak</span>
+ </div>
+ <div class="right-h">
+ <button class="btn alt" id="prevBtn" type="button">← Sebelumnya</button>
+ <button class="btn alt" id="nextBtn" type="button">Seterusnya →</button>
+ <button class="btn alt" id="resetBtn" type="button">↺ Ulang semula</button>
+ </div>
+</div></header>
+<nav class="tabs" id="tabs" aria-label="Parts"></nav>
+<main class="split">
+ <section class="pane" id="paper" aria-label="Worksheet"></section>
+ <section class="pane" id="answers" aria-label="Answers"></section>
+</main>
+<script>
+'use strict';
+/* Each question: {n, t (text, "____" = blank), o:[4 options], a: index of correct option (0=A)}
+ Passage groups: {title, pic, passage (text with [n] markers), qs:[...]} */
+/* Split every section into tabs of 10 questions. */
+function splitSection(s){
+ const out = [];
+ let i = 0;
+ while (i < s.qs.length) {
+ const take = (s.qs.length - i) > 12 ? 10 : (s.qs.length - i);
+ out.push({ title: s.title, kind: s.kind, bank: s.bank, pic: s.pic, passage: s.passage, qs: s.qs.slice(i, i + take) });
+ i += take;
+ }
+ return out;
+}
+const LET = ['A','B','C','D'];
+const NEW_SECTIONS = [
+{ title: 'Unit 1 · A. Lengkapkan jawapan yang betul berdasarkan gambar', kind: 'drag', bank: ['pokok','betik','rumput','kubis','lembu','angsa','burung','lebah','tangga','pencakar','khemah','cangkul','bomba','petani','muzium','hospital'], qs: [
+ {n:1,img:'year4-bm-img/u1a-01.png',ans:[['pokok']]},
+ {n:2,img:'year4-bm-img/u1a-02.png',ans:[['betik']]},
+ {n:3,img:'year4-bm-img/u1a-03.png',ans:[['rumput']]},
+ {n:4,img:'year4-bm-img/u1a-04.png',ans:[['kubis']]},
+ {n:5,img:'year4-bm-img/u1a-05.png',ans:[['lembu']]},
+ {n:6,img:'year4-bm-img/u1a-06.png',ans:[['angsa']]},
+ {n:7,img:'year4-bm-img/u1a-07.png',ans:[['burung']]},
+ {n:8,img:'year4-bm-img/u1a-08.png',ans:[['lebah']]},
+ {n:9,img:'year4-bm-img/u1a-09.png',ans:[['tangga']]},
+ {n:10,img:'year4-bm-img/u1a-10.png',ans:[['pencakar']]},
+ {n:11,img:'year4-bm-img/u1a-11.png',ans:[['khemah']]},
+ {n:12,img:'year4-bm-img/u1a-12.png',ans:[['cangkul']]},
+ {n:13,img:'year4-bm-img/u1a-13.png',ans:[['bomba']]},
+ {n:14,img:'year4-bm-img/u1a-14.png',ans:[['petani']]},
+ {n:15,img:'year4-bm-img/u1a-15.png',ans:[['muzium']]},
+ {n:16,img:'year4-bm-img/u1a-16.png',ans:[['hospital']]}
+]},
+{ title: 'Unit 1 · B. Pilih jawapan yang paling sesuai', kind: 'choose', qs: [
+ {n:17,img:'year4-bm-img/u1b-17.png',t:'Ryan memberikan buah ______ kepada rakannya.',o:['pokok','betik','peladang','khemah'],a:1},
+ {n:18,img:'year4-bm-img/u1b-18.png',t:'Ali disengat oleh ______.',o:['lebah','betik','peladang','burung'],a:0},
+ {n:19,t:'Mak Cik Ang mencari ______nya yang hilang di perpustakaan.',o:['pokok ru','buku','semut','khemah'],a:1},
+ {n:20,t:'Lily menghadiahkan pen kepada ______nya.',o:['kawan','kerbau','tangga','taman'],a:0},
+ {n:21,t:'Acara sukaneka itu diadakan di ______ permainan.',o:['kawan','kerbau','tangga','taman'],a:3},
+ {n:22,t:'Ali menolong ayahnya memotong ______.',o:['rumput','angsa','kubis','khemah'],a:0},
+ {n:23,t:'Ali menaiki ______ dengan berhati-hati.',o:['kawan','kerbau','tangga','taman'],a:2},
+ {n:24,t:'Ali membela seekor ______ yang comel.',o:['rumput','angsa','kubis','khemah'],a:1},
+ {n:25,img:'year4-bm-img/u1b-25.png',t:'Ali suka makan ______ yang dimasak oleh ibu.',o:['rumput','angsa','kubis','khemah'],a:2},
+ {n:26,img:'year4-bm-img/u1b-26.png',t:'______ menyelamatkan mangsa kebakaran.',o:['Bomba','Peladang','Kubis','Khemah'],a:0}
+]},
+{ title: 'Unit 2 · A. Tuliskan kata nama khas yang terdapat dalam petikan di bawah', kind: 'text', passage: 'Ali berkunjung ke rumah rakannya, Mei Mei. Rumah Mei Mei terletak di Taman Maju. Mei Mei mempunyai seekor kucing, Si Gebu. Ali pergi ke rumah Mei Mei dengan menaiki kereta Proton Iriz.', qs: [
+ {n:27,ans:[['Ali']]},
+ {n:28,ans:[['Mei Mei']]},
+ {n:29,ans:[['Taman Maju']]},
+ {n:30,ans:[['Si Gebu']]},
+ {n:31,ans:[['Proton Iriz']]}
+]},{ title: 'Unit 2 · B. Pilih jawapan yang paling sesuai', kind: 'choose', qs: [
+ {n:32,t:'Ali menaiki kereta ______ dengan perlahan.',o:['Proton Iriz','Datuk Lee Chong Wei','Dataran Lang','Pulau Langkawi'],a:0},
+ {n:33,t:'Ali dan keluarganya menaiki bot di ______.',o:['Proton Iriz','Datuk Lee Chong Wei','Terminal Feri Kuala Perlis','Pulau Langkawi'],a:2},
+ {n:34,img:'year4-bm-img/u2b-34.png',t:'______ ialah seorang pemain badminton yang terkenal.',o:['Proton Iriz','Datuk Lee Chong Wei','Dataran Lang','Pulau Langkawi'],a:1},
+ {n:35,img:'year4-bm-img/u2b-35.png',t:'Mereka melawat ke tempat menarik seperti ______.',o:['Proton Iriz','Datuk Lee Chong Wei','Terminal Feri Kuala Perlis','Dataran Lang'],a:3},
+ {n:36,t:'Ali membeli-belah di bandar ______.',o:['Proton Iriz','Datuk Lee Chong Wei','Kuah','Mei Mei'],a:2},
+ {n:37,t:'______ telah dilanda ribut.',o:['Proton Iriz','Datuk Lee Chong Wei','Si Gebu','Kampung Jati'],a:3},
+ {n:38,t:'______ seekor kucing yang comel.',o:['Proton Iriz','Datuk Lee Chong Wei','Si Gebu','Kampung Jati'],a:2},
+ {n:39,t:'______ amat sedih kerana rumahnya diterbangkan angin.',o:["A'Famosa",'Pak Din','Melaka','Kampung Jati'],a:1}
+]},
+{ title: 'Unit 3 · A. Isikan tempat kosong', kind: 'drag', bank: ['tuanku','patik','sini','beta','sana'], passage: 'Hang Tuah ialah seorang pahlawan. Pada suatu hari, dia menghadap sultan di istana. Hang Tuah: Ampun, [40]. Sembah [41] harap diampun. Apakah tujuan tuanku memanggil patik ke [42]? Sultan: [43] mendapat khabar bahawa jambatan di Kampung Maju telah rosak. Benarkah jambatan di [44] telah rosak? Hang Tuah: Benar, tuanku. [45] akan menyelesaikan masalah ini.', qs: [
+ {n:40,ans:[['tuanku']]},{n:41,ans:[['patik']]},{n:42,ans:[['sini']]},{n:43,ans:[['beta']]},{n:44,ans:[['sana']]},{n:45,ans:[['patik']]}
+]},
+{ title: 'Unit 3 · B. Pilih jawapan yang paling sesuai', kind: 'choose', qs: [
+ {n:46,t:'"Ampun, _______." kata Hang Tuah kepada Sultan Ali.',o:['tuanku','patik','beta','sini'],a:0},
+ {n:47,t:'"Patik akan membawa ketua kampung ke _______," tanya Hang Tuah kepada Sultan Ali.',o:['tuanku','patik','beta','sini'],a:3},
+ {n:48,t:'"_____ menjunjung perintah tuanku," kata Hang Tuah kepada Sultan Ali.',o:['Tuanku','Patik','Beta','Sini'],a:1},
+ {n:49,t:'"_____ berkenan untuk berjumpa ketua kampung," titah Sultan Ali.',o:['Tuanku','Patik','Beta','Sini'],a:2},
+ {n:50,t:'"_______ akan berangkat ke Melaka pada minggu hadapan," titah Sultan Ali.',o:['Tuanku','Patik','Beta','Sini'],a:2},
+ {n:51,t:'Sultan Ali disayangi oleh rakyat. _______ ialah seorang yang adil.',o:['Tuanku','Patik','Beta','Baginda'],a:3},
+ {n:52,t:'"Patik menjunjung perintah _______," kata Hang Tuah kepada Sultan Ali.',o:['tuanku','patik','beta','sini'],a:0},
+ {n:53,t:'"_____ memohon maaf atas kesalahan ini," kata orang tua kepada tuannya.',o:['Tuanku','Patik','Beta','Hamba'],a:3},
+ {n:54,t:'"Apakah hajat kamu datang ke _______ ?" kata Hang Tuah ketua kampung.',o:['tuanku','situ','sana','sini'],a:3},
+ {n:55,t:'"Terdapat sebidang tanah terbiar di Kampung Maju. Kami ingin menanam pokok di _____," kata ketua kampung.',o:['tuanku','beta','sana','sini'],a:2},
+ {n:56,img:'year4-bm-img/u3b-56.png',t:'Terdapat banyak pokok pisang di (sana, situ).',o:['sana','situ'],a:1},
+ {n:57,img:'year4-bm-img/u3b-57.png',t:'Pulau Langkawi terletak di negeri Kedah. Di (sana, situ) ada ramai orang.',o:['sana','situ'],a:0}
+]},
+{ title: 'Unit 4 · A. Sila isikan jawapan yang betul', kind: 'drag', bank: ['gulung','kaki','keping','bidang','bilah','rangkap','papan','naskah','buku'], qs: [
+ {n:58,t:'se______ tanah',img:'year4-bm-img/u4a-58.png',ans:[['bidang']]},
+ {n:59,t:'se______ tikar',img:'year4-bm-img/u4a-59.png',ans:[['bidang']]},
+ {n:60,t:'se______ kain rentang',img:'year4-bm-img/u4a-60.png',ans:[['bidang']]},
+ {n:61,t:'se______ pisau',img:'year4-bm-img/u4a-61.png',ans:[['bilah']]},
+ {n:62,t:'dua ______ gergaji',img:'year4-bm-img/u4a-62.png',ans:[['bilah']]},
+ {n:63,t:'se______ gunting',img:'year4-bm-img/u4a-63.png',ans:[['bilah']]},
+ {n:64,t:'se______ biskut',img:'year4-bm-img/u4a-64.png',ans:[['keping']]},
+ {n:65,t:'se______ kad ucapan',img:'year4-bm-img/u4a-65.png',ans:[['keping']]},
+ {n:66,t:'se______ poster',img:'year4-bm-img/u4a-66.png',ans:[['keping']]},
+ {n:67,t:'se______ pantun',img:'year4-bm-img/u4a-67.png',ans:[['rangkap']]},
+ {n:68,t:'se______ coklat',img:'year4-bm-img/u4a-68.png',ans:[['papan']]},
+ {n:69,t:'se______ roti',img:'year4-bm-img/u4a-69.png',ans:[['buku']]},
+ {n:70,t:'beberapa______ roti',img:'year4-bm-img/u4a-70.png',ans:[['keping']]},
+ {n:71,t:'se______ payung',img:'year4-bm-img/u4a-71.png',ans:[['kaki']]},
+ {n:72,t:'se______ surat khabar',img:'year4-bm-img/u4a-72.png',ans:[['naskah']]}
+]},
+{ title: 'Unit 4 · B. Pilih jawapan yang paling sesuai', kind: 'choose', qs: [
+ {n:73,t:'Bapa membeli beberapa ______ majalah pada pagi ini.',o:['biji','buku','naskah','keping'],a:2},
+ {n:74,t:'Ibu memasukkan dua ______ coklat ke dalam peti sejuk.',o:['papan','ruas','bilah','ikat'],a:0},
+ {n:75,t:'Ali membawa beberapa ______ roti ke sekolah.',o:['buku','bidang','keping','naskah'],a:2,img:'year4-bm-img/u4b-75.png'},
+ {n:76,t:'Ali mencipta dua ______ pantun tentang kepentingan menjaga kebersihan diri.',o:['rangkap','bidang','bilah','naskah'],a:0},
+ {n:77,t:'Encik Lee menampalkan ______ poster yang cantik.',o:['keping','gulung','buku','tongkol'],a:0},
+ {n:78,t:'Cikgu menyediakan dua ______ majalah kesihatan di atas rak buku.',o:['buku','bidang','bilah','naskah'],a:3}
+]},
+{ title: 'Unit 4 · B (samb.) Pilih jawapan yang paling sesuai', kind: 'choose', qs: [
+ {n:79,t:'Cikgu Chan memasang se______ kain rentang tentang kesihatan.',o:['buku','bidang','bilah','naskah'],a:1},
+ {n:80,t:'Encik Kek menggunakan se______ gunting untuk menggunting lebihan tali.',o:['buku','bidang','bilah','naskah'],a:2},
+ {n:81,t:'Peladang menanam sayur di se______ tanah yang luas.',o:['buku','bidang','bilah','naskah'],a:1,img:'year4-bm-img/u4b-81.png'},
+ {n:82,t:'Encik Kek menggunakan se______ gergaji untuk memotong pokok.',o:['buku','bidang','bilah','naskah'],a:2,img:'year4-bm-img/u4b-82.png'},
+ {n:83,t:'Ibu membeli ______ payung untuk kakak.',o:['papan','bidang','bilah','kaki'],a:3},
+ {n:84,t:'Bapa membeli se______ surat khabar di tepi jalan.',o:['buku','bidang','bilah','naskah'],a:3}
+]},
+{ title: 'Unit 5 · A. Nyatakan kata kerja transitif dan kata kerja tak transitif dalam petikan tersebut', kind: 'text', passage: 'Ali dan kawan-kawannya menghias bilik darjah mereka. Mereka datang awal ke sekolah untuk menjalankan tugas. Aina mengelap cermin dengan sehelai kain basah. Dia berhati-hati supaya tangan tidak terluka. Ali mengutip daun yang gugur di atas lantai. Lily dan Alex mencuci longkang. Longkang itu tersumbat. Selepas itu, mereka pulang.', qs: [
+ {n:85,lab:'Transitif 1',ans:[['menghias']]},{n:86,lab:'Transitif 2',ans:[['menjalankan']]},{n:87,lab:'Transitif 3',ans:[['mengelap']]},{n:88,lab:'Transitif 4',ans:[['mengutip']]},{n:89,lab:'Transitif 5',ans:[['mencuci']]},
+ {n:90,lab:'Tak transitif 1',ans:[['datang']]},{n:91,lab:'Tak transitif 2',ans:[['terluka']]},{n:92,lab:'Tak transitif 3',ans:[['gugur']]},{n:93,lab:'Tak transitif 4',ans:[['tersumbat']]},{n:94,lab:'Tak transitif 5',ans:[['pulang']]}
+]},
+{ title: 'Unit 5 · B. Pilih jawapan yang betul', kind: 'choose', qs: [
+ {n:95,t:'SJKT Taman Wawasan sekolah telah ________ aktiviti sukan.',o:['mengadakan','menyampaikan','menaiki','membaca'],a:0},
+ {n:96,t:'Ali __________ daun yang ______ di atas lantai.',o:['mengadakan, gugur','mengutip, gugur','menaiki, mengutip','menunggang, basikal'],a:1},
+ {n:97,t:'Hobi Nabil ialah _________ buku dan mendengar muzik.',o:['mengadakan','menyampaikan','menaiki','membaca'],a:3},
+ {n:98,t:'Ali ________ bola sepak di padang.',o:['bermain','berjalan','berpegangan','berjumpa'],a:0},
+ {n:99,t:'Ali ________ longkang supaya tidak ________.',o:['mencuci, muzik','mencuci, tersumbat','bangun, tidur','pulang, datang'],a:1},
+ {n:100,t:'Ali dan kawan-kawannya ______ awal ke sekolah.',o:['datang','berjalan','berpegangan','berjumpa'],a:0},
+ {n:101,t:'Aidil ________ tingkap dengan sehelai kain.',o:['melihat','menyusun','bangun','mengelap'],a:3},
+ {n:102,t:'Jordan menyapu daun yang ______ di halaman rumah.',o:['bermain','jatuh','tidur','gugur'],a:3}
+]},
+{ title: 'Unit 6 · A. Isikan tempat kosong', kind: 'drag', bank: ['diikuti','disusun','dikemas','dilihat','dibawa','dilap','dibaca'], qs: [
+ {n:103,t:'Jadual ______ oleh Ali sebelum menyusun buku.',ans:[['dilihat']]},
+ {n:104,t:'Jadual itu ______ agar beg Ali tidak berat.',ans:[['diikuti']]},
+ {n:105,t:'Buku-buku yang hendak ______ dimasukkan ke dalam beg.',ans:[['dibawa']]},
+ {n:106,t:'Buku itu ______ dengan kemasnya di dalam beg.',ans:[['disusun']]},
+ {n:107,t:'Meja perlu ______ dan ______ supaya bersih.',ans:[['dilap'],['dikemas']]},
+ {n:108,t:'Buku itu ______ oleh Ali.',ans:[['dibaca']]}
+]},
+{ title: 'Unit 6 · B. Pilih jawapan yang betul', kind: 'choose', qs: [
+ {n:109,t:'Aktiviti sukan ________ oleh SJKT Taman Wawasan sekolah.',o:['diadakan','disampaikan','dinaiki','dibaca'],a:0},
+ {n:110,t:'Daun ______ oleh Ali dengan teliti.',o:['diadakan','disapu','dinaiki','dibaca'],a:1},
+ {n:111,t:'Buku itu ________ oleh Nabil di dalam bilik.',o:['diadakan','disapu','dinaiki','dibaca'],a:3},
+ {n:112,t:'Bola sepak _______ oleh Ahmad di padang.',o:['dimain','dijalan','dipegang','disusun'],a:0},
+ {n:113,t:'Meja ________ supaya tidak kotor.',o:['dimain','dijalankan','dipegang','dilap'],a:3},
+ {n:114,t:'Makanan ________ oleh Jordan ke sekolah.',o:['dibawa','dijalankan','dipegang','dilap'],a:0},
+ {n:115,t:'Tingkap ______ oleh Ali dengan sehelai kain.',o:['melihat','disusun','bangun','dilap'],a:3},
+ {n:116,t:'Bilik darjah ______ oleh murid-murid.',o:['dipukul','ditarik','ditanam','dihiasi'],a:3}
+]},
+{ title: 'Unit 7 · A. Isikan tempat kosong', kind: 'drag', bank: ['deras','cermat','pantas','perlahan','gopoh'], qs: [
+ {n:117,t:'Ibu memotong timun dengan ________.',ans:[['pantas']]},
+ {n:118,t:'Datuk berjalan dengan ________ kerana sudah tua.',ans:[['perlahan']]},
+ {n:119,t:'Adik makan dengan ________ kerana lapar.',ans:[['gopoh']]},
+ {n:120,t:'Air sungai mengalir dengan ________.',ans:[['deras']]},
+ {n:121,t:'Kita perlu ________ semasa menggunakan pisau.',ans:[['cermat']]}
+]},
+{ title: 'Unit 7 · B. Bulatkan jawapan yang betul', kind: 'choose', qs: [
+ {n:122,t:'Pergerakan ibu sangat (perlahan / gopoh) semasa memotong timun.',o:['perlahan','gopoh'],a:0},
+ {n:123,t:'Kita perlu (cermat / deras) semasa menggunakan pisau.',o:['cermat','deras'],a:0},
+ {n:124,t:'Saya boleh memotong timun dengan (cepat / deras).',o:['cepat','deras'],a:0},
+ {n:125,t:'Ayah memandu kereta dengan (cermat / laju) supaya selamat.',o:['cermat','laju'],a:1}
+]},
+{ title: 'Unit 7 · C. Bulatkan jawapan yang betul (kata adjektif jarak)', kind: 'choose', qs: [
+ {n:126,t:'Stesen minyak itu terletak ______ dari kawasan perumahan.',o:['rapat','hampir','jauh','dekat'],a:2},
+ {n:127,t:'Abang meletakkan topi keledar di atas meja yang ________ dengan rak kasut.',o:['rapat','antara','tinggi','dekat'],a:3,img:'year4-bm-img/u7c-127.png'},
+ {n:128,t:'Hubungan antara ibu dan Aidil sangat ________.',o:['rapat','jauh','tinggi','dekat'],a:0},
+ {n:129,t:'________ seratus orang telah hadir dalam majlis itu.',o:['Rapat','Hampir','Jauh','dekat'],a:1}
+]},
+{ title: 'Unit 8 · A. Isi tempat kosong', kind: 'drag', bank: ['panjang','pendek','tebal','nipis'], qs: [
+ {n:130,lab:'Gambar 1',t:'Seluar yang ______',img:'year4-bm-img/u8a-130.png',ans:[['panjang']]},
+ {n:131,lab:'Gambar 1',t:'Baju yang berlengan ______',ans:[['panjang']]},
+ {n:132,lab:'Gambar 1',t:'Tapak bot yang ______',ans:[['tebal']]},
+ {n:133,lab:'Gambar 2',t:'Seluar yang ______',img:'year4-bm-img/u8a-133.png',ans:[['pendek']]},
+ {n:134,lab:'Gambar 2',t:'Baju yang berlengan ______',ans:[['pendek']]},
+ {n:135,lab:'Gambar 2',t:'Tapak bot yang ______',ans:[['nipis']]}
+]},
+{ title: 'Unit 8 · B. Pilih jawapan yang betul', kind: 'choose', qs: [
+ {n:136,t:'Ali memakai baju berlengan _____ kerana dia sejuk.',o:['panjang','pendek','tebal','nipis'],a:0},
+ {n:137,t:'Ahmad memakai seluar yang ______ kerana cuaca panas.',o:['panjang','pendek','tebal','tinggi'],a:1},
+ {n:138,t:'Ayah memakai sebuah topi yang _________ untuk melindungi diri dari matahari yang panas.',o:['besar','pendek','nipis','tinggi'],a:0,img:'year4-bm-img/u8b-138.png'},
+ {n:139,t:'Ali dan keluarganya tinggal di sebuah rumah yang _______ dan mewah.',o:['besar','pendek','tebal','tinggi'],a:0,img:'year4-bm-img/u8b-139.png'},
+ {n:140,t:'Ali perlu memakai kasut yang tapaknya ________ untuk melindungi diri daripada kecederaan.',o:['besar','pendek','tebal','tinggi'],a:2},
+ {n:141,t:'Rahmat ditegur oleh Cikgu Te kerana dia memakai kasut yang tapaknya agak _______.',o:['besar','pendek','nipis','tinggi'],a:2}
+]},
+{ title: 'Unit 9 · A. Isi tempat kosong', kind: 'drag', bank: ['kecewa','cemas','gembira','bosan'], qs: [
+ {n:142,t:'Lily berasa sangat _______ apabila menempuh kesesakan jalan raya.',img:'year4-bm-img/u9a-142.png',ans:[['bosan']]},
+ {n:143,t:'Lily _______ akan sikap pemandu yang memotong barisan.',img:'year4-bm-img/u9a-143.png',ans:[['kecewa']]},
+ {n:144,t:'Lily berasa sangat _______ apabila melalui sekatan jalan raya.',img:'year4-bm-img/u9a-144.png',ans:[['cemas']]},
+ {n:145,t:'Setelah tiba di rumah, Lily berasa amat _______ kerana mereka selamat.',img:'year4-bm-img/u9a-145.png',ans:[['gembira']]}
+]},
+{ title: 'Unit 9 · B. Bulatkan jawapan yang betul', kind: 'choose', qs: [
+ {n:146,t:'Chun Han berasa ______ kerana mendapat baju hujan baharu.',o:['gembira','bangga','cemas','kecewa'],a:0},
+ {n:147,t:'Rarah berasa ______ kerana gagal dalam peperiksaan.',o:['gembira','bangga','cemas','kecewa'],a:3},
+ {n:148,t:'Ibu ______ akan Ali kerana dia mendapat johan dalam pertandingan.',o:['bosan','bangga','cemas','kecewa'],a:1}
+]},
+{ title: 'Unit 10 · A. Isi tempat kosong', kind: 'drag', bank: ['cantik','comel','hodoh','merdu','nyaring','bising','harum','busuk','hanyir','licin','kesat','keras','manis','sedap','pahit','wangi'], qs: [
+ {n:149,t:'Cikgu Te yang ______',ans:[['cantik']]},
+ {n:150,t:'kucing yang ______',ans:[['comel']]},
+ {n:151,t:'orang tua yang ______',ans:[['hodoh']]},
+ {n:152,t:'suara yang ______',ans:[['nyaring']]},
+ {n:153,t:'muzik yang ______',ans:[['merdu']]},
+ {n:154,t:'rasa yang ______',ans:[['manis']]},
+ {n:155,t:'ikan yang ______',ans:[['hanyir']]},
+ {n:156,t:'kek lapis yang ______',ans:[['sedap']]},
+ {n:157,t:'bilik yang ______',ans:[['bising']]},
+ {n:158,t:'permukaan yang ______',ans:[['licin']]},
+ {n:159,t:'tong sampah yang ______',ans:[['busuk']]},
+ {n:160,t:'bau yang ______',ans:[['harum','wangi']]},
+ {n:161,t:'tapak yang ______',ans:[['kesat']]},
+ {n:162,t:'lantai yang ______',ans:[['licin']]},
+ {n:163,t:'ubat yang ______',ans:[['pahit']]},
+ {n:164,t:'batu yang ______',ans:[['keras']]}
+]},
+{ title: 'Unit 10 · B. Pilih jawapan yang betul', kind: 'choose', qs: [
+ {n:165,t:'Ali mendengar bunyi alat muzik tradisional yang ______.',o:['merdu','licin','kesat','harum'],a:0},
+ {n:166,t:'Permukaan labu sayong sangat ________.',o:['merdu','licin','kesat','harum'],a:1},
+ {n:167,t:'Bau bunga malai itu sangat _________.',o:['merdu','licin','kesat','harum'],a:3},
+ {n:168,t:'Tapak kasut Ali yang baru dibeli ________.',o:['merdu','sedap','kesat','harum'],a:2},
+ {n:169,t:'Kek lapis yang dibuat oleh ibu sangat ______.',o:['merdu','sedap','kesat','harum'],a:1},
+ {n:170,t:'Gula-gula yang ________ itu mendatangkan semut-semut.',o:['manis','pahit','busuk','cantik'],a:0},
+ {n:171,t:'Mereka melihat pakaian tradisional yang ____ di Karnival Kebudayaan.',o:['manis','pahit','busuk','cantik'],a:3},
+ {n:172,t:'Longkang yang berbau ____ telah dicuci oleh Ali sekeluarga pada minggu lepas.',o:['manis','pahit','busuk','cantik'],a:2}
+]},
+{ title: 'Kata Adjektif · Latihan campuran', kind: 'drag', bank: ['deras','perlahan','hampir','jauh','kecil','gembira','kecewa','pendek','panjang','tebal','sedih'], qs: [
+ {n:173,t:'Air sungai mengalir dengan ____________.',ans:[['deras']]},
+ {n:174,t:'Ayah memandu dengan ____________ semasa hujan lebat.',ans:[['perlahan']]},
+ {n:175,t:'Sekolah terletak ____________ dengan kawasan perumahan.',ans:[['hampir']]},
+ {n:176,t:'Saya suka manik yang amat ____________.',ans:[['kecil']]},
+ {n:177,t:'Chun Han suka memakai seluar ____________ kerana cuaca panas.',ans:[['pendek']]},
+ {n:178,t:'Chun Han memakai baju yang berlengan ____________ kerana dia sejuk.',ans:[['panjang']]},
+ {n:179,t:'Ali mempunyai sebuah kamus yang ____________.',ans:[['tebal']]},
+ {n:180,t:'Ahmad berasa ____________ kerana mendapat baju hujan yang baharu.',ans:[['gembira']]},
+ {n:181,t:'Fatimah berasa ____________ kerana gagal dalam peperiksaan.',ans:[['kecewa','sedih']]},
+ {n:182,t:'Rumah saya agak ____________ dari kedai itu.',ans:[['jauh']]}
+]},
+{ title: 'Unit 11 · A. Isi tempat kosong', kind: 'drag', bank: ['dan','atau','kerana','apabila','supaya','jika','sambil','untuk'], qs: [
+ {n:183,t:'Ali ______ Ahmad ialah rakan baik.',ans:[['dan']]},
+ {n:184,t:'Hobi ayah Dinesh ialah mengumpulkan kraf tangan ukiran kayu ______ mendengar muzik.',ans:[['sambil']]},
+ {n:185,t:'Ayah mengumpulkan ukiran kayu ______ dia suka seni ukiran kayu.',ans:[['kerana']]},
+ {n:186,t:'Kraf tangan ukiran kayu diperbuat daripada kayu seperti jati ______ cengal.',ans:[['dan']]},
+ {n:187,t:'Ayah berasa gembira ______ dapat memiliki kraf tangan.',ans:[['kerana']]},
+ {n:188,t:'______ ayah mempunyai masa lapang, dia akan membersihkan kraf tangan itu.',ans:[['jika']]},
+ {n:189,t:'Dia menjaga kraf tangan dengan baik ______ kraf tangan itu kekal cantik.',ans:[['supaya']]},
+ {n:190,t:'Awak menaiki bas ______ kereta ke sekolah?',ans:[['atau']]},
+ {n:191,t:'Lily tidak datang ke sekolah ______ dia sakit perut.',ans:[['kerana']]},
+ {n:192,t:'Kita perlu belajar dengan bersungguh-sungguh ______ mendapat keputusan yang cemerlang.',ans:[['untuk']]},
+ {n:193,t:'Ibu mengemaskan bilik ______ bersih.',ans:[['supaya']]},
+ {n:194,t:'Ayah Ali tersenyum ______ mengetahui Ali mendapat johan dalam pertandingan tarian.',ans:[['apabila']]}
+]},
+{ title: 'Unit 11 · B. Pilih jawapan yang betul', kind: 'choose', qs: [
+ {n:195,t:'Ali mendengar bunyi alat muzik tradisional yang merdu ______ nyaring.',o:['dan','atau','apabila','jika'],a:0},
+ {n:196,t:'Chu Han berharap ______ pertandingan muzik diadakan lagi.',o:['dan','agar','apabila','jika'],a:1},
+ {n:197,t:'Adik makan ubat ______ cepat sembuh.',o:['supaya','atau','apabila','jika'],a:0},
+ {n:198,t:'Awak berminat ukiran kayu ______ terompah?',o:['dan','atau','apabila','jika'],a:1},
+ {n:199,t:'Terompah disimpan baik oleh ibu ______ tahan lama.',o:['supaya','atau','apabila','jika'],a:0},
+ {n:200,t:'Ibu gembira ______ ayah menghadiahkan ibu setem.',o:['supaya','atau','apabila','jika'],a:2},
+ {n:201,t:'Ali sedih ______ datuknya meninggal dunia.',o:['supaya','kerana','apabila','jika'],a:1},
+ {n:202,t:'______ seseorang sakit, dia perlu berjumpa dengan doktor.',o:['Supaya','Kerana','Apabila','Jika'],a:3}
+]},
+{ title: 'Unit 12 · A. Pilih jawapan yang betul kata sendi nama', kind: 'choose', qs: [
+ {n:203,t:'Pakaian Pattu Pavadai diperbuat ______ kain sutera.',o:['di','pada','kepada','daripada'],a:3},
+ {n:204,t:'Pakaian itu dipakai ______ kanak-kanak.',o:['di','oleh','daripada','dari'],a:1},
+ {n:205,t:'Lily amat suka ______ pakaian yang baru dibeli.',o:['ke','akan','daripada','dari'],a:1},
+ {n:206,t:'Alex memakai pakaian samfu apabila berkunjung ______ majlis.',o:['ke','akan','daripada','dari'],a:0},
+ {n:207,t:'Ayah membeli pakaian ______ sebuah kedai.',o:['akan','di','oleh','pada'],a:1},
+ {n:208,t:'Dia memakai pakaian tradisional itu ______ hari perayaan.',o:['akan','di','oleh','pada'],a:3}
+]},
+{ title: 'Unit 12 · B. Pilih jawapan yang betul kata sendi nama', kind: 'choose', qs: [
+ {n:209,t:'Rumah Ali tidak jauh ______ sekolah.',o:['ke','akan','daripada','dari'],a:3},
+ {n:210,t:'Ali mengucapkan terima kasih ______ ibunya.',o:['di','pada','kepada','daripada'],a:2},
+ {n:211,t:'Kakak Alex sangat sayang ______ adiknya.',o:['ke','akan','daripada','dari'],a:1},
+ {n:212,t:'Kakak pergi ______ sekolah dengan menaiki bas.',o:['ke','akan','daripada','dari'],a:0},
+ {n:213,t:'Majlis itu diadakan ______ Taman Damai.',o:['di','pada','kepada','daripada'],a:0},
+ {n:214,t:'Dia memakai ceongsam ______ hari tersebut.',o:['di','pada','kepada','daripada'],a:1},
+ {n:215,t:'Persembahan itu dipersembahkan ______ kumpulan sekolah rendah.',o:['di','oleh','daripada','dari'],a:1},
+ {n:216,t:'Ibu Chu Han menyaksikan persembahan ______ awal hingga akhir.',o:['di','oleh','daripada','dari'],a:3},
+ {n:217,t:'Kumpulan A terdiri ______ murid tahun 5 dan 6.',o:['di','oleh','daripada','dari'],a:2},
+ {n:218,t:'Poster itu ditampalkan ______ papan kenyataan.',o:['di','pada','kepada','daripada'],a:1},
+ {n:219,t:'Ali berasal ______ Singapura.',o:['di','oleh','daripada','dari'],a:3},
+ {n:220,t:'Meja itu diperbuat ______ kayu.',o:['di','oleh','daripada','dari'],a:2},
+ {n:221,t:'Karnival Kebudayaan diadakan ______ waktu pagi.',o:['di','pada','kepada','daripada'],a:1},
+ {n:222,t:'Ayah membeli sebuah telefon pintar ______ ibu.',o:['di','pada','kepada','daripada'],a:2},
+ {n:223,t:'Ibu berterima kasih ______ ayah.',o:['di','pada','kepada','daripada'],a:2},
+ {n:224,t:'Ali lebih malas ______ adiknya, Alex.',o:['di','pada','kepada','daripada'],a:3}
+]},
+{ title: 'Unit 13 · A. Isikan tempat kosong dengan "bukan" atau "tidak"', kind: 'drag', bank: ['bukan','tidak'], qs: [
+ {n:225,t:'Itu ______ perangkap sampah.',ans:[['bukan']]},
+ {n:226,t:'Perangkap sampah ______ dipasang.',ans:[['tidak']]},
+ {n:227,t:'Perangkap ______ daripada plastik.',ans:[['bukan']]},
+ {n:228,t:'Alam sekitar ______ tercemar.',ans:[['tidak']]},
+ {n:229,t:'Perangkap sampah ______ Pak Cik Abu yang membina.',ans:[['bukan']]},
+ {n:230,t:'Perangkap sampah itu ______ jauh daripada sekolah.',ans:[['tidak']]},
+ {n:231,t:'Pak Cik Abu ______ perlu mengutip sampah.',ans:[['tidak']]},
+ {n:232,t:'Barangan kaca ______ untuk dibuang.',ans:[['bukan']]},
+ {n:233,t:'Ali ______ dari rumah.',ans:[['bukan']]},
+ {n:234,t:'Ahmad ______ malas.',ans:[['tidak']]},
+ {n:235,t:'Buku ini ______ kepada Alex.',ans:[['bukan']]},
+ {n:236,t:'Encik Osman ______ bapa saya.',ans:[['bukan']]},
+ {n:237,t:'Pemuda itu ______ takut kerana dia tidak bersalah.',ans:[['tidak']]},
+ {n:238,t:'Ali ______ membaca buku di bilik.',ans:[['tidak']]}
+]},
+{ title: 'Unit 14 · A. Pilih jawapan yang betul kata bilangan', kind: 'choose', qs: [
+ {n:239,t:'Ayah membeli ______ biji bateri di sebuah kedai.',o:['tujuh','seluruh','semua','enam'],a:0,img:'year4-bm-img/u14a-239.png'},
+ {n:240,t:'Ibu memberi ______ keping kain pengelap kepada kakak.',o:['tujuh','seluruh','semua','enam'],a:3,img:'year4-bm-img/u14a-240.png'},
+ {n:241,t:'______ anggota keluarga perlu mempunyai tugas masing-masing.',o:['Tujuh','Setiap','Semua','Enam'],a:1},
+ {n:242,t:'Sebanyak 126000 orang telah dijangkiti COVID-19 di ______ dunia.',o:['tujuh','seluruh','setiap','enam'],a:1}
+]},
+{ title: 'Unit 14 · B. Pilih jawapan yang betul kata bilangan', kind: 'choose', qs: [
+ {n:243,t:'Ali menyimpan ______ di dalam rak buku.',o:['semua','setiap','kedua','kedua-dua'],a:0},
+ {n:244,t:'Adik mendapat tempat ______ dalam pertandingan.',o:['semua','setiap','kedua','kedua-dua'],a:2},
+ {n:245,t:'______ orang budak itu suka bermain bola sepak.',o:['Semua','Setiap','Kedua','Kedua-dua'],a:3},
+ {n:246,t:'______ kawasan lapang di belakang rumah Ali ditanam dengan sayur-sayuran.',o:['Semua','Setiap','Sebahagian','Kedua'],a:2},
+ {n:247,t:'______ orang telah terpilih untuk menyertai pertandingan nyanyian.',o:['Semua','Setiap','Sebahagian','Beberapa'],a:3},
+ {n:248,t:'______ kawasan tanah rendah telah dinaiki air.',o:['Kedua','Kedua-dua','Dua','Seluruh'],a:3},
+ {n:249,t:'______ pelajar perlu menyiapkan tugasan masing-masing.',o:['Dua','Setiap','Sebahagian','Enam'],a:1},
+ {n:250,t:'Dia telah menunggu saya selama ______ jam.',o:['dua','setiap','semua','seluruh'],a:0}
+]},
+{ title: 'Unit 15 · A. Bubuhkan imbuhan meN- meN-', kind: 'text', qs: [
+ {n:251,t:'sapu : _______',ans:[['menyapu']]},
+ {n:252,t:'lawat : _______',ans:[['melawat']]},
+ {n:253,t:'tari : _______',ans:[['menari']]},
+ {n:254,t:'padam : _______',ans:[['memadam']]},
+ {n:255,t:'kira : _______',ans:[['mengira']]},
+ {n:256,t:'cat : _______',ans:[['mengecat']]}
+]},
+{ title: 'Unit 15 · B. Pilih jawapan yang paling sesuai', kind: 'choose', qs: [
+ {n:257,t:'Ayah suka menonton _______ televisyen.',o:['merancang','terancang','dirancang','rancangan'],a:3},
+ {n:258,t:'"Bolehkah kamu ______ usaha yang telah dilakukan?" tanya Ali.',o:['nyatakan','ingatkan','letakkan','berikan'],a:0},
+ {n:259,t:'Penduduk bergotong-royong untuk ______ alam sekitar.',o:['menjaga','penjaga','terjaga','jagaan'],a:0},
+ {n:260,t:'Ali telah ______ tempat pertama dalam pertandingan nyayian.',o:['dapat','mendapat','terdapat','dapatan'],a:1},
+ {n:261,t:'Encik Lau ______ di taman rekreasi pada setiap hari.',o:['berjoging','bekerja','dilarang','layari'],a:0},
+ {n:262,t:'Alex ________ sebagai guru di SJKC Hwa Nan.',o:['berjoging','bekerja','dilarang','layari'],a:1},
+ {n:263,t:'"________ internet untuk mencari maklumat," kata Isa.',o:['Berjoging','Bekerja','Dilarang','Layari'],a:3},
+ {n:264,t:'Mereka menanam pokok ________ di tepi jalan.',o:['teduh','teduhan','berteduh','diteduh'],a:1},
+ {n:265,t:'________ peraturan supaya kawasan ini bebas daripada asap kenderaan.',o:['Mematuhkan','Patuhi','Dipatuh','Layari'],a:1},
+ {n:266,t:'Murid-murid ________ bising di dalam perpustakaan.',o:['melarang','teduhan','dilarang','layari'],a:2}
+]},
+{ title: 'Unit 15 · B (samb.) Pilih jawapan yang paling sesuai', kind: 'choose', qs: [
+ {n:267,t:'Kita mesti mendengar ________ guru di sekolah.',o:['arahan','mengarah','diarah','mengarahkan'],a:0},
+ {n:268,t:'Penduduk dapat ________ udara yang segar.',o:['menghirup','hirupan','dihirup','penghirup'],a:0},
+ {n:269,t:'"Tolong ________ semua beg kita ke dalam kereta," kata Ali.',o:['masukkan','dimasukkan','memasuki','masuk'],a:0},
+ {n:270,t:'________ mengekalkan pokok di lereng bukit semasa membina inap desa.',o:['Usaha','Berusaha','Pengusaha','Usahawan'],a:1},
+ {n:271,t:'Cuaca sini sejuk kerana dipenuhi ________ hijau.',o:['ditumbuhkan','tumbuhan','menumbuhkan','terpelihara'],a:1},
+ {n:272,t:'Kawasan itu ________ kerana hutan simpanan di situ ________ dengan baik.',o:['memelihara, menjaga','terpelihara, dijaga','memelihara, terjaga'],a:1},
+ {n:273,t:'Encik Jamil ________ dengan anak-anak di A\'Famosa.',o:['berusaha','gambar','gambaran','bergambar'],a:3},
+ {n:274,t:'"Usah kamu ________ kawasan ini," kata ibu kepada Ali.',o:['mencemar','cemari','tercemar','pencemaran'],a:1}
+]},
+{ title: 'Unit 16 · A. Pilih jawapan yang paling sesuai imbuhan apitan', kind: 'choose', qs: [
+ {n:275,t:'Aidil dan Mei Fung dipilih ________ sekolah ke pertandingan nyanyian.',o:['mewakili','wakil','diwakili','wakilan'],a:0},
+ {n:276,t:'Sekolah telah mengadakan ________ mendeklamasikan sajak.',o:['pertandingan','bertanding','ditandingkan','menanding'],a:0},
+ {n:277,t:'Ayah tidak ________ wang kecil untuk Lidim.',o:['beri','memberikan','diberikan','pemberian'],a:1},
+ {n:278,t:'Mereka membuat persembahan secara ________.',o:['memasang','pasang','berpasangan','menggunakan'],a:2},
+ {n:279,t:'Rakyat Malaysia mempunyai ________ tersendiri.',o:['keistimewaan','istimewa','mengistimewakan','mengemaskan'],a:0},
+ {n:280,t:'Sebanyak 20 orang murid ________ pertandingan itu.',o:['menyertai','penyertaan','serta','diserta'],a:0},
+ {n:281,t:'________ itu dimenangi oleh pasukan A.',o:['Lawanan','Melawan','Dilawan','Perlawanan'],a:3},
+ {n:282,t:'Aidil telah ________ pertandingan itu.',o:['menang','pemenang','memenangi','kemenangan'],a:2},
+ {n:283,t:'Ali berasa bangga akan ________ abangnya.',o:['kebolehan','boleh','membolehkan','mendeklamasikan'],a:0},
+ {n:284,t:'Dia yakin abang akan ________ pertandingan itu.',o:['menang','pemenang','memenangi','kemenangan'],a:2},
+ {n:285,t:'________ ketua kelas dijalankan di dalam kelas.',o:['Dilantik','Lantik','Melantik','Pelantikan'],a:3},
+ {n:286,t:'Guru besar ________ ucapan di atas pentas.',o:['sampai','menyampaikan','disampaikan','penyampaian'],a:1},
+ {n:287,t:'Kucing ________ oleh Lidim kerana ia sangat comel.',o:['disayangi','menyayangi','penyayang','mengemaskan'],a:0},
+ {n:288,t:'Acara ________ dimulakan pada pukul 8:30 pagi.',o:['membaris','perbarisan','baris','dibariskan'],a:1},
+ {n:289,t:'Ibu ________ Ali sebuah buku.',o:['menghadiahi','dihadiahkan','menghadiahkan'],a:0},
+ {n:290,t:'Ayah sedang ________ adik buku.',o:['membaca','membacakan','dibaca'],a:1}
+]},
+{ title: 'Unit 17 · A. Senaraikan kata majmuk bebas dalam petikan tersebut', kind: 'text', passage: 'Encik Gordon ialah seorang tentera udara. Tugasnya ialah menjaga keselamatan ibu negara Malaysia. Kawan baiknya, Encik Aidil ialah seorang ketua polis. Mereka tinggal di rumah pangsa. Mereka sentiasa cinta akan tanah air. Mereka menyambut ulang tahun kemerdekaan Malaysia pada setiap tahun.', qs: [
+ {n:291,lab:'Bebas 1',ans:[['tentera udara']]},{n:292,lab:'Bebas 2',ans:[['ibu negara']]},{n:293,lab:'Bebas 3',ans:[['ketua polis']]},
+ {n:294,lab:'Bebas 4',ans:[['rumah pangsa']]},{n:295,lab:'Bebas 5',ans:[['tanah air']]},{n:296,lab:'Bebas 6',ans:[['ulang tahun']]}
+]},
+{ title: 'Unit 17 · B. Pilih jawapan yang paling sesuai', kind: 'choose', qs: [
+ {n:297,t:'Ayah menyiram pokok bunga di ________.',o:['halaman rumah','bunga raya','pasu bunga','cogan kata'],a:0},
+ {n:298,t:'________ merupakan bunga kebangsaan Malaysia.',o:['Halaman rumah','Bunga raya','Pasu bunga','Cogan kata'],a:1},
+ {n:299,t:'________ di dalam poster itu sangat kreatif.',o:['Halaman rumah','Bunga raya','Pasu bunga','Cogan kata'],a:3},
+ {n:300,t:'________ yang diletakkan di taman bunga itu sangat cantik.',o:['Halaman rumah','Rumah teres','Pasu bunga','Cogan kata'],a:2},
+ {n:301,t:'Menara Kuala Lumpur merupakan ________ negara Malaysia.',o:['mercu tanda','tanah air','ruang tamu','bingkai gambar'],a:0},
+ {n:302,t:'________ yang digantungkan pada dinding diperbuat daripada kayu.',o:['Mercu tanda','Tanah air','Ruang tamu','Bingkai gambar'],a:3},
+ {n:303,t:'Adik menonton televisyen di ________.',o:['mercu tanda','tanah air','ruang tamu','bingkai gambar'],a:2},
+ {n:304,t:'Askar Malaysia mencintai ________ dengan penuh hati.',o:['halaman rumah','tanah air','ruang tamu','bingkai gambar'],a:1}
+]},
+{ title: 'Unit 18 · A. Senaraikan kata majmuk bebas dan tetap dalam petikan', kind: 'text', passage: 'Ali dan keluarganya cinta akan tanah air. Ayah Ali kakitangan di Jabatan Pendaftaran Negara (JPN). Mereka menyambut ulang tahun kemerdekaan Malaysia dengan memberikan kerjasama. Mereka menggantungkan gambar mercu tanda yang bertaraf antarabangsa di ruang tamu. Mereka bangga kerana merupakan warganegara Malaysia.', qs: [
+ {n:305,lab:'Bebas 1',ans:[['tanah air']]},{n:306,lab:'Bebas 2',ans:[['ulang tahun']]},{n:307,lab:'Bebas 3',ans:[['mercu tanda']]},{n:308,lab:'Bebas 4',ans:[['ruang tamu']]},
+ {n:309,lab:'Tetap 1',ans:[['kakitangan']]},{n:310,lab:'Tetap 2',ans:[['kerjasama']]},{n:311,lab:'Tetap 3',ans:[['antarabangsa']]},{n:312,lab:'Tetap 4',ans:[['warganegara']]}
+]},
+{ title: 'Unit 18 · B. Pilih jawapan yang paling sesuai', kind: 'choose', qs: [
+ {n:313,t:'Pihak kerajaan mengharapkan ________ yang baik daripada pemohon.',o:['kerjasama','antarabangsa','matahari','kipas angin'],a:0},
+ {n:314,t:'Ali merupakan ________ dalam Persatuan Bahasa Cina di SJKC Kong Nam.',o:['setiausaha','kakitangan','olahraga','antarabangsa'],a:0},
+ {n:315,t:'Kad pengenalan pintar dihasilkan mengikut piawaian ________.',o:['warganegara','tanggungjawab','olahraga','antarabangsa'],a:3},
+ {n:316,t:'Ali telah menyertai pertandingan lompat tinggi di peringkat ________.',o:['warganegara','tanggungjawab','olahraga','antarabangsa'],a:3},
+ {n:317,t:'________ setiap pelajar ialah belajar dengan bersungguh-sungguh.',o:['Warganegara','Tanggungjawab','Olahraga','Antarabangsa'],a:1},
+ {n:318,t:'________ Malaysia terdiri daripada pelbagai jenis kaum.',o:['Warganegara','Tanggungjawab','Olahraga','Antarabangsa'],a:0},
+ {n:319,t:'Mykid ialah kad pengenalan kanak-kanak ________ Malaysia.',o:['warganegara','tanggungjawab','olahraga','antarabangsa'],a:0},
+ {n:320,t:'________ menjaga anak mesti dilaksanakan oleh setiap ibu bapa.',o:['Warganegara','Tanggungjawab','Olahraga','Antarabangsa'],a:1},
+ {n:321,t:'________ di Jabatan Pendaftaran Negeri sangat mesra.',o:['Kakitangan','Tanggungjawab','Olahraga','Antarabangsa'],a:0},
+ {n:322,t:'Encik Gordon merupakan ________ Majlis Perbandaran Batu Pahat.',o:['kakitangan','tanggungjawab','olahraga','antarabangsa'],a:0}
+]},
+{ title: 'Unit 19 · A. Isi tempat kosong (kata ganda)', kind: 'drag', bank: ['burung-burung','jejari','duit-duit','bebawang','dahan-dahan','bebaling','pepatung','sesungut','tulang-tulang','bikar-bikar','sesumpah','alat-alat'], qs: [
+ {n:323,t:'Gambar 1',img:'year4-bm-img/u19a-323.png',ans:[['burung-burung']]},
+ {n:324,t:'Gambar 2',img:'year4-bm-img/u19a-324.png',ans:[['jejari']]},
+ {n:325,t:'Gambar 3',img:'year4-bm-img/u19a-325.png',ans:[['duit-duit']]},
+ {n:326,t:'Gambar 4',img:'year4-bm-img/u19a-326.png',ans:[['bebawang']]},
+ {n:327,t:'Gambar 5',img:'year4-bm-img/u19a-327.png',ans:[['dahan-dahan']]},
+ {n:328,t:'Gambar 6',img:'year4-bm-img/u19a-328.png',ans:[['bebaling']]},
+ {n:329,t:'Gambar 7',img:'year4-bm-img/u19a-329.png',ans:[['pepatung']]},
+ {n:330,t:'Gambar 8',img:'year4-bm-img/u19a-330.png',ans:[['sesungut']]},
+ {n:331,t:'Gambar 9',img:'year4-bm-img/u19a-331.png',ans:[['tulang-tulang']]},
+ {n:332,t:'Gambar 10',img:'year4-bm-img/u19a-332.png',ans:[['bikar-bikar']]},
+ {n:333,t:'Gambar 11',img:'year4-bm-img/u19a-333.png',ans:[['sesumpah']]},
+ {n:334,t:'Gambar 12',img:'year4-bm-img/u19a-334.png',ans:[['alat-alat']]}
+]},
+{ title: 'Unit 19 · B. Pilih jawapan yang paling sesuai kata ganda', kind: 'choose', qs: [
+ {n:335,t:'Terdapat banyak pokok di taman bunga, contohnya pokok herba dan pokok ____________.',o:['duit-duit','sesumpah','sesungut','jejari'],a:0},
+ {n:336,t:'Belalang mempunyai sepasang ____________ yang merupakan organ deria.',o:['duit-duit','sesumpah','sesungut','jejari'],a:2},
+ {n:337,t:'Ali mengelap ____________ basikalnya dengan sehelai kain.',o:['duit-duit','sesumpah','sesungut','jejari'],a:3},
+ {n:338,t:'Alex ternampak seekor ____________ di dahan pokok.',o:['duit-duit','sesumpah','sesungut','jejari'],a:1},
+ {n:339,t:'Mereka melihat ____________ haiwan yang dipamerkan di Galeri Sains.',o:['tulang-tulang','burung-burung','bebaling','bikar-bikar'],a:0},
+ {n:340,t:'Ali meletakkan ____________ di atas meja dengan berhati-hati di bilik Sains.',o:['tulang-tulang','burung-burung','bebaling','bikar-bikar'],a:3},
+ {n:341,t:'Terdapat ____________ berehat di dahan pokok.',o:['tulang-tulang','burung-burung','bebaling','bikar-bikar'],a:1},
+ {n:342,t:'Alat yang berbentuk seperti kipas itu bernama ____________.',o:['tulang-tulang','burung-burung','bebaling','bikar-bikar'],a:2},
+ {n:343,t:'Burung merpati hinggap di ____________ pokok.',o:['bebawang','dahan-dahan','pepatung','alat-alat'],a:1},
+ {n:344,t:'Taman sains mempunyai banyak haiwan seperti ____________.',o:['bebawang','dahan-dahan','pepatung','alat-alat'],a:2},
+ {n:345,t:'Ayah menyediakan ____________ untuk membaiki kereta.',o:['bebawang','dahan-dahan','pepatung','alat-alat'],a:3},
+ {n:346,t:'Ibu sedang menghiris ____________ dengan sebilah pisau.',o:['bebawang','dahan-dahan','pepatung','alat-alat'],a:0}
+]},
+{ title: 'Unit 20 · A. Tuliskan ayat tunggal dan ayat majmuk', kind: 'choose', qs: [
+ {n:347,t:'Permainan ini berfaedah.',o:['ayat tunggal','ayat majmuk'],a:0},
+ {n:348,t:'Permainan ini menyeronokkan.',o:['ayat tunggal','ayat majmuk'],a:0},
+ {n:349,t:'Permainan ini berfaedah dan menyeronokkan.',o:['ayat tunggal','ayat majmuk'],a:1},
+ {n:350,t:'Ali bermain permainan itu menerusi telefon bimbit.',o:['ayat tunggal','ayat majmuk'],a:0},
+ {n:351,t:'Ali suka bermain permainan kerana permainan itu sangat berfaedah.',o:['ayat tunggal','ayat majmuk'],a:1},
+ {n:352,t:'Dia akan bermain bola jika dia mempunyai masa lapang.',o:['ayat tunggal','ayat majmuk'],a:1},
+ {n:353,t:'Kita memerlukan karbohidrat kerana ia memberi kita tenaga.',o:['ayat tunggal','ayat majmuk'],a:1},
+ {n:354,t:'Ayah membaca buku sambil mendengar muzik.',o:['ayat tunggal','ayat majmuk'],a:1},
+ {n:355,t:'Ayah membaca surat khabar.',o:['ayat tunggal','ayat majmuk'],a:0}
+]},
+{ title: 'Unit 20 · B. Tuliskan ayat majmuk dengan kata hubung yang diberikan', kind: 'text', qs: [
+ {n:356,t:'Ali tinggal di Taman Maju. / Nita tinggal di Taman Maju. (dan)',ans:[['Ali dan Nita tinggal di Taman Maju','Ali tinggal di Taman Maju dan Nita tinggal di Taman Maju']]},
+ {n:357,t:'Ali suka bermain bola. / Aktiviti itu sangat berfaedah. (kerana)',ans:[['Ali suka bermain bola kerana aktiviti itu sangat berfaedah']]},
+ {n:358,t:'Ali akan membaca buku. / Ali mempunyai masa lapang. (jika)',ans:[['Ali akan membaca buku jika Ali mempunyai masa lapang','Ali akan membaca buku jika dia mempunyai masa lapang']]},
+ {n:359,t:'Ali melayari internet. / Ali mencari maklumat. (untuk)',ans:[['Ali melayari internet untuk mencari maklumat']]},
+ {n:360,t:'Ali suka membaca buku cerita. / Kakaknya suka membaca majalah. (tetapi)',ans:[['Ali suka membaca buku cerita tetapi kakaknya suka membaca majalah']]},
+ {n:361,t:'Ali seorang pelajar yang kedekut. / Ali kaya. (walaupun)',ans:[['Walaupun Ali seorang pelajar yang kedekut, Ali kaya','Ali seorang pelajar yang kedekut walaupun Ali kaya','Ali seorang yang kedekut walaupun dia kaya']]},
+ {n:362,t:'Ali membantu ibunya. / Ali bernyanyi. (sambil)',ans:[['Ali membantu ibunya sambil bernyanyi']]},
+ {n:363,t:'Awak mahu sayur? / Awak mahu daging? (atau)',ans:[['Awak mahu sayur atau awak mahu daging','Awak mahu sayur atau daging']]}
+]},
+{ title: 'Unit 21 · A. Tandakan (v) pada ayat penyata', kind: 'choose', qs: [
+ {n:364,t:'Kamu hendak pergi mana?',o:['v (ayat penyata)','x (bukan)'],a:1},
+ {n:365,t:'Jangan main api.',o:['v (ayat penyata)','x (bukan)'],a:1},
+ {n:366,t:'Amboi, cantiknya Cikgu Te!',o:['v (ayat penyata)','x (bukan)'],a:1},
+ {n:367,t:'Kerusi itu sangat cantik.',o:['v (ayat penyata)','x (bukan)'],a:0},
+ {n:368,t:'Ali menggunakan mikroskop dengan berhati-hati.',o:['v (ayat penyata)','x (bukan)'],a:0},
+ {n:369,t:'Ayah Ali ialah seorang bomba.',o:['v (ayat penyata)','x (bukan)'],a:0},
+ {n:370,t:'Ali menaiki bas ke sekolah.',o:['v (ayat penyata)','x (bukan)'],a:0},
+ {n:371,t:'Wah, indahnya!',o:['v (ayat penyata)','x (bukan)'],a:1},
+ {n:372,t:'Kampung Helmi sungguh istimewa.',o:['v (ayat penyata)','x (bukan)'],a:0},
+ {n:373,t:'Kampung Helmi di negeri Kedah.',o:['v (ayat penyata)','x (bukan)'],a:0}
+]},
+{ title: 'Unit 22 · A. Pilih ayat tanya yang sesuai berdasarkan jawapan', kind: 'choose', qs: [
+ {n:374,t:'Ibu telah membeli sayur-sayuran dan buah-buahan.',o:['Apakah telah ibu membeli?','Di manakah ibu membeli sayur-sayuran?','Bilakah ibu membeli sayur-sayuran?','Bagaimanakah ibu membeli sayur-sayuran?'],a:0},
+ {n:375,t:'Ibu telah membeli sayur-sayuran di Pasaraya Segar.',o:['Apakah telah ibu membeli?','Di manakah ibu membeli sayur-sayuran?','Bilakah ibu membeli sayur-sayuran?','Bagaimanakah ibu membeli sayur-sayuran?'],a:1},
+ {n:376,t:'Ibu telah membeli sayur-sayuran pada waktu pagi.',o:['Apakah telah ibu membeli?','Di manakah ibu membeli sayur-sayuran?','Bilakah ibu membeli sayur-sayuran?','Bagaimanakah ibu membeli sayur-sayuran?'],a:2},
+ {n:377,t:'Ibu telah membeli sayur-sayuran dengan teliti.',o:['Apakah telah ibu membeli?','Di manakah ibu membeli sayur-sayuran?','Bilakah ibu membeli sayur-sayuran?','Bagaimanakah ibu membeli sayur-sayuran?'],a:3},
+ {n:378,t:'Harga untuk pensel warna itu ialah RM 27.90.',o:['Berapakah harga untuk pensel warna itu?','Di manakah harga untuk pensel warna itu?','Mengapakah Alex membeli pensel warna itu?','Siapakah yang membeli pensel itu?'],a:0},
+ {n:379,t:'Alex membeli pensel warna itu untuk menyiapkan tugasan sekolah.',o:['Berapakah harga untuk pensel warna itu?','Di manakah harga untuk pensel warna itu?','Mengapakah Alex membeli pensel warna itu?','Siapakah yang membeli pensel itu?'],a:2},
+ {n:380,t:'Ayah Ali yang mengeluarkan wang di mesin ATM.',o:['Apakah telah dikeluarkan?','Di manakah ayah Ali mengeluarkan wang?','Bilakah ayah Ali mengeluarkan wang?','Siapakah yang mengeluarkan wang di mesin ATM?'],a:3},
+ {n:381,t:'Ayah Ali mengeluarkan wang di mesin ATM Bank Rakyat.',o:['Apakah telah dikeluarkan?','Di manakah ayah Ali mengeluarkan wang?','Bilakah ayah Ali mengeluarkan wang?','Siapakah yang mengeluarkan wang di mesin ATM?'],a:1}
+]},
+{ title: 'Unit 22 · B. Tuliskan ayat tanya berdasarkan jawapan yang diberikan', kind: 'text', qs: [
+ {n:382,t:'Jawapan: Ali yang menelefon Encik Rosli tadi.',ans:[['siapakah yang menelefon encik rosli tadi','siapa yang menelefon encik rosli tadi']]},
+ {n:383,t:'Jawapan: Pertandingan akan diadakan pada minggu hadapan.',ans:[['bilakah pertandingan akan diadakan','bilakah pertandingan itu akan diadakan','bilakan pertandingan akan diadakan']]},
+ {n:384,t:'Jawapan: Ibu Najwa menjahit baju kurung pada masa lapang.',ans:[['bilakah ibu najwa menjahit baju kurung','bilakah ibu najwa menjahit baju kurung pada masa lapang']]},
+ {n:385,t:'Jawapan: Harga sepasang baju kurung ini ialah RM 80.00.',ans:[['berapakah harga sepasang baju kurung ini','berapakah harga sepasang baju kurung']]},
+ {n:386,t:'Jawapan: Dia menjahit baju kurung itu sendiri untuk menjimatkan perbelanjaan keluarga.',ans:[['mengapakah dia menjahit baju kurung itu sendiri','kenapa dia menjahit baju kurung itu sendiri']]}
+]},
+{ title: 'Unit 23 · A. Nyatakan sama ada ayat-ayat di bawah ayat aktif atau ayat pasif', kind: 'choose', qs: [
+ {n:387,t:'Ibu Nazri mengusahakan perniagaan makanan.',o:['Ayat Aktif','Ayat Pasif'],a:0},
+ {n:388,t:'Perniagaan makanan diusahakan oleh ibu Nazri.',o:['Ayat Aktif','Ayat Pasif'],a:1},
+ {n:389,t:'Ali menjalankan perniagaan secara atas talian.',o:['Ayat Aktif','Ayat Pasif'],a:0},
+ {n:390,t:'Perniagaan dijalankan oleh Ali secara atas talian.',o:['Ayat Aktif','Ayat Pasif'],a:1},
+ {n:391,t:'Ibu Rahmat membuat kuih-muih yang sedap.',o:['Ayat Aktif','Ayat Pasif'],a:0}
+]},
+{ title: 'Unit 23 · B. Tuliskan ayat aktif berdasarkan gambar dan kata kerja', kind: 'text', qs: [
+ {n:392,img:'year4-bm-img/u23b-392.png',t:'Ayat aktif: ____________',ans:[['mei mei membaca buku','dia membaca buku','gadis membaca buku','budak perempuan membaca buku','dia membaca buku.']]},
+ {n:393,img:'year4-bm-img/u23b-393.png',t:'Ayat aktif: ____________',ans:[['dia menggoreng ikan','ibu menggoreng ikan','dia menggoreng makanan','ibu menggoreng makanan']]},
+ {n:394,img:'year4-bm-img/u23b-394.png',t:'Ayat aktif: ____________',ans:[['posmen menghantar surat','pak pos menghantar surat','dia menghantar surat']]},
+ {n:395,img:'year4-bm-img/u23b-395.png',t:'Ayat aktif: ____________',ans:[['ali memasukkan wang ke dalam peti sumbangan','dia memasukkan wang ke dalam peti sumbangan','mereka memasukkan wang ke dalam peti sumbangan','dia memasukkan duit ke dalam peti sumbangan']]}
+]},
+{ title: 'Unit 24 · A. Tuliskan ayat susunan songsang atau ayat susunan biasa', kind: 'choose', qs: [
+ {n:396,t:'Zaki belajar di SJKC Yok Choy.',o:['ayat susunan biasa','ayat susunan songsang'],a:0},
+ {n:397,t:'Belajar di SJKC Yok Choy Zaki.',o:['ayat susunan biasa','ayat susunan songsang'],a:1},
+ {n:398,t:'Ali menunggang basikal.',o:['ayat susunan biasa','ayat susunan songsang'],a:0},
+ {n:399,t:'Menunggang basikal Ali.',o:['ayat susunan biasa','ayat susunan songsang'],a:1},
+ {n:400,t:'Encik Subra ke kaunter tiket.',o:['ayat susunan biasa','ayat susunan songsang'],a:0},
+ {n:401,t:'Ke kaunter tiket Encik Subra.',o:['ayat susunan biasa','ayat susunan songsang'],a:1}
+]},
+{ title: 'Unit 24 · B. Pilih ayat songsang yang betul', kind: 'choose', qs: [
+ {n:402,t:'Adik Ahmad pergi ke sekolah.',o:['Adik Ahmad ke sekolah pergi.','Adik pergi ke sekolah Ahmad.','Pergi ke sekolah adik Ahmad.','Ke sekolah pergi adik Ahmad.'],a:2},
+ {n:403,t:'Encik Ming mengikut anaknya ke bank.',o:['Mengikut anaknya ke bank Encik Ming.','Mengikut anaknya ke bank.','Encik Ming ke bank mengikut anaknya.','Encik Ming mengikut anaknya bank ke.'],a:0}
+]},
+{ title: 'Unit 24 · C. Pilih ayat susunan biasa yang betul', kind: 'choose', qs: [
+ {n:404,t:'Membaca buku di bilik Ali.',o:['Membaca buku Ali di bilik.','Ali membaca buku di bilik.','Membaca buku di Ali.','Membaca Ali buku di bilik.'],a:1},
+ {n:405,t:'Pergi ke bank Puan Fatimah.',o:['Puan Fatimah pergi ke bank.','Puan pergi ke bank Fatimah.','Pergi ke Puan Fatimah bank.','Puan Fatimah bank pergi ke.'],a:0}
+]},
+{ title: 'Unit 24 · D. Bina ayat susunan biasa atau ayat susunan songsang', kind: 'text', qs: [
+ {n:406,t:'Ayat susunan biasa: Ali membeli pensel. → Ayat susunan songsang: ____________',ans:[['membeli pensel ali']]},
+ {n:407,t:'Ayat susunan biasa: Aidil mengira wang baki. → Ayat susunan songsang: ____________',ans:[['mengira wang baki aidil']]},
+ {n:408,t:'Ayat susunan biasa: Dinesh mengikut ibu ke bank. → Ayat susunan songsang: ____________',ans:[['mengikut ibu ke bank dinesh']]},
+ {n:409,t:'Ayat susunan biasa: ____________ → Ayat susunan songsang: Menyimpan wang Alex.',ans:[['alex menyimpan wang']]},
+ {n:410,t:'Ayat susunan biasa: ____________ → Ayat susunan songsang: Sedang mengunggu giliran Encik Ming.',ans:[['encik ming sedang menunggu giliran']]},
+ {n:411,t:'Ayat susunan biasa: ____________ → Ayat susunan songsang: Sedang menyanyi lagu Ahmad.',ans:[['ahmad sedang menyanyi lagu']]},
+ {n:412,t:'Ayat susunan biasa: ____________ → Ayat susunan songsang: Pandai belajar Alex.',ans:[['alex pandai belajar']]},
+ {n:413,t:'Ayat susunan biasa: Ali beratur di kaunter. → Ayat susunan songsang: ____________',ans:[['beratur di kaunter ali']]}
+]},
+{ title: 'Bonus · Simpulan Bahasa A. Padankan simpulan bahasa dengan maksud yang betul', kind: 'choose', qs: [
+ {n:414,t:'susah hati',o:['','','','','','','',''],a:2},{n:415,t:'ringan tulang',o:['','','','','','','',''],a:1},{n:416,t:'ambil angin',o:['','','','','','','',''],a:0},{n:417,t:'ambil berat',o:['','','','','','','',''],a:3},
+ {n:418,t:'anak jati',o:['','','','','','','',''],a:5},{n:419,t:'anak kandung',o:['','','','','','','',''],a:4},{n:420,t:'baik hati',o:['','','','','','','',''],a:6},{n:421,t:'berganding bahu',o:['','','','','','','',''],a:7}
+]},
+{ title: 'Bonus · Simpulan Bahasa B. Pilih jawapan yang paling sesuai', kind: 'choose', qs: [
+ {n:422,t:'Ali suka meronda untuk beriadah sambil ________.',o:['susah hati','ringan tulang','ambil angin','ambil berat'],a:2},
+ {n:423,t:'Alex gagal dalam peperiksaan, dia berasa sedih dan ________.',o:['susah hati','ringan tulang','ambil angin','ambil berat'],a:0},
+ {n:424,t:'Kita perlu ________ tentang keselamatan murid-murid di sekolah.',o:['susah hati','ringan tulang','ambil angin','ambil berat'],a:3},
+ {n:425,t:'Ali belajar dengan bersungguh-sungguh pada setiap hari, beliau seorang murid yang ________.',o:['susah hati','ringan tulang','ambil angin','ambil berat'],a:1},
+ {n:426,t:'Sang Kancil dan Si Belang merupakan ________ hutan.',o:['berganding bahu','lepas tangan','sampai hati','anak jati'],a:3},
+ {n:427,t:'Marilah kita ________ untuk menjaga kebersihan sekolah.',o:['berganding bahu','lepas tangan','sampai hati','anak jati'],a:0},
+ {n:428,t:'Kita tidak boleh bersikap ________ terhadap kes jenayah.',o:['berganding bahu','lepas tangan','sampai hati','anak jati'],a:1},
+ {n:429,t:'Ibu tidak ________ untuk meninggalkan anaknya, Arif.',o:['berganding bahu','lepas tangan','sampai hati','susah hati'],a:2},
+ {n:430,t:'Ali sudah ________ untuk belajar di luar negara.',o:['bulat hati','anak kandung','baik hati','ringan tulang'],a:0},
+ {n:431,t:'Beliau menjaga kanak-kanak di tadika seperti ________ sendiri.',o:['bulat hati','anak kandung','baik hati','ringan tulang'],a:1},
+ {n:432,t:'Ali membantu orang tua dengan gembira, dia sangat ________.',o:['bulat hati','anak kandung','baik hati','ringan tulang'],a:2},
+ {n:433,t:'Untuk mendapat keputusan yang cemerlang, kita mesti menjadi seorang murid yang ________.',o:['bulat hati','anak kandung','baik hati','ringan tulang'],a:3},
+ {n:434,t:'Ali berasa gembira dan ________ selepas dipuji oleh Cikgu di dalam kelas.',o:['bulat hati','senang hati','baik hati','berat tulang'],a:1},
+ {n:435,t:'Ali tidak membuat kerja rumah dan selalu ponteng sekolah, dia seorang yang ________.',o:['bulat hati','senang hati','baik hati','berat tulang'],a:3}
+]},
+{ title: 'Bonus · Peribahasa B. Pilih jawapan yang paling sesuai', kind: 'choose', qs: [
+ {n:436,t:'Marilah kita menghadapi masalah dengan bersama-sama, kerana ________.',o:['bagai aur dengan tebing','berat sama dipikul, ringan sama dijinjing','bagai isi dengan kuku','putih seperti kapas'],a:1},
+ {n:437,t:'Ayah telah menghadiahi seekor kucing yang berbulu ________ dan sangat comel.',o:['bagai aur dengan tebing','berat sama dipikul, ringan sama dijinjing','bagai isi dengan kuku','putih seperti kapas'],a:3},
+ {n:438,t:'Ali dan Ahmad ialah kawan baik, hubungan mereka ________.',o:['bagai aur dengan tebing','berat sama dipikul, ringan sama dijinjing','bagai isi dengan kuku','putih seperti kapas'],a:2},
+ {n:439,t:'Kita mesti tolong-menolong ________.',o:['bagai aur dengan tebing','berat sama dipikul, ringan sama dijinjing','bagai isi dengan kuku','putih seperti kapas'],a:0},
+ {n:440,t:'Kepulangan Encik Rahmah ke kampung asalnya ________.',o:['bagai ikan pulang ke lubuk','biar lambat, asalkan selamat','di mana ada kemahuan, di situ ada jalan','malang tidak berbau'],a:0},
+ {n:441,t:'Jangan terburu-buru semasa memandu kereta, ingat, ________.',o:['bagai ikan pulang ke lubuk','biar lambat, asalkan selamat','di mana ada kemahuan, di situ ada jalan','melentur buluh biarlah daripada rebungnya.'],a:1},
+ {n:442,t:'Ayah memandu kereta dengan berhati-hati kerana ________.',o:['melentur buluh biarlah daripada rebungnya.','di mana ada kemahuan, di situ ada jalan','bagai ikan pulang ke lubuk','malang tidak berbau'],a:3},
+ {n:443,t:'Kita perlu memupuk amalan baik dari kecil kerana ________.',o:['melentur buluh biarlah daripada rebungnya.','biar lambat, asalkan selamat','di mana ada kemahuan, di situ ada jalan','malang tidak berbau'],a:0},
+ {n:444,t:'Harap Ali dapat menyesuaikan diri di Australia kerana ________.',o:['melentur buluh biarlah daripada rebungnya.','di mana ada kemahuan, di situ ada jalan.','malang tidak berbau','masuk kandang kambing mengembek, masuk kandang kerbau menguak'],a:3},
+ {n:445,t:'Ahmad lebih suka bekerja di dalam kampung asalnya berbanding bekerja di luar, kerana ________.',o:['melentur buluh biarlah daripada rebungnya.','di mana ada kemahuan, di situ ada jalan.','malang tidak berbau','hujan emas di negeri orang, hujan batu di negeri sendiri, lebih baik di negeri sendiri.'],a:3},
+ {n:446,t:'Rahmat telah menjadi seorang usahawan yang berjaya setelah berniaga dengan bersungguh-sungguh selama tiga tahun, bagi dia ________.',o:['melentur buluh biarlah daripada rebungnya.','di mana ada kemahuan, di situ ada jalan.','malang tidak berbau','hujan emas di negeri orang, hujan batu di negeri sendiri, lebih baik di negeri sendiri.'],a:1},
+ {n:447,t:'Semua penduduk Taman Maju bergotong-royong ________.',o:['melentur buluh biarlah daripada rebungnya.','di mana ada kemahuan, di situ ada jalan.','malang tidak berbau','bagai aur dengan tebing.'],a:3}
+]}
+];
+const SECTIONS = NEW_SECTIONS.flatMap(splitSection);
+const ALL = [];
+SECTIONS.forEach(s => s.qs.forEach(q => ALL.push(q)));
+const TABS = SECTIONS.map(s => 'Q' + s.qs[0].n + '–' + s.qs[s.qs.length - 1].n);
+const vals = {}; // n -> array: choose items [index], text/drag items [string per blank]
+const checkedQ = {}; // n -> true once its group has been checked
+const blockResult = {}; // first question n of a group -> result text
+let active = 0;
+let selTile = null; // word tile selected by tap (drag-free placement)
+
+function isChoose(q){ return Array.isArray(q.o); }
+function esc(s){ return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+function fmtText(s){ return esc(s).replace(/_{3,}/g, '<span class="bl">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>'); }
+function fmtPassage(s){ return esc(s).replace(/\[(\d+)\]/g, (m, n) => '<span class="bl">(' + n + ')</span>'); }
+function groups(qs){ return [qs]; } /* each tab is one group with one Check button */
+function norm(s){ return String(s).trim().toLowerCase().replace(/[’`]/g, "'").replace(/[.!?]+$/, '').replace(/\s+/g, ' '); }
+function accepted(list, v){ return v !== undefined && v !== '' && list.some(a => norm(a) === norm(v)); }
+function isQ(q){
+ const v = vals[q.n] || [];
+ if (isChoose(q)) return v[0] === q.a;
+ return q.ans.every((acc, k) => accepted(acc, v[k]));
+}
+function hasAnswer(q){ return (vals[q.n] || []).some(x => x !== undefined && x !== ''); }
+
+function fmtClick(s){ return esc(s).replace(/\{([^}]+)\}/g, (m, w) => '<span class="nm" data-w="' + w + '">' + w + '</span>'); }
+function clickNames(){ return SECTIONS[active].qs.map(q => (vals[q.n] || [])[0]).filter(x => x !== undefined && x !== ''); }
+function syncHighlight(){ const picked = clickNames(); document.querySelectorAll('.nm').forEach(el => el.classList.toggle('sel', picked.includes(el.dataset.w))); }
+function toggleName(w){
+ const sec = SECTIONS[active];
+ let names = clickNames();
+ if (names.includes(w)) names = names.filter(x => x !== w);
+ else if (names.length < sec.qs.length) names = names.concat([w]);
+ sec.qs.forEach((q, k) => { vals[q.n] = [names[k]]; });
+ renderAnswers();
+ syncHighlight();
+ renderHeader();
+}
+document.getElementById('paper').addEventListener('click', e => {
+ const t = e.target.closest ? e.target.closest('.nm') : null;
+ if (t && SECTIONS[active].kind === 'click') toggleName(t.dataset.w);
+});
+
+function renderAll(){ renderTabs(); renderPaper(); renderAnswers(); renderHeader(); }
+
+function renderTabs(){
+ const nav = document.getElementById('tabs');
+ nav.innerHTML = TABS.map((t, i) => '<button type="button" class="tab' + (i === active ? ' on' : '') + (sectionDone(SECTIONS[i]) ? ' done' : '') + '" data-i="' + i + '">' + esc(t) + (sectionDone(SECTIONS[i]) ? ' ✓' : '') + '</button>').join('');
+ nav.querySelectorAll('.tab').forEach(b => b.addEventListener('click', () => goTo(+b.dataset.i)));
+}
+
+function goTo(i){
+ if (i < 0 || i >= SECTIONS.length) return;
+ active = i;
+ selTile = null;
+ renderAll();
+ document.getElementById('answers').scrollTop = 0;
+ document.getElementById('paper').scrollTop = 0;
+}
+
+function renderPaper(){
+ const sec = SECTIONS[active];
+ let html = '';
+ html += '<div class="paper-title">' + esc(sec.title) + '</div>';
+ if (sec.passage) {
+ html += '<div class="passage">' + (sec.kind === 'click' ? fmtClick(sec.passage) : fmtPassage(sec.passage)) + '</div>';
+ } else {
+ sec.qs.forEach(q => { if (q.t || q.img) html += '<div class="pline">' + ((q.t || q.img) ? '<span class="pn">' + q.n + '.</span>' : '') + (q.img ? '<img class="qimg" src="' + q.img + '" alt="">' : '') + (q.t ? '<span>' + fmtText(q.t) + '</span>' : '') + '</div>'; });
+ }
+ document.getElementById('paper').innerHTML = html;
+ syncHighlight();
+}
+
+function renderAnswers(){
+ const sec = SECTIONS[active];
+ let html = '<p class="note">Jawab di ruangan kanan, kemudian tekan ✔ Semak untuk setiap kumpulan.</p>';
+ if (sec.bank) {
+ html += '<div class="bank"><span class="bank-h">Senarai perkataan · seret ke tempat kosong, atau tekan perkataan kemudian tempat kosong</span>';
+ html += sec.bank.map(w => '<span class="tile" draggable="true" data-word="' + esc(w) + '">' + esc(w) + '</span>').join('');
+ html += '</div>';
+ }
+ groups(sec.qs).forEach(group => {
+ const first = group[0].n, last = group[group.length - 1].n;
+ html += '<div class="grp"><div class="grp-h">Soalan ' + first + '–' + last + ' · Q' + first + '–' + last + '</div>';
+ group.forEach(q => {
+ html += '<div class="arow"><span class="an">' + q.n + '.</span>' + (q.lab ? '<span class="lab">' + esc(q.lab) + '</span>' : '');
+ if (isChoose(q)) {
+ html += '<select class="ans" id="s' + q.n + '" data-n="' + q.n + '" aria-label="Question ' + q.n + '">';
+ html += '<option value="">— Pilih —</option>';
+ q.o.forEach((opt, i) => { html += '<option value="' + i + '">' + LET[i] + '. ' + esc(opt) + '</option>'; });
+ html += '</select>';
+ } else {
+ q.ans.forEach((acc, k) => {
+ const id = 'i' + q.n + '_' + k;
+ if (sec.bank || sec.kind === 'click') html += '<span class="slot" id="' + id + '" data-n="' + q.n + '" data-k="' + k + '" tabindex="0"></span>';
+ else html += '<input type="text" class="tin" id="' + id + '" data-n="' + q.n + '" data-k="' + k + '" autocomplete="off" aria-label="Question ' + q.n + ' blank ' + (k + 1) + '">';
+ });
+ }
+ html += '<span class="amsg" id="m' + q.n + '"></span></div>';
+ });
+ html += '<div class="blockcheck"><button type="button" class="btn check" data-first="' + first + '">✔ Semak</button><span class="blockmsg" id="bm' + first + '">' + esc(blockResult[first] || '') + '</span></div></div>';
+ });
+ const box = document.getElementById('answers');
+ box.innerHTML = html;
+ box.querySelectorAll('select.ans').forEach(sel => sel.addEventListener('change', () => setVal(+sel.dataset.n, 0, sel.value === '' ? undefined : +sel.value)));
+ box.querySelectorAll('input.tin').forEach(inp => inp.addEventListener('input', () => setVal(+inp.dataset.n, +inp.dataset.k, inp.value)));
+ box.querySelectorAll('.slot').forEach(sl => {
+ sl.addEventListener('click', () => {
+ const n = +sl.dataset.n, k = +sl.dataset.k;
+ if (sec.kind === 'click') { const w = (vals[n] || [])[k]; if (w) toggleName(w); return; }
+ if (selTile) { setVal(n, k, selTile); selTile = null; renderBankSel(); }
+ else if (vals[n] && vals[n][k]) setVal(n, k, '');
+ });
+ sl.addEventListener('dragover', e => e.preventDefault());
+ sl.addEventListener('drop', e => { e.preventDefault(); setVal(+sl.dataset.n, +sl.dataset.k, e.dataTransfer.getData('text/plain')); });
+ });
+ box.querySelectorAll('.tile').forEach(tl => {
+ tl.addEventListener('click', () => { selTile = selTile === tl.dataset.word ? null : tl.dataset.word; renderBankSel(); });
+ tl.addEventListener('dragstart', e => { e.dataTransfer.setData('text/plain', tl.dataset.word); selTile = null; renderBankSel(); });
+ });
+ box.querySelectorAll('.btn.check').forEach(btn => btn.addEventListener('click', () => checkGroup(+btn.dataset.first)));
+ sec.qs.forEach(q => paintQuestion(q.n));
+}
+
+function renderBankSel(){
+ document.querySelectorAll('.tile').forEach(tl => tl.classList.toggle('sel', tl.dataset.word === selTile));
+}
+
+function setVal(n, k, val){
+ vals[n] = vals[n] || [];
+ vals[n][k] = (val === '' || val === undefined) ? (isChoose(ALL.find(x => x.n === n)) ? undefined : '') : val;
+ paintQuestion(n);
+ renderHeader();
+}
+
+const SHEET_URL = 'https://script.google.com/macros/s/AKfycbwfpSs2biONcgBbbWnG5WW3QKec1ShM9c5LUCrb7TtI5jeKlGUm0sHvH5odTN1l8oSV/exec';
+const checkTries = {};
+function sendCheck(first, right, total){
+ let who = '';
+ try { who = (JSON.parse(sessionStorage.getItem('asc_student') || 'null') || {}).name || ''; } catch (e) {}
+ if (!who) return; // no student logged in on the hub: nothing to record
+ checkTries[first] = (checkTries[first] || 0) + 1;
+ const state = {};
+ SECTIONS[active].qs.forEach(q => { state[q.n] = vals[q.n] || []; });
+ try {
+ fetch(SHEET_URL, {
+ method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain' },
+ body: JSON.stringify({ at: new Date().toISOString(), student: who, page: 'year4-bm.html?part=' + TABS[active],
+ right: right, total: total, tries: checkTries[first], state: JSON.stringify(state) })
+ });
+ } catch (e) {}
+}
+function checkGroup(first){
+ const group = groups(SECTIONS[active].qs).find(g => g[0].n === first);
+ group.forEach(q => { checkedQ[q.n] = true; paintQuestion(q.n); });
+ const right = group.filter(isQ).length;
+ blockResult[first] = 'Soalan ' + first + '–' + group[group.length - 1].n + ': ' + right + ' / ' + group.length + ' betul';
+ document.getElementById('bm' + first).textContent = blockResult[first];
+ sendCheck(first, right, group.length);
+ renderHeader();
+}
+
+/* Never shows the correct answer: only marks what was entered as right or wrong. */
+function paintQuestion(n){
+ const q = ALL.find(x => x.n === n);
+ const v = vals[n] || [];
+ const msg = document.getElementById('m' + n);
+ if (!msg) return;
+ if (isChoose(q)) {
+ const sel = document.getElementById('s' + n);
+ if (sel) {
+ sel.value = v[0] === undefined ? '' : String(v[0]);
+ sel.classList.remove('ok','bad');
+ if (checkedQ[n]) sel.classList.add(v[0] === q.a ? 'ok' : 'bad');
+ }
+ } else {
+ q.ans.forEach((acc, k) => {
+ const el = document.getElementById('i' + n + '_' + k);
+ if (!el) return;
+ const val = v[k] === undefined ? '' : v[k];
+ if (el.tagName === 'INPUT') { if (el.value !== val) el.value = val; }
+ else { el.textContent = val || ''; el.classList.toggle('filled', !!val); }
+ el.classList.remove('ok','bad');
+ if (checkedQ[n]) el.classList.add(accepted(acc, val) ? 'ok' : 'bad');
+ });
+ }
+ msg.className = 'amsg';
+ msg.textContent = '';
+ if (checkedQ[n]) {
+ if (isQ(q)) { msg.classList.add('ok'); msg.textContent = '✔ Betul'; }
+ else if (!hasAnswer(q)) { msg.classList.add('bad'); msg.textContent = 'Belum dijawab'; }
+ else { msg.classList.add('bad'); msg.textContent = '✘ Salah'; }
+ }
+}
+
+function sectionDone(sec){ return sec.qs.every(q => isQ(q)); }
+function renderHeader(){
+ renderTabs();
+ const qs = SECTIONS[active].qs;
+ const checked = qs.filter(q => checkedQ[q.n]);
+ const right = checked.filter(isQ).length;
+ const pill = document.getElementById('status');
+ pill.className = 'pill';
+ if (checked.length === 0) pill.textContent = 'Belum disemak';
+ else if (checked.length < qs.length) { pill.classList.add('partial'); pill.textContent = 'Sedang disemak ' + checked.length + ' / ' + qs.length + ' · betul ' + right; }
+ else { pill.classList.add('done'); pill.textContent = 'Disemak · betul ' + right + ' / ' + qs.length; }
+ document.getElementById('title').textContent = 'Bahagian ' + (active + 1) + ' / ' + SECTIONS.length + ' · Q' + qs[0].n + '–' + qs[qs.length - 1].n;
+ document.getElementById('prevBtn').disabled = active === 0;
+ document.getElementById('nextBtn').disabled = active === SECTIONS.length - 1;
+}
+
+document.getElementById('prevBtn').addEventListener('click', () => goTo(active - 1));
+document.getElementById('nextBtn').addEventListener('click', () => goTo(active + 1));
+document.getElementById('resetBtn').addEventListener('click', () => {
+ Object.keys(vals).forEach(k => delete vals[k]);
+ Object.keys(checkedQ).forEach(k => delete checkedQ[k]);
+ Object.keys(blockResult).forEach(k => delete blockResult[k]);
+ selTile = null;
+ renderAll();
+ window.scrollTo({top: 0, behavior: 'smooth'});
+});
+
+renderAll();
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+

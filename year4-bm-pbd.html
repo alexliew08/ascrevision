@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Revisi Buku A · Bahasa Melayu</title>
+<style>
+:root{color-scheme:light;--green:#2f5e4a;--green2:#3f7a60;--line:#d6e3da;--cream:#fffdf8;--ink:#23302a;--muted:#6b7a72;--ok:#2e7d46;--okbg:#dcf0df;--bad:#b03a2e;--badbg:#f8ddd9;--warn:#8a6200;--warnbg:#fff3d6}
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0}
+body{background:#f4f8f5;color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI","Microsoft YaHei",sans-serif;font-size:16px;line-height:1.6;min-height:100vh;overflow-x:hidden}
+header.top{position:sticky;top:0;z-index:5;background:var(--cream);border-bottom:2px solid var(--line)}
+.top-in{max-width:1280px;margin:0 auto;padding:8px 12px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between}
+.left-h{display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+.top h1{margin:0;font-size:19px;line-height:1.25;color:var(--green)}
+.hublink{display:inline-flex;align-items:center;min-height:40px;font-size:15px;font-weight:700;color:var(--green2);text-decoration:none}
+.pill{font-size:14px;font-weight:700;background:#ece9e2;color:var(--muted);border-radius:999px;padding:4px 12px;white-space:nowrap}
+.pill.partial{background:var(--warnbg);color:var(--warn)}
+.pill.done{background:var(--okbg);color:var(--ok)}
+.right-h{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.btn{font:inherit;font-size:15px;font-weight:700;min-height:40px;padding:6px 14px;border:2px solid var(--green);border-radius:999px;background:var(--green);color:#fff;box-shadow:0 3px 0 #1f4636;cursor:pointer}
+.btn.alt{background:var(--cream);color:var(--green);box-shadow:0 3px 0 var(--line)}
+.btn:disabled{opacity:.4;cursor:default}
+.btn.check{background:var(--green);color:#fff;min-height:40px}
+.tabs{display:flex;flex-wrap:wrap;gap:6px;max-width:1280px;margin:8px auto 0;padding:0 12px}
+.tab{font:inherit;font-size:14px;font-weight:700;min-height:38px;padding:4px 12px;border:2px solid var(--line);border-radius:999px;background:var(--cream);color:var(--green);cursor:pointer;white-space:nowrap}
+.tab.on{background:var(--green);color:#fff;border-color:var(--green)}
+.split{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:12px;max-width:1280px;margin:10px auto 16px;padding:0 12px;height:calc(100vh - 190px);min-height:460px}
+.pane{background:var(--cream);border:2px solid var(--line);border-radius:14px;overflow:auto;padding:16px 18px;min-width:0}
+.paper-head{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:13px;color:var(--muted);border-bottom:1px solid var(--line);padding-bottom:8px;margin-bottom:12px}
+.paper-title{font-size:19px;font-weight:800;color:var(--green);margin:4px 0 6px}
+.pic{font-size:13px;color:var(--muted);font-style:italic;margin:0 0 8px}
+.pline{display:flex;gap:10px;font-size:17px;line-height:2;margin:4px 0}
+.pline .pn{flex:0 0 auto;min-width:2.2em;font-weight:800;color:#c46a2d}
+.passage{font-size:17px;line-height:2;background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px 14px}
+.bl{display:inline-block;min-width:3.4em;text-align:center;font-weight:700;color:var(--green);border-bottom:2px solid var(--green2);padding:0 4px}
+.grp{border:1.5px solid var(--line);border-radius:12px;padding:10px 12px;margin-bottom:14px;background:#fff}
+.grp-h{font-weight:800;color:var(--green);margin-bottom:4px}
+.arow{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;padding:6px 0;border-bottom:1px dashed var(--line)}
+.arow:last-of-type{border-bottom:none}
+.arow .an{min-width:2.4em;font-weight:800;color:#c46a2d}
+.ans{font:inherit;font-size:16px;min-height:42px;min-width:200px;max-width:100%;padding:6px 10px;border:2px solid var(--line);border-radius:10px;background:#fff;color:var(--ink);cursor:pointer}
+.ans:focus{outline:3px solid #dfeee5;border-color:var(--green2)}
+.ans.ok{border-color:var(--ok);background:var(--okbg)}
+.ans.bad{border-color:var(--bad);background:var(--badbg)}
+.amsg{font-size:14px;font-weight:700;min-height:20px}
+.amsg.ok{color:var(--ok)}
+.amsg.bad{color:var(--bad)}
+.blockcheck{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:10px}
+.blockmsg{font-size:15px;font-weight:700;color:var(--green)}
+.note{font-size:14px;color:var(--muted);margin:0 0 8px}
+@media (max-width:820px){
+  .split{grid-template-columns:1fr;height:auto;min-height:0}
+  .pane{overflow:visible}
+  .ans{min-width:0;width:100%}
+  .arow .an{min-width:2em}
+}
+.tin{font:inherit;font-size:16px;min-height:40px;width:8.5em;min-width:0;max-width:100%;padding:6px 10px;border:none;border-radius:10px;background:#eef5f0;color:var(--ink);outline:none;box-shadow:none}
+.tin:focus{background:#dfeee5}
+.tin.ok{background:var(--okbg)}
+.tin.bad{background:var(--badbg)}
+.slot.ok{border-color:var(--ok);background:var(--okbg)}
+.slot.bad{border-color:var(--bad);background:var(--badbg)}
+.bank{display:flex;flex-wrap:wrap;gap:8px;align-items:center;background:#f2f7f3;border:1px dashed var(--line);border-radius:12px;padding:8px 10px;margin-bottom:12px}
+.bank-h{font-size:14px;font-weight:700;color:var(--muted);width:100%}
+.tile{font-size:16px;font-weight:700;min-height:40px;display:inline-flex;align-items:center;padding:4px 14px;border:2px solid var(--green2);border-radius:10px;background:#fff;color:var(--green);cursor:grab;user-select:none;-webkit-user-select:none;touch-action:manipulation}
+.tile.sel{background:var(--green);color:#fff}
+.slot{display:inline-flex;align-items:center;justify-content:center;min-width:110px;min-height:40px;padding:4px 10px;border:2px dashed #b3c7b9;border-radius:10px;background:#fff;color:var(--muted);font-weight:700;cursor:pointer;user-select:none;-webkit-user-select:none}
+.slot.filled{border-style:solid;border-color:var(--green2);color:var(--ink)}
+.qimg{display:block;height:auto;max-height:120px;max-width:170px;flex:0 0 auto;border-radius:8px;border:1px solid var(--line);background:#fff}
+.nm{cursor:pointer;border-bottom:2px dotted var(--green2);border-radius:4px;padding:0 2px}
+.nm:hover{background:#e3f0e8}
+.nm.sel{background:var(--green);color:#fff;border-bottom-color:var(--green)}
+.lab{font-size:13px;color:var(--muted);flex:0 0 auto;margin-right:4px}
+.tab.done{background:#2e7d46;color:#fff;border-color:#2e7d46}
+.tab.on{outline:3px solid #23302a;outline-offset:1px}
+.arow .tin{flex:1 1 240px;width:auto;min-width:200px;font-size:18px;min-height:50px;padding:8px 12px}
+.tin.essay{width:100%;min-height:240px;font-size:18px;line-height:1.7;resize:vertical}
+.pane img.qimg.panel{width:100% !important;height:auto !important;max-width:100% !important;max-height:none !important;display:block}
+.tileimg{height:70px;width:auto;max-width:150px;display:block}
+.slotimg{height:90px;width:auto;max-width:200px;display:block}
+</style>
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <div class="left-h">
+    <a class="hublink" href="index.html?sub=bm4">← Kembali ke menu</a>
+    <h1 id="title">Revisi Buku A</h1>
+    <span class="pill" id="status">Belum disemak</span>
+  </div>
+  <div class="right-h">
+    <button class="btn alt" id="prevBtn" type="button">← Sebelumnya</button>
+    <button class="btn alt" id="nextBtn" type="button">Seterusnya →</button>
+    <button class="btn alt" id="resetBtn" type="button">↺ Ulang semula</button>
+  </div>
+</div></header>
+<nav class="tabs" id="tabs" aria-label="Parts"></nav>
+<main class="split">
+  <section class="pane" id="paper" aria-label="Worksheet"></section>
+  <section class="pane" id="answers" aria-label="Answers"></section>
+</main>
+<script>
+'use strict';
+/* Each question: {n, t (text, "____" = blank), o:[4 options], a: index of correct option (0=A)}
+   Passage groups: {title, pic, passage (text with [n] markers), qs:[...]} */
+/* Split every section into tabs of 10 questions. */
+function splitSection(s){
+  const out = [];
+  let i = 0;
+  while (i < s.qs.length) {
+    const take = (s.qs.length - i) > 12 ? 10 : (s.qs.length - i);
+    out.push({ title: s.title, kind: s.kind, bank: s.bank, bankImgs: s.bankImgs, pic: s.pic, panel: s.panel, fullpage: s.fullpage, gallery: s.gallery, passage: s.passage, qs: s.qs.slice(i, i + take) });
+    i += take;
+  }
+  return out;
+}
+const LET = ['A','B','C','D'];
+const NEW_SECTIONS = [
+{ title: 'Unit 1 · A. Lengkapkan ayat dengan kata nama am yang betul berdasarkan gambar', kind: 'drag', panel: 'year4-bm-pbd-img/u1a-scene.png', bank: ['khemah','tangga','pencakar','rumput','cangkul'], qs: [
+  {n:1,t:'Suresh menolong Pak Cik Aman memotong ______ yang panjang.',ans:[['rumput']]},
+  {n:2,t:'Kong Wei menggunakan ______ untuk mengumpulkan daun-daun kering yang gugur.',ans:[['pencakar']]},
+  {n:3,t:'Julia membantu ibunya menyediakan minuman di bawah ______.',ans:[['khemah']]},
+  {n:4,t:'Joseph membantu memegang ______ semasa Pak Cik Umar memotong dahan pokok.',ans:[['tangga']]},
+  {n:5,t:'Kasman menggunakan ______ untuk menggali lubang bagi menanam pokok bunga.',ans:[['cangkul']]}
+]},
+{ title: 'Unit 1 · B. Berdasarkan cerita, tuliskan peribahasa yang sesuai dengan makna yang diberikan', kind: 'choose', panel: 'year4-bm-pbd-img/u1b-page.png', fullpage: true, qs: [
+  {n:6,t:'Berdukacita',o:['susah hati','ambil angin','bagai isi dengan kuku','putih seperti kapas','bagai aur dengan tebing'],a:0},
+  {n:7,t:'Bersiar-siar ambil udara bersih',o:['susah hati','ambil angin','bagai isi dengan kuku','putih seperti kapas','bagai aur dengan tebing'],a:1},
+  {n:8,t:'Sangat akrab',o:['susah hati','ambil angin','bagai isi dengan kuku','putih seperti kapas','bagai aur dengan tebing'],a:2},
+  {n:9,t:'Sangat putih dan bersih',o:['susah hati','ambil angin','bagai isi dengan kuku','putih seperti kapas','bagai aur dengan tebing'],a:3},
+  {n:10,t:'Tolong-menolong antara satu sama lain',o:['susah hati','ambil angin','bagai isi dengan kuku','putih seperti kapas','bagai aur dengan tebing'],a:4}
+]},
+{ title: 'Unit 2 · A. Lengkapkan ayat dengan kata nama khas yang betul berdasarkan gambar', kind: 'drag', bank: ['Mei Lin','Proton Persona','Si Putih','Pantai Teluk Kemang'], qs: [
+  {n:11,t:'Kereta ______ baru itu kepunyaan abang Amir.',img:'year4-bm-pbd-img/u2a-1.png',ans:[['Proton Persona']]},
+  {n:12,t:'Kamalia berasa sedih kerana jirannya, ______ akan berpindah ke Kedah.',img:'year4-bm-pbd-img/u2a-2.png',ans:[['Mei Lin']]},
+  {n:13,t:'Hamidah sekeluarga berkelah di ______, Port Dickson.',img:'year4-bm-pbd-img/u2a-3.png',ans:[['Pantai Teluk Kemang']]},
+  {n:14,t:'Halim menyelamatkan kucing jirannya, ______ yang terjatuh di dalam longkang.',img:'year4-bm-pbd-img/u2a-4.png',ans:[['Si Putih']]}
+]},
+{ title: 'Unit 2 · B. Bina ayat berdasarkan gambar dan frasa yang diberikan', kind: 'text', qs: [
+  {n:15,t:'membaik pulih balai raya',img:'year4-bm-pbd-img/u2b-1.png',kw:['membaik pulih','balai raya'],ans:[['(kw)']]},
+  {n:16,t:'mengecat dinding',img:'year4-bm-pbd-img/u2b-2.png',kw:['mengecat dinding'],ans:[['(kw)']]},
+  {n:17,t:'memasang papan tanda',img:'year4-bm-pbd-img/u2b-3.png',kw:['papan tanda'],ans:[['(kw)']]},
+  {n:18,t:'menanam pokok bunga',img:'year4-bm-pbd-img/u2b-4.png',kw:['menanam','pokok bunga'],ans:[['(kw)']]},
+  {n:19,t:'mengutip sampah sarap',img:'year4-bm-pbd-img/u2b-5.png',kw:['mengutip','sampah'],ans:[['(kw)']]}
+]},
+{ title: 'Unit 3 · A. Padankan ayat dengan kata ganti nama yang betul', kind: 'drag', bank: ['sini','Beta','tuanku','sana','Patik'], qs: [
+  {n:20,t:'"______ berasa kagum dengan kepesatan ekonomi negeri ini," titah Sultan.',ans:[['Beta']]},
+  {n:21,t:'"Ampun ______, semua rakyat telah dimaklumkan tentang keberangkatan tuan puteri ke pulau itu," sembah bendahara.',ans:[['tuanku']]},
+  {n:22,t:'"Apakah yang kamu buat di ______?" tanya Cikgu Hana kepada seorang murid yang berada di dalam kelas seorang diri.',ans:[['sini']]},
+  {n:23,t:'Kampung Muara dilanda banjir. Jadi Sultan akan berangkat ke ______ untuk membuat tinjauan.',ans:[['sana']]},
+  {n:24,t:'"______ menjunjung segala perintah tuanku," sembah laksamana kepada Sultan.',ans:[['Patik']]}
+]},
+{ title: 'Unit 3 · B. Nyanyikan lagu di bawah, kemudian lengkapkan makna bagi setiap rangkap', kind: 'choose', panel: 'year4-bm-pbd-img/u3b-page.png', fullpage: true, qs: [
+  {n:25,t:'Rangkap 1 (Bangun pagi-pagi...) — Maksud :',o:['Kita harus menjaga hubungan baik dengan jiran tetangga.','Kita perlu memastikan badan kita bersih agar sihat dan cergas.','Kita perlu menjaga kebersihan.','Kita harus menghargai pengorbanan ibu.'],a:1},
+  {n:26,t:'Rangkap 2 (Nasi lemak ibu...) — Maksud :',o:['Kita harus menjaga hubungan baik dengan jiran tetangga.','Kita perlu memastikan badan kita bersih agar sihat dan cergas.','Kita perlu menjaga kebersihan.','Kita harus menghargai pengorbanan ibu.'],a:3},
+  {n:27,t:'Rangkap 3 (Ibu tidak lupa...) — Maksud :',o:['Kita harus menjaga hubungan baik dengan jiran tetangga.','Kita perlu memastikan badan kita bersih agar sihat dan cergas.','Kita perlu menjaga kebersihan.','Kita harus menghargai pengorbanan ibu.'],a:0},
+  {n:28,t:'Rangkap 4 (Selepas makan...) — Maksud :',o:['Kita harus menjaga hubungan baik dengan jiran tetangga.','Kita perlu memastikan badan kita bersih agar sihat dan cergas.','Kita perlu menjaga kebersihan.','Kita harus menghargai pengorbanan ibu.'],a:2}
+]},
+{ title: 'Unit 4 · A. Lengkapkan penjodoh bilangan yang betul berdasarkan gambar', kind: 'drag', bank: ['bilah','bidang','rangkap','naskhah','keping'], qs: [
+  {n:29,t:'Kamal membantu Ali menggantung se______ kain rentang pada dinding pentas.',img:'year4-bm-pbd-img/u4a-1.png',ans:[['bidang']]},
+  {n:30,t:'Jamal mengambil se______ majalah yang terdapat di rak itu.',img:'year4-bm-pbd-img/u4a-2.png',ans:[['naskhah']]},
+  {n:31,t:'Halim memotong kertas warna itu dengan se______ gunting.',img:'year4-bm-pbd-img/u4a-3.png',ans:[['bilah']]},
+  {n:32,t:'Guru besar memulakan ucapannya dengan se______ pantun.',img:'year4-bm-pbd-img/u4a-4.png',ans:[['rangkap']]},
+  {n:33,t:'James melekatkan se______ poster pada papan kenyataan.',img:'year4-bm-pbd-img/u4a-5.png',ans:[['keping']]}
+]},
+{ title: 'Unit 4 · B. Lengkapkan carta aliran dengan maklumat yang diberi dalam petikan', kind: 'text', passage: 'Vitamin C Baik untuk Badan. Vitamin C sangat diperlukan oleh badan kita. Vitamin C boleh diperoleh dengan memakan buah-buahan seperti jambu batu, betik, buah oren, limau gedang, kiwi dan strawberi. Sayur-sayuran seperti brokoli dan tomato juga mengandungi vitamin C. Vitamin C memberi banyak kebaikan kepada badan kita. Vitamin C boleh membantu menguatkan daya ketahanan badan dalam melawan penyakit. Selain itu, dengan memakan vitamin C yang kerap dapat menjadikan kulit kita halus dan cantik. Vitamin C juga dikenali sebagai antioksida semula jadi yang membantu melindungi sel daripada mengalami kerosakan. Selain itu, vitamin C juga penting untuk pembentukan kolagen iaitu sejenis protein yang menyokong sebahagian sel supaya dapat memberi struktur, kekuatan dan kekenyalan kulit serta tisu badan di samping membantu penyerapan zat besi.', qs: [
+  {n:34,t:'Kotak atas kanan (kebaikan ke-2)',kw:['kulit'],ans:[['(kw)']]},
+  {n:35,t:'Kotak kanan (kebaikan ke-3)',kw:['antioksida'],ans:[['(kw)']]},
+  {n:36,t:'Kotak bawah tengah (kebaikan ke-4)',kw:['kolagen'],ans:[['(kw)']]},
+  {n:37,t:'Kotak kiri bawah (kebaikan ke-5)',kw:['besi'],ans:[['(kw)']]}
+]},
+{ title: 'Unit 5 · A. Bina ayat dengan kata kerja aktif transitif dan kata kerja aktif tak transitif yang diberi', kind: 'text', qs: [
+  {n:38,t:'menyapu',img:'year4-bm-pbd-img/u5a-1.png',kw:['menyapu'],ans:[['(kw)']]},
+  {n:39,t:'membasahkan',img:'year4-bm-pbd-img/u5a-2.png',kw:['membasahkan'],ans:[['(kw)']]},
+  {n:40,t:'menyusun',img:'year4-bm-pbd-img/u5a-3.png',kw:['menyusun'],ans:[['(kw)']]},
+  {n:41,t:'keluar – membuang',img:'year4-bm-pbd-img/u5a-4.png',kw:['membuang'],ans:[['(kw)']]}
+]},
+{ title: 'Unit 5 · B. Baca cerita, kemudian susunkan gambar mengikut urutan cerita yang betul', kind: 'drag', bank: ['A','B','C','D','E'], bankImgs: {A:'year4-bm-pbd-img/u5b-A.png',B:'year4-bm-pbd-img/u5b-B.png',C:'year4-bm-pbd-img/u5b-C.png',D:'year4-bm-pbd-img/u5b-D.png',E:'year4-bm-pbd-img/u5b-E.png'}, panel: 'year4-bm-pbd-img/u5b-page.png', fullpage: true, qs: [
+  {n:42,t:'Gambar A (sampah dalam bekas)',ans:[['B']]},
+  {n:43,t:'Gambar B (pesakit di hospital)',ans:[['A']]},
+  {n:44,t:'Gambar C (bergotong-royong membersihkan)',ans:[['E']]},
+  {n:45,t:'Gambar D (berbincang di rumah)',ans:[['D']]},
+  {n:46,t:'Gambar E (memberitahu keluarga)',ans:[['C']]}
+]},
+{ title: 'Unit 6 · A. Gariskan kata kerja pasif dalam ayat, kemudian tulis kata kerja pasif tersebut', kind: 'text', qs: [
+  {n:47,t:'Meja yang berhabuk itu dilap oleh Yani.',img:'year4-bm-pbd-img/u6a-1.png',ans:[['dilap']]},
+  {n:48,t:'Kerusi yang berselerak itu dikemas oleh kakak.',img:'year4-bm-pbd-img/u6a-2.png',ans:[['dikemas']]},
+  {n:49,t:'Buku-buku yang dibawa oleh Ena itu untuk Cikgu Lee.',img:'year4-bm-pbd-img/u6a-3.png',ans:[['dibawa']]},
+  {n:50,t:'Dinesh akan memastikan buku disusun sebelum tidur.',img:'year4-bm-pbd-img/u6a-4.png',ans:[['disusun']]},
+  {n:51,t:'Kuku yang panjang dipotong oleh Kumar.',img:'year4-bm-pbd-img/u6a-5.png',ans:[['dipotong']]}
+]},
+{ title: 'Unit 6 · B. Tulis ayat menggunakan draf yang diberi bagi menghasilkan karangan', kind: 'text', passage: 'Kebersihan Diri', qs: [
+  {n:52,t:'bangun – gosok gigi – mandi – segar',img:'year4-bm-pbd-img/u6b-1.png',kw:['bangun','gosok gigi','mandi','segar'],ans:[['(kw)']]},
+  {n:53,t:'sarapan – membasuh tangan – makan roti – minum susu – zat',img:'year4-bm-pbd-img/u6b-2.png',kw:['sarapan','membasuh tangan','makan roti','minum susu','zat'],ans:[['(kw)']]},
+  {n:54,t:'bermain bola – kasut yang sesuai – basuh kaki',img:'year4-bm-pbd-img/u6b-3.png',kw:['bermain bola','kasut yang sesuai','basuh kaki'],ans:[['(kw)']]},
+  {n:55,t:'menyusun buku – tidur sebelum pukul 10 malam',img:'year4-bm-pbd-img/u6b-4.png',kw:['menyusun buku','tidur','10 malam'],ans:[['(kw)']]}
+]},
+{ title: 'Unit 7 · A. Lengkapkan perenggan dengan kata adjektif cara dan jarak', kind: 'drag', panel: 'year4-bm-pbd-img/u7a-panel.png', passage: 'Hari ini, Adam balik lambat dari sekolah. Dia membantu Cikgu Lim mengemas bilik sukan. Adam mengayuh basikal keluar dari pintu pagar sekolah. Dia mengayuh basikal dengan [56]. Tiba-tiba, sebuah van yang dipandu oleh seorang lelaki [57] dengan basikal Adam. Van itu berhenti dan menghalang perjalanan Adam. Adam terpaksa memberhentikan basikalnya. Adam merasakan pemandu van itu mempunyai niat yang tidak baik. Adam mengambil wisel di dalam begnya dengan [58] lalu meniup wisel itu sekuat hati. Pemandu van tersebut terkejut melihat tindakan Adam lalu segera beredar dari situ. Cikgu Lim yang berada tidak [59] dari tempat itu terus mendapatkan Adam. Adam menceritakan kejadian itu kepada Cikgu Lim. Cikgu Lim menemani Adam pulang ke rumahnya.', bank: ['cermat','hampir','pantas','jauh'], qs: [
+  {n:56,ans:[['cermat']]},{n:57,ans:[['hampir']]},{n:58,ans:[['pantas']]},{n:59,ans:[['jauh']]}
+]},
+{ title: 'Unit 7 · B. Padankan perenggan dengan gambar yang betul bagi menghasilkan karangan naratif', kind: 'drag', bank: ['1','2','3','4'], bankImgs: {'1':'year4-bm-pbd-img/u7b-1.png','2':'year4-bm-pbd-img/u7b-2.png','3':'year4-bm-pbd-img/u7b-3.png','4':'year4-bm-pbd-img/u7b-4.png'}, panel: 'year4-bm-pbd-img/u7b-page.png', fullpage: true, qs: [
+  {n:60,t:'Pada suatu petang, Dewi membaca buku cerita yang dibeli oleh ayahnya. Ceritanya sangat menarik.',ans:[['2']]},
+  {n:61,t:'Tiba-tiba, Dewi terhidu seperti benda terbakar. Dewi mencari arah bau itu... melihat adiknya Rama sedang membakar kertas.',ans:[['1']]},
+  {n:62,t:'Tanpa membuang masa, Dewi mengambil air dan menjirus kertas yang terbakar itu. Rama terkejut dengan tindakan Dewi.',ans:[['3']]},
+  {n:63,t:'Dewi memberitahu Rama bahawa kelakuannya boleh mendatangkan bahaya. Rama meminta maaf daripada kakaknya.',ans:[['4']]}
+]},
+{ title: 'Unit 8 · A. Lengkapkan ayat dengan kata adjektif ukuran', kind: 'drag', bank: ['kecil','besar','tebal','pendek','panjang'], qs: [
+  {n:64,t:'Tukang kebun memakai but getah yang bertapak ______ semasa menebas semak samun di belakang bangunan sekolah.',img:'year4-bm-pbd-img/u8a-1.png',ans:[['tebal']]},
+  {n:65,t:'Kok Lim memakai seluar ______ sebelum keluar bermain bola.',img:'year4-bm-pbd-img/u8a-2.png',ans:[['panjang']]},
+  {n:66,t:'But getah yang ______ itu tidak sesuai untuk Haini.',img:'year4-bm-pbd-img/u8a-3.png',ans:[['besar']]},
+  {n:67,t:'Hakim memakai baju yang berlengan ______ kerana cuaca sangat panas.',img:'year4-bm-pbd-img/u8a-4.png',ans:[['pendek']]},
+  {n:68,t:'Semasa mengelap tingkap, Cikgu Lina menggunakan bekas besar untuk mengisi air, manakala Lee Ying menggunakan bekas yang ______.',img:'year4-bm-pbd-img/u8a-5.png',ans:[['kecil']]}
+]},
+{ title: 'Unit 8 · B. Tulis karangan deskriptif berdasarkan draf yang diberikan', kind: 'text', passage: 'Keselamatan murid semasa di sekolah perlu diutamakan. Semua tempat seperti belakang sekolah, tangga, bilik darjah dan lain-lain boleh mengundang kemalangan jika murid tidak berhati-hati.', panel: 'year4-bm-pbd-img/u8b-page.png', fullpage: true, qs: [
+  {n:69,t:'Tulis karangan deskriptif (satu kotak jawapan): langkah-langkah keselamatan di tangga, koridor, belakang bangunan dan bilik darjah.',essay:true,kwg:[['tangga','berhati'],['koridor','terjatuh'],['belakang','berbisa'],['tajam','cermin']],ans:[['(kw)']]},
+]},
+{ title: 'Unit 9 · A. Lengkapkan ayat dengan kata adjektif perasaan', kind: 'drag', bank: ['bosan','gembira','kecewa','cemas'], qs: [
+  {n:73,t:'Abang sangat ______ kerana lulus dalam ujian memandu.',ans:[['gembira']]},
+  {n:74,t:'Amir keluar menunggang basikal kerana ______ tinggal di rumah seorang diri.',ans:[['bosan']]},
+  {n:75,t:'Kai Ting berasa ______ apabila melihat beberapa orang pengguna jalan raya tidak mengikut peraturan.',ans:[['kecewa']]},
+  {n:76,t:'Ibu kelihatan ______ kerana ayah belum pulang dari kerja walaupun hari telah larut malam.',ans:[['cemas']]}
+]},
+{ title: 'Unit 9 · B. Padankan ayat dengan peribahasa yang betul', kind: 'choose', qs: [
+  {n:77,t:'Ayah memandu dengan berhati-hati kerana baginya, ________.',o:['ambil berat','biar lambat, asalkan selamat','malang tidak berbau'],a:1},
+  {n:78,t:'Kita perlu sentiasa berhati-hati ketika berada di jalan raya kerana ________.',o:['ambil berat','biar lambat, asalkan selamat','malang tidak berbau'],a:2},
+  {n:79,t:'Hanim sangat ________ akan masalah yang dihadapi oleh kawan baiknya.',o:['ambil berat','biar lambat, asalkan selamat','malang tidak berbau'],a:0}
+]},
+{ title: 'Unit 9 · C. Ayat di bawah mengandungi kesalahan ejaan, tanda baca dan imbuhan. Tulis semula ayat dengan betul', kind: 'text', qs: [
+  {n:80,t:'Amir dan rajesh pulang dari sekolah dengan menjalan kaki.',img:'year4-bm-pbd-img/u9c-1.png',kw:['berjalan kaki','rajesh'],ans:[['(kw)']]},
+  {n:81,t:'Mereka berjalan dengan menggunakan lorong penjalan kaki yang disediakan khas untuk penjalan kaki.',img:'year4-bm-pbd-img/u9c-2.png',kw:['pejalan kaki'],ans:[['(kw)']]},
+  {n:82,t:'Apabila sampai di lampu isyrat untuk melintas mereka menekan butang dan menunggu lampu isyrat bertukar warna hijau.',img:'year4-bm-pbd-img/u9c-3.png',kw:['lampu isyarat','menunggu'],ans:[['(kw)']]},
+  {n:83,t:'Ketika lampu menukar hijau dan semua kenderaan berhenti mereka melintas dengan selamatnya.',img:'year4-bm-pbd-img/u9c-4.png',kw:['melintas','selamat'],ans:[['(kw)']]}
+]},
+{ title: 'Unit 10 · A. Lengkapkan ayat dengan kata adjektif pancaindera', kind: 'drag', bank: ['merdu','licin','cantik','harum','sedap'], qs: [
+  {n:84,t:'Lantai itu ______ kerana baru dicuci oleh ibu.',img:'year4-bm-pbd-img/u10a-1.png',ans:[['licin']]},
+  {n:85,t:'______ betul kek lapis yang dibuat oleh emak Latha.',img:'year4-bm-pbd-img/u10a-2.png',ans:[['sedap']]},
+  {n:86,t:'Baju kebaya yang dipakai oleh Salina semasa hari kebudayaan itu sangat ______.',img:'year4-bm-pbd-img/u10a-3.png',ans:[['cantik']]},
+  {n:87,t:'Alunan muzik yang dipersembahkan oleh Lim sangat ______.',img:'year4-bm-pbd-img/u10a-4.png',ans:[['merdu']]},
+  {n:88,t:'Kalung bunga malai yang digantung di dinding itu berbau ______ dan menyegarkan ruang tamu.',img:'year4-bm-pbd-img/u10a-5.png',ans:[['harum']]}
+]},
+{ title: 'Unit 10 · B & C. Beri respons bagi dialog dan tulis semula ayat', kind: 'text', panel: 'year4-bm-pbd-img/u10c-page.png', fullpage: true, qs: [
+  {n:89,t:'Apakah adat semasa masuk ke rumah masyarakat Melayu? · menanggalkan kasut',kw:['kasut'],ans:[['(kw)']]},
+  {n:90,t:'Apakah adat semasa masuk ke rumah masyarakat Melayu? · memberi salam dan bersalaman',kw:['salam'],ans:[['(kw)']]},
+  {n:91,t:'Masyarakat Malaysia yang pelbagai kaum mengamalkan pelbagai adat kebudayaan.',kw:['masyarakat malaysia','pelbagai adat'],ans:[['(kw)']
+]},
+
+  {n:92,t:'Terdapat adat makan, adat masuk ke rumah, adat perkahwinan dan lain-lain lagi.',kw:['adat makan','adat perkahwinan'],ans:[['(kw)']]}
+]},
+{ title: 'Unit 11 · A. Beri respons terhadap soalan dalam kotak yang diberikan', kind: 'choose', panel: 'year4-bm-pbd-img/u11a-panel.png', qs: [
+  {n:93,t:'',o:['Saya hendak pergi menyaksikan persembahan gamelan.','Gamelan adalah persembahan alat muzik tradisional masyarakat Melayu yang terdiri daripada gendang, gong, rebab dan lain-lain.'],a:0},
+  {n:94,t:'',o:['Saya hendak pergi menyaksikan persembahan gamelan.','Gamelan adalah persembahan alat muzik tradisional masyarakat Melayu yang terdiri daripada gendang, gong, rebab dan lain-lain.'],a:1}
+]},
+{ title: 'Unit 11 · B. Tandakan (✓) pada kata hubung yang betul', kind: 'choose', qs: [
+  {n:95,t:'Ukiran pada kayu jati itu sangat halus ______ teliti.',o:['dan','jika','supaya'],a:0},
+  {n:96,t:'Dokoh perlu disimpan di tempat yang kering ______ tidak berkarat.',o:['kerana','supaya','apabila'],a:1},
+  {n:97,t:'Janna sangat gembira ______ mendapat hadiah kain songket daripada neneknya.',o:['jika','dan','apabila'],a:2},
+  {n:98,t:'Generasi baru akan melupakan seni gamelan ______ muzik ini tidak diwarisi kepada mereka.',o:['supaya','jika','atau'],a:1},
+  {n:99,t:'Kamu suka menyaksikan persembahan Ubah Muka ______ alat muzik tradisional?',o:['jika','supaya','atau'],a:2},
+  {n:100,t:'Songket perlu menggunakan benang emas atau perak ______ benang tersebut akan menghasilkan corak yang timbul.',o:['kerana','dan','apabila'],a:0}
+]},
+{ title: 'Unit 12 · A. Nyanyikan lagu di bawah, kemudian beri maksud setiap rangkap', kind: 'choose', panel: 'year4-bm-pbd-img/u12a-page.png', fullpage: true, qs: [
+  {n:101,t:'Rangkap pertama — Maksud :',o:['Tarian inang ditarikan mengikut irama muzik.','Tangan digerakkan dengan lembut diikuti dengan langkah mengikut irama.'],a:0},
+  {n:102,t:'Rangkap kedua — Maksud :',o:['Tarian inang ditarikan mengikut irama muzik.','Tangan digerakkan dengan lembut diikuti dengan langkah mengikut irama.'],a:1}
+]},
+{ title: 'Unit 12 · B. Bina ayat berdasarkan gambar dan frasa yang diberikan', kind: 'text', qs: [
+  {n:103,t:'melawat kilang songket',img:'year4-bm-pbd-img/u12b-1.png',kw:['melawat','kilang songket'],ans:[['(kw)']]},
+  {n:104,t:'memberikan penerangan',img:'year4-bm-pbd-img/u12b-2.png',kw:['penerangan'],ans:[['(kw)']]},
+  {n:105,t:'melihat mesin tenunan songket',img:'year4-bm-pbd-img/u12b-3.png',kw:['mesin tenunan'],ans:[['(kw)']]},
+  {n:106,t:'hasil tenunan songket',img:'year4-bm-pbd-img/u12b-4.png',kw:['hasil tenunan'],ans:[['(kw)']]}
+]},
+{ title: 'Unit 13 · A. Lengkapkan dialog di bawah', kind: 'choose', panel: 'year4-bm-pbd-img/u13a-page.png', fullpage: true, qs: [
+  {n:107,t:'"Wah, banyaknya tempurung kelapa! Mengapakah datuk mengumpulkan tempurung kelapa ini?"',o:['Kita boleh buat pemegang kunci, senduk, tabung dan banyak lagi daripada tempurung kelapa.','Tentu boleh. Datuk akan ajarkan cara untuk menghasilkan kraf tangan.','Datuk mengumpulkan tempurung kelapa ini untuk membuat kraf tangan.'],a:2},
+  {n:108,t:'"Apakah kraf tangan yang boleh dihasilkan daripada tempurung kelapa?"',o:['Kita boleh buat pemegang kunci, senduk, tabung dan banyak lagi daripada tempurung kelapa.','Tentu boleh. Datuk akan ajarkan cara untuk menghasilkan kraf tangan.','Datuk mengumpulkan tempurung kelapa ini untuk membuat kraf tangan.'],a:0},
+  {n:109,t:'"Bolehkah saya belajar membuat kraf tangan daripada datuk?"',o:['Kita boleh buat pemegang kunci, senduk, tabung dan banyak lagi daripada tempurung kelapa.','Tentu boleh. Datuk akan ajarkan cara untuk menghasilkan kraf tangan.','Datuk mengumpulkan tempurung kelapa ini untuk membuat kraf tangan.'],a:1}
+]},
+{ title: 'Unit 13 · B. Jawab soalan berdasarkan petikan', kind: 'text', panel: 'year4-bm-pbd-img/u13b-page.png', fullpage: true, qs: [
+  {n:110,t:'Apakah proses dalam seni anyaman?',kw:['menyilangkan'],ans:[['(kw)']]},
+  {n:111,t:'Apakah bahan yang digunakan untuk menghasilkan anyaman?',kw:['tumbuh-tumbuhan'],ans:[['(kw)']]},
+  {n:112,t:'Selain bakul dan tikar, apakah barang lain yang dihasilkan daripada anyaman?',kw:['perabut'],ans:[['(kw)']]},
+  {n:113,t:'Selain anyaman, apakah seni budaya lain yang terdapat dalam masyarakat Melayu?',kw:['songket'],ans:[['(kw)']]}
+]},
+{ title: 'Unit 14 · A. Deklamasi sajak di bawah, kemudian tulis makna bagi setiap rangkap', kind: 'choose', panel: 'year4-bm-pbd-img/u14a-page.png', fullpage: true, qs: [
+  {n:114,t:'Rangkap 1 — Maksud :',o:['Songket dapat menyerlahkan kecantikan pengantin.','Songket dihasilkan dengan kehalusan dan ketelitian sehingga semua ingin melihatnya.','Songket tetap menjadi pilihan walaupun terdapat unsur-unsur moden yang lain.'],a:0},
+  {n:115,t:'Rangkap 2 — Maksud :',o:['Songket dapat menyerlahkan kecantikan pengantin.','Songket dihasilkan dengan kehalusan dan ketelitian sehingga semua ingin melihatnya.','Songket tetap menjadi pilihan walaupun terdapat unsur-unsur moden yang lain.'],a:1},
+  {n:116,t:'Rangkap 3 — Maksud :',o:['Songket dapat menyerlahkan kecantikan pengantin.','Songket dihasilkan dengan kehalusan dan ketelitian sehingga semua ingin melihatnya.','Songket tetap menjadi pilihan walaupun terdapat unsur-unsur moden yang lain.'],a:2}
+]},
+{ title: 'Unit 14 · B. Lengkapkan petikan dengan kata sendi nama', kind: 'drag', panel: 'year4-bm-pbd-img/u14b-panel.png', bank: ['di','ke','pada','daripada','kepada','dengan','oleh'], passage: 'Pada cuti yang lepas, Amin pulang bercuti [117] kampung datuknya. Semasa di sana, Amin telah diajar untuk membuat wau bulan [118] datuknya. Pagi-pagi lagi datuk mengajak Amin mencari batang buluh kerana rangka wau diperbuat [119] buluh. Datuk memotong batang buluh [120] bilah-bilah kecil. Kemudian, datuk meraut bilah buluh sehingga menjadi licin. Bilah yang siap diraut itu dicantum [121] menggunakan tali untuk membentuk rangka wau. Setelah itu, datuk membuat corak [122] sehelai kertas nipis. Corak itu dipotong dan ditampal pada kertas yang besar. Datuk mengambil rangka wau dan menampalkan kertas yang besar itu pada rangka wau. Akhirnya, wau bulan telah siap. Mereka menunggu sehingga gam pada wau itu kering. Kemudian, datuk mengajak Amin [123] padang untuk menaikkan wau. Wau bulan mereka terbang tinggi.', qs: [
+  {n:117,ans:[['di']]},{n:118,ans:[['oleh']]},{n:119,ans:[['daripada']]},{n:120,ans:[['kepada']]},{n:121,ans:[['dengan']]},{n:122,ans:[['pada']]},{n:123,ans:[['ke']]}
+]}
+];
+
+const SECTIONS = NEW_SECTIONS.flatMap(splitSection);
+const ALL = [];
+SECTIONS.forEach(s => s.qs.forEach(q => ALL.push(q)));
+const TABS = SECTIONS.map(s => 'Q' + s.qs[0].n + '–' + s.qs[s.qs.length - 1].n);
+const vals = {};         // n -> array: choose items [index], text/drag items [string per blank]
+const checkedQ = {};     // n -> true once its group has been checked
+const blockResult = {};  // first question n of a group -> result text
+let active = 0;
+let selTile = null;      // word tile selected by tap (drag-free placement)
+
+function isChoose(q){ return Array.isArray(q.o); }
+function esc(s){ return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+function fmtText(s){ return esc(s).replace(/_{3,}/g, '<span class="bl">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>'); }
+function fmtPassage(s){ return esc(s).replace(/\[(\d+)\]/g, (m, n) => '<span class="bl">(' + n + ')</span>'); }
+function groups(qs){ return [qs]; } /* each tab is one group with one Check button */
+function norm(s){ return String(s).trim().toLowerCase().replace(/[’`]/g, "'").replace(/[.!?]+$/, '').replace(/\s+/g, ' '); }
+function accepted(list, v){ return v !== undefined && v !== '' && list.some(a => norm(a) === norm(v)); }
+function isQ(q){
+  const v = vals[q.n] || [];
+  if (isChoose(q)) return v[0] === q.a;
+  if (q.kw) return q.kw.every(k => v[0] !== undefined && norm(v[0]).includes(norm(k)));
+  if (q.kwg) return q.kwg.every(g => v[0] !== undefined && g.some(k => norm(v[0]).includes(norm(k))));
+  return q.ans.every((acc, k) => accepted(acc, v[k]));
+}
+function hasAnswer(q){ return (vals[q.n] || []).some(x => x !== undefined && x !== ''); }
+
+function fmtClick(s){ return esc(s).replace(/\{([^}]+)\}/g, (m, w) => '<span class="nm" data-w="' + w + '">' + w + '</span>'); }
+function clickNames(){ return SECTIONS[active].qs.map(q => (vals[q.n] || [])[0]).filter(x => x !== undefined && x !== ''); }
+function syncHighlight(){ const picked = clickNames(); document.querySelectorAll('.nm').forEach(el => el.classList.toggle('sel', picked.includes(el.dataset.w))); }
+function toggleName(w){
+  const sec = SECTIONS[active];
+  let names = clickNames();
+  if (names.includes(w)) names = names.filter(x => x !== w);
+  else if (names.length < sec.qs.length) names = names.concat([w]);
+  sec.qs.forEach((q, k) => { vals[q.n] = [names[k]]; });
+  renderAnswers();
+  syncHighlight();
+  renderHeader();
+}
+document.getElementById('paper').addEventListener('click', e => {
+  const t = e.target.closest ? e.target.closest('.nm') : null;
+  if (t && SECTIONS[active].kind === 'click') toggleName(t.dataset.w);
+});
+
+function renderAll(){ renderTabs(); renderPaper(); renderAnswers(); renderHeader(); }
+
+function renderTabs(){
+  const nav = document.getElementById('tabs');
+  nav.innerHTML = TABS.map((t, i) => '<button type="button" class="tab' + (i === active ? ' on' : '') + (sectionDone(SECTIONS[i]) ? ' done' : '') + '" data-i="' + i + '">' + esc(t) + (sectionDone(SECTIONS[i]) ? ' ✓' : '') + '</button>').join('');
+  nav.querySelectorAll('.tab').forEach(b => b.addEventListener('click', () => goTo(+b.dataset.i)));
+}
+
+function goTo(i){
+  if (i < 0 || i >= SECTIONS.length) return;
+  active = i;
+  selTile = null;
+  renderAll();
+  document.getElementById('answers').scrollTop = 0;
+  document.getElementById('paper').scrollTop = 0;
+}
+
+function renderPaper(){
+  const sec = SECTIONS[active];
+  if (sec.fullpage) { document.getElementById('paper').innerHTML = '<img class="qimg panel" src="' + sec.panel + '" alt="Worksheet">'; syncHighlight(); return; }
+  let html = '';
+  html += '<div class="paper-title">' + esc(sec.title) + '</div>';
+  if (sec.panel) html += '<img class="qimg panel" src="' + sec.panel + '" alt="">';
+  if (sec.gallery) html += '<div class="gal">' + sec.gallery.map((s, i) => '<figure><img class="qimg" src="' + s + '" alt=""><figcaption>Gambar ' + (i + 1) + '</figcaption></figure>').join('') + '</div>';
+  if (sec.passage) {
+    html += '<div class="passage">' + (sec.kind === 'click' ? fmtClick(sec.passage) : fmtPassage(sec.passage)) + '</div>';
+    sec.qs.forEach(q => { if (q.img || q.t) html += '<div class="pline">' + (q.img ? '<img class="qimg" src="' + q.img + '" alt="">' : '') + (q.t ? '<span>' + fmtText(q.t) + '</span>' : '') + '</div>'; });
+  } else {
+    sec.qs.forEach(q => { if (q.t) html += '<div class="pline">' + (q.img ? '<img class="qimg" src="' + q.img + '" alt="">' : '') + '<span>' + fmtText(q.t) + '</span></div>'; });
+  }
+  document.getElementById('paper').innerHTML = html;
+  syncHighlight();
+}
+
+function renderAnswers(){
+  const sec = SECTIONS[active];
+  let html = '<p class="note">Jawab di ruangan kanan, kemudian tekan ✔ Semak untuk setiap kumpulan.</p>';
+  if (sec.bank) {
+    html += '<div class="bank"><span class="bank-h">Senarai perkataan · seret ke tempat kosong, atau tekan perkataan kemudian tempat kosong</span>';
+    html += sec.bank.map(w => '<span class="tile" draggable="true" data-word="' + esc(w) + '">' + (sec.bankImgs ? '<img class="tileimg" src="' + sec.bankImgs[w] + '" alt="">' : esc(w)) + '</span>').join('');
+    html += '</div>';
+  }
+  groups(sec.qs).forEach(group => {
+    const first = group[0].n, last = group[group.length - 1].n;
+    html += '<div class="grp"><div class="grp-h">Soalan ' + first + '–' + last + ' · Q' + first + '–' + last + '</div>';
+    group.forEach(q => {
+      html += '<div class="arow"><span class="an">' + q.n + '.</span>' + (q.lab ? '<span class="lab">' + esc(q.lab) + '</span>' : '');
+      if (isChoose(q)) {
+        html += '<select class="ans" id="s' + q.n + '" data-n="' + q.n + '" aria-label="Question ' + q.n + '">';
+        html += '<option value="">— Pilih —</option>';
+        q.o.forEach((opt, i) => { html += '<option value="' + i + '">' + LET[i] + '. ' + esc(opt) + '</option>'; });
+        html += '</select>';
+      } else {
+        q.ans.forEach((acc, k) => {
+          const id = 'i' + q.n + '_' + k;
+          if (sec.bank || sec.kind === 'click') html += '<span class="slot" id="' + id + '" data-n="' + q.n + '" data-k="' + k + '" tabindex="0"></span>';
+          else if (q.essay) html += '<textarea class="tin essay" id="' + id + '" data-n="' + q.n + '" data-k="' + k + '"></textarea>'; else html += '<input type="text" class="tin" id="' + id + '" data-n="' + q.n + '" data-k="' + k + '" autocomplete="off" aria-label="Question ' + q.n + ' blank ' + (k + 1) + '">';
+        });
+      }
+      html += '<span class="amsg" id="m' + q.n + '"></span></div>';
+    });
+    html += '<div class="blockcheck"><button type="button" class="btn check" data-first="' + first + '">✔ Semak</button><span class="blockmsg" id="bm' + first + '">' + esc(blockResult[first] || '') + '</span></div></div>';
+  });
+  const box = document.getElementById('answers');
+  box.innerHTML = html;
+  box.querySelectorAll('select.ans').forEach(sel => sel.addEventListener('change', () => setVal(+sel.dataset.n, 0, sel.value === '' ? undefined : +sel.value)));
+  box.querySelectorAll('input.tin, textarea.tin').forEach(inp => inp.addEventListener('input', () => setVal(+inp.dataset.n, +inp.dataset.k, inp.value)));
+  box.querySelectorAll('.slot').forEach(sl => {
+    sl.addEventListener('click', () => {
+      const n = +sl.dataset.n, k = +sl.dataset.k;
+      if (sec.kind === 'click') { const w = (vals[n] || [])[k]; if (w) toggleName(w); return; }
+      if (selTile) { setVal(n, k, selTile); selTile = null; renderBankSel(); }
+      else if (vals[n] && vals[n][k]) setVal(n, k, '');
+    });
+    sl.addEventListener('dragover', e => e.preventDefault());
+    sl.addEventListener('drop', e => { e.preventDefault(); setVal(+sl.dataset.n, +sl.dataset.k, e.dataTransfer.getData('text/plain')); });
+  });
+  box.querySelectorAll('.tile').forEach(tl => {
+    tl.addEventListener('click', () => { selTile = selTile === tl.dataset.word ? null : tl.dataset.word; renderBankSel(); });
+    tl.addEventListener('dragstart', e => { e.dataTransfer.setData('text/plain', tl.dataset.word); selTile = null; renderBankSel(); });
+  });
+  box.querySelectorAll('.btn.check').forEach(btn => btn.addEventListener('click', () => checkGroup(+btn.dataset.first)));
+  sec.qs.forEach(q => paintQuestion(q.n));
+}
+
+function renderBankSel(){
+  document.querySelectorAll('.tile').forEach(tl => tl.classList.toggle('sel', tl.dataset.word === selTile));
+}
+
+function setVal(n, k, val){
+  vals[n] = vals[n] || [];
+  vals[n][k] = (val === '' || val === undefined) ? (isChoose(ALL.find(x => x.n === n)) ? undefined : '') : val;
+  paintQuestion(n);
+  renderHeader();
+}
+
+const SHEET_URL = 'https://script.google.com/macros/s/AKfycbwfpSs2biONcgBbbWnG5WW3QKec1ShM9c5LUCrb7TtI5jeKlGUm0sHvH5odTN1l8oSV/exec';
+const checkTries = {};
+function sendCheck(first, right, total){
+  let who = '';
+  try { who = (JSON.parse(sessionStorage.getItem('asc_student') || 'null') || {}).name || ''; } catch (e) {}
+  if (!who) return; // no student logged in on the hub: nothing to record
+  checkTries[first] = (checkTries[first] || 0) + 1;
+  const state = {};
+  SECTIONS[active].qs.forEach(q => { state[q.n] = vals[q.n] || []; });
+  try {
+    fetch(SHEET_URL, {
+      method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain' },
+      body: JSON.stringify({ at: new Date().toISOString(), student: who, page: 'year4-bm-pbd.html?part=' + TABS[active],
+        right: right, total: total, tries: checkTries[first], state: JSON.stringify(state) })
+    });
+  } catch (e) {}
+}
+function checkGroup(first){
+  const group = groups(SECTIONS[active].qs).find(g => g[0].n === first);
+  group.forEach(q => { checkedQ[q.n] = true; paintQuestion(q.n); });
+  const right = group.filter(isQ).length;
+  blockResult[first] = 'Soalan ' + first + '–' + group[group.length - 1].n + ': ' + right + ' / ' + group.length + ' betul';
+  document.getElementById('bm' + first).textContent = blockResult[first];
+  sendCheck(first, right, group.length);
+  renderHeader();
+}
+
+/* Never shows the correct answer: only marks what was entered as right or wrong. */
+function paintQuestion(n){
+  const q = ALL.find(x => x.n === n);
+  const v = vals[n] || [];
+  const msg = document.getElementById('m' + n);
+  if (!msg) return;
+  if (isChoose(q)) {
+    const sel = document.getElementById('s' + n);
+    if (sel) {
+      sel.value = v[0] === undefined ? '' : String(v[0]);
+      sel.classList.remove('ok','bad');
+      if (checkedQ[n]) sel.classList.add(v[0] === q.a ? 'ok' : 'bad');
+    }
+  } else {
+    q.ans.forEach((acc, k) => {
+      const el = document.getElementById('i' + n + '_' + k);
+      if (!el) return;
+      const val = v[k] === undefined ? '' : v[k];
+      if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') { if (el.value !== val) el.value = val; }
+      else { const bi = SECTIONS[active].bankImgs || {}; el.innerHTML = val ? (bi[val] ? '<img class="slotimg" src="' + bi[val] + '" alt="">' : esc(val)) : ''; el.classList.toggle('filled', !!val); }
+      el.classList.remove('ok','bad');
+      if (checkedQ[n]) el.classList.add(q.kwg ? (isQ(q) ? 'ok' : 'bad') : (((q.kw ? (val !== '' && q.kw.every(k => norm(val).includes(norm(k)))) : accepted(acc, val))) ? 'ok' : 'bad'));
+    });
+  }
+  msg.className = 'amsg';
+  msg.textContent = '';
+  if (checkedQ[n]) {
+    if (isQ(q)) { msg.classList.add('ok'); msg.textContent = '✔ Betul'; }
+    else if (!hasAnswer(q)) { msg.classList.add('bad'); msg.textContent = 'Belum dijawab'; }
+    else { msg.classList.add('bad'); msg.textContent = '✘ Salah'; }
+  }
+}
+
+function sectionDone(sec){ return sec.qs.every(q => isQ(q)); }
+function renderHeader(){
+  renderTabs();
+  const qs = SECTIONS[active].qs;
+  const checked = qs.filter(q => checkedQ[q.n]);
+  const right = checked.filter(isQ).length;
+  const pill = document.getElementById('status');
+  pill.className = 'pill';
+  if (checked.length === 0) pill.textContent = 'Belum disemak';
+  else if (checked.length < qs.length) { pill.classList.add('partial'); pill.textContent = 'Sedang disemak ' + checked.length + ' / ' + qs.length + ' · betul ' + right; }
+  else { pill.classList.add('done'); pill.textContent = 'Disemak · betul ' + right + ' / ' + qs.length; }
+  document.getElementById('title').textContent = 'Bahagian ' + (active + 1) + ' / ' + SECTIONS.length + ' · Q' + qs[0].n + '–' + qs[qs.length - 1].n;
+  document.getElementById('prevBtn').disabled = active === 0;
+  document.getElementById('nextBtn').disabled = active === SECTIONS.length - 1;
+}
+
+document.getElementById('prevBtn').addEventListener('click', () => goTo(active - 1));
+document.getElementById('nextBtn').addEventListener('click', () => goTo(active + 1));
+document.getElementById('resetBtn').addEventListener('click', () => {
+  Object.keys(vals).forEach(k => delete vals[k]);
+  Object.keys(checkedQ).forEach(k => delete checkedQ[k]);
+  Object.keys(blockResult).forEach(k => delete blockResult[k]);
+  selTile = null;
+  renderAll();
+  window.scrollTo({top: 0, behavior: 'smooth'});
+});
+
+renderAll();
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

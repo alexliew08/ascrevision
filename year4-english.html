@@ -1,9 +1,9 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-Hans">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>四年级英文｜选择题 Year 4 English MCQ</title>
+<title>Year 4 English · MCQ</title>
 <style>
 :root{color-scheme:light;--green:#2f5e4a;--green2:#3f7a60;--line:#d6e3da;--cream:#fffdf8;--ink:#23302a;--muted:#6b7a72;--ok:#2e7d46;--okbg:#dcf0df;--bad:#b03a2e;--badbg:#f8ddd9;--warn:#8a6200;--warnbg:#fff3d6}
 *,*::before,*::after{box-sizing:border-box}
@@ -50,10 +50,10 @@ header.top{position:sticky;top:0;z-index:5;background:var(--cream);border-bottom
 .blockmsg{font-size:15px;font-weight:700;color:var(--green)}
 .note{font-size:14px;color:var(--muted);margin:0 0 8px}
 @media (max-width:820px){
-  .split{grid-template-columns:1fr;height:auto;min-height:0}
-  .pane{overflow:visible}
-  .ans{min-width:0;width:100%}
-  .arow .an{min-width:2em}
+ .split{grid-template-columns:1fr;height:auto;min-height:0}
+ .pane{overflow:visible}
+ .ans{min-width:0;width:100%}
+ .arow .an{min-width:2em}
 }
 .tin{font:inherit;font-size:16px;min-height:40px;width:8.5em;min-width:0;max-width:100%;padding:6px 10px;border:none;border-radius:10px;background:#eef5f0;color:var(--ink);outline:none;box-shadow:none}
 .tin:focus{background:#dfeee5}
@@ -67,309 +67,311 @@ header.top{position:sticky;top:0;z-index:5;background:var(--cream);border-bottom
 .tile.sel{background:var(--green);color:#fff}
 .slot{display:inline-flex;align-items:center;justify-content:center;min-width:110px;min-height:40px;padding:4px 10px;border:2px dashed #b3c7b9;border-radius:10px;background:#fff;color:var(--muted);font-weight:700;cursor:pointer;user-select:none;-webkit-user-select:none}
 .slot.filled{border-style:solid;border-color:var(--green2);color:var(--ink)}
+.tab.done{background:#2e7d46;color:#fff;border-color:#2e7d46}
+.tab.on{outline:3px solid #23302a;outline-offset:1px}
 </style>
 </head>
 <body>
 <header class="top"><div class="top-in">
-  <div class="left-h">
-    <a class="hublink" href="index.html?sub=en4">← 返回练习菜单</a>
-    <h1 id="title">四年级英文</h1>
-    <span class="pill" id="status">未检查</span>
-  </div>
-  <div class="right-h">
-    <button class="btn alt" id="prevBtn" type="button">← 上一个</button>
-    <button class="btn alt" id="nextBtn" type="button">下一个 →</button>
-    <button class="btn alt" id="resetBtn" type="button">↺ 重做</button>
-  </div>
+ <div class="left-h">
+ <a class="hublink" href="index.html?sub=en4">← Back to exercise menu</a>
+ <h1 id="title">Year 4 English</h1>
+ <span class="pill" id="status">Not checked</span>
+ </div>
+ <div class="right-h">
+ <button class="btn alt" id="prevBtn" type="button">← Previous</button>
+ <button class="btn alt" id="nextBtn" type="button">Next →</button>
+ <button class="btn alt" id="resetBtn" type="button">↺ Redo</button>
+ </div>
 </div></header>
 <nav class="tabs" id="tabs" aria-label="Parts"></nav>
 <main class="split">
-  <section class="pane" id="paper" aria-label="Worksheet"></section>
-  <section class="pane" id="answers" aria-label="Answers"></section>
+ <section class="pane" id="paper" aria-label="Worksheet"></section>
+ <section class="pane" id="answers" aria-label="Answers"></section>
 </main>
 <script>
 'use strict';
 /* Each question: {n, t (text, "____" = blank), o:[4 options], a: index of correct option (0=A)}
-   Passage groups: {title, pic, passage (text with [n] markers), qs:[...]} */
+ Passage groups: {title, pic, passage (text with [n] markers), qs:[...]} */
 const RAW_SECTIONS = [
-  { title: 'Part 1 · Circle the correct answers 圈出正确答案', qs: [
-    {n:1,t:'Mariam is waiting us ____ home.',o:['near','on','under','at'],a:3},
-    {n:2,t:'Elaine blended some ____ and spices to cook fish curry.',o:['chillies','chillis','chilly','chilli'],a:0},
-    {n:3,t:'____ work in market.',o:['Fishmongers and hawkers','Doctors and nurses','Plumbers and mechanics','Student and teachers'],a:0},
-    {n:4,t:'Sam ____ a kite.',o:['make','made','making','makes'],a:1},
-    {n:5,t:'I am ____ market with my mother.',o:['go','goes','going','went'],a:2},
-    {n:6,t:'Shufen and I ____ in Primary 3 last year.',o:['is','are','was','were'],a:3},
-    {n:7,t:'Most of the cars ____ made in Japan.',o:['is','was','are','were'],a:2},
-    {n:8,t:'Nobody ____ to go to the haunted house tonight.',o:['want','wanted','wants','wanting'],a:2},
-    {n:9,t:'____ clothes is Andrew wearing?',o:['Who','Whose','Why','When'],a:1},
-    {n:10,t:'This school of fish ____ to warmer water during winter.',o:['migrate','migrates','migrated','migrating'],a:1},
-    {n:11,t:'Have you ____ seen an angel?',o:['ever','often','even','truly'],a:0},
-    {n:12,t:'John ____ a book from the shelf just now.',o:['take','taking','took','taken'],a:2},
-    {n:13,t:'Boys are usually ____ playful than girls.',o:['more','even','most','as'],a:0},
-    {n:14,t:'May I have ____ milk for my tea?',o:['any','few','some','little'],a:2},
-    {n:15,t:'My father and I ____ in the reservoir park every morning.',o:['jog','jogs','jogging','jogged'],a:0},
-    {n:16,t:'The train ____ the station in a few minutes.',o:['is leaving','left','will leave','leaves'],a:0},
-    {n:17,t:'The boys have ____ to help Mrs Tan with the gardening.',o:['come','came','comes','coming'],a:0},
-    {n:18,t:'The soldiers are plotting ____ the general.',o:['for','against','at','on'],a:1},
-    {n:19,t:'While we were sleeping, Nigel ____ the television.',o:['watch','watched','watches','was watching'],a:3},
-    {n:20,t:'Mrs Chan goes ____ doing her work as if nothing has happened.',o:['through','to','about','around'],a:2},
-    {n:21,t:'When I saw James, he ____ on the phone.',o:['talk','talked','talks','was talking'],a:3},
-    {n:22,t:'The chain belongs to the dog. It is ____.',o:['its',"it's",'his','it'],a:0},
-    {n:23,t:'My grandmother uses this string ____ hang her clothes for drying.',o:['to','on','for','and'],a:0},
-    {n:24,t:'____ insects do bite and it can be painful.',o:['The','These','This','That'],a:1},
-    {n:25,t:'When my dog is thirsty, it ____ a lot of water.',o:['drinks','drink','drank','drinking'],a:0},
-    {n:26,t:'Burning plastic is unhealthy because it gives ____ poisonous gases.',o:['off','out','away','in'],a:0},
-    {n:27,t:'We have kept ____ soup in the bowl for you.',o:['little','few','some','any'],a:2},
-    {n:28,t:"The hospital ____ hours are from noon to two o'clock.",o:['visit','visited','visits','visiting'],a:3},
-    {n:29,t:'Michelle broke ____ and cried when she heard the bad news.',o:['through','off','up','down'],a:3},
-    {n:30,t:'He was ____ out of the house by his stepmother.',o:['drive','driving','drove','driven'],a:3},
-    {n:31,t:'Who wants to ____ the classroom floor?',o:['sweep','swept','sweeps','sweeping'],a:0},
-    {n:32,t:'The player has broken ____ leg.',o:['into','his','he','off'],a:1},
-    {n:33,t:'Michelle ____ not ____ to my letter yet.',o:['is…reply','was…reply','has…replied','have…replied'],a:2},
-    {n:34,t:'We ____ just ____ up our books to the teacher.',o:['have…handed','were…handed','has…handed','was handed'],a:0},
-    {n:35,t:'This pen ____ to her by her mother.',o:['gave','was giving','gives','was given'],a:3},
-    {n:36,t:'Mrs Ong ____ the clothes when the mother visited her.',o:['had washed','washed','is washing','was washing'],a:0},
-    {n:37,t:'The crab quickly crawled ____ the holes.',o:['in','between','into','along'],a:2},
-    {n:38,t:'Is there ____ orange juice in the jug?',o:['some','little','few','any'],a:3},
-    {n:39,t:'After the fire, the entrance to the building was closed ____.',o:['off','down','in','up'],a:0},
-    {n:40,t:'Jing Yi is ____ a book given by her friend from Japan.',o:['read','reading','rode','reads'],a:1},
-    {n:41,t:'Please hurry! The campers ____ by the hut.',o:['wait','have waiting','has waiting','are waiting'],a:3},
-    {n:42,t:'My school bag is different ____ yours.',o:['for','with','by','from'],a:3},
-    {n:43,t:'Please ____ off your shoes before entering the class.',o:['kick','take','shake','get'],a:1},
-    {n:44,t:'The rashes ____ your legs must be ____ immediately.',o:['by…treating','by…treat','on…treating','on…treated'],a:3},
-    {n:45,t:'____ your experience, I\'m sure this project will run smoothly.',o:['In','By','On','With'],a:3},
-    {n:46,t:'Each girl is choosing a doll for ____.',o:['yourself','themselves','ourselves','herself'],a:3},
-    {n:47,t:'The animated movie ____ by Walt Disney Studio won an Oscar Award.',o:['produce','producing','produced','produces'],a:2},
-    {n:48,t:'All the birds ____ from the aviary in Singapore.',o:['has escaped','having escaped','have escaped','escaping'],a:2},
-    {n:49,t:'Juliet\'s friends played a trick on her by ____ her doll behind the curtains.',o:['hide','hiding','hidden','hid'],a:1},
-    {n:50,t:'____ of the story was about their jungle experience.',o:['Part','Little','Both','Some'],a:0},
-    {n:51,t:'Joe ____ hysterical when the dog started running after him.',o:['because','became','were','since'],a:1},
-    {n:52,t:'Nick missed the bus ____ he ran after it as fast as he could.',o:['but','although','since','useless'],a:1},
-    {n:53,t:'After he ____ the letter, he handed it personally to the principal.',o:['write','wrote','writes','written'],a:1},
-    {n:54,t:"Where are ____ drawings? I can't find ____.",o:['my…it','mine…him','my…them','your…it'],a:2},
-    {n:55,t:'An eagle uses ____ claws to catch ____ prey.',o:['its… it\'s',"it's…its",'its…its',"it's…it's"],a:2},
-    {n:56,t:'The man saved the child from a kidnapper. He was ____ a lion.',o:['as fierce as','as brave as','as strong as','as violent as'],a:1},
-    {n:57,t:'Mr Chan is a responsible road user. He ____ on roads.',o:['walks slowly','move quickly','drives carefully','rides recklessly'],a:2},
-    {n:58,t:'Tian Meng: ____ you going to spend your prize money? Ramasamy: No, I ____.',o:['Do, am','Do, am not','Are, do not','Are, am not'],a:3},
-    {n:59,t:'Do not talk to strangers ____ they may be wolves in sheep\'s clothing.',o:['so','but','and','because'],a:3},
-    {n:60,t:'He fell off the bicycle and hurt his knees. (Which word means the same as "hurt"?)',o:['treated','injured','damaged','bandaged'],a:1}
-  ]},
-  { title: 'Part 2 · Picture passage 看图选择', pic: 'Picture not shown · 图片未显示', passage: 'Bobby is having breakfast at the canteen. Suddenly, he [61] a loud shout from behind. He turns his head and sees a little boy sitting [62] the ground. The boy is [63] in pain. Bobby immediately [64] the boy up. The boy\'s knee is bleeding [65]. Bobby sends him to the first-aid room.', qs: [
-    {n:61,o:['hears','sees','smells','listens'],a:0},
-    {n:62,o:['in','at','below','on'],a:3},
-    {n:63,o:['crying','laughing','cheering','talking'],a:0},
-    {n:64,o:['help','helps','helped','helping'],a:2},
-    {n:65,o:['and','or','but','so'],a:3}
-  ]},
-  { title: 'Part 3 · Picture passage 看图选择', pic: 'Picture not shown · 图片未显示', passage: 'Last Sunday, my family and I went on a trip to Pulau Redang. Pulau Redang is a large [66] located off the coast of Terengganu. The beaches are beautiful [67] sandy. We went [68] in the deep blue sea. I was scared at first as I am not a good swimmer. But I felt relieved and started to enjoy [69] when I saw beautiful corals through the crystal clear water. There were also [70] of fish swimming around us. It was truly an amazing experience for us!', qs: [
-    {n:66,o:['jungle','waterfall','mountain','island'],a:3},
-    {n:67,o:['and','but','so','or'],a:0},
-    {n:68,o:['kayaking','boating','snorkeling','canoeing'],a:2},
-    {n:69,o:['itself','ourselves','yourself','myself'],a:3},
-    {n:70,o:['shoals','flocks','herds','broods'],a:0}
-  ]},
-  { title: 'Part 4 · Picture passage 看图选择', pic: 'Picture not shown · 图片未显示', passage: 'The English Language Society of SJK (C) Chung San, Selangor, [71] a visit to the orphanage last school holiday. There were thirty-two pupils who [72] part in that visit. They brought a lot of food and [73]. First, they cleaned the orphanage. Then they decorated the hall with [74] and ribbons. After that, they played games with the orphans. The pupils also performed to entertain the orphans. Jasmine sang while her friend, Azhar, played the [75].', qs: [
-    {n:71,o:['criticized','organized','advertised','customized'],a:1},
-    {n:72,o:['take','took','takes','taken'],a:1},
-    {n:73,o:['parcels','clothes','presents','hampers'],a:2},
-    {n:74,o:['flags','flowers','banners','balloons'],a:3},
-    {n:75,o:['piano','violin','guitar','recorder'],a:2}
-  ]},
-  { title: 'Part 5 · Picture passage 看图选择', pic: 'Picture not shown · 图片未显示', passage: 'Chee Sing and his family are very excited. They have just moved into [76] new house. The house is spacious and has four [77]. There is also a large garden [78] the back of the house. Chee Sing and his sister are happy because they can finally have [79] own room. The children are helping their parents to [80] the boxes. They are going to clean the house afterwards.', qs: [
-    {n:76,o:['a','the','an','-'],a:0},
-    {n:77,o:['bathrooms','living rooms','bedrooms','dining rooms'],a:2},
-    {n:78,o:['on','at','in','under'],a:1},
-    {n:79,o:['his','her','our','their'],a:3},
-    {n:80,o:['take','unpack','clean','counter'],a:1}
-  ]},
-  { title: 'Part 6 · Picture passage 看图选择', pic: 'Picture not shown · 图片未显示', passage: 'My grandmother is eighty years old. She lives a simple life in the [81]. Every day, she gets up early [82] the morning to prepare breakfast for my grandfather. Then, she will feed the chickens [83] ducks. After that, she will water the [84] on the farm. After finishing the household chores, she [85] to take a walk around her house and chat with her neighbours.', qs: [
-    {n:81,o:['city','town','state','village'],a:3},
-    {n:82,o:['at','by','in','on'],a:2},
-    {n:83,o:['of','or','and','but'],a:2},
-    {n:84,o:['fruits','trees','flowers','vegetables'],a:3},
-    {n:85,o:['like','likes','liked','has liked'],a:1}
-  ]},
-  { title: 'Part 7 · Picture passage 看图选择', pic: 'Picture not shown · 图片未显示', passage: 'This is Mrs Ong. She is in the [86]. She has to [87] up early in the morning to prepare breakfast for her family. They usually have [88] breakfast at about seven o\'clock. Her daughter always helps her by setting the table. Mrs Ong fries the eggs [89] a wok. Her family likes to have bread [90] eggs for breakfast.', qs: [
-    {n:86,o:['balcony','kitchen','garden','bathroom'],a:1},
-    {n:87,o:['wake','wakes','woke','waking'],a:0},
-    {n:88,o:['my','his','their','your'],a:2},
-    {n:89,o:['on','in','into','onto'],a:1},
-    {n:90,o:['so','and','but','because'],a:1}
-  ]}
+ { title: 'Part 1 · Circle the correct answers', qs: [
+ {n:1,t:'Mariam is waiting us ____ home.',o:['near','on','under','at'],a:3},
+ {n:2,t:'Elaine blended some ____ and spices to cook fish curry.',o:['chillies','chillis','chilly','chilli'],a:0},
+ {n:3,t:'____ work in market.',o:['Fishmongers and hawkers','Doctors and nurses','Plumbers and mechanics','Student and teachers'],a:0},
+ {n:4,t:'Sam ____ a kite.',o:['make','made','making','makes'],a:1},
+ {n:5,t:'I am ____ market with my mother.',o:['go','goes','going','went'],a:2},
+ {n:6,t:'Shufen and I ____ in Primary 3 last year.',o:['is','are','was','were'],a:3},
+ {n:7,t:'Most of the cars ____ made in Japan.',o:['is','was','are','were'],a:2},
+ {n:8,t:'Nobody ____ to go to the haunted house tonight.',o:['want','wanted','wants','wanting'],a:2},
+ {n:9,t:'____ clothes is Andrew wearing?',o:['Who','Whose','Why','When'],a:1},
+ {n:10,t:'This school of fish ____ to warmer water during winter.',o:['migrate','migrates','migrated','migrating'],a:1},
+ {n:11,t:'Have you ____ seen an angel?',o:['ever','often','even','truly'],a:0},
+ {n:12,t:'John ____ a book from the shelf just now.',o:['take','taking','took','taken'],a:2},
+ {n:13,t:'Boys are usually ____ playful than girls.',o:['more','even','most','as'],a:0},
+ {n:14,t:'May I have ____ milk for my tea?',o:['any','few','some','little'],a:2},
+ {n:15,t:'My father and I ____ in the reservoir park every morning.',o:['jog','jogs','jogging','jogged'],a:0},
+ {n:16,t:'The train ____ the station in a few minutes.',o:['is leaving','left','will leave','leaves'],a:0},
+ {n:17,t:'The boys have ____ to help Mrs Tan with the gardening.',o:['come','came','comes','coming'],a:0},
+ {n:18,t:'The soldiers are plotting ____ the general.',o:['for','against','at','on'],a:1},
+ {n:19,t:'While we were sleeping, Nigel ____ the television.',o:['watch','watched','watches','was watching'],a:3},
+ {n:20,t:'Mrs Chan goes ____ doing her work as if nothing has happened.',o:['through','to','about','around'],a:2},
+ {n:21,t:'When I saw James, he ____ on the phone.',o:['talk','talked','talks','was talking'],a:3},
+ {n:22,t:'The chain belongs to the dog. It is ____.',o:['its',"it's",'his','it'],a:0},
+ {n:23,t:'My grandmother uses this string ____ hang her clothes for drying.',o:['to','on','for','and'],a:0},
+ {n:24,t:'____ insects do bite and it can be painful.',o:['The','These','This','That'],a:1},
+ {n:25,t:'When my dog is thirsty, it ____ a lot of water.',o:['drinks','drink','drank','drinking'],a:0},
+ {n:26,t:'Burning plastic is unhealthy because it gives ____ poisonous gases.',o:['off','out','away','in'],a:0},
+ {n:27,t:'We have kept ____ soup in the bowl for you.',o:['little','few','some','any'],a:2},
+ {n:28,t:"The hospital ____ hours are from noon to two o'clock.",o:['visit','visited','visits','visiting'],a:3},
+ {n:29,t:'Michelle broke ____ and cried when she heard the bad news.',o:['through','off','up','down'],a:3},
+ {n:30,t:'He was ____ out of the house by his stepmother.',o:['drive','driving','drove','driven'],a:3},
+ {n:31,t:'Who wants to ____ the classroom floor?',o:['sweep','swept','sweeps','sweeping'],a:0},
+ {n:32,t:'The player has broken ____ leg.',o:['into','his','he','off'],a:1},
+ {n:33,t:'Michelle ____ not ____ to my letter yet.',o:['is…reply','was…reply','has…replied','have…replied'],a:2},
+ {n:34,t:'We ____ just ____ up our books to the teacher.',o:['have…handed','were…handed','has…handed','was handed'],a:0},
+ {n:35,t:'This pen ____ to her by her mother.',o:['gave','was giving','gives','was given'],a:3},
+ {n:36,t:'Mrs Ong ____ the clothes when the mother visited her.',o:['had washed','washed','is washing','was washing'],a:0},
+ {n:37,t:'The crab quickly crawled ____ the holes.',o:['in','between','into','along'],a:2},
+ {n:38,t:'Is there ____ orange juice in the jug?',o:['some','little','few','any'],a:3},
+ {n:39,t:'After the fire, the entrance to the building was closed ____.',o:['off','down','in','up'],a:0},
+ {n:40,t:'Jing Yi is ____ a book given by her friend from Japan.',o:['read','reading','rode','reads'],a:1},
+ {n:41,t:'Please hurry! The campers ____ by the hut.',o:['wait','have waiting','has waiting','are waiting'],a:3},
+ {n:42,t:'My school bag is different ____ yours.',o:['for','with','by','from'],a:3},
+ {n:43,t:'Please ____ off your shoes before entering the class.',o:['kick','take','shake','get'],a:1},
+ {n:44,t:'The rashes ____ your legs must be ____ immediately.',o:['by…treating','by…treat','on…treating','on…treated'],a:3},
+ {n:45,t:'____ your experience, I\'m sure this project will run smoothly.',o:['In','By','On','With'],a:3},
+ {n:46,t:'Each girl is choosing a doll for ____.',o:['yourself','themselves','ourselves','herself'],a:3},
+ {n:47,t:'The animated movie ____ by Walt Disney Studio won an Oscar Award.',o:['produce','producing','produced','produces'],a:2},
+ {n:48,t:'All the birds ____ from the aviary in Singapore.',o:['has escaped','having escaped','have escaped','escaping'],a:2},
+ {n:49,t:'Juliet\'s friends played a trick on her by ____ her doll behind the curtains.',o:['hide','hiding','hidden','hid'],a:1},
+ {n:50,t:'____ of the story was about their jungle experience.',o:['Part','Little','Both','Some'],a:0},
+ {n:51,t:'Joe ____ hysterical when the dog started running after him.',o:['because','became','were','since'],a:1},
+ {n:52,t:'Nick missed the bus ____ he ran after it as fast as he could.',o:['but','although','since','useless'],a:1},
+ {n:53,t:'After he ____ the letter, he handed it personally to the principal.',o:['write','wrote','writes','written'],a:1},
+ {n:54,t:"Where are ____ drawings? I can't find ____.",o:['my…it','mine…him','my…them','your…it'],a:2},
+ {n:55,t:'An eagle uses ____ claws to catch ____ prey.',o:['its… it\'s',"it's…its",'its…its',"it's…it's"],a:2},
+ {n:56,t:'The man saved the child from a kidnapper. He was ____ a lion.',o:['as fierce as','as brave as','as strong as','as violent as'],a:1},
+ {n:57,t:'Mr Chan is a responsible road user. He ____ on roads.',o:['walks slowly','move quickly','drives carefully','rides recklessly'],a:2},
+ {n:58,t:'Tian Meng: ____ you going to spend your prize money? Ramasamy: No, I ____.',o:['Do, am','Do, am not','Are, do not','Are, am not'],a:3},
+ {n:59,t:'Do not talk to strangers ____ they may be wolves in sheep\'s clothing.',o:['so','but','and','because'],a:3},
+ {n:60,t:'He fell off the bicycle and hurt his knees. (Which word means the same as "hurt"?)',o:['treated','injured','damaged','bandaged'],a:1}
+ ]},
+ { title: 'Part 2 · Picture passage', passage: 'Bobby is having breakfast at the canteen. Suddenly, he [61] a loud shout from behind. He turns his head and sees a little boy sitting [62] the ground. The boy is [63] in pain. Bobby immediately [64] the boy up. The boy\'s knee is bleeding [65]. Bobby sends him to the first-aid room.', qs: [
+ {n:61,o:['hears','sees','smells','listens'],a:0},
+ {n:62,o:['in','at','below','on'],a:3},
+ {n:63,o:['crying','laughing','cheering','talking'],a:0},
+ {n:64,o:['help','helps','helped','helping'],a:2},
+ {n:65,o:['and','or','but','so'],a:3}
+ ]},
+ { title: 'Part 3 · Picture passage', passage: 'Last Sunday, my family and I went on a trip to Pulau Redang. Pulau Redang is a large [66] located off the coast of Terengganu. The beaches are beautiful [67] sandy. We went [68] in the deep blue sea. I was scared at first as I am not a good swimmer. But I felt relieved and started to enjoy [69] when I saw beautiful corals through the crystal clear water. There were also [70] of fish swimming around us. It was truly an amazing experience for us!', qs: [
+ {n:66,o:['jungle','waterfall','mountain','island'],a:3},
+ {n:67,o:['and','but','so','or'],a:0},
+ {n:68,o:['kayaking','boating','snorkeling','canoeing'],a:2},
+ {n:69,o:['itself','ourselves','yourself','myself'],a:3},
+ {n:70,o:['shoals','flocks','herds','broods'],a:0}
+ ]},
+ { title: 'Part 4 · Picture passage', passage: 'The English Language Society of SJK (C) Chung San, Selangor, [71] a visit to the orphanage last school holiday. There were thirty-two pupils who [72] part in that visit. They brought a lot of food and [73]. First, they cleaned the orphanage. Then they decorated the hall with [74] and ribbons. After that, they played games with the orphans. The pupils also performed to entertain the orphans. Jasmine sang while her friend, Azhar, played the [75].', qs: [
+ {n:71,o:['criticized','organized','advertised','customized'],a:1},
+ {n:72,o:['take','took','takes','taken'],a:1},
+ {n:73,o:['parcels','clothes','presents','hampers'],a:2},
+ {n:74,o:['flags','flowers','banners','balloons'],a:3},
+ {n:75,o:['piano','violin','guitar','recorder'],a:2}
+ ]},
+ { title: 'Part 5 · Picture passage', passage: 'Chee Sing and his family are very excited. They have just moved into [76] new house. The house is spacious and has four [77]. There is also a large garden [78] the back of the house. Chee Sing and his sister are happy because they can finally have [79] own room. The children are helping their parents to [80] the boxes. They are going to clean the house afterwards.', qs: [
+ {n:76,o:['a','the','an','-'],a:0},
+ {n:77,o:['bathrooms','living rooms','bedrooms','dining rooms'],a:2},
+ {n:78,o:['on','at','in','under'],a:1},
+ {n:79,o:['his','her','our','their'],a:3},
+ {n:80,o:['take','unpack','clean','counter'],a:1}
+ ]},
+ { title: 'Part 6 · Picture passage', passage: 'My grandmother is eighty years old. She lives a simple life in the [81]. Every day, she gets up early [82] the morning to prepare breakfast for my grandfather. Then, she will feed the chickens [83] ducks. After that, she will water the [84] on the farm. After finishing the household chores, she [85] to take a walk around her house and chat with her neighbours.', qs: [
+ {n:81,o:['city','town','state','village'],a:3},
+ {n:82,o:['at','by','in','on'],a:2},
+ {n:83,o:['of','or','and','but'],a:2},
+ {n:84,o:['fruits','trees','flowers','vegetables'],a:3},
+ {n:85,o:['like','likes','liked','has liked'],a:1}
+ ]},
+ { title: 'Part 7 · Picture passage', passage: 'This is Mrs Ong. She is in the [86]. She has to [87] up early in the morning to prepare breakfast for her family. They usually have [88] breakfast at about seven o\'clock. Her daughter always helps her by setting the table. Mrs Ong fries the eggs [89] a wok. Her family likes to have bread [90] eggs for breakfast.', qs: [
+ {n:86,o:['balcony','kitchen','garden','bathroom'],a:1},
+ {n:87,o:['wake','wakes','woke','waking'],a:0},
+ {n:88,o:['my','his','their','your'],a:2},
+ {n:89,o:['on','in','into','onto'],a:1},
+ {n:90,o:['so','and','but','because'],a:1}
+ ]}
 ];
 
 /* Split every section into tabs of 10 questions. */
 function splitSection(s){
-  const out = [];
-  let i = 0;
-  while (i < s.qs.length) {
-    const take = (s.qs.length - i) > 12 ? 10 : (s.qs.length - i);
-    out.push({ title: s.title, kind: s.kind, bank: s.bank, pic: s.pic, passage: s.passage, qs: s.qs.slice(i, i + take) });
-    i += take;
-  }
-  return out;
+ const out = [];
+ let i = 0;
+ while (i < s.qs.length) {
+ const take = (s.qs.length - i) > 12 ? 10 : (s.qs.length - i);
+ out.push({ title: s.title, kind: s.kind, bank: s.bank, pic: s.pic, passage: s.passage, qs: s.qs.slice(i, i + take) });
+ i += take;
+ }
+ return out;
 }
 const LET = ['A','B','C','D'];
 const NEW_SECTIONS = [
-{ title: 'Part 8 · Give the plural of these nouns 写出复数', kind: 'text', qs: [
-  {n:91,t:'Plural of: glass',ans:[['glasses']]},
-  {n:92,t:'Plural of: tooth',ans:[['teeth']]},
-  {n:93,t:'Plural of: child',ans:[['children']]},
-  {n:94,t:'Plural of: parent',ans:[['parents']]},
-  {n:95,t:'Plural of: loaf',ans:[['loaves']]},
-  {n:96,t:'Plural of: box',ans:[['boxes']]},
-  {n:97,t:'Plural of: bottle',ans:[['bottles']]},
-  {n:98,t:'Plural of: vegetable',ans:[['vegetables']]},
-  {n:99,t:'Plural of: egg',ans:[['eggs']]},
-  {n:100,t:'Plural of: woman',ans:[['women']]},
-  {n:101,t:'Plural of: sheep',ans:[['sheep']]},
-  {n:102,t:'Plural of: dish',ans:[['dishes']]}
+{ title: 'Part 8 · Give the plural of these nouns', kind: 'text', qs: [
+ {n:91,t:'Plural of: glass',ans:[['glasses']]},
+ {n:92,t:'Plural of: tooth',ans:[['teeth']]},
+ {n:93,t:'Plural of: child',ans:[['children']]},
+ {n:94,t:'Plural of: parent',ans:[['parents']]},
+ {n:95,t:'Plural of: loaf',ans:[['loaves']]},
+ {n:96,t:'Plural of: box',ans:[['boxes']]},
+ {n:97,t:'Plural of: bottle',ans:[['bottles']]},
+ {n:98,t:'Plural of: vegetable',ans:[['vegetables']]},
+ {n:99,t:'Plural of: egg',ans:[['eggs']]},
+ {n:100,t:'Plural of: woman',ans:[['women']]},
+ {n:101,t:'Plural of: sheep',ans:[['sheep']]},
+ {n:102,t:'Plural of: dish',ans:[['dishes']]}
 ]},
-{ title: 'Part 9 · Simple present tense 一般现在时', kind: 'text', qs: [
-  {n:103,t:"The message ______ (do not) make any sense at all. I ______ (wish) someone would explain to me what it ______ (be) all about.",ans:[['does not',"doesn't"],['wish'],['is']]},
-  {n:104,t:'Roses ______ (be) not very lasting. They usually ______ (fade) after a day or two.',ans:[['are'],['fade']]},
-  {n:105,t:'The rain ______ (come) in November every year.',ans:[['comes']]},
-  {n:106,t:'The farmers ______ (plough) their land before they ______ (sow) the seeds.',ans:[['plough'],['sow']]},
-  {n:107,t:'Most animals ______ (know) where to get their food.',ans:[['know']]},
-  {n:108,t:'She ______ (study) every night. She seldom ______ (go) out, and the only entertainment that she ______ (seem) to have is from television.',ans:[['studies'],['goes'],['seems']]},
-  {n:109,t:'Mary and Jane ______ (consider) this umbrella a nuisance. That ______ (be) because they ______ (not know) how to open it.',ans:[['consider'],['is'],['do not know',"don't know"]]},
-  {n:110,t:'These tennis balls ______ (cost) a lot of money.',ans:[['cost']]},
-  {n:111,t:'We ______ (stick) the pieces of china together with this glue.',ans:[['stick']]},
-  {n:112,t:'The sack ______ (contain) flour. That bowl ______ (be) full of sugar, and those bottles ______ (contain) water.',ans:[['contains'],['is'],['contain']]}
+{ title: 'Part 9 · Simple present tense', kind: 'text', qs: [
+ {n:103,t:"The message ______ (do not) make any sense at all. I ______ (wish) someone would explain to me what it ______ (be) all about.",ans:[['does not',"doesn't"],['wish'],['is']]},
+ {n:104,t:'Roses ______ (be) not very lasting. They usually ______ (fade) after a day or two.',ans:[['are'],['fade']]},
+ {n:105,t:'The rain ______ (come) in November every year.',ans:[['comes']]},
+ {n:106,t:'The farmers ______ (plough) their land before they ______ (sow) the seeds.',ans:[['plough'],['sow']]},
+ {n:107,t:'Most animals ______ (know) where to get their food.',ans:[['know']]},
+ {n:108,t:'She ______ (study) every night. She seldom ______ (go) out, and the only entertainment that she ______ (seem) to have is from television.',ans:[['studies'],['goes'],['seems']]},
+ {n:109,t:'Mary and Jane ______ (consider) this umbrella a nuisance. That ______ (be) because they ______ (not know) how to open it.',ans:[['consider'],['is'],['do not know',"don't know"]]},
+ {n:110,t:'These tennis balls ______ (cost) a lot of money.',ans:[['cost']]},
+ {n:111,t:'We ______ (stick) the pieces of china together with this glue.',ans:[['stick']]},
+ {n:112,t:'The sack ______ (contain) flour. That bowl ______ (be) full of sugar, and those bottles ______ (contain) water.',ans:[['contains'],['is'],['contain']]}
 ]},
-{ title: 'Part 10 · Present continuous tense 现在进行时', kind: 'text', qs: [
-  {n:113,t:'My father ______ (work) now.',ans:[['is working']]},
-  {n:114,t:"We can't go out now. It ______ (rain) heavily.",ans:[['is raining']]},
-  {n:115,t:'Look at them. They ______ (play) in the garden now.',ans:[['are playing']]},
-  {n:116,t:'There! The sun ______ (rise) now.',ans:[['is rising']]},
-  {n:117,t:'Ah Seng ______ (cycle) to school now.',ans:[['is cycling']]},
-  {n:118,t:'We ______ (go) for a show tonight.',ans:[['are going']]},
-  {n:119,t:'The boys ______ (hide) behind the bushes.',ans:[['are hiding']]},
-  {n:120,t:'I ______ (wait) for my father. He ______ (drive) me to school today.',ans:[['am waiting'],['is driving']]},
-  {n:121,t:'He ______ (wash) the car this evening.',ans:[['is washing']]},
-  {n:122,t:'Listen! Someone ______ (call) for help.',ans:[['is calling']]}
+{ title: 'Part 10 · Present continuous tense', kind: 'text', qs: [
+ {n:113,t:'My father ______ (work) now.',ans:[['is working']]},
+ {n:114,t:"We can't go out now. It ______ (rain) heavily.",ans:[['is raining']]},
+ {n:115,t:'Look at them. They ______ (play) in the garden now.',ans:[['are playing']]},
+ {n:116,t:'There! The sun ______ (rise) now.',ans:[['is rising']]},
+ {n:117,t:'Ah Seng ______ (cycle) to school now.',ans:[['is cycling']]},
+ {n:118,t:'We ______ (go) for a show tonight.',ans:[['are going']]},
+ {n:119,t:'The boys ______ (hide) behind the bushes.',ans:[['are hiding']]},
+ {n:120,t:'I ______ (wait) for my father. He ______ (drive) me to school today.',ans:[['am waiting'],['is driving']]},
+ {n:121,t:'He ______ (wash) the car this evening.',ans:[['is washing']]},
+ {n:122,t:'Listen! Someone ______ (call) for help.',ans:[['is calling']]}
 ]},
-{ title: 'Part 11 · Simple past tense 一般过去时', kind: 'text', qs: [
-  {n:123,t:'Jin Hyo ______ (make) a scrapbook with her friends this morning.',ans:[['made']]},
-  {n:124,t:'The children ______ (play) hopscotch at the backyard.',ans:[['played']]},
-  {n:125,t:'Mimi ______ (keep) her pet rabbit in the hutch.',ans:[['kept']]},
-  {n:126,t:'My sister ______ (practise) the piano at a quarter to four yesterday.',ans:[['practised','practiced']]},
-  {n:127,t:'Mr. Tan and his family ______ (watch) a musical drama last Friday.',ans:[['watched']]},
-  {n:128,t:'I ______ (write) to my pen pal just now.',ans:[['wrote']]},
-  {n:129,t:'The artist ______ (draw) a picture with oil pastel.',ans:[['drew']]},
-  {n:130,t:'My family and I ______ (have) our dinner in a restaurant a week ago.',ans:[['had']]},
-  {n:131,t:'My father ______ (tell) my little sister a bedtime story last night.',ans:[['told']]},
-  {n:132,t:'My mother ______ (cut) her finger accidentally just now.',ans:[['cut']]}
+{ title: 'Part 11 · Simple past tense', kind: 'text', qs: [
+ {n:123,t:'Jin Hyo ______ (make) a scrapbook with her friends this morning.',ans:[['made']]},
+ {n:124,t:'The children ______ (play) hopscotch at the backyard.',ans:[['played']]},
+ {n:125,t:'Mimi ______ (keep) her pet rabbit in the hutch.',ans:[['kept']]},
+ {n:126,t:'My sister ______ (practise) the piano at a quarter to four yesterday.',ans:[['practised','practiced']]},
+ {n:127,t:'Mr. Tan and his family ______ (watch) a musical drama last Friday.',ans:[['watched']]},
+ {n:128,t:'I ______ (write) to my pen pal just now.',ans:[['wrote']]},
+ {n:129,t:'The artist ______ (draw) a picture with oil pastel.',ans:[['drew']]},
+ {n:130,t:'My family and I ______ (have) our dinner in a restaurant a week ago.',ans:[['had']]},
+ {n:131,t:'My father ______ (tell) my little sister a bedtime story last night.',ans:[['told']]},
+ {n:132,t:'My mother ______ (cut) her finger accidentally just now.',ans:[['cut']]}
 ]},
-{ title: 'Part 12 · Rewrite the sentences in simple past tense 用过去时改写句子', kind: 'text', qs: [
-  {n:133,t:'Charmine ______ (speaks) politely to her siblings.',ans:[['spoke']]},
-  {n:134,t:'Siew Yan ______ (asks) her parents to buy the toy.',ans:[['asked']]},
-  {n:135,t:'Keth ______ (brush) his teeth before having his breakfast.',ans:[['brushed']]},
-  {n:136,t:'Arzlan ______ (forget) to bring his book to school.',ans:[['forgot']]},
-  {n:137,t:'The policeman ______ (catch) the thief yesterday.',ans:[['caught']]},
-  {n:138,t:'Arron was been punished because he ______ (copy) the answer from others.',ans:[['copied']]},
-  {n:139,t:'George has ______ (find) his lost wallet.',ans:[['found']]},
-  {n:140,t:'Qi Min ______ (knock) the door before going into the staffroom.',ans:[['knocked']]},
-  {n:141,t:'______ (cut) the apple into slices.',ans:[['cut']]},
-  {n:142,t:'Qi Hui ______ (watch) a movie last night.',ans:[['watched']]}
+{ title: 'Part 12 · Rewrite the sentences in simple past tense', kind: 'text', qs: [
+ {n:133,t:'Charmine ______ (speaks) politely to her siblings.',ans:[['spoke']]},
+ {n:134,t:'Siew Yan ______ (asks) her parents to buy the toy.',ans:[['asked']]},
+ {n:135,t:'Keth ______ (brush) his teeth before having his breakfast.',ans:[['brushed']]},
+ {n:136,t:'Arzlan ______ (forget) to bring his book to school.',ans:[['forgot']]},
+ {n:137,t:'The policeman ______ (catch) the thief yesterday.',ans:[['caught']]},
+ {n:138,t:'Arron was been punished because he ______ (copy) the answer from others.',ans:[['copied']]},
+ {n:139,t:'George has ______ (find) his lost wallet.',ans:[['found']]},
+ {n:140,t:'Qi Min ______ (knock) the door before going into the staffroom.',ans:[['knocked']]},
+ {n:141,t:'______ (cut) the apple into slices.',ans:[['cut']]},
+ {n:142,t:'Qi Hui ______ (watch) a movie last night.',ans:[['watched']]}
 ]},
-{ title: 'Part 13 · Give the simple past tense of the verbs 写出动词过去式', kind: 'text', qs: [
-  {n:143,t:'bend',ans:[['bent']]},
-  {n:144,t:'bite',ans:[['bit']]},
-  {n:145,t:'build',ans:[['built']]},
-  {n:146,t:'burn',ans:[['burnt','burned']]},
-  {n:147,t:'catch',ans:[['caught']]},
-  {n:148,t:'lend',ans:[['lent']]},
-  {n:149,t:'light',ans:[['lit','lighted']]},
-  {n:150,t:'mean',ans:[['meant']]},
-  {n:151,t:'mistake',ans:[['mistook']]},
-  {n:152,t:'ride',ans:[['rode']]},
-  {n:153,t:'rise',ans:[['rose']]},
-  {n:154,t:'shoot',ans:[['shot']]},
-  {n:155,t:'spill',ans:[['spilt','spilled']]},
-  {n:156,t:'steal',ans:[['stole']]},
-  {n:157,t:'stick',ans:[['stuck']]},
-  {n:158,t:'sting',ans:[['stung']]},
-  {n:159,t:'strike',ans:[['struck']]},
-  {n:160,t:'swim',ans:[['swam']]},
-  {n:161,t:'tear',ans:[['tore']]},
-  {n:162,t:'understand',ans:[['understood']]}
+{ title: 'Part 13 · Give the simple past tense of the verbs', kind: 'text', qs: [
+ {n:143,t:'bend',ans:[['bent']]},
+ {n:144,t:'bite',ans:[['bit']]},
+ {n:145,t:'build',ans:[['built']]},
+ {n:146,t:'burn',ans:[['burnt','burned']]},
+ {n:147,t:'catch',ans:[['caught']]},
+ {n:148,t:'lend',ans:[['lent']]},
+ {n:149,t:'light',ans:[['lit','lighted']]},
+ {n:150,t:'mean',ans:[['meant']]},
+ {n:151,t:'mistake',ans:[['mistook']]},
+ {n:152,t:'ride',ans:[['rode']]},
+ {n:153,t:'rise',ans:[['rose']]},
+ {n:154,t:'shoot',ans:[['shot']]},
+ {n:155,t:'spill',ans:[['spilt','spilled']]},
+ {n:156,t:'steal',ans:[['stole']]},
+ {n:157,t:'stick',ans:[['stuck']]},
+ {n:158,t:'sting',ans:[['stung']]},
+ {n:159,t:'strike',ans:[['struck']]},
+ {n:160,t:'swim',ans:[['swam']]},
+ {n:161,t:'tear',ans:[['tore']]},
+ {n:162,t:'understand',ans:[['understood']]}
 ]},
-{ title: 'Part 14 · Rewrite the passage in the simple past tense 用过去时改写短文', kind: 'text', passage: 'A crow [163] (steal) a piece of bread from a vendor. She [164] (want) to eat it so she [165] (fly) away to a tree nearby. A hungry fox passing by [166] (see) the crow. He [167] (want) to have the piece of bread too. Then, the fox [168] (praise) the crow and [169] (say) that she is very beautiful and [170] (ask) her to sing a song for him. The foolish crow [171] (open) her mouth to sing. The piece of bread [172] (fall) from her mouth. At once the clever fox [173] (pick) it up and [174] (run) away with it.', qs: [
-  {n:163,ans:[['stole']]},{n:164,ans:[['wanted']]},{n:165,ans:[['flew']]},{n:166,ans:[['saw']]},{n:167,ans:[['wanted']]},
-  {n:168,ans:[['praised']]},{n:169,ans:[['said']]},{n:170,ans:[['asked']]},{n:171,ans:[['opened']]},{n:172,ans:[['fell']]},
-  {n:173,ans:[['picked']]},{n:174,ans:[['ran']]}
+{ title: 'Part 14 · Rewrite the passage in the simple past tense', kind: 'text', passage: 'A crow [163] (steal) a piece of bread from a vendor. She [164] (want) to eat it so she [165] (fly) away to a tree nearby. A hungry fox passing by [166] (see) the crow. He [167] (want) to have the piece of bread too. Then, the fox [168] (praise) the crow and [169] (say) that she is very beautiful and [170] (ask) her to sing a song for him. The foolish crow [171] (open) her mouth to sing. The piece of bread [172] (fall) from her mouth. At once the clever fox [173] (pick) it up and [174] (run) away with it.', qs: [
+ {n:163,ans:[['stole']]},{n:164,ans:[['wanted']]},{n:165,ans:[['flew']]},{n:166,ans:[['saw']]},{n:167,ans:[['wanted']]},
+ {n:168,ans:[['praised']]},{n:169,ans:[['said']]},{n:170,ans:[['asked']]},{n:171,ans:[['opened']]},{n:172,ans:[['fell']]},
+ {n:173,ans:[['picked']]},{n:174,ans:[['ran']]}
 ]},
-{ title: 'Part 15 · Fill in the blanks with the simple past tense 用过去时填空', kind: 'text', passage: 'The last Chinese New Year was the best I ever had. For the first time, many relatives living overseas [175] (join) us for the joyous occasion. We [176] (be) really busy the day before their arrival. Mum [177] (is) rushing around shopping for food while Dad and I [178] (are) cleaning the house. On eve of New Year, we [179] (are) preparing for the grand reunion dinner when the relatives [180] (start) to arrive. That evening, we all [181] (sit) down for a merry feast. On New Year\'s Day, I [182] (receive) lots of ang pows and presents from my relatives. During the rest of their visits, we [183] (take) them sightseeing and everyone [184] (have) a good time.', qs: [
-  {n:175,ans:[['joined']]},{n:176,ans:[['were']]},{n:177,ans:[['was']]},{n:178,ans:[['were']]},{n:179,ans:[['were']]},
-  {n:180,ans:[['started']]},{n:181,ans:[['sat']]},{n:182,ans:[['received']]},{n:183,ans:[['took']]},{n:184,ans:[['had']]}
+{ title: 'Part 15 · Fill in the blanks with the simple past tense', kind: 'text', passage: 'The last Chinese New Year was the best I ever had. For the first time, many relatives living overseas [175] (join) us for the joyous occasion. We [176] (be) really busy the day before their arrival. Mum [177] (is) rushing around shopping for food while Dad and I [178] (are) cleaning the house. On eve of New Year, we [179] (are) preparing for the grand reunion dinner when the relatives [180] (start) to arrive. That evening, we all [181] (sit) down for a merry feast. On New Year\'s Day, I [182] (receive) lots of ang pows and presents from my relatives. During the rest of their visits, we [183] (take) them sightseeing and everyone [184] (have) a good time.', qs: [
+ {n:175,ans:[['joined']]},{n:176,ans:[['were']]},{n:177,ans:[['was']]},{n:178,ans:[['were']]},{n:179,ans:[['were']]},
+ {n:180,ans:[['started']]},{n:181,ans:[['sat']]},{n:182,ans:[['received']]},{n:183,ans:[['took']]},{n:184,ans:[['had']]}
 ]},
-{ title: 'Part 16 · Choose the correct answer 选择正确答案', kind: 'choose', qs: [
-  {n:185,t:'Ms Lim (is/are) my teacher.',o:['is','are'],a:0},
-  {n:186,t:'My sister and I (take/takes) turns to wash the dishes.',o:['take','takes'],a:0},
-  {n:187,t:'Mr and Mrs Lee (is/are) going to England for holidays.',o:['is','are'],a:1},
-  {n:188,t:'Lee Shing (has/have) a backpack.',o:['has','have'],a:0},
-  {n:189,t:'I (has/have) a pen.',o:['has','have'],a:1},
-  {n:190,t:'They (is/are) playing badminton on the court.',o:['is','are'],a:1},
-  {n:191,t:'You (has/have) to clean the whiteboard.',o:['has','have'],a:1},
-  {n:192,t:'We (has/have) to queue up to aboard the bus.',o:['has','have'],a:1},
-  {n:193,t:'Everyone (has/have) a pair of eyes.',o:['has','have'],a:0},
-  {n:194,t:'Danny (was/were) not around when his mother called him.',o:['was','were'],a:0}
+{ title: 'Part 16 · Choose the correct answer', kind: 'choose', qs: [
+ {n:185,t:'Ms Lim (is/are) my teacher.',o:['is','are'],a:0},
+ {n:186,t:'My sister and I (take/takes) turns to wash the dishes.',o:['take','takes'],a:0},
+ {n:187,t:'Mr and Mrs Lee (is/are) going to England for holidays.',o:['is','are'],a:1},
+ {n:188,t:'Lee Shing (has/have) a backpack.',o:['has','have'],a:0},
+ {n:189,t:'I (has/have) a pen.',o:['has','have'],a:1},
+ {n:190,t:'They (is/are) playing badminton on the court.',o:['is','are'],a:1},
+ {n:191,t:'You (has/have) to clean the whiteboard.',o:['has','have'],a:1},
+ {n:192,t:'We (has/have) to queue up to aboard the bus.',o:['has','have'],a:1},
+ {n:193,t:'Everyone (has/have) a pair of eyes.',o:['has','have'],a:0},
+ {n:194,t:'Danny (was/were) not around when his mother called him.',o:['was','were'],a:0}
 ]},
-{ title: 'Part 17 · Fill in the blanks with the correct form of the verbs 用正确的动词形式填空', kind: 'text', passage: 'My mother is good at gardening and it is her hobby. We [195] (live) in a house where there [196] (be) a big compound. Mum [197] (love) to plant fruit trees, vegetables and flowers. The papaya, mango and banana trees [198] (be) scattered around the compound. The vegetable plot [199] (be) at the back of the house and it [200] (have) leafy vegetables as well as long beans, brinjals and lady\'s finger. Roses, orchids and sunflowers [201] (grow) in the front garden. We always [202] (have) fresh fruit and vegetables to eat. We [203] (decorate) the rooms in our house with vases of sweet-smelling flowers. Mum\'s hobby [204] (save) us a lot of money.', qs: [
-  {n:195,ans:[['live']]},{n:196,ans:[['is']]},{n:197,ans:[['loves']]},{n:198,ans:[['are']]},{n:199,ans:[['is']]},
-  {n:200,ans:[['has']]},{n:201,ans:[['grow']]},{n:202,ans:[['have']]},{n:203,ans:[['decorate']]},{n:204,ans:[['saves']]}
+{ title: 'Part 17 · Fill in the blanks with the correct form of the verbs', kind: 'text', passage: 'My mother is good at gardening and it is her hobby. We [195] (live) in a house where there [196] (be) a big compound. Mum [197] (love) to plant fruit trees, vegetables and flowers. The papaya, mango and banana trees [198] (be) scattered around the compound. The vegetable plot [199] (be) at the back of the house and it [200] (have) leafy vegetables as well as long beans, brinjals and lady\'s finger. Roses, orchids and sunflowers [201] (grow) in the front garden. We always [202] (have) fresh fruit and vegetables to eat. We [203] (decorate) the rooms in our house with vases of sweet-smelling flowers. Mum\'s hobby [204] (save) us a lot of money.', qs: [
+ {n:195,ans:[['live']]},{n:196,ans:[['is']]},{n:197,ans:[['loves']]},{n:198,ans:[['are']]},{n:199,ans:[['is']]},
+ {n:200,ans:[['has']]},{n:201,ans:[['grow']]},{n:202,ans:[['have']]},{n:203,ans:[['decorate']]},{n:204,ans:[['saves']]}
 ]},
-{ title: 'Part 18 · Put "much", "many", "a few", "a little" or "any" into the sentences 用词库填空（拖放或点选）', kind: 'drag', bank: ['much','many','a few','a little','any'], qs: [
-  {n:205,t:'She made ______ promises but she never kept ______ of them.',ans:[['many'],['any']]},
-  {n:206,t:"Didn't you know how ______ the ticket cost?",ans:[['much']]},
-  {n:207,t:'How ______ pupils were in the library this afternoon? There were only ______.',ans:[['many'],['a few']]},
-  {n:208,t:'Not ______ of the girls in our school took part in the fashion parade.',ans:[['many']]},
-  {n:209,t:"Put ______ salt into the soup. Don't put too ______.",ans:[['a little'],['much']]},
-  {n:210,t:"We haven't got ______ time left. Let's not take ______ of the luggage with us. We can come back for it later.",ans:[['much'],['any']]},
-  {n:211,t:"The restaurant is just ______ blocks away. I don't have ______ money, but just enough for dinner.",ans:[['a few'],['much']]},
-  {n:212,t:"There isn't ______ petrol in the tank. The car will not go for more than ______ kilometres.",ans:[['any'],['a few']]},
-  {n:213,t:'How ______ do you know about his plans for further studies abroad? I know only ______ about them.',ans:[['much'],['a little']]},
-  {n:214,t:'Not ______ of us know how to write French. Only ______ of us have studied the language and know ______ about it.',ans:[['many'],['a few'],['much','a little']]}
+{ title: 'Part 18 · Put "much", "many", "a few", "a little" or "any" into the sentences', kind: 'drag', bank: ['much','many','a few','a little','any'], qs: [
+ {n:205,t:'She made ______ promises but she never kept ______ of them.',ans:[['many'],['any']]},
+ {n:206,t:"Didn't you know how ______ the ticket cost?",ans:[['much']]},
+ {n:207,t:'How ______ pupils were in the library this afternoon? There were only ______.',ans:[['many'],['a few']]},
+ {n:208,t:'Not ______ of the girls in our school took part in the fashion parade.',ans:[['many']]},
+ {n:209,t:"Put ______ salt into the soup. Don't put too ______.",ans:[['a little'],['much']]},
+ {n:210,t:"We haven't got ______ time left. Let's not take ______ of the luggage with us. We can come back for it later.",ans:[['much'],['any']]},
+ {n:211,t:"The restaurant is just ______ blocks away. I don't have ______ money, but just enough for dinner.",ans:[['a few'],['much']]},
+ {n:212,t:"There isn't ______ petrol in the tank. The car will not go for more than ______ kilometres.",ans:[['any'],['a few']]},
+ {n:213,t:'How ______ do you know about his plans for further studies abroad? I know only ______ about them.',ans:[['much'],['a little']]},
+ {n:214,t:'Not ______ of us know how to write French. Only ______ of us have studied the language and know ______ about it.',ans:[['many'],['a few'],['much','a little']]}
 ]},
-{ title: 'Part 19 · Rewrite the sentences using the correct personal pronoun for the bold words 用正确的代词改写句子', kind: 'text', qs: [
-  {n:215,t:'Nick imitated the call of an owl.',ans:[['he imitated it']]},
-  {n:216,t:'My uncle sent Gary to look for Peter and I.',ans:[['my uncle sent him to look for us']]},
-  {n:217,t:'Do elephants eat nuts?',ans:[['do they eat nuts']]},
-  {n:218,t:'My friend and I are going to the trade fair this afternoon.',ans:[['we are going to the trade fair this afternoon']]},
-  {n:219,t:'The lady bought several paintings from the artist.',ans:[['she bought them from him']]},
-  {n:220,t:'My father dug the flower-beds up with a spade.',ans:[['he dug them up with it']]},
-  {n:221,t:'Would Jimmy and you tell my aunt about the children?',ans:[['would he and you tell her about them','would you and he tell her about them']]},
-  {n:222,t:'The cold wind is making their hair stand on end.',ans:[['it is making them stand on end']]},
-  {n:223,t:'His teacher, Mr Bright, would not accept any of his excuses.',ans:[['he would not accept any of them']]},
-  {n:224,t:'John repaired the rice-cooker for his mother.',ans:[['he repaired it for her']]}
+{ title: 'Part 19 · Rewrite the sentences using the correct personal pronoun for the bold words', kind: 'text', qs: [
+ {n:215,t:'Nick imitated the call of an owl.',ans:[['he imitated it']]},
+ {n:216,t:'My uncle sent Gary to look for Peter and I.',ans:[['my uncle sent him to look for us']]},
+ {n:217,t:'Do elephants eat nuts?',ans:[['do they eat nuts']]},
+ {n:218,t:'My friend and I are going to the trade fair this afternoon.',ans:[['we are going to the trade fair this afternoon']]},
+ {n:219,t:'The lady bought several paintings from the artist.',ans:[['she bought them from him']]},
+ {n:220,t:'My father dug the flower-beds up with a spade.',ans:[['he dug them up with it']]},
+ {n:221,t:'Would Jimmy and you tell my aunt about the children?',ans:[['would he and you tell her about them','would you and he tell her about them']]},
+ {n:222,t:'The cold wind is making their hair stand on end.',ans:[['it is making them stand on end']]},
+ {n:223,t:'His teacher, Mr Bright, would not accept any of his excuses.',ans:[['he would not accept any of them']]},
+ {n:224,t:'John repaired the rice-cooker for his mother.',ans:[['he repaired it for her']]}
 ]},
-{ title: 'Part 20 · Join the sentences using "but" or "because" 用 but 或 because 连接句子', kind: 'choose', qs: [
-  {n:225,t:'The florist delivered pink roses to Miss Lee. She wanted red roses.',o:['but','because'],a:0},
-  {n:226,t:"Mary's grandfather is poor. He is generous.",o:['but','because'],a:0},
-  {n:227,t:'The bird flew away. It saw the hunter.',o:['but','because'],a:1},
-  {n:228,t:'My sister went to the market. She wanted to buy some vegetables, meat and fruits.',o:['but','because'],a:1},
-  {n:229,t:'The work was difficult. She did not complain.',o:['but','because'],a:0},
-  {n:230,t:'The little girl is sad. Her mother is unwell.',o:['but','because'],a:1},
-  {n:231,t:'I did not buy the watch. I did not have enough money.',o:['but','because'],a:1},
-  {n:232,t:'Ahmad is fat. He can run fast.',o:['but','because'],a:0},
-  {n:233,t:'She is smart. She is lazy.',o:['but','because'],a:0},
-  {n:234,t:'He walked slowly. He hurt his knee in a football game.',o:['but','because'],a:1},
-  {n:235,t:'He told her to pay the cashier. She paid to waitress.',o:['but','because'],a:0},
-  {n:236,t:'My little brother cries. He was hungry.',o:['but','because'],a:1},
-  {n:237,t:'Amy likes that storybook. It teaches us to be honest.',o:['but','because'],a:1},
-  {n:238,t:'Tony likes to play badminton. Johnny likes to play chess.',o:['but','because'],a:0},
-  {n:239,t:'Kuan Min did not go to school. He was sick.',o:['but','because'],a:1}
+{ title: 'Part 20 · Join the sentences using "but" or "because" but because', kind: 'choose', qs: [
+ {n:225,t:'The florist delivered pink roses to Miss Lee. She wanted red roses.',o:['but','because'],a:0},
+ {n:226,t:"Mary's grandfather is poor. He is generous.",o:['but','because'],a:0},
+ {n:227,t:'The bird flew away. It saw the hunter.',o:['but','because'],a:1},
+ {n:228,t:'My sister went to the market. She wanted to buy some vegetables, meat and fruits.',o:['but','because'],a:1},
+ {n:229,t:'The work was difficult. She did not complain.',o:['but','because'],a:0},
+ {n:230,t:'The little girl is sad. Her mother is unwell.',o:['but','because'],a:1},
+ {n:231,t:'I did not buy the watch. I did not have enough money.',o:['but','because'],a:1},
+ {n:232,t:'Ahmad is fat. He can run fast.',o:['but','because'],a:0},
+ {n:233,t:'She is smart. She is lazy.',o:['but','because'],a:0},
+ {n:234,t:'He walked slowly. He hurt his knee in a football game.',o:['but','because'],a:1},
+ {n:235,t:'He told her to pay the cashier. She paid to waitress.',o:['but','because'],a:0},
+ {n:236,t:'My little brother cries. He was hungry.',o:['but','because'],a:1},
+ {n:237,t:'Amy likes that storybook. It teaches us to be honest.',o:['but','because'],a:1},
+ {n:238,t:'Tony likes to play badminton. Johnny likes to play chess.',o:['but','because'],a:0},
+ {n:239,t:'Kuan Min did not go to school. He was sick.',o:['but','because'],a:1}
 ]}
 ];const SECTIONS = RAW_SECTIONS.concat(NEW_SECTIONS).flatMap(splitSection);
 const ALL = [];
 SECTIONS.forEach(s => s.qs.forEach(q => ALL.push(q)));
 const TABS = SECTIONS.map(s => 'Q' + s.qs[0].n + '–' + s.qs[s.qs.length - 1].n);
-const vals = {};         // n -> array: choose items [index], text/drag items [string per blank]
-const checkedQ = {};     // n -> true once its group has been checked
-const blockResult = {};  // first question n of a group -> result text
+const vals = {}; // n -> array: choose items [index], text/drag items [string per blank]
+const checkedQ = {}; // n -> true once its group has been checked
+const blockResult = {}; // first question n of a group -> result text
 let active = 0;
-let selTile = null;      // word tile selected by tap (drag-free placement)
+let selTile = null; // word tile selected by tap (drag-free placement)
 
 function isChoose(q){ return Array.isArray(q.o); }
 function esc(s){ return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
@@ -379,173 +381,194 @@ function groups(qs){ return [qs]; } /* each tab is one group with one Check butt
 function norm(s){ return String(s).trim().toLowerCase().replace(/[’`]/g, "'").replace(/[.!?]+$/, '').replace(/\s+/g, ' '); }
 function accepted(list, v){ return v !== undefined && v !== '' && list.some(a => norm(a) === norm(v)); }
 function isQ(q){
-  const v = vals[q.n] || [];
-  if (isChoose(q)) return v[0] === q.a;
-  return q.ans.every((acc, k) => accepted(acc, v[k]));
+ const v = vals[q.n] || [];
+ if (isChoose(q)) return v[0] === q.a;
+ return q.ans.every((acc, k) => accepted(acc, v[k]));
 }
 function hasAnswer(q){ return (vals[q.n] || []).some(x => x !== undefined && x !== ''); }
 
 function renderAll(){ renderTabs(); renderPaper(); renderAnswers(); renderHeader(); }
 
 function renderTabs(){
-  const nav = document.getElementById('tabs');
-  nav.innerHTML = TABS.map((t, i) => '<button type="button" class="tab' + (i === active ? ' on' : '') + '" data-i="' + i + '">' + esc(t) + '</button>').join('');
-  nav.querySelectorAll('.tab').forEach(b => b.addEventListener('click', () => goTo(+b.dataset.i)));
+ const nav = document.getElementById('tabs');
+ nav.innerHTML = TABS.map((t, i) => '<button type="button" class="tab' + (i === active ? ' on' : '') + (sectionDone(SECTIONS[i]) ? ' done' : '') + '" data-i="' + i + '">' + esc(t) + (sectionDone(SECTIONS[i]) ? ' ✓' : '') + '</button>').join('');
+ nav.querySelectorAll('.tab').forEach(b => b.addEventListener('click', () => goTo(+b.dataset.i)));
 }
 
 function goTo(i){
-  if (i < 0 || i >= SECTIONS.length) return;
-  active = i;
-  selTile = null;
-  renderAll();
-  document.getElementById('answers').scrollTop = 0;
-  document.getElementById('paper').scrollTop = 0;
+ if (i < 0 || i >= SECTIONS.length) return;
+ active = i;
+ selTile = null;
+ renderAll();
+ document.getElementById('answers').scrollTop = 0;
+ document.getElementById('paper').scrollTop = 0;
 }
 
 function renderPaper(){
-  const sec = SECTIONS[active];
-  let html = '<div class="paper-head"><span>姓名 Name: ____________________</span><span>班级 Class: ________</span><span>日期 Date: ________</span></div>';
-  html += '<div class="paper-title">' + esc(sec.title) + '</div>';
-  if (sec.passage) {
-    html += '<div class="passage">' + fmtPassage(sec.passage) + '</div>';
-  } else {
-    sec.qs.forEach(q => { if (q.t) html += '<div class="pline"><span class="pn">' + q.n + '.</span><span>' + fmtText(q.t) + '</span></div>'; });
-  }
-  document.getElementById('paper').innerHTML = html;
+ const sec = SECTIONS[active];
+ let html = '';
+ html += '<div class="paper-title">' + esc(sec.title) + '</div>';
+ if (sec.passage) {
+ html += '<div class="passage">' + fmtPassage(sec.passage) + '</div>';
+ } else {
+ sec.qs.forEach(q => { if (q.t) html += '<div class="pline"><span class="pn">' + q.n + '.</span><span>' + fmtText(q.t) + '</span></div>'; });
+ }
+ document.getElementById('paper').innerHTML = html;
 }
 
 function renderAnswers(){
-  const sec = SECTIONS[active];
-  let html = '<p class="note">在右边作答，然后按每组的 ✔ 检查。Answer on the right, then press Check for each group.</p>';
-  if (sec.bank) {
-    html += '<div class="bank"><span class="bank-h">词库 Word bank · 拖到空格，或点词语再点空格</span>';
-    html += sec.bank.map(w => '<span class="tile" draggable="true" data-word="' + esc(w) + '">' + esc(w) + '</span>').join('');
-    html += '</div>';
-  }
-  groups(sec.qs).forEach(group => {
-    const first = group[0].n, last = group[group.length - 1].n;
-    html += '<div class="grp"><div class="grp-h">第 ' + first + '–' + last + ' 题 · Q' + first + '–' + last + '</div>';
-    group.forEach(q => {
-      html += '<div class="arow"><span class="an">' + q.n + '.</span>';
-      if (isChoose(q)) {
-        html += '<select class="ans" id="s' + q.n + '" data-n="' + q.n + '" aria-label="Question ' + q.n + '">';
-        html += '<option value="">— 选择 Choose —</option>';
-        q.o.forEach((opt, i) => { html += '<option value="' + i + '">' + LET[i] + '. ' + esc(opt) + '</option>'; });
-        html += '</select>';
-      } else {
-        q.ans.forEach((acc, k) => {
-          const id = 'i' + q.n + '_' + k;
-          if (sec.bank) html += '<span class="slot" id="' + id + '" data-n="' + q.n + '" data-k="' + k + '" tabindex="0"></span>';
-          else html += '<input type="text" class="tin" id="' + id + '" data-n="' + q.n + '" data-k="' + k + '" autocomplete="off" aria-label="Question ' + q.n + ' blank ' + (k + 1) + '">';
-        });
-      }
-      html += '<span class="amsg" id="m' + q.n + '"></span></div>';
-    });
-    html += '<div class="blockcheck"><button type="button" class="btn check" data-first="' + first + '">✔ 检查 Check</button><span class="blockmsg" id="bm' + first + '">' + esc(blockResult[first] || '') + '</span></div></div>';
-  });
-  const box = document.getElementById('answers');
-  box.innerHTML = html;
-  box.querySelectorAll('select.ans').forEach(sel => sel.addEventListener('change', () => setVal(+sel.dataset.n, 0, sel.value === '' ? undefined : +sel.value)));
-  box.querySelectorAll('input.tin').forEach(inp => inp.addEventListener('input', () => setVal(+inp.dataset.n, +inp.dataset.k, inp.value)));
-  box.querySelectorAll('.slot').forEach(sl => {
-    sl.addEventListener('click', () => {
-      const n = +sl.dataset.n, k = +sl.dataset.k;
-      if (selTile) { setVal(n, k, selTile); selTile = null; renderBankSel(); }
-      else if (vals[n] && vals[n][k]) setVal(n, k, '');
-    });
-    sl.addEventListener('dragover', e => e.preventDefault());
-    sl.addEventListener('drop', e => { e.preventDefault(); setVal(+sl.dataset.n, +sl.dataset.k, e.dataTransfer.getData('text/plain')); });
-  });
-  box.querySelectorAll('.tile').forEach(tl => {
-    tl.addEventListener('click', () => { selTile = selTile === tl.dataset.word ? null : tl.dataset.word; renderBankSel(); });
-    tl.addEventListener('dragstart', e => { e.dataTransfer.setData('text/plain', tl.dataset.word); selTile = null; renderBankSel(); });
-  });
-  box.querySelectorAll('.btn.check').forEach(btn => btn.addEventListener('click', () => checkGroup(+btn.dataset.first)));
-  sec.qs.forEach(q => paintQuestion(q.n));
+ const sec = SECTIONS[active];
+ let html = '<p class="note">Answer on the right, then press Check for each group.</p>';
+ if (sec.bank) {
+ html += '<div class="bank"><span class="bank-h">Word bank · drag to a blank, or tap a word then a blank</span>';
+ html += sec.bank.map(w => '<span class="tile" draggable="true" data-word="' + esc(w) + '">' + esc(w) + '</span>').join('');
+ html += '</div>';
+ }
+ groups(sec.qs).forEach(group => {
+ const first = group[0].n, last = group[group.length - 1].n;
+ html += '<div class="grp"><div class="grp-h">Questions ' + first + '–' + last + ' · Q' + first + '–' + last + '</div>';
+ group.forEach(q => {
+ html += '<div class="arow"><span class="an">' + q.n + '.</span>';
+ if (isChoose(q)) {
+ html += '<select class="ans" id="s' + q.n + '" data-n="' + q.n + '" aria-label="Question ' + q.n + '">';
+ html += '<option value="">— Choose —</option>';
+ q.o.forEach((opt, i) => { html += '<option value="' + i + '">' + LET[i] + '. ' + esc(opt) + '</option>'; });
+ html += '</select>';
+ } else {
+ q.ans.forEach((acc, k) => {
+ const id = 'i' + q.n + '_' + k;
+ if (sec.bank) html += '<span class="slot" id="' + id + '" data-n="' + q.n + '" data-k="' + k + '" tabindex="0"></span>';
+ else html += '<input type="text" class="tin" id="' + id + '" data-n="' + q.n + '" data-k="' + k + '" autocomplete="off" aria-label="Question ' + q.n + ' blank ' + (k + 1) + '">';
+ });
+ }
+ html += '<span class="amsg" id="m' + q.n + '"></span></div>';
+ });
+ html += '<div class="blockcheck"><button type="button" class="btn check" data-first="' + first + '">✔ Check</button><span class="blockmsg" id="bm' + first + '">' + esc(blockResult[first] || '') + '</span></div></div>';
+ });
+ const box = document.getElementById('answers');
+ box.innerHTML = html;
+ box.querySelectorAll('select.ans').forEach(sel => sel.addEventListener('change', () => setVal(+sel.dataset.n, 0, sel.value === '' ? undefined : +sel.value)));
+ box.querySelectorAll('input.tin').forEach(inp => inp.addEventListener('input', () => setVal(+inp.dataset.n, +inp.dataset.k, inp.value)));
+ box.querySelectorAll('.slot').forEach(sl => {
+ sl.addEventListener('click', () => {
+ const n = +sl.dataset.n, k = +sl.dataset.k;
+ if (selTile) { setVal(n, k, selTile); selTile = null; renderBankSel(); }
+ else if (vals[n] && vals[n][k]) setVal(n, k, '');
+ });
+ sl.addEventListener('dragover', e => e.preventDefault());
+ sl.addEventListener('drop', e => { e.preventDefault(); setVal(+sl.dataset.n, +sl.dataset.k, e.dataTransfer.getData('text/plain')); });
+ });
+ box.querySelectorAll('.tile').forEach(tl => {
+ tl.addEventListener('click', () => { selTile = selTile === tl.dataset.word ? null : tl.dataset.word; renderBankSel(); });
+ tl.addEventListener('dragstart', e => { e.dataTransfer.setData('text/plain', tl.dataset.word); selTile = null; renderBankSel(); });
+ });
+ box.querySelectorAll('.btn.check').forEach(btn => btn.addEventListener('click', () => checkGroup(+btn.dataset.first)));
+ sec.qs.forEach(q => paintQuestion(q.n));
 }
 
 function renderBankSel(){
-  document.querySelectorAll('.tile').forEach(tl => tl.classList.toggle('sel', tl.dataset.word === selTile));
+ document.querySelectorAll('.tile').forEach(tl => tl.classList.toggle('sel', tl.dataset.word === selTile));
 }
 
 function setVal(n, k, val){
-  vals[n] = vals[n] || [];
-  vals[n][k] = (val === '' || val === undefined) ? (isChoose(ALL.find(x => x.n === n)) ? undefined : '') : val;
-  paintQuestion(n);
-  renderHeader();
+ vals[n] = vals[n] || [];
+ vals[n][k] = (val === '' || val === undefined) ? (isChoose(ALL.find(x => x.n === n)) ? undefined : '') : val;
+ paintQuestion(n);
+ renderHeader();
 }
 
+const SHEET_URL = 'https://script.google.com/macros/s/AKfycbwfpSs2biONcgBbbWnG5WW3QKec1ShM9c5LUCrb7TtI5jeKlGUm0sHvH5odTN1l8oSV/exec';
+const checkTries = {};
+function sendCheck(first, right, total){
+ let who = '';
+ try { who = (JSON.parse(sessionStorage.getItem('asc_student') || 'null') || {}).name || ''; } catch (e) {}
+ if (!who) return; // no student logged in on the hub: nothing to record
+ checkTries[first] = (checkTries[first] || 0) + 1;
+ const state = {};
+ SECTIONS[active].qs.forEach(q => { state[q.n] = vals[q.n] || []; });
+ try {
+ fetch(SHEET_URL, {
+ method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain' },
+ body: JSON.stringify({ at: new Date().toISOString(), student: who, page: 'year4-english.html?part=' + TABS[active],
+ right: right, total: total, tries: checkTries[first], state: JSON.stringify(state) })
+ });
+ } catch (e) {}
+}
 function checkGroup(first){
-  const group = groups(SECTIONS[active].qs).find(g => g[0].n === first);
-  group.forEach(q => { checkedQ[q.n] = true; paintQuestion(q.n); });
-  const right = group.filter(isQ).length;
-  blockResult[first] = '第 ' + first + '–' + group[group.length - 1].n + ' 题：' + right + ' / ' + group.length + ' 正确 Correct';
-  document.getElementById('bm' + first).textContent = blockResult[first];
-  renderHeader();
+ const group = groups(SECTIONS[active].qs).find(g => g[0].n === first);
+ group.forEach(q => { checkedQ[q.n] = true; paintQuestion(q.n); });
+ const right = group.filter(isQ).length;
+ blockResult[first] = 'Questions ' + first + '–' + group[group.length - 1].n + ': ' + right + ' / ' + group.length + ' correct';
+ document.getElementById('bm' + first).textContent = blockResult[first];
+ sendCheck(first, right, group.length);
+ renderHeader();
 }
 
 /* Never shows the correct answer: only marks what was entered as right or wrong. */
 function paintQuestion(n){
-  const q = ALL.find(x => x.n === n);
-  const v = vals[n] || [];
-  const msg = document.getElementById('m' + n);
-  if (!msg) return;
-  if (isChoose(q)) {
-    const sel = document.getElementById('s' + n);
-    if (sel) {
-      sel.value = v[0] === undefined ? '' : String(v[0]);
-      sel.classList.remove('ok','bad');
-      if (checkedQ[n]) sel.classList.add(v[0] === q.a ? 'ok' : 'bad');
-    }
-  } else {
-    q.ans.forEach((acc, k) => {
-      const el = document.getElementById('i' + n + '_' + k);
-      if (!el) return;
-      const val = v[k] === undefined ? '' : v[k];
-      if (el.tagName === 'INPUT') { if (el.value !== val) el.value = val; }
-      else { el.textContent = val || ''; el.classList.toggle('filled', !!val); }
-      el.classList.remove('ok','bad');
-      if (checkedQ[n]) el.classList.add(accepted(acc, val) ? 'ok' : 'bad');
-    });
-  }
-  msg.className = 'amsg';
-  msg.textContent = '';
-  if (checkedQ[n]) {
-    if (isQ(q)) { msg.classList.add('ok'); msg.textContent = '✔ 正确'; }
-    else if (!hasAnswer(q)) { msg.classList.add('bad'); msg.textContent = '未作答'; }
-    else { msg.classList.add('bad'); msg.textContent = '✘ 错误'; }
-  }
+ const q = ALL.find(x => x.n === n);
+ const v = vals[n] || [];
+ const msg = document.getElementById('m' + n);
+ if (!msg) return;
+ if (isChoose(q)) {
+ const sel = document.getElementById('s' + n);
+ if (sel) {
+ sel.value = v[0] === undefined ? '' : String(v[0]);
+ sel.classList.remove('ok','bad');
+ if (checkedQ[n]) sel.classList.add(v[0] === q.a ? 'ok' : 'bad');
+ }
+ } else {
+ q.ans.forEach((acc, k) => {
+ const el = document.getElementById('i' + n + '_' + k);
+ if (!el) return;
+ const val = v[k] === undefined ? '' : v[k];
+ if (el.tagName === 'INPUT') { if (el.value !== val) el.value = val; }
+ else { el.textContent = val || ''; el.classList.toggle('filled', !!val); }
+ el.classList.remove('ok','bad');
+ if (checkedQ[n]) el.classList.add(accepted(acc, val) ? 'ok' : 'bad');
+ });
+ }
+ msg.className = 'amsg';
+ msg.textContent = '';
+ if (checkedQ[n]) {
+ if (isQ(q)) { msg.classList.add('ok'); msg.textContent = '✔ Correct'; }
+ else if (!hasAnswer(q)) { msg.classList.add('bad'); msg.textContent = 'Not answered'; }
+ else { msg.classList.add('bad'); msg.textContent = '✘ Wrong'; }
+ }
 }
 
+function sectionDone(sec){ return sec.qs.every(q => isQ(q)); }
 function renderHeader(){
-  const qs = SECTIONS[active].qs;
-  const checked = qs.filter(q => checkedQ[q.n]);
-  const right = checked.filter(isQ).length;
-  const pill = document.getElementById('status');
-  pill.className = 'pill';
-  if (checked.length === 0) pill.textContent = '未检查';
-  else if (checked.length < qs.length) { pill.classList.add('partial'); pill.textContent = '检查中 ' + checked.length + ' / ' + qs.length + ' · 正确 ' + right; }
-  else { pill.classList.add('done'); pill.textContent = '已检查 · 正确 ' + right + ' / ' + qs.length; }
-  document.getElementById('title').textContent = '第 ' + (active + 1) + ' / ' + SECTIONS.length + ' 组 · Q' + qs[0].n + '–' + qs[qs.length - 1].n;
-  document.getElementById('prevBtn').disabled = active === 0;
-  document.getElementById('nextBtn').disabled = active === SECTIONS.length - 1;
+ renderTabs();
+ const qs = SECTIONS[active].qs;
+ const checked = qs.filter(q => checkedQ[q.n]);
+ const right = checked.filter(isQ).length;
+ const pill = document.getElementById('status');
+ pill.className = 'pill';
+ if (checked.length === 0) pill.textContent = 'Not checked';
+ else if (checked.length < qs.length) { pill.classList.add('partial'); pill.textContent = 'Checking ' + checked.length + ' / ' + qs.length + ' · correct ' + right; }
+ else { pill.classList.add('done'); pill.textContent = 'Checked · correct ' + right + ' / ' + qs.length; }
+ document.getElementById('title').textContent = 'Group ' + (active + 1) + ' / ' + SECTIONS.length + ' · Q' + qs[0].n + '–' + qs[qs.length - 1].n;
+ document.getElementById('prevBtn').disabled = active === 0;
+ document.getElementById('nextBtn').disabled = active === SECTIONS.length - 1;
 }
 
 document.getElementById('prevBtn').addEventListener('click', () => goTo(active - 1));
 document.getElementById('nextBtn').addEventListener('click', () => goTo(active + 1));
 document.getElementById('resetBtn').addEventListener('click', () => {
-  Object.keys(vals).forEach(k => delete vals[k]);
-  Object.keys(checkedQ).forEach(k => delete checkedQ[k]);
-  Object.keys(blockResult).forEach(k => delete blockResult[k]);
-  selTile = null;
-  renderAll();
-  window.scrollTo({top: 0, behavior: 'smooth'});
+ Object.keys(vals).forEach(k => delete vals[k]);
+ Object.keys(checkedQ).forEach(k => delete checkedQ[k]);
+ Object.keys(blockResult).forEach(k => delete blockResult[k]);
+ selTile = null;
+ renderAll();
+ window.scrollTo({top: 0, behavior: 'smooth'});
 });
 
 renderAll();
 </script>
 </body>
 </html>
+
 
 
 

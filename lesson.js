@@ -14,7 +14,7 @@
   var ORDER = [
     "year1-tatabahasa-bahagian-a.html", "year1-pemahaman.html", "year1-tatabahasa-bahagian-b.html",
     "year1-isi-tempat-kosong.html", "year1-english-tester.html", "year1-science-tester.html",
-    "year1-chinese.html", "year1-chinese-2.html",
+    
     "year2-tatabahasa.html?part=A", "year2-tatabahasa.html?part=B", "year2-pemahaman.html",
     "year2-english-making-sentences.html", "year2-science-tester.html", "year2-chinese-2A-tester.html", "year2-chinese-2B-tester.html",
     "year3-chinese-2.html", "year3-exercise-3A.html", "year3-composition-fill.html",
