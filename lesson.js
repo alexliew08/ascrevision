@@ -60,6 +60,7 @@
     return null;
   }
   window.LessonFlow = { nextFor: nextFor, ORDER: ORDER };
+  window.LessonFlow.statusOf = function (name) { return (loadP()[name] || {}).pages || {}; };
   // Only Alex can call this (from the reset panel on Alex's menu).
   // Resets one exercise (page) or all ('*') for a student: on this device, and on the sheet as a RESET row,
   // so the student's other devices clear it the next time they open a page.

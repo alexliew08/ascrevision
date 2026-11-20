@@ -77,6 +77,8 @@ input:focus,select:focus{border-color:var(--green2);box-shadow:0 0 0 4px #dfeee5
 @media (min-width:1000px){
   .tiles{grid-template-columns:repeat(4,minmax(0,1fr))}
 }
+.tile.tile-green{background:#e6f5ec!important;border-color:#2e9e5b!important}
+.tile.tile-red{background:#fdecec!important;border-color:#e0605e!important}
 </style>
 </head>
 <body>
@@ -342,13 +344,24 @@ input:focus,select:focus{border-color:var(--green2);box-shadow:0 0 0 4px #dfeee5
       { t: "English Writing Practice", s: "Year 1–3 writing", f: "year3-english-writing.html", c: "en2", i: '<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="m13 7 4 4"/></svg>' } ] }
   };
   let subFrom = 'menu';
-  function showSub(key, name, from){
+  function markDoneTiles(S){
+    if(!window.LessonFlow || !LessonFlow.statusOf) return;
+    const sess = getSess() || {};
+    const st = LessonFlow.statusOf(sess.name || 'guest');
+    document.querySelectorAll('#subTiles .tile').forEach((el, i) => {
+      const x = S.items[i]; if(!x || !x.f) return;
+      const rec = st[x.f]; if(!rec || !rec.done) return;
+      const wrong = rec.total > 0 && rec.right < rec.total;
+      el.classList.add(wrong ? 'tile-red' : 'tile-green');
+    });
+  }  function showSub(key, name, from){
     const S = SUB[key]; subFrom = from;
     const q = "?s=" + encodeURIComponent(name);
     $('subTitle').textContent = S.title; $('subTag').textContent = S.tag;
     $('subTiles').innerHTML = S.items.map(x => x.f
       ? `<a class="tile ${x.c} wide" href="${x.f.endsWith('.pdf') ? x.f : x.f + (x.f.includes('?') ? '&' : '?') + q.slice(1)}"><span class="ic">${x.i}</span>${x.t}<span class="sub">${x.s}</span></a>`
       : `<div class="tile off wide"><span class="ic">${x.i}</span>${x.t}<small>Coming soon</small></div>`).join('');
+    markDoneTiles(S);
     show('subMenu');
   }
   $('subBack').addEventListener('click', () => show(subFrom));
