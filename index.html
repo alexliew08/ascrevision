@@ -260,10 +260,12 @@ input:focus,select:focus{border-color:var(--green2);box-shadow:0 0 0 4px #dfeee5
         ? `<a class="tile bm" href="#" data-sub="bm" data-name="Alex"><span class="ic">BM</span>Bahasa Melayu</a>`
         : y === 2
         ? `<a class="tile bm" href="#" data-sub="bm2" data-name="Alex"><span class="ic">BM</span>Bahasa Melayu</a>`
+        : y === 4
+        ? `<a class="tile bm" href="#" data-sub="bm4" data-name="Alex"><span class="ic">BM</span>Bahasa Melayu</a>`
         : y === 1
         ? `<a class="tile bm" href="#" data-sub="bm1" data-name="Alex"><span class="ic">BM</span>Bahasa Melayu</a>`
         : `<div class="tile off"><span class="ic">BM</span>Bahasa Melayu<small>Coming soon</small></div>`;
-      const scT = y === 1 || y === 2
+      const scT = y === 1 || y === 2 || y === 4
         ? `<a class="tile sc" href="#" data-sub="sc${y}" data-name="Alex"><span class="ic">🔬</span>Science</a>`
         : "";
       html += `<div class="yrow"><div class="ylabel">Year ${y}</div><div class="tiles">
@@ -339,7 +341,11 @@ input:focus,select:focus{border-color:var(--green2);box-shadow:0 0 0 4px #dfeee5
     en2: { title: "Aa English", tag: "Tahun 2 · Pilih latihan", items: [
       { t: "Sentence making", s: "Sentence Construction · Year 2", f: "year2-english-making-sentences.html", c: "en2b", i: '<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="m13 7 4 4"/></svg>' },
       { t: "Writing Practice", s: "Writing · Year 2", f: "year2-english-writing.html", c: "en2c", i: '<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="m13 7 4 4"/></svg>' } ] },
-    en4: { title: "Aa English", tag: "Tahun 4 · Pilih latihan", items: [
+    bm4: { title: "Bahasa Melayu", tag: "Tahun 4 · Pilih latihan", items: [
+      { t: "Unit 1 · Kata Nama Am", s: "Gambar + pilihan · Soalan 1–26", f: "year4-bm.html", c: "bm4a", i: '<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="m13 7 4 4"/></svg>' },
+      { t: "Unit 2 · Kata Nama Khas", s: "Petikan + pilihan · Soalan 27–39", f: "year4-bm.html", c: "bm4a", i: '<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="m13 7 4 4"/></svg>' } ] },
+    sc4: { title: "Science", tag: "Tahun 4 · Pilih latihan", items: [
+      { t: "Science Year 4", s: "Akan datang · Coming soon", f: "", c: "sc4a", i: '<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="m13 7 4 4"/></svg>' } ] },    en4: { title: "Aa English", tag: "Tahun 4 · Pilih latihan", items: [
       { t: "Choose the answer 选择题", s: "Soalan 1–90 · 7 parts (tabs)", f: "year4-english.html", c: "en4a", i: '<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="m13 7 4 4"/></svg>' } ] },
     en: { title: "Aa English", tag: "Year 3 · Choose one 选一个练习", items: [
       { t: "Pre-UASA practice", s: "Latihan Pre-UASA · Practice", f: "", c: "en", i: '<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 21V5"/><path d="M9 8h6"/></svg>' },
