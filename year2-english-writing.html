@@ -90,6 +90,12 @@ textarea{width:100%;font-size:17px;line-height:1.6;padding:10px 12px;border:2px 
 .ov-para .line{display:block;line-height:1.9;font-size:clamp(12px,1.5vw,16px);min-height:100%;border:0;padding:0}
 .ov-para .line:empty::before{content:"Tap the sentences on the right";font-size:13px;color:var(--muted)}
 .ord.para.ov-para{display:block;flex-direction:column}
+.para{font-size:17px;line-height:2.5}
+.para select.ans{width:9.5em;min-height:44px;padding:4px 10px;border:2px solid #cfc4a8;border-radius:12px;background:#fff;font-size:16px;vertical-align:middle;margin:0 2px}
+.item.done{background:#e6f5ec;border-color:#2e9e5b;color:#1f5f3a}
+.item.done small{color:#2e7d4f;font-weight:700}
+.item.done.on{background:#2e9e5b;color:#fff}
+.item.done.on small{color:#e6f5ec}
 </style>
 </head>
 <body>
@@ -265,22 +271,20 @@ function check(){
       const got = [...lineOf(it.ord).querySelectorAll('.w')].map(x => x.textContent).join(' ');
       const good = norm(got) === norm(it.ans);
       it.ord.classList.add(good ? 'ok' : 'bad'); if(good) right++;
-      else lineOf(it.ord).insertAdjacentHTML('afterend', `<div class="fix">Answer: ${esc(it.ans)}</div>`);
       return;
     }
     const v = it.el.value;
     const good = it.any ? v !== '' : (v !== '' && ok(v, it.ans));
     it.el.classList.add(good ? 'ok' : 'bad'); if(good) right++;
-    else if(!it.any) it.el.insertAdjacentHTML('afterend', `<span class="fix">→ ${esc(Array.isArray(it.ans) ? it.ans[0] : it.ans)}</span>`);
   });
   const writes = $('qs').querySelectorAll('.write').length;
   if(list.length){
     $('score').textContent = `Score ${right} / ${list.length}`;
     $('result').hidden = false;
     $('result').textContent = right === list.length ? `🎉 Excellent! All ${right} correct.` + (writes ? ' Now finish the writing part.' : '') : `You got ${right} out of ${list.length}. Look at the red ones and try again — you can do it! 💪`;
-    if(right === list.length){ st.done[cur] = 1; save(); dots(); }
+    st.done[cur] = 1; save(); dots();
   } else {
-    $('score').textContent = 'Writing task';
+    $('score').textContent = 'Writing task'; st.done[cur] = 1; save(); dots();
     $('result').hidden = false;
     $('result').textContent = 'This page is a writing task. Try to use all the key words, then compare with the 💡 model.';
   }
@@ -312,7 +316,7 @@ $('checkBtn').onclick = check; $('showBtn').onclick = showAll; $('resetBtn').onc
 
 /* ---------- paging ---------- */
 function renderList(){
-  $('list').innerHTML = PAGES.map((p, i) => `<button class="item${i === cur ? ' on' : ''}" data-p="${i}" type="button">${esc(p.t)}${st.done[i] ? ' ✓' : ''}<small>${esc(SECS[p.sec])}</small></button>`).join('');
+  $('list').innerHTML = PAGES.map((p, i) => `<button class="item${i === cur ? ' on' : ''}${st.done[i] ? ' done' : ''}" data-p="${i}" type="button">${esc(p.t)}${st.done[i] ? ' ✓' : ''}<small>${esc(SECS[p.sec])}</small></button>`).join('');
 }
 function dots(){ renderList(); }
 $('list').onclick = e => { const b = e.target.closest('.item'); if(b) go(+b.dataset.p); };
