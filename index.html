@@ -174,13 +174,15 @@ input:focus,select:focus{border-color:var(--green2);box-shadow:0 0 0 4px #dfeee5
     const enb = $('enBtn');
     if(sess.year === 1){ enb.classList.remove('off'); enb.href = "#"; enb.dataset.sub = "en1"; enb.dataset.name = sess.name; }
     if(sess.year === 2){ enb.classList.remove('off'); enb.href = "#"; enb.dataset.sub = "en2"; enb.dataset.name = sess.name; }
+    if(sess.year === 4){ enb.classList.remove('off'); enb.href = "#"; enb.dataset.sub = "en4"; enb.dataset.name = sess.name; }
     const scb = $('scBtn');
-    if(sess.year === 1 || sess.year === 2){ scb.classList.remove('off'); scb.href = "#"; scb.dataset.sub = "sc" + sess.year; scb.dataset.name = sess.name; }
+    if(sess.year === 1 || sess.year === 2 || sess.year === 4){ scb.classList.remove('off'); scb.href = "#"; scb.dataset.sub = "sc" + sess.year; scb.dataset.name = sess.name; }
     else { scb.classList.add('off'); scb.removeAttribute('href'); delete scb.dataset.sub; }
     const bm = $('bmBtn');
     if(sess.year === 3){ bm.classList.remove('off'); bm.href = "#"; bm.dataset.sub = "bm"; bm.dataset.name = sess.name; }
     else if(sess.year === 1){ bm.classList.remove('off'); bm.href = "#"; bm.dataset.sub = "bm1"; bm.dataset.name = sess.name; }
     else if(sess.year === 2){ bm.classList.remove('off'); bm.href = "#"; bm.dataset.sub = "bm2"; bm.dataset.name = sess.name; }
+    else if(sess.year === 4){ bm.classList.remove('off'); bm.href = "#"; bm.dataset.sub = "bm4"; bm.dataset.name = sess.name; }
     else { bm.classList.add('off'); bm.removeAttribute('href'); delete bm.dataset.sub; }
     ['cnBtn','enBtn','bmBtn','scBtn'].forEach(id => {
       const b = $(id); const s = b.querySelector('small'); const on = !b.classList.contains('off');
