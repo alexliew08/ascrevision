@@ -153,8 +153,8 @@ img.cpic{width:260px;max-width:45%;height:auto;flex:0 0 auto;border:1px solid #c
 <main>
   <div class="pnav">
     <div class="parts">
-      <button class="part" type="button" data-part="A">Bahagian A · Unit 1–11</button>
-      <button class="part" type="button" data-part="B">Bahagian B · Unit 12–22</button>
+      <button class="part" type="button" data-part="A">Part A · Units 1–11</button>
+      <button class="part" type="button" data-part="B">Part B · Units 12–22</button>
     </div>
   </div>
   <div class="topbar2"><span class="chip" id="score">Not checked</span><button class="btn" id="checkAll" type="button">✓ Check answers</button><button class="btn alt" id="resetAll" type="button">↺ Redo</button></div>
@@ -1094,7 +1094,7 @@ function check(s){
   refresh(s);
 }
 
-const PART_LABEL = { A: "Bahagian A · Unit 1–11", B: "Bahagian B · Unit 12–22" };
+const PART_LABEL = { A: "Part A · Units 1–11", B: "Part B · Units 12–22" };
 function render(){
   const p = PAGES[cur];
   if(!p){ $("secs").innerHTML = "<p>Halaman tidak ada.</p>"; return; }

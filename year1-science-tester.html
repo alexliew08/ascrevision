@@ -78,8 +78,8 @@ button{font:inherit;cursor:pointer}
     <div class="info">
       <b id="title"></b>
       <span class="score" id="score">Not checked</span>
-      <button class="btn" id="prev" type="button">← Previous</button>
-      <button class="btn" id="next" type="button">Next →</button>
+      <button class="btn" id="prev" type="button">← 上一个</button>
+      <button class="btn" id="next" type="button">下一个 →</button>
     </div>
     <div class="split" id="split">
       <div class="pdfs" id="pdfs"></div>
@@ -88,8 +88,8 @@ button{font:inherit;cursor:pointer}
     <div class="foot">
       <span class="hint">Tap a word, then tap a box to fill it. Or drag a word into a box.</span>
       <div style="display:flex;gap:8px">
-        <button class="btn" id="clearBtn" type="button">↺ Clear this sheet</button>
-        <button class="btn primary" id="checkBtn" type="button">✔ Check answers</button>
+        <button class="btn" id="clearBtn" type="button">↺ 清空</button>
+        <button class="btn primary" id="checkBtn" type="button">✔ 检查答案</button>
       </div>
     </div>
   </section>
@@ -118,46 +118,46 @@ window.LESSON_STATE_KEY = KEY_STATE;
 
 // One entry per sheet. Sheet 1 = book page 2; one sheet per book page (pages 2-41).
 const TITLES = [
-  'Unit 1 · Science skills · page 2',
-  'Unit 1 · Science skills · page 3',
-  'Unit 1 · Science skills · page 4',
-  'Unit 1 · Science skills · page 5',
-  'Unit 1 · Science skills · page 6',
-  'Unit 2 · Lab rules · page 7',
-  'Unit 3 · Living and non-living · page 8',
-  'Unit 3 · Living and non-living · page 9',
-  'Unit 3 · Living and non-living · page 10',
-  'Unit 3 · Living and non-living · page 11',
-  'Unit 3 · Living and non-living · page 12',
-  'Unit 3 · Living and non-living · page 13',
-  'Unit 4 · Humans · page 14',
-  'Unit 4 · Humans · page 15',
-  'Unit 4 · Humans · page 16',
-  'Unit 4 · Humans · page 17',
-  'Unit 5 · Animals · page 18',
-  'Unit 5 · Animals · page 19',
-  'Unit 5 · Animals · page 20',
-  'Unit 6 · Plants · page 21',
-  'Unit 6 · Plants · page 22',
-  'Unit 6 · Plants · page 23',
-  'Unit 6 · Plants · page 24',
-  'Unit 7 · Magnets · page 25',
-  'Unit 7 · Magnets · page 26',
-  'Unit 7 · Magnets · page 27',
-  'Unit 7 · Magnets · page 28',
-  'Unit 7 · Magnets · page 29',
-  'Unit 8 · Water absorption · page 30',
-  'Unit 8 · Water absorption · page 31',
-  'Unit 8 · Water absorption · page 32',
-  'Unit 8 · Water absorption · page 33',
-  'Unit 8 · Water absorption · page 34',
-  'Unit 9 · The Earth · page 35',
-  'Unit 9 · The Earth · page 36',
-  'Unit 10 · Basic structures · page 37',
-  'Unit 10 · Basic structures · page 38',
-  'Unit 10 · Basic structures · page 39',
-  'Unit 10 · Basic structures · page 40',
-  'Unit 10 · Basic structures · page 41'
+  '单元一 科学技能 · 第 2 页',
+  '单元一 科学技能 · 第 3 页',
+  '单元一 科学技能 · 第 4 页',
+  '单元一 科学技能 · 第 5 页',
+  '单元一 科学技能 · 第 6 页',
+  '单元二 科学室规则 · 第 7 页',
+  '单元三 生物与非生物 · 第 8 页',
+  '单元三 生物与非生物 · 第 9 页',
+  '单元三 生物与非生物 · 第 10 页',
+  '单元三 生物与非生物 · 第 11 页',
+  '单元三 生物与非生物 · 第 12 页',
+  '单元三 生物与非生物 · 第 13 页',
+  '单元四 人类 · 第 14 页',
+  '单元四 人类 · 第 15 页',
+  '单元四 人类 · 第 16 页',
+  '单元四 人类 · 第 17 页',
+  '单元五 动物 · 第 18 页',
+  '单元五 动物 · 第 19 页',
+  '单元五 动物 · 第 20 页',
+  '单元六 植物 · 第 21 页',
+  '单元六 植物 · 第 22 页',
+  '单元六 植物 · 第 23 页',
+  '单元六 植物 · 第 24 页',
+  '单元七 磁铁 · 第 25 页',
+  '单元七 磁铁 · 第 26 页',
+  '单元七 磁铁 · 第 27 页',
+  '单元七 磁铁 · 第 28 页',
+  '单元七 磁铁 · 第 29 页',
+  '单元八 吸水 · 第 30 页',
+  '单元八 吸水 · 第 31 页',
+  '单元八 吸水 · 第 32 页',
+  '单元八 吸水 · 第 33 页',
+  '单元八 吸水 · 第 34 页',
+  '单元九 地球 · 第 35 页',
+  '单元九 地球 · 第 36 页',
+  '单元十 基本结构 · 第 37 页',
+  '单元十 基本结构 · 第 38 页',
+  '单元十 基本结构 · 第 39 页',
+  '单元十 基本结构 · 第 40 页',
+  '单元十 基本结构 · 第 41 页'
 ];
 // Book page shown on each sheet (one page per sheet).
 const PAGES = [2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41];
@@ -361,12 +361,12 @@ function render() {
   saveState();
   const sheet = ANSWERS[cur];
   const overlay = sheet.layout === 'overlay';
-  $('title').textContent = `Sheet ${cur + 1} · ${TITLES[cur]}`;
+  $('title').textContent = `第 ${cur + 1} 页 · ${TITLES[cur]}`;
   $('split').classList.toggle('full', overlay);
   $('panel').style.display = overlay ? 'none' : '';
   $('prev').disabled = cur === 0;
   $('next').disabled = cur === ANSWERS.length - 1;
-  $('counter').textContent = `Sheet ${cur + 1} of ${ANSWERS.length}`;
+  $('counter').textContent = `第 ${cur + 1} / ${ANSWERS.length} 页`;
   $('list').querySelectorAll('.item').forEach((b, k) => b.classList.toggle('on', k === cur));
   $('score').textContent = checked[cur] ? scoreText() : 'Not checked';
   if (overlay) {
@@ -412,7 +412,7 @@ function sectionAndN(k) {
 }
 
 $('list').innerHTML = ANSWERS.map((_, i) =>
-  `<button class="item" type="button" data-i="${i}">Sheet ${i + 1}<small>${esc(TITLES[i])}</small></button>`).join('');
+  `<button class="item" type="button" data-i="${i}">第 ${i + 1} 页<small>${esc(TITLES[i])}</small></button>`).join('');
 $('list').addEventListener('click', e => { const b = e.target.closest('.item'); if (b) { cur = +b.dataset.i; selWord = null; render(); } });
 $('prev').addEventListener('click', () => { if (cur > 0) { cur--; selWord = null; render(); } });
 $('next').addEventListener('click', () => { if (cur < ANSWERS.length - 1) { cur++; selWord = null; render(); } });
