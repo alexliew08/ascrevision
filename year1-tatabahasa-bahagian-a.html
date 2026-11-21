@@ -18,6 +18,9 @@
   .parts{display:flex;gap:8px}
   .part{font:inherit;font-size:14px;font-weight:700;color:var(--green);background:#fff;border:1.5px solid var(--line);border-radius:999px;padding:6px 14px;cursor:pointer}
   .part.on{background:var(--green);color:#fff;border-color:var(--green)}
+  .part.ok{background:#2e7d32;color:#fff;border-color:#2e7d32}
+  .part.ok::after{content:" ✓"}
+  .part.bad{background:#c62828;color:#fff;border-color:#c62828}
   .pstep{display:flex;align-items:center;gap:8px}
   .nav{font:inherit;font-size:15px;font-weight:700;color:var(--green);background:#fff;border:1.5px solid var(--line);border-radius:999px;padding:6px 14px;cursor:pointer}
   .nav:disabled{opacity:.4;cursor:default}
@@ -144,7 +147,7 @@ img.cpic{width:260px;max-width:45%;height:auto;flex:0 0 auto;border:1px solid #c
 .item.wp.stack img.cpic{display:block;margin-bottom:8px}
 </style>
 </head>
-<body>
+<body data-lang="bm">
 <header>
   <a class="back" href="index.html?sub=bm1">← Kembali</a>
   <h1>Bahasa Melayu · Latihan Tatabahasa Tahun 1</h1>
@@ -153,11 +156,11 @@ img.cpic{width:260px;max-width:45%;height:auto;flex:0 0 auto;border:1px solid #c
 <main>
   <div class="pnav">
     <div class="parts">
-      <button class="part" type="button" data-part="A">Part A · Units 1–11</button>
-      <button class="part" type="button" data-part="B">Part B · Units 12–22</button>
+      <button class="part" type="button" data-part="A">Bahagian A · Unit 1–11</button>
+      <button class="part" type="button" data-part="B">Bahagian B · Unit 12–22</button>
     </div>
   </div>
-  <div class="topbar2"><span class="chip" id="score">Not checked</span><button class="btn" id="checkAll" type="button">✓ Check answers</button><button class="btn alt" id="resetAll" type="button">↺ Redo</button></div>
+  <div class="topbar2"><span class="chip" id="score">Belum disemak</span><button class="btn alt" id="resetAll" type="button">↺ Redo</button></div>
   <div id="pagehead" class="pagehead"></div>
   <div id="secs"></div>
 </main>
@@ -1530,7 +1533,8 @@ function secHTML(s){
   if(s.type === "free") return `<section class="sec" data-uid="${s.uid}">
     <h3><span class="letter">${s.key}</span>${esc(s.title)}</h3>
     <p class="instr">${esc(s.instr)}</p>${body}</section>`;
-  const score = S.checked ? (S.ok === S.total ? `🌟 Semua betul! (${S.ok}/${S.total})` : `Betul: ${S.ok} / ${S.total}`) : "";
+  const bl = S.blank || 0;
+  const score = S.checked ? ((S.ok === S.total && !bl) ? `🌟 Semua betul! (${S.ok}/${S.total})` : `Betul: ${S.ok} / ${S.total}` + (bl ? ` · Masih ada ${bl} soalan kosong` : "")) : "";
   return `<section class="sec" data-uid="${s.uid}">
     <h3><span class="letter">${s.key}</span>${esc(s.title)}</h3>
     <p class="instr">${esc(s.instr)}</p>
@@ -1572,7 +1576,36 @@ function drawDots(s){
   svg.innerHTML = h;
 }
 
-function check(s){
+function blankCount(s, S){
+  if(s.type === "dots") return s.left.filter((it, i) => S.map[i] === undefined).length;
+  if(s.type === "uline") return s.items.filter(it => !(S.sel[it.n] || []).length).length;
+  return s.items.filter(it => !it.free).filter(it => {
+    const keys = Array.isArray(it.a) ? it.a.map((_, i) => it.n + "." + i) : [it.n];
+    return keys.every(k => String(S.v[k] == null ? "" : S.v[k]).trim() === "");
+  }).length;
+}
+function partState(part){
+  const secs = [];
+  PAGES.forEach(p => { if(p.part === part) p.sections.forEach(s => { if(s.type !== "info" && s.type !== "free" && s.type !== "passage") secs.push(s); }); });
+  if(!secs.length) return "";
+  let wrong = false, allDone = true, blank = false;
+  secs.forEach(s => {
+    const S = getS(s);
+    if(!S.checked){ allDone = false; return; }
+    const bl = S.blank || 0;
+    if(S.total - S.ok - bl > 0) wrong = true;
+    if(bl) blank = true;
+  });
+  if(wrong) return "bad";
+  return (allDone && !blank) ? "ok" : "";
+}
+function updatePartTabs(){
+  document.querySelectorAll(".part").forEach(b => {
+    b.classList.remove("ok", "bad");
+    const st = partState(b.dataset.part);
+    if(st) b.classList.add(st);
+  });
+}function check(s){
   const S = getS(s);
   S.res = {};
   let ok = 0, total = 0;
@@ -1589,7 +1622,7 @@ function check(s){
   } else if(s.type === "dots"){
     s.left.forEach((it, i) => mark(i, S.map[i] === it.a));
   }
-  S.ok = ok; S.total = total; S.checked = true;
+  S.ok = ok; S.total = total; S.checked = true; S.blank = blankCount(s, S);
   refresh(s);
 }
 
@@ -1709,11 +1742,12 @@ function pageSections(){
   return p ? p.sections.filter(s => s.type !== "info" && s.type !== "free") : [];
 }
 function updateScore(){
-  let ok = 0, total = 0, checked = false;
-  pageSections().forEach(s => { const S = getS(s); if(S.checked){ checked = true; ok += S.ok; total += S.total; } });
-  $("score").textContent = checked ? (ok === total ? "🌟 Semua betul! " + ok + "/" + total : "Betul: " + ok + " / " + total) : "Not checked";
+  let ok = 0, total = 0, blank = 0, checked = false;
+  pageSections().forEach(s => { const S = getS(s); if(S.checked){ checked = true; ok += S.ok; total += S.total; blank += S.blank || 0; } });
+  $("score").textContent = checked ? ((ok === total && !blank) ? "🌟 Semua betul! " + ok + "/" + total : "Betul: " + ok + " / " + total + (blank ? " · Masih ada " + blank + " soalan kosong" : "")) : "Belum disemak";
+  updatePartTabs();
 }
-$("checkAll").addEventListener("click", () => { pageSections().forEach(s => check(s)); updateScore(); });
+
 $("resetAll").addEventListener("click", () => { pageSections().forEach(s => delete ST[s.uid]); saveST(); render(); });
 // Open at the first page that still has a section not yet checked.
 for(let i = 0; i < PAGES.length; i++){

@@ -137,7 +137,14 @@
   function pick(list) { return list[Math.floor(Math.random() * list.length)]; }
 
   function onChecked(scoreEl) {
-    var sc = parseScore(scoreEl ? scoreEl.textContent : "");
+    var scoreTxt = scoreEl ? scoreEl.textContent : "";
+    var sc = parseScore(scoreTxt);
+    var blankM = /Masih ada (\d+) soalan kosong/.exec(scoreTxt); // Malay pages report empty answers
+    var blank = blankM ? +blankM[1] : 0;
+    // Malay pages: the progress record and tab colour use the whole page's score, not just the part checked.
+    var BMp = !!(document.body && document.body.dataset.lang === "bm");
+    var pageEl = BMp ? document.getElementById("score") : null;
+    var pageSc = pageEl ? parseScore(pageEl.textContent) : sc;
     var key = pageKey();
     var u = who || "guest";
     var p = loadP();
@@ -145,10 +152,10 @@
     p[u].pages = p[u].pages || {};
     var rec = p[u].pages[key] || { tries: 0, firstTry: null, done: false };
     rec.tries++;
-    var scored = !!(sc && sc.t > 0);
-    if (rec.tries === 1 && scored) rec.firstTry = sc.r === sc.t;
+    var scored = !!(pageSc && pageSc.t > 0);
+    if (rec.tries === 1 && scored) rec.firstTry = pageSc.r === pageSc.t;
     rec.done = true; // checked = done
-    if (scored) { rec.right = sc.r; rec.total = sc.t; }
+    if (scored) { rec.right = pageSc.r; rec.total = pageSc.t; }
     p[u].pages[key] = rec;
     saveP(p);
     // Send this check to the shared sheet, so other devices can see it.
@@ -157,22 +164,31 @@
         fetch(SHEET_URL, {
           method: "POST", mode: "no-cors", headers: { "Content-Type": "text/plain" },
           body: JSON.stringify({ at: new Date().toISOString(), student: who, page: key,
-            right: sc ? sc.r : "", total: sc ? sc.t : "", tries: rec.tries,
+            right: pageSc ? pageSc.r : "", total: pageSc ? pageSc.t : "", tries: rec.tries,
             state: (saveForm(), savedAnswers()) })
         });
       } catch (err) {}
     }
 
-    if (!scored) {
+    var BM = !!(document.body && document.body.dataset.lang === "bm");
+    var wrongN = scored ? sc.t - sc.r - blank : 0;
+    if (blank > 0) {
+      // Missing answers are named, never called wrong.
+      if (BM) toast("✏️ Masih ada " + blank + " soalan kosong." + (wrongN > 0 ? " Semak semula, anda boleh!" : " Cuba jawab semua dahulu, ya!"), "");
+      else toast("✏️ There are still " + blank + " empty questions. 还有 " + blank + " 题没有作答。", "");
+    } else if (!scored || !sc) {
       toast(pick(["✅ Checked! Keep going. 已检查，继续加油！", "✅ Submitted. Well done for finishing! 已提交，做得好！"]), "good");
     } else if (sc.r === sc.t) {
-      if (rec.firstTry) toast(pick(["🌟 Well done! All correct on the first try! 太棒了，一次全对！", "🏆 Excellent! Perfect first time! 完美！", "👏 Brilliant work! 你真厉害！"]), "good");
+      if (BM) toast(pick(["🌟 Bagus! Semua betul!", "🎉 Syabas! Semua jawapan betul sekarang!"]), "good");
+      else if (rec.firstTry) toast(pick(["🌟 Well done! All correct on the first try! 太棒了，一次全对！", "🏆 Excellent! Perfect first time! 完美！", "👏 Brilliant work! 你真厉害！"]), "good");
       else toast(pick(["🎉 Great job! All correct now. 做得好！", "👍 Well done, you got it all right now! 很好！"]), "good");
     } else {
-      toast(pick([
-        "💪 Try again! " + sc.r + " of " + sc.t + " right. 再试一次吧！",
-        "🔍 Almost there — " + sc.r + " out of " + sc.t + " correct. Check again! 再检查一下！",
-        "🙂 Not quite. " + sc.r + " / " + sc.t + " correct. Have another go! 再想想！"
+      // Mistakes are encouraged, never called wrong.
+      if (BM) toast("💪 Hampir! " + sc.r + " daripada " + sc.t + " betul. Semak semula, anda boleh!", "retry");
+      else toast(pick([
+        "💪 Good try! " + sc.r + " of " + sc.t + " right so far. Have another go! 再试一次吧！",
+        "🔍 Almost there — " + sc.r + " out of " + sc.t + " correct. Look again! 再检查一下！",
+        "🙂 Good effort: " + sc.r + " / " + sc.t + " so far. Keep going! 继续加油！"
       ]), "retry");
     }
   }
@@ -315,9 +331,10 @@
     var keys = ["data-ex", "data-s", "data-es", "data-card", "data-j"].filter(function (a) { return b.hasAttribute(a); });
     var selector = keys.map(function (a) { return "[" + a + '="' + b.getAttribute(a) + '"]'; }).join("");
     setTimeout(function () {
-      var cur = keys.length ? document.querySelector(selector) : null;
+      // A button with no data-ex/data-s key belongs to its own section (e.g. the per-part check button).
+      var cur = keys.length ? document.querySelector(selector) : b;
       var box = cur && cur.closest ? cur.closest("section, .card, .qcard") : null;
-      var own = box ? box.querySelector(".muted, .fbline") : null;
+      var own = box ? box.querySelector(".muted, .fbline, .score") : null;
       onChecked(own || document.getElementById("score") || document.querySelector(".score"));
     }, 80);
   }, true);

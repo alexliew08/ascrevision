@@ -20,6 +20,7 @@ main{max-width:900px;margin:0 auto;padding:14px 16px 130px}
 .dot{width:12px;height:12px;border-radius:50%;border:2px solid var(--green2);background:#fff;padding:0;cursor:pointer}
 .dot.on{background:var(--green)}
 .dot.ok{background:var(--ok);border-color:var(--ok)}
+.dot.bad{background:#c62828;border-color:#c62828}
 .topbar2{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 .btn{font:inherit;font-size:15px;font-weight:700;min-height:40px;padding:8px 16px;border:1px solid var(--green);border-radius:999px;background:var(--green);color:#fff;box-shadow:0 3px 0 #1f4636;cursor:pointer}
 .btn.alt{background:var(--panel);color:var(--green);border-color:var(--green2);box-shadow:none}
@@ -49,7 +50,7 @@ input.ans.bad{border-color:var(--bad);background:var(--badbg)}
 @media (max-width:620px){.pager .hint{display:none}}
 </style>
 </head>
-<body>
+<body data-lang="bm">
 <header>
  <a class="back" href="index.html?sub=bm">← Kembali</a>
  <h1>Bahasa Melayu · Tahun 3</h1>
@@ -135,10 +136,11 @@ function check(){
  const good = x.value.trim() !== '' && norm(x.value) === norm(ans);
  x.classList.add(good ? 'ok' : 'bad'); if(good) right++;
  });
- $('score').textContent = `Skor ${right} / ${inputs.length}`;
+ const blank = inputs.filter(x => x.value.trim() === '').length, wrong = inputs.length - right - blank;
+ $('score').textContent = `Skor ${right} / ${inputs.length}` + (blank ? ` · Masih ada ${blank} soalan kosong` : '');
  $('result').hidden = false;
- $('result').textContent = right === inputs.length ? '🎉 Bagus! Semua jawapan betul.' : `Betul ${right} daripada ${inputs.length}. Cuba lagi, anda boleh! 💪`;
- if(right === inputs.length && inputs.length){ st.done[cur] = 1; save(); dots(); }
+ $('result').textContent = right === inputs.length ? '🎉 Bagus! Semua jawapan betul.' : `Betul ${right} daripada ${inputs.length}.` + (blank ? ` Masih ada ${blank} soalan kosong, jawab semua ya! ✏️` : '') + (wrong > 0 ? ' Semak semula, anda boleh! 💪' : '');
+ st.res = st.res || {}; st.res[cur] = (inputs.length && right === inputs.length) ? 'ok' : (wrong > 0 ? 'bad' : ''); st.done[cur] = st.res[cur] === 'ok' ? 1 : 0; save(); dots();
 }
 function showAll(){
  clearMarks();
@@ -148,10 +150,10 @@ function showAll(){
  });
  save(); $('score').textContent = 'Jawapan ditunjuk';
 }
-function resetAll(){ delete st.v[cur]; delete st.done[cur]; save(); render(); $('score').textContent = 'Belum disemak'; }
+function resetAll(){ delete st.v[cur]; delete st.done[cur]; if(st.res) delete st.res[cur]; save(); render(); $('score').textContent = 'Belum disemak'; }
 $('checkBtn').onclick = check; $('showBtn').onclick = showAll; $('resetBtn').onclick = resetAll;
 
-function dots(){ $('dots').innerHTML = PN.map(n => `<button class="dot${n === cur ? ' on' : ''}${st.done[n] ? ' ok' : ''}" data-p="${n}" aria-label="Soalan ${n}"></button>`).join(''); }
+function dots(){ $('dots').innerHTML = PN.map(n => `<button class="dot${n === cur ? ' on' : ''}${((st.res || {})[n] || (st.done[n] ? 'ok' : '')) === 'ok' ? ' ok' : ''}${((st.res || {})[n]) === 'bad' ? ' bad' : ''}" data-p="${n}" aria-label="Soalan ${n}"></button>`).join(''); }
 $('dots').onclick = e => { const d = e.target.closest('.dot'); if(d) go(+d.dataset.p); };
 function go(n){ cur = Math.min(Math.max(n, PN[0]), PN[PN.length - 1]); st.page = cur; save(); render(); }
 $('prevBtn').onclick = () => go(cur - 1);
