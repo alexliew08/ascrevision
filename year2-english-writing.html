@@ -116,8 +116,8 @@ textarea{width:100%;font-size:17px;line-height:1.6;padding:10px 12px;border:2px 
       <button class="btn" id="next" type="button">Next →</button>
     </div>
     <div class="split" id="split">
-      <div class="pdfs"><div class="pgw"><img id="pimg" alt="Worksheet page"><div id="ovl"></div></div></div>
-      <div class="panel" id="panel"><div id="qs"></div><div class="result" id="result" hidden></div></div>
+<div class="pdfs"><div class="pgw"><img id="pimg" alt="Worksheet page"><div id="ovl"></div></div></div>
+<div class="panel" id="panel"><div id="qs"></div><div class="result" id="result" hidden></div></div>
     </div>
     <div class="foot">
       <span class="hint">Type or tap your answers. Writing tasks are checked against the model answer.</span>
@@ -323,8 +323,9 @@ $('list').onclick = e => { const b = e.target.closest('.item'); if(b) go(+b.data
 function go(i){
   cur = Math.min(Math.max(i, 0), PAGES.length - 1); st.page = cur; save();
   const p = PAGES[cur];
+  
   $('pimg').src = 'data:image/jpeg;base64,' + IMGS[p.img];
-  $('title').textContent = p.t;
+$('title').textContent = p.t;
   $('counter').textContent = (cur + 1) + ' / ' + PAGES.length;
   $('prev').disabled = cur === 0;
   $('next').disabled = cur === PAGES.length - 1;
