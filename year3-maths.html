@@ -601,7 +601,7 @@ function ans(k){if(G.ans)return;G.ans=true;clearInterval(timer);const q=G.qs[G.i
 function next(){G.i++;G.i>=G.n?end():show()}
 function end(){const N=G.n,ok=G.ok,r=ok/N,s=r>=1?3:r>=.8?2:r>=.6?1:0,key=S.g+"-"+G.t;
  S.stars[key]=Math.max(S.stars[key]||0,s);S.best[key]=S.best[key]||[];S.best[key][G.l]=Math.max(S.best[key][G.l]||0,ok);
- const rc={n:S.name,g:S.g,t:G.t,l:G.l,m:S.mode=="challenge"?"c":"p",ok,pts:G.pts,ts:Date.now()};const aa=getA();aa.push(rc);setA(aa);G.code=code(rc);
+ const rc={n:S.name,g:S.g,t:G.t,l:G.l,m:S.mode=="challenge"?"c":"p",ok,pts:G.pts,ts:Date.now()};sheetLog(rc,'game',N);const aa=getA();aa.push(rc);setA(aa);G.code=code(rc);
  if(ok==N){S.perfect++;setTimeout(()=>burst(46),300)}else if(r>=.8)setTimeout(()=>burst(22),300);if(G.l==3&&r>=.8)S.expertOK=true;
  const adv=r>=.8?(G.l<3?`你表现很棒！建议挑战「${LV[G.l+1]}」。`:"你已是专家！试试其他星球吧。"):r<=.4?(G.l>0?`先练习「${LV[G.l-1]}」巩固基础，再回来挑战，你一定可以！`:"再多练习几次，你会越来越好！"):"不错！再玩一次可以拿到更多星星。";
  app.innerHTML=`<div class="card"><div class="big">${["🌱","⭐","⭐⭐","⭐⭐⭐"][s]}</div><h2 style="text-align:center">${ok==N?"满分！太厉害了！":r>=.6?"做得好！":"继续加油！"}</h2>
@@ -753,7 +753,7 @@ function wpCheck(){if(WS.done)return;const q=WS.qs[WS.i],e=document.getElementBy
 function fin(){document.getElementById("wpc").classList.add("hide");document.getElementById("wph").classList.add("hide");document.getElementById("nx").innerHTML=`<button class="btn" onclick="wpNext()">${WS.i<WS.n-1?"下一题 →":"查看成绩 🏁"}</button>`}
 function wpNext(){WS.i++;WS.i>=WS.n?wpEnd():wpShow()}
 function wpEnd(){const ok=WS.ok,r=ok/WS.n,s=r>=1?3:r>=.8?2:r>=.6?1:0;S.wpStars[WS.t]=Math.max(S.wpStars[WS.t]||0,s);
- const rc={n:S.name,t:WS.t,ok,N:WS.n,pts:WS.pts,ts:Date.now()};const a=getW();a.push(rc);setW(a);const cd=[rc.n,"WP",rc.t,ok,WS.n,rc.pts,rc.ts].join("|");
+ const rc={n:S.name,t:WS.t,ok,N:WS.n,pts:WS.pts,ts:Date.now()};sheetLog(rc,'wordproblem',WS.n);const a=getW();a.push(rc);setW(a);const cd=[rc.n,"WP",rc.t,ok,WS.n,rc.pts,rc.ts].join("|");
  app.innerHTML=`<div class="card"><div class="big">${["🌱","⭐","⭐⭐","⭐⭐⭐"][s]}</div><h2 style="text-align:center">${ok==WS.n?"全对！太厉害了！":r>=.6?"做得好！":"继续加油！"}</h2>
  <p style="text-align:center">👤 ${S.name} · ${T[WS.t].n}应用题<br>答对 <b>${ok}/${WS.n}</b> 题 · 本次得分 <b>${WS.pts}</b> · 总分 <b>${S.score}</b></p><div class="prog"><i style="width:${r*100}%"></i></div>
  ${WS.wrongs.length?`<details><summary><b>📝 要再练习的题（点开看）</b></summary>${WS.wrongs.map(q=>`<div class="fb" style="margin:6px 0">${hl(q.q)}${q.pic||""}<br>${q.e}</div>`).join("")}</details>`:"<p>🎯 没有错题！</p>"}
@@ -811,6 +811,15 @@ if(G==6){mixIn(5,0,[polySum,triMiss,lineAng,around]);mixIn(5,1,[polySum,triMiss,
 })();
 
 /* 从学习中心（index.html）登入后直接进入，不用再登入一次 */
+const SHEET_URL = 'https://script.google.com/macros/s/AKfycbwfpSs2biONcgBbbWnG5WW3QKec1ShM9c5LUCrb7TtI5jeKlGUm0sHvH5odTN1l8oSV/exec';
+function sheetLog(rc, kind, total){
+  try {
+    if (!rc || !rc.n) return;
+    const page = (location.pathname.split('/').pop() || 'maths') + '?' + kind + '=' + rc.t + (rc.l !== undefined ? '-' + rc.l : '');
+    fetch(SHEET_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain' },
+      body: JSON.stringify({ at: new Date().toISOString(), student: rc.n, page: page, right: rc.ok, total: total, tries: 1, state: JSON.stringify(rc) }) });
+  } catch (e) {}
+}
 function hubName(){try{const s=JSON.parse(sessionStorage.getItem("asc_student")||"null");if(s&&s.name)return s.name}catch(e){}
  try{const q=new URLSearchParams(location.search).get("s");if(q)return q}catch(e){}return null}
 function hubLogout(){try{sessionStorage.removeItem("asc_student")}catch(e){}location.href="index.html"}
