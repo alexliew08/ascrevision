@@ -74,26 +74,141 @@ header.top{position:sticky;top:0;z-index:5;background:var(--cream);border-bottom
 .lab{font-size:13px;color:var(--muted);flex:0 0 auto;margin-right:4px}
 .tab.done{background:#2e7d46;color:#fff;border-color:#2e7d46}
 .tab.on{outline:3px solid #23302a;outline-offset:1px}
+/* year2 layout */
+:root{--bg:#f6f3ea;--panel:#fffdf8;--ink:#1f3d31;--muted:#6d6a5c;--line:#e3dac6;--green:#2f5e4a;--accent:#e8914a;--good:#2e8b57;--okbg:#e6f5ec;--bad:#c0392b;--badbg:#fbe9e7;--soft:#f4efe2}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Segoe UI",system-ui,Arial,sans-serif;font-size:16px;line-height:1.6}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+.top{position:sticky;top:0;z-index:5;background:var(--panel);border-bottom:1px solid var(--line);padding:12px 18px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.top h1{font-size:19px;margin:0 auto 0 0}
+.top a{color:var(--green);font-weight:600;text-decoration:none}
+.hint{font-size:13px;color:var(--muted)}
+.wrap{display:grid;grid-template-columns:240px minmax(0,1fr);gap:16px;max-width:1280px;margin:0 auto;padding:16px}
+@media (max-width:860px){.wrap{grid-template-columns:1fr;padding:12px 16px}}
+.list{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:10px;max-height:84vh;overflow:auto;position:sticky;top:76px;align-self:start}
+@media (max-width:860px){.list{position:static;max-height:none}}
+.item{display:block;width:100%;text-align:left;padding:8px 10px;border-radius:12px;border:1px solid transparent;background:none;color:var(--ink)}
+.item small{display:block;color:var(--muted);font-size:12px}
+.item.on{background:var(--green);color:#fff}
+.item.on small{color:#e6efe9}
+.main{display:flex;flex-direction:column;gap:12px;min-width:0}
+.info{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:12px 16px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.info b{font-size:18px;margin-right:auto}
+.score{font-weight:700;background:#f1ede2;border-radius:999px;padding:4px 12px}
+.btn{padding:8px 14px;border-radius:12px;border:1px solid var(--line);background:#fff;color:var(--ink)}
+.btn.primary{background:var(--green);color:#fff;border-color:var(--green)}
+.btn:disabled{opacity:.4;cursor:default}
+.split{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,0.9fr);gap:16px;align-items:start}
+@media (max-width:900px){.split{grid-template-columns:1fr}.panel{max-height:none!important}}
+.pdfs img{width:100%;height:auto;display:block;border:1px solid var(--line);border-radius:14px;background:#fff;position:sticky;top:90px}
+@media (max-width:900px){.pdfs img{position:static}}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px;max-height:82vh;overflow:auto}
+.ins{font-weight:700;font-size:15px;background:#fff7e0;border-radius:12px;padding:8px 12px;margin:0 0 10px}
+.row{display:flex;flex-wrap:wrap;gap:6px 8px;align-items:center;font-size:17px;padding:4px 0}
+.row .n{font-weight:700;min-width:36px}
+.para{font-size:17px;line-height:2.1}
+select.ans,input.ans{font:inherit;font-size:16px;min-height:38px;padding:2px 8px;border:2px solid var(--line);border-radius:10px;background:#fff;color:var(--ink);max-width:100%}
+input.ans{width:9em}
+td input.ans{width:100%;min-width:6em}
+.ans.ok{border-color:var(--good);background:var(--okbg)}
+.ans.bad{border-color:var(--bad);background:var(--badbg)}
+.fix{display:inline-block;font-size:14px;font-weight:700;color:var(--bad);margin-left:4px}
+.bankbox{display:flex;flex-wrap:wrap;gap:8px;background:var(--soft);border-radius:14px;padding:10px;margin-bottom:10px}
+.bankbox span{padding:6px 12px;border-radius:10px;background:#fff;border:1px solid var(--line);font-size:16px}
+.ord{border:1px solid var(--line);border-radius:14px;padding:10px;display:flex;flex-direction:column;gap:8px;margin:6px 0}
+.ord .line{min-height:46px;display:flex;flex-wrap:wrap;gap:6px;align-items:center;border-bottom:2px solid var(--line);padding:4px 2px}
+.ord .line:empty::before{content:"Tap the words below ↓";color:var(--muted);font-size:14px}
+.ord .pool{display:flex;flex-wrap:wrap;gap:8px}
+.w{font:inherit;font-size:16px;min-height:38px;padding:4px 10px;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--ink);cursor:pointer}
+.line .w{background:#eef6f1}
+.w.used{visibility:hidden}
+.ord.ok{border-color:var(--good);background:var(--okbg)}
+.ord.bad{border-color:var(--bad);background:var(--badbg)}
+.seqrow{display:flex;align-items:center;gap:10px;font-size:17px;border-bottom:1px solid var(--line);padding:6px 0}
+.seqrow select{flex:none;width:76px}
+.tbl{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:16px}
+td,th{border:1px solid var(--line);padding:6px;vertical-align:middle}
+th{background:var(--soft)}
+.write{border:1px solid var(--line);border-radius:14px;padding:12px;background:#fff;margin:10px 0}
+.write h3{margin:0 0 8px;font-size:16px;color:var(--green)}
+.kw{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px}
+.kw span{border:1px solid var(--line);border-radius:999px;padding:2px 10px;font-size:14px;color:var(--muted)}
+.kw span.used{border-color:var(--good);background:var(--okbg);color:#0f5c34}
+.kw span.used::before{content:"✓ "}
+textarea{width:100%;font-size:17px;line-height:1.6;padding:10px 12px;border:2px solid var(--line);border-radius:12px;background:#fff;color:var(--ink);resize:vertical;min-height:120px}
+.write.big textarea{min-height:240px}
+.wfoot{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;margin-top:6px;font-weight:700;color:var(--muted);font-size:14px}
+.model{margin-top:10px;border:2px dashed var(--good);border-radius:12px;padding:10px 12px;background:var(--okbg);font-size:16px;line-height:1.6;white-space:pre-line}
+.model b{display:block;margin-bottom:4px}
+.result{margin-top:12px;font-size:16px;font-weight:700;padding:10px 12px;border-radius:12px;border:1px solid var(--line);background:#fff7e0}
+.foot{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-top:6px}
+.btn.sm{padding:6px 12px;font-size:14px}
+.ord.para .line{display:block;line-height:1.9;font-size:17px;min-height:0}
+.ord.para .line .w{border:0;background:none;box-shadow:none;padding:0;margin-right:.3em;min-height:0;font-size:17px;font-weight:400;color:var(--ink);text-align:left}
+.ord.para .line .w{display:inline;width:auto;vertical-align:baseline;white-space:normal}
+.ord.para{flex-direction:column-reverse}
+.ord.para > .row{display:none}
+.ord.para .pool .w.used{visibility:visible;opacity:.35;pointer-events:none;text-decoration:line-through}
+.ord.para .pool .w{font-size:15px;min-height:0;padding:4px 8px}
+.pdfs{position:sticky;top:90px;align-self:start}
+.pdfs img{position:static!important}
+.pgw{position:relative}
+#ovl{position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none}
+.ov-para{position:absolute;pointer-events:auto;overflow:auto;background:rgba(255,255,255,.95);border:2px dashed #b7ab8c;border-radius:10px;padding:6px 8px;margin:0}
+.ov-para .line{display:block;line-height:1.9;font-size:clamp(12px,1.5vw,16px);min-height:100%;border:0;padding:0}
+.ov-para .line:empty::before{content:"Tap the sentences on the right";font-size:13px;color:var(--muted)}
+.ord.para.ov-para{display:block;flex-direction:column}
+.para{font-size:17px;line-height:2.5}
+.para select.ans{width:9.5em;min-height:44px;padding:4px 10px;border:2px solid #cfc4a8;border-radius:12px;background:#fff;font-size:16px;vertical-align:middle;margin:0 2px}
+.item.done{background:#e6f5ec;border-color:#2e9e5b;color:#1f5f3a}
+.item.done small{color:#2e7d4f;font-weight:700}
+.item.done.on{background:#2e9e5b;color:#fff}
+.item.done.on small{color:#e6f5ec}
+/* fix: single check button, foot stays above overlap */
+.foot{position:relative;z-index:2;background:var(--bg);padding-top:8px}
+.split{height:auto!important;min-height:0!important;align-items:start}
+.bcols{display:grid;grid-auto-flow:column;grid-template-columns:1fr 1fr;gap:0 18px;align-items:start}
+@media (max-width:700px){.bcols{grid-template-columns:1fr;grid-template-rows:none!important;grid-auto-flow:row}}
+.bcols{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+.bcols .arow{display:flex;align-items:center;gap:10px;flex-wrap:nowrap;min-width:0;margin:0;padding:10px 0;border-bottom:1px dashed var(--line)}
+.bcols .arow .an{flex:0 0 2.2em;min-width:0}
+.bcols select.ans{flex:1 1 0;width:100%;min-width:0;max-width:100%;height:auto;min-height:44px}
+.bcols .amsg{flex:0 0 auto}
+@media (max-width:700px){.bcols .arow select.ans{width:100%}}
 </style>
 </head>
 <body>
-<header class="top"><div class="top-in">
- <div class="left-h">
- <a class="hublink" href="index.html?sub=bm4">← Kembali ke menu</a>
- <h1 id="title">Tatabahasa Tahun 4</h1>
- <span class="pill" id="status">Belum disemak</span>
- </div>
- <div class="right-h">
- <button class="btn alt" id="prevBtn" type="button">← Sebelumnya</button>
- <button class="btn alt" id="nextBtn" type="button">Seterusnya →</button>
- <button class="btn alt" id="resetBtn" type="button">↺ Ulang semula</button>
- </div>
-</div></header>
-<nav class="tabs" id="tabs" aria-label="Parts"></nav>
-<main class="split">
- <section class="pane" id="paper" aria-label="Worksheet"></section>
- <section class="pane" id="answers" aria-label="Answers"></section>
-</main>
+<header class="top">
+  <h1>Tatabahasa Tahun 4</h1>
+  <a href="index.html?sub=bm4">← Kembali ke menu</a>
+  <span class="hint" id="counter"></span>
+</header>
+
+<div class="wrap">
+  <nav class="list" id="tabs" aria-label="Bahagian"></nav>
+  <section class="main">
+    <div class="info">
+      <b id="partTitle"></b>
+      <span class="score" id="status">Belum disemak</span>
+      <button class="btn" id="prevBtn" type="button">← Sebelumnya</button>
+      <button class="btn" id="nextBtn" type="button">Seterusnya →</button>
+    </div>
+    <div class="split">
+      <section class="pane" id="paper" aria-label="Worksheet"></section>
+      <section class="pane" id="answers" aria-label="Answers"></section>
+    </div>
+    <div class="foot">
+      <span class="hint">Jawab soalan, kemudian tekan ✔ Semak jawapan.</span>
+      <div style="display:flex;gap:8px">
+        <button class="btn" id="resetBtn" type="button">↺ Ulang semula</button>
+        <button class="btn" id="showBtn" type="button">👀 Tunjuk jawapan</button>
+        <button class="btn primary" id="checkBtn" type="button">✔ Semak jawapan</button>
+      </div>
+    </div>
+  </section>
+</div>
 <script>
 'use strict';
 /* Each question: {n, t (text, "____" = blank), o:[4 options], a: index of correct option (0=A)}
@@ -683,8 +798,8 @@ function renderAll(){ renderTabs(); renderPaper(); renderAnswers(); renderHeader
 
 function renderTabs(){
  const nav = document.getElementById('tabs');
- nav.innerHTML = TABS.map((t, i) => '<button type="button" class="tab' + (i === active ? ' on' : '') + (sectionDone(SECTIONS[i]) ? ' done' : '') + '" data-i="' + i + '">' + esc(t) + (sectionDone(SECTIONS[i]) ? ' ✓' : '') + '</button>').join('');
- nav.querySelectorAll('.tab').forEach(b => b.addEventListener('click', () => goTo(+b.dataset.i)));
+ nav.innerHTML = TABS.map((t, i) => '<button type="button" class="item' + (i === active ? ' on' : '') + (sectionDone(SECTIONS[i]) ? ' done' : '') + '" data-i="' + i + '">' + esc(t) + '<small>' + esc(SECTIONS[i].title) + '</small></button>').join('');
+ nav.querySelectorAll('.item').forEach(b => b.addEventListener('click', () => goTo(+b.dataset.i)));
 }
 
 function goTo(i){
@@ -711,7 +826,7 @@ function renderPaper(){
 
 function renderAnswers(){
  const sec = SECTIONS[active];
- let html = '<p class="note">Jawab di ruangan kanan, kemudian tekan ✔ Semak untuk setiap kumpulan.</p>';
+ let html = '<p class="note">Jawab soalan, kemudian tekan ✔ Semak jawapan.</p>';
  if (sec.bank) {
  html += '<div class="bank"><span class="bank-h">Senarai perkataan · seret ke tempat kosong, atau tekan perkataan kemudian tempat kosong</span>';
  html += sec.bank.map(w => '<span class="tile" draggable="true" data-word="' + esc(w) + '">' + esc(w) + '</span>').join('');
@@ -720,6 +835,7 @@ function renderAnswers(){
  groups(sec.qs).forEach(group => {
  const first = group[0].n, last = group[group.length - 1].n;
  html += '<div class="grp"><div class="grp-h">Soalan ' + first + '–' + last + ' · Q' + first + '–' + last + '</div>';
+  html += '<div class="bcols" style="grid-template-rows:repeat(' + Math.ceil(group.length / 2) + ',auto)">';
  group.forEach(q => {
  html += '<div class="arow"><span class="an">' + q.n + '.</span>' + (q.lab ? '<span class="lab">' + esc(q.lab) + '</span>' : '');
  if (isChoose(q)) {
@@ -736,7 +852,8 @@ function renderAnswers(){
  }
  html += '<span class="amsg" id="m' + q.n + '"></span></div>';
  });
- html += '<div class="blockcheck"><button type="button" class="btn check" data-first="' + first + '">✔ Semak</button><span class="blockmsg" id="bm' + first + '">' + esc(blockResult[first] || '') + '</span></div></div>';
+  html += '</div>';
+ html += '<div class="blockcheck"><span class="blockmsg" id="bm' + first + '">' + esc(blockResult[first] || '') + '</span></div></div>';
  });
  const box = document.getElementById('answers');
  box.innerHTML = html;
@@ -842,7 +959,8 @@ function renderHeader(){
  if (checked.length === 0) pill.textContent = 'Belum disemak';
  else if (checked.length < qs.length) { pill.classList.add('partial'); pill.textContent = 'Sedang disemak ' + checked.length + ' / ' + qs.length + ' · betul ' + right; }
  else { pill.classList.add('done'); pill.textContent = 'Disemak · betul ' + right + ' / ' + qs.length; }
- document.getElementById('title').textContent = 'Bahagian ' + (active + 1) + ' / ' + SECTIONS.length + ' · Q' + qs[0].n + '–' + qs[qs.length - 1].n;
+ document.getElementById('counter').textContent = 'Bahagian ' + (active + 1) + ' daripada ' + SECTIONS.length;
+  document.getElementById('partTitle').textContent = 'Bahagian ' + (active + 1) + ' / ' + SECTIONS.length + ' · Q' + qs[0].n + '–' + qs[qs.length - 1].n;
  document.getElementById('prevBtn').disabled = active === 0;
  document.getElementById('nextBtn').disabled = active === SECTIONS.length - 1;
 }
@@ -858,11 +976,17 @@ document.getElementById('resetBtn').addEventListener('click', () => {
  window.scrollTo({top: 0, behavior: 'smooth'});
 });
 
+document.getElementById('checkBtn').addEventListener('click', () => { groups(SECTIONS[active].qs).forEach(g => checkGroup(g[0].n)); });
+let isAlex = false;
+try { isAlex = String((JSON.parse(sessionStorage.getItem('asc_student') || 'null') || {}).name || '').toLowerCase() === 'alex'; } catch (e) {}
+const showBtn = document.getElementById('showBtn');
+if (!isAlex) showBtn.style.display = 'none';
+showBtn.addEventListener('click', () => { SECTIONS[active].qs.forEach(q => { if (isChoose(q)) setVal(q.n, 0, q.a); }); renderAll(); });
+
 renderAll();
 </script>
 </body>
 </html>
-
 
 
 
