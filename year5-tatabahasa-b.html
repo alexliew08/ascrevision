@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tahun 5 · Tatabahasa B (Jilid 2) · Bahasa Melayu</title>
+<script src="lesson.js"></script>
+<style>
+:root{--bg:#f6f3ea;--panel:#fffdf8;--ink:#1f3d31;--muted:#6d6a5c;--line:#e3dac6;--green:#2f5e4a;--green2:#3f7a60;--accent:#e8914a;--good:#2e8b57;--okbg:#e6f5ec;--bad:#c0392b;--badbg:#fbe9e7}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Segoe UI",system-ui,Arial,sans-serif;font-size:16px;line-height:1.6}
+button{font:inherit;cursor:pointer}
+.top{position:sticky;top:0;z-index:5;background:var(--panel);border-bottom:1px solid var(--line);padding:12px 18px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.top h1{font-size:19px;margin:0 auto 0 0}
+.top a{color:var(--green)}
+.wrap{display:grid;grid-template-columns:240px minmax(0,1fr);gap:16px;max-width:1280px;margin:0 auto;padding:16px}
+@media (max-width:860px){.wrap{grid-template-columns:1fr;padding:12px 16px}}
+.list{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:10px;max-height:84vh;overflow:auto;position:sticky;top:76px;align-self:start;display:flex;flex-direction:column;gap:4px}
+@media (max-width:860px){.list{position:static;max-height:none;flex-direction:row;flex-wrap:wrap;gap:6px}}
+.tab{display:block;width:100%;text-align:left;padding:7px 10px;border-radius:12px;border:1px solid transparent;background:none;color:var(--ink);font-size:15px;font-weight:700}
+.tab.ok{color:var(--good)}
+.tab.on{background:var(--green);color:#fff}
+.tab.bad{background:#c62828;color:#fff;border-color:#c62828}
+@media (max-width:860px){.tab{width:auto;min-width:48px;text-align:center;border-color:var(--line);background:#fff}.tab.on{border-color:var(--green)}}
+.main{display:flex;flex-direction:column;gap:12px;min-width:0}
+.info{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:12px 16px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.info b{font-size:18px;margin-right:auto}
+.score{font-weight:700;background:#f1ede2;border-radius:999px;padding:4px 12px}
+.score:empty{display:none}
+.btn{padding:8px 14px;border-radius:12px;border:1px solid var(--line);background:#fff;color:var(--ink);font-weight:700}
+.btn.primary{background:var(--green);color:#fff;border-color:var(--green)}
+.btn:disabled{opacity:.4;cursor:default}
+.split{display:grid;grid-template-columns:minmax(0,1fr);gap:16px;align-items:start}
+.split.single .left{display:none}
+@media (min-width:900px){
+  .split:not(.single){grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr)}
+  .split:not(.single) .left,.split .panel{position:sticky;top:90px;max-height:82vh;overflow:auto}
+}
+.left{min-width:0}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px;min-width:0}
+.foot{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.foot .hint{font-size:14px;color:var(--muted)}
+.foot .blank{font-size:15px;color:var(--muted);font-weight:600}
+.foot .bts{display:flex;gap:8px}
+/* left: worksheet pictures and passages */
+.pcard{background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin-bottom:12px}
+.pcard h3{margin:0 0 6px;font-size:16px;color:var(--green)}
+.ph{font-weight:800;color:var(--green);margin-bottom:8px}
+.ptext{margin:6px 0;font-size:17px;line-height:1.75}
+.vocab .vline{margin:4px 0;font-size:15px}
+.pgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+@media (min-width:600px){.pgrid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.pgrid.few{grid-template-columns:minmax(0,1fr)}
+.pfig{margin:0;position:relative;border:1px solid var(--line);border-radius:12px;background:#fff;padding:4px;text-align:center;overflow:hidden}
+.pfig img{width:100%;height:auto;display:block;max-width:100%}
+.pgrid.few .pfig img{max-height:460px;width:auto;margin:0 auto;object-fit:contain}
+.pfig figcaption{position:absolute;left:6px;top:6px;background:var(--green);color:#fff;border-radius:999px;font-weight:800;font-size:13px;padding:0 8px}
+.rpic{display:inline-block;vertical-align:middle;max-width:150px;max-height:110px;border:1px solid var(--line);border-radius:8px;background:#fff;margin:4px 0}
+.thumb{max-width:180px;border:1px solid var(--line);border-radius:10px}
+.shared{display:flex;flex-wrap:wrap;gap:10px;margin:6px 0 10px}
+.muted{color:var(--muted)}
+/* right: answers */
+.qsec{border-bottom:1px dashed var(--line);padding:6px 0 12px;margin-bottom:10px}
+.qsec:last-child{border-bottom:none}
+.qsec h3{margin:6px 0 4px;font-size:16px;display:flex;align-items:center;gap:8px}
+.letter{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;background:var(--green);color:#fff;font-size:13px;font-weight:800;flex:none}
+.instr{margin:2px 0 8px;font-weight:600;color:var(--muted);font-size:14px}
+.q{display:flex;gap:8px;margin:8px 0;align-items:flex-start}
+.qn{font-weight:800;color:var(--green);min-width:24px;flex:none}
+.qb{flex:1;min-width:0}
+.qt{flex:1;min-width:0;font-size:15.5px;line-height:2.1}
+.qt .gap{display:inline-block;min-width:60px;border-bottom:2px solid #9a8c6a;margin:0 2px;color:transparent}
+.scr{font-size:14px;font-weight:800;letter-spacing:.04em;color:var(--green);margin-right:4px;white-space:nowrap}
+.paren{font-size:14px;font-weight:700;white-space:nowrap}
+.qt .ans.short{width:80px;height:28px;padding:2px 6px;margin:0 2px}
+.scr{letter-spacing:.02em}
+.paren{font-size:17px;font-weight:700;margin:0 2px}
+input.ans,select.ans,textarea.ans{font:inherit;font-size:15px;padding:4px 8px;border:2px solid #cfc3a6;border-radius:10px;background:#fff;color:var(--ink);max-width:100%;vertical-align:middle}
+input.ans.inl{width:130px;margin:0 3px}
+input.ans.short{width:100px;margin:0 2px}
+input.ans.wide{display:block;width:100%;margin-top:6px}
+select.ans.inl{min-width:130px;margin:0 3px}
+select.ans{min-width:200px}
+textarea.ans{display:block;width:100%;margin-top:6px}
+.ans.ok{border-color:var(--good)!important;background:var(--okbg)}
+.ans.bad{border-color:var(--bad)!important;background:var(--badbg)}
+.ans:focus{outline:none;border-color:var(--green2);box-shadow:0 0 0 3px #dfeee5}
+.bank{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:4px 0 10px;padding:8px;border:1.5px dashed #b9ab86;border-radius:14px;background:#fff}
+.bank .bl{font-weight:800;color:var(--green);margin-right:4px}
+.chip{background:#fff;border:1px solid var(--line);border-radius:10px;padding:5px 12px;font-size:15px;font-weight:700;cursor:grab;user-select:none;touch-action:manipulation}
+.chip.sel{background:var(--accent);color:#fff;border-color:var(--accent)}
+.drop{display:inline-block;min-width:110px;min-height:30px;margin:0 4px;padding:2px 10px;border:2px dashed #b9ab86;border-radius:10px;background:#fff;font-weight:700;vertical-align:middle;cursor:pointer;text-align:center}
+.drop.ok{border:2px solid var(--good);background:var(--okbg)}
+.drop.bad{border:2px solid var(--bad);background:var(--badbg)}
+.uword .w{cursor:pointer;padding:2px 3px;border-radius:6px;border-bottom:2.5px solid transparent}
+.uword .w:hover{background:#eef6ef}
+.uword .w.on{border-bottom-color:#2d5f9a;color:#2d5f9a;font-weight:700}
+.tblwrap{overflow-x:auto;margin:6px 0 10px}
+.gtbl{width:100%;border-collapse:collapse;font-size:15px}
+.gtbl th,.gtbl td{border:1px solid var(--line);padding:5px 7px;text-align:center;background:#fff}
+.gtbl th{background:#f6efe0}
+.gtbl .rn{width:40px;font-weight:800;color:var(--green)}
+.rlist{margin:6px 0 10px;padding-left:4px;list-style:none;font-size:15px}
+.rlist li{margin:4px 0}
+.q.dq{align-items:center}
+.q.dq .qt{flex:1;min-width:0}
+.dsel{min-width:150px;max-width:100%;flex:none;padding:3px 4px;margin:0;font-size:14px}
+.bw{display:inline-block;background:#fff;border:1px solid var(--line);border-radius:10px;padding:4px 10px;font-size:15px;font-weight:700;cursor:pointer;user-select:none;margin:2px 0}
+.bw.used{opacity:.3;cursor:default}
+.bwd{display:inline-block;background:#eef6ef;border:1.5px solid var(--green2);border-radius:10px;padding:3px 9px;font-size:15px;font-weight:700;cursor:pointer;margin:2px 0}
+.built{min-height:38px;border-bottom:2px solid #cfc3a6;padding:4px 2px;line-height:2.1;border-radius:6px}
+.built.ok{background:var(--okbg);border-color:var(--good)}
+.built.bad{background:var(--badbg);border-color:var(--bad)}
+.cols{display:grid;grid-template-columns:minmax(0,1fr);gap:0 18px;align-items:start}
+.col{min-width:0}
+@media (min-width:900px){.cols{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}
+.tab:disabled{opacity:.45;cursor:not-allowed}`n</style>
+</head>
+<body data-lang="bm">
+<header class="top">
+  <h1>Tahun 5 · Tatabahasa B (Jilid 2)</h1>
+  <a href="index.html?sub=bm5">← Kembali ke menu</a>
+  <span class="hint" id="counter"></span>
+</header>
+<div class="wrap">
+  <nav class="list" id="tabs" aria-label="Senarai halaman"></nav>
+  <section class="main">
+    <div class="info">
+      <b id="pagehead"></b>
+      <span class="score" id="score"></span>
+      <button class="btn" id="prev" type="button">← Sebelum</button>
+      <button class="btn" id="next" type="button">Seterusnya →</button>
+    </div>
+    <div class="split" id="split">
+      <section class="left" id="left"></section>
+      <section class="panel" id="right"></section>
+    </div>
+    <div class="foot">
+      <span class="blank" id="blank"></span>
+      <div class="bts">
+        <button class="btn" id="resetAll" type="button">↺ Redo</button>
+        <button class="btn primary" id="checkBtn" type="button">✔ Semak Jawapan</button>
+      </div>
+    </div>
+  </section>
+</div>
+<script>
+window.TB_PICS = {};
+window.TB_IMGS = {};
+window.TB = window.TB || [];
+TB.push(
+{ no:21, part:"A", unitTitle:"Unit 13 · Simpulan Bahasa", sections:[
+  { key:"A", type:"circle", title:"Padankan simpulan bahasa dengan maksud yang betul", instr:"Padankan simpulan bahasa dengan maksud yang betul.", o:["倒霉","慷慨","欢心","汗流浃背","爱上某人","纪念品","有办法","齐心协力"], items:[
+    {n:1,q:"senang hati",a:"欢心"},
+    {n:2,q:"murah hati",a:"慷慨"},
+    {n:3,q:"langkah kiri",a:"倒霉"},
+    {n:4,q:"bermandi peluh",a:"汗流浃背"},
+    {n:5,q:"tanda mata",a:"纪念品"},
+    {n:6,q:"jatuh hati",a:"爱上某人"},
+    {n:7,q:"ada jalan",a:"有办法"},
+    {n:8,q:"berganding bahu",a:"齐心协力"}
+  ]}
+]},
+{ no:22, part:"A", unitTitle:"Unit 13 · Simpulan Bahasa", sections:[
+  { key:"B", type:"circle", title:"Pilih jawapan yang paling sesuai", instr:"Pilih jawapan yang paling sesuai.", items:[
+    {n:1,q:"Encik Ahmad ________ pada keindahan alam semula jadi.",o:["jatuh hati","atas angin","ada jalan","kerja tangan"],a:"jatuh hati"},
+    {n:2,q:"Kicauan burung telah menjadi ________ di taman rekreasi.",o:["ada jalan","murah hati","alas perut","halwa telinga"],a:"halwa telinga"},
+    {n:3,q:"Adik makan ________ sebelum pergi ke kelas tuisyen.",o:["kecut hati","besar hati","alas perut","kata putus"],a:"alas perut"},
+    {n:4,q:"Saya berasa ________ kerana dapat melihat bunga Rafflesia.",o:["langkah kanan","langkah kiri","bermandi peluh","pasang telinga"],a:"langkah kanan"},
+    {n:5,q:"Saya membeli beberapa rantai kunci untuk dijadikan ________.",o:["besar hati","kerja tangan","puas hati","tanda mata"],a:"tanda mata"},
+    {n:6,q:"Keluarga saya akan melancong ke negara ________ setiap tahun.",o:["atas angin","membuta tuli","berganding bahu","ada jalan"],a:"atas angin"},
+    {n:7,q:"Penduduk Kampung Melati ________ untuk membersihkan taman permainan.",o:["jatuh hati","berganding bahu","kerja tangan","bermandi peluh"],a:"berganding bahu"},
+    {n:8,q:"Cikgu Lau yang ________ selalu memberikan hadiah kepada murid-murid.",o:["bermandi keringat","berputus asa","murah hati","besar hati"],a:"murah hati"},
+    {n:9,q:"Ibu berasa ________ kerana adik mendapat keputusan yang cemerlang dalam peperiksaan.",o:["alas perut","langkah kiri","jatuh hati","besar hati"],a:"besar hati"},
+    {n:10,q:"Kita mesti ________ semasa guru mengajar di kelas.",o:["kecut hati","pasang telinga","bermandi peluh","puas hati"],a:"pasang telinga"}
+  ]}
+]},
+{ no:23, part:"A", unitTitle:"Unit 14 · Kata Ganda Penuh dan Kata Ganda Separa", sections:[
+  { key:"B", type:"drag", title:"Pilih jawapan yang paling sesuai", instr:"Pilih jawapan yang paling sesuai dan seret ke tempat kosong.", bank:["daun-daun","kekura","buku-buku","skru-skru","alat-alat","pepohon","pekerja-pekerja","cecair","lelaki","jejantas"], items:[
+    {n:1,q:"Encik Tan menggunakan ________ untuk membaiki kerosakan motosikalnya.",a:"alat-alat"},
+    {n:2,q:"Ibu sedang menyapu ________ kering di halaman rumah.",a:"daun-daun"},
+    {n:3,q:"Kita mestilah menggunakan ________ untuk melintas jalan raya.",a:"jejantas"},
+    {n:4,q:"________ di kilang itu sedang berehat di bawah pokok pada waktu rehat.",a:"pekerja-pekerja"},
+    {n:5,q:"Kai Ming memasang ________ pada jejari basikal.",a:"skru-skru"},
+    {n:6,q:"Adik memelihara beberapa ekor ________ dalam akuarium.",a:"kekura"},
+    {n:7,q:"Zhi Hao mempunyai seorang adik ________ dan dua orang adik perempuan.",a:"lelaki"},
+    {n:8,q:"Nenek menanam ________ di belakang rumahnya untuk menghijaukan kawasan rumahnya.",a:"pepohon"},
+    {n:9,q:"Saya selalu meminjam ________ di perpustakaan pada hujung minggu.",a:"buku-buku"},
+    {n:10,q:"Mekanik menuangkan ________ pada jejari motosikal supaya dapat bergerak dengan lancar.",a:"cecair"}
+  ]}
+]},
+{ no:24, part:"A", unitTitle:"Unit 15 · Kata Ganda Berentak", sections:[
+  { key:"A", type:"circle", title:"Pilih jawapan yang paling sesuai", instr:"Pilih jawapan yang paling sesuai.", items:[
+    {n:1,q:"Hutan ini kaya dengan hidupan liar dan ________ berharga.",o:["kuih-muih","sampah-sarap","lauk-pauk","kayu-kayan"],a:"kayu-kayan"},
+    {n:2,q:"Renjer Ali terdengar bunyi ________ semasa meronda di hutan.",o:["pucat-pasi","dentam-dentum","compang-camping","gunung-ganang"],a:"dentam-dentum"},
+    {n:3,q:"Renjer Ali segera mengintip ________ pemburu haram dengan berhati-hati.",o:["gerak-geri","gelap-gelita","calar-balar","serta-merta"],a:"gerak-geri"},
+    {n:4,q:"Muka Wee Lin ________ apabila ternampak ular di dapur.",o:["kelam-kabut","bengkang-bengkok","pucat-pasi","ulang-alik"],a:"pucat-pasi"},
+    {n:5,q:"Abang dan saya berlari ________ semasa dikejar oleh seekor anjing liar.",o:["lintang-pukang","batu-batan","kusut-masai","hiruk-pikuk"],a:"lintang-pukang"},
+    {n:6,q:"Suasana di kantin ________ pada waktu rehat.",o:["bengkang-bengkok","gelap-gelita","riuh-rendah","saudara-mara"],a:"riuh-rendah"},
+    {n:7,q:"Suasana menjadi ________ apabila cikgu pengsan di kelas.",o:["batu-batan","dentam-dentum","pucat-pasi","kelam-kabut"],a:"kelam-kabut"},
+    {n:8,q:"Pakaian pengemis yang tua itu ________.",o:["kuih-muih","compang-camping","gerak-geri","sayur-mayur"],a:"compang-camping"},
+    {n:9,q:"Kaki saya ________ setelah terjatuh dari basikal.",o:["sampah-sarap","kusut-masai","kayu-kayan","calar-balar"],a:"calar-balar"},
+    {n:10,q:"Rambut Chee How ________ kerana ditiup oleh angin kencang.",o:["kusut-masai","riuh-rendah","kelam-kabut","serta-merta"],a:"kusut-masai"}
+  ]}
+]},
+{ no:25, part:"A", unitTitle:"Unit 17 · Ayat Majmuk dengan Perluasan", sections:[
+  { key:"A", type:"circle", title:"Tuliskan ayat tunggal atau ayat majmuk", instr:"Tentukan sama ada ayat berikut ialah ayat tunggal atau ayat majmuk.", o:["ayat tunggal","ayat majmuk"], items:[
+    {n:1,q:"Salmi dan Zaki belajar di SJKC Yok Choy.",a:"ayat majmuk"},
+    {n:2,q:"Ali menunggang basikal.",a:"ayat tunggal"},
+    {n:3,q:"Ali menyanyi lagu.",a:"ayat tunggal"},
+    {n:4,q:"Ali menunggang basikal sambil menyanyi lagu.",a:"ayat majmuk"},
+    {n:5,q:"Jamal naik ke pentas lalu bernyanyi.",a:"ayat majmuk"},
+    {n:6,q:"Zara mengajak ibunya untuk mencuba kaedah melayari internet.",a:"ayat majmuk"},
+    {n:7,q:"Halim cantik tetapi kedekut.",a:"ayat majmuk"},
+    {n:8,q:"Kita memerlukan karbohidrat kerana ia memberi kita tenaga.",a:"ayat majmuk"},
+    {n:9,q:"Ayah membaca buku sambil mendengar muzik.",a:"ayat majmuk"},
+    {n:10,q:"Ayah membaca surat khabar.",a:"ayat tunggal"}
+  ]}
+]},
+{ no:26, part:"A", unitTitle:"Unit 18 · Ayat Seruan", sections:[
+  { key:"A", type:"circle", title:"Tandakan (∕) pada ayat seruan", instr:"Tandakan (∕) pada ayat seruan. Pilih Ya jika ayat seruan, Tidak jika bukan.", o:["Ya","Tidak"], items:[
+    {n:1,q:"Aduh, sakitnya kaki saya!",a:"Ya"},
+    {n:2,q:"Nah, ambil ubat ini dan makan!",a:"Ya"},
+    {n:3,q:"Sila beratur di luar kelas.",a:"Tidak"},
+    {n:4,q:"Mengapakah kamu tidak hadir ke sekolah semalam?",a:"Tidak"},
+    {n:5,q:"Cis, berani engkau mencuri duit saya!",a:"Ya"},
+    {n:6,q:"Bagaimanakah cara membuat layang-layang?",a:"Tidak"},
+    {n:7,q:"Cikgu Lau sedang menyemak buku di bilik guru.",a:"Tidak"},
+    {n:8,q:"Aduhai, malangnya mangsa-mangsa banjir ini!",a:"Ya"},
+    {n:9,q:"Amboi, tingginya bangunan ini!",a:"Ya"},
+    {n:10,q:"Syabas, kamu telah berjaya memenangi pertandingan ini!",a:"Ya"}
+  ]}
+]},
+{ no:27, part:"A", unitTitle:"Unit 18 · Ayat Seruan", sections:[
+  { key:"B", type:"circle", title:"Pilih jawapan yang paling sesuai", instr:"Pilih jawapan yang paling sesuai.", items:[
+    {n:1,q:"________, rajinnya adik kamu!",o:["Amboi","Aduh","Aduhai","Eh"],a:"Amboi"},
+    {n:2,q:"________, ambil buku ini!",o:["Cis","Nah","syabas","hai"],a:"Nah"},
+    {n:3,q:"________ kawan-kawan, mari kita pergi ke dewan sekarang!",o:["Nah","Cis","Aduh","Wahai"],a:"Wahai"},
+    {n:4,q:"________, rupa-rupanya kamu!",o:["Aduhai","Aduh","Oh","Nah"],a:"Oh"},
+    {n:5,q:"________, sedapnya air kelapa muda ini!",o:["Amboi","Wahai","Cis","Syabas"],a:"Amboi"},
+    {n:6,q:"________, sakitnya kepala saya!",o:["Amboi","Aduhai","Nah","Aduh"],a:"Aduh"},
+    {n:7,q:"________, hebatnya mesin pemotong kepala muda ini!",o:["Wah","Hai","Wahai","Eh"],a:"Wah"},
+    {n:8,q:"________, di situ ada warung yang menjual kuih-muih!",o:["Amboi","Eh","Aduh","Cis"],a:"Eh"},
+    {n:9,q:"________, berani kamu buli adik saya!",o:["Eh","Cis","Aduhai","Nah"],a:"Cis"},
+    {n:10,q:"________, malangnya nasib anak yatim itu!",o:["Amboi","Nah","Aduh","Aduhai"],a:"Aduhai"}
+  ]}
+]},
+{ no:28, part:"A", unitTitle:"Unit 19 · Ayat Perintah", sections:[
+  { key:"A", type:"circle", title:"Tulis jawapan yang betul (jenis ayat perintah)", instr:"Pilih jenis ayat perintah yang betul.", o:["ayat silaan","ayat larangan","ayat permintaan","ayat suruhan"], items:[
+    {n:1,q:"Tolong simpan pisau di dalam laci.",a:"ayat permintaan"},
+    {n:2,q:"Jangan sentuh suis jika tangan basah.",a:"ayat larangan"},
+    {n:3,q:"Ambilkan saya sebuah kotak.",a:"ayat suruhan"},
+    {n:4,q:"Jemput makan kuih-muih yang sedap ini.",a:"ayat silaan"},
+    {n:5,q:"Sila duduk di tempat masing-masing.",a:"ayat silaan"},
+    {n:6,q:"Usah berlari di dalam kelas.",a:"ayat larangan"},
+    {n:7,q:"Minta kerjasama daripada semua pihak.",a:"ayat permintaan"},
+    {n:8,q:"Berikan wang ini kepada ayah kamu.",a:"ayat suruhan"}
+  ]}
+]},
+{ no:29, part:"A", unitTitle:"Unit 19 · Ayat Perintah", sections:[
+  { key:"B", type:"circle", title:"Pilih jawapan yang paling sesuai", instr:"Pilih jawapan yang paling sesuai.", items:[
+    {n:1,q:"________ kemaskan bilik ini.",o:["Sila","Jangan","Usah","Tolong"],a:"Tolong"},
+    {n:2,q:"________ rasa kek ini.",o:["Sila","Tolong","Harap","Minta"],a:"Sila"},
+    {n:3,q:"________ puan berpuas hati dengan layanan kami.",o:["Harap","Usah","Jangan","Jemput"],a:"Harap"},
+    {n:4,q:"________ makan kek itu tanpa kebenaran.",o:["Tolong","Sila","Jangan","Harap"],a:"Jangan"},
+    {n:5,q:"________ hadir ke majlis hari jadi saya pada malam ini.",o:["Dilarang","Jemput","Tolong","Minta"],a:"Jemput"},
+    {n:6,q:"________ isi borang ini sebelum balik.",o:["Jemput","Sila","Tidak boleh","Minta"],a:"Minta"},
+    {n:7,q:"________ bermain di padang semasa hujan lebat.",o:["Usah","Tolong","Sila","Minta"],a:"Usah"},
+    {n:8,q:"________ beratur di luar kelas.",o:["Usah","Harap","Tolong","Sila"],a:"Sila"},
+    {n:9,q:"________ belikan saya sebungkus nasi ayam.",o:["Sila","Tolong","Minta","Jemput"],a:"Tolong"},
+    {n:10,q:"________ buang sampah di merata-rata tempat.",o:["Sila","Jemput","Harap","Jangan"],a:"Jangan"}
+  ]}
+]},
+{ no:30, part:"A", unitTitle:"Unit 20 · Ayat Aktif dan Ayat Pasif", sections:[
+  { key:"A", type:"circle", title:"Nyatakan sama ada ayat aktif (A) atau ayat pasif (P)", instr:"Nyatakan sama ada ayat-ayat di bawah ayat aktif (A) atau ayat pasif (P).", o:["A (aktif)","P (pasif)"], items:[
+    {n:1,q:"Kakak sedang membaca buku di bilik bacaan.",a:"A (aktif)"},
+    {n:2,q:"Lauk-pauk yang sedap itu dimasak oleh ibu saya.",a:"P (pasif)"},
+    {n:3,q:"Pak Ali membela empat ekor lembu di belakang rumahnya.",a:"A (aktif)"},
+    {n:4,q:"Puan Lim menanam pokok bunga yang cantik di halaman rumah.",a:"A (aktif)"},
+    {n:5,q:"Paha ayam itu telah dimakan oleh adik saya.",a:"P (pasif)"},
+    {n:6,q:"Kim Wei didenda oleh Cikgu Tan kerana dia sangat nakal.",a:"P (pasif)"},
+    {n:7,q:"Peraturan sekolah patut kita patuhi.",a:"P (pasif)"},
+    {n:8,q:"Kita harus menjaga kebersihan diri sendiri supaya badan sihat.",a:"A (aktif)"}
+  ]}
+]},
+{ no:31, part:"A", unitTitle:"Unit 21 · Ayat Susunan Biasa dan Songsang", sections:[
+  { key:"A", type:"circle", title:"Tuliskan ayat songsang atau ayat susunan biasa", instr:"Tentukan jenis setiap ayat.", o:["ayat susunan biasa","ayat susunan songsang"], items:[
+    {n:1,q:"Salmi dan Zaki belajar di SJKC Yok Choy.",a:"ayat susunan biasa"},
+    {n:2,q:"Ali menunggang basikal.",a:"ayat susunan biasa"},
+    {n:3,q:"Belajar di SJKC Yok Choy Salmi dan Zaki.",a:"ayat susunan songsang"},
+    {n:4,q:"Menunggang basikal Ali.",a:"ayat susunan songsang"},
+    {n:5,q:"Encik Subra ke kaunter pengurup wang.",a:"ayat susunan biasa"},
+    {n:6,q:"Ke kaunter pengurup wang Encik Subra.",a:"ayat susunan songsang"}
+  ]}
+]},
+{ no:32, part:"A", unitTitle:"Unit 21 · Ayat Susunan Biasa dan Songsang", sections:[
+  { key:"B", type:"circle", title:"Pilih ayat songsang yang betul", instr:"Pilih ayat songsang yang betul untuk ayat-ayat yang berikut.", items:[
+    {n:1,q:"Ayah Kiki ingin menukar mata wang Australia(AUD).",o:["Kiki ingin menukar mata wang Australia(AUD) ayah.","Ingin menukar mata wang Australia(AUD) ayah Kiki.","Mata wang Australia(AUD) ingin menukar Ayah Kiki.","Ayah Kiki mata wang ingin menukar Australia(AUD)."],a:"Ingin menukar mata wang Australia(AUD) ayah Kiki."},
+    {n:2,q:"Ayah telah lama menyimpan wang Australia.",o:["Telah lama menyimpan wang Australia ayah.","Telah lama menyimpan wang Australia ayah Kiki.","Ayah Ali telah lama menyimpan wang Australia.","Ayah Kiki telah lama menyimpan wang Australia (AUD)."],a:"Telah lama menyimpan wang Australia ayah."},
+    {n:3,q:"Ayah mendapatkan untung 30sen bagi setiap Dolar Australia.",o:["Mendapatkan untung 30sen bagi setiap Dolar Australia ayah.","Ayah telah mendapatkan untung 30sen bagi setiap Dolar Australia.","Bagi setiap Dollar Australia, mendapatkan untung 30sen ayah.","Ayah Kiki telah lama menyimpan wang Australia (AUD)."],a:"Mendapatkan untung 30sen bagi setiap Dolar Australia ayah."}
+  ]}
+]},
+{ no:33, part:"A", unitTitle:"Unit 21 · Ayat Susunan Biasa dan Songsang", sections:[
+  { key:"C", type:"circle", title:"Pilih ayat susunan biasa yang betul", instr:"Pilih ayat susunan biasa yang betul untuk ayat-ayat yang berikut.", items:[
+    {n:1,q:"Jika menukarkan wang Australia sekarang, ayah akan untung.",o:["Jika menukarkan wang Australia, ayah akan untung.","Ayah akan untung jika menukarkan wang Australia sekarang.","Ayah akan untung sekarang jika menukarkan wang.","Jika ayah akan untung menukarkan wang Australia."],a:"Ayah akan untung jika menukarkan wang Australia sekarang."},
+    {n:2,q:"Dengan keuntungan itu, ayah dapat menambah simpanan wang Kiki.",o:["Ayah dapat menambah simpanan wang Kiki dengan keuntungan itu.","Ayah akan untung jika menukarkan wang Australia sekarang.","Ayah akan untung sekarang jika menukarkan wang.","Jika ayah akan untung menukarkan wang Australia."],a:"Ayah dapat menambah simpanan wang Kiki dengan keuntungan itu."},
+    {n:3,q:"Jika ayah menjual satu Dolar Australia, ayah akan mendapat RM 2.80.",o:["Ayah akan mendapat RM 2.80 jika ayah menjual satu Dolar Australia.","Jika ayah menjual satu Dolar Australia, akan ayah mendapat RM 2.80.","Ayah akan untung jika ayah menjual satu Dolar Australia.","Menjual satu Dolar Australia jika, ayah akan untung."],a:"Ayah akan mendapat RM 2.80 jika ayah menjual satu Dolar Australia."},
+    {n:4,q:"Di Kuala Kangsar, Chee Wee melihat pemandangan yang indah.",o:["Chee Wee di Kuala Kangsar melihat pemandangan yang indah.","Chee Wee melihat pemandangan yang indah di Kuala Kangsar.","Chee Wee melihat di Kuala Kangsar pemandangan yang indah.","Melihat pemandangan yang indah Chee Wee."],a:"Chee Wee melihat pemandangan yang indah di Kuala Kangsar."}
+  ]}
+]},
+{ no:34, part:"A", unitTitle:"Unit 22 · Kata Berimbuhan", sections:[
+  { key:"A", type:"circle", title:"Bulatkan jawapan yang betul", instr:"Bulatkan jawapan yang betul.", items:[
+    {n:1,q:"Murid-murid sedang ________ topik graviti.",o:["mempelajari","mempunyai","berlaukkan","mengemaskan"],a:"mempelajari"},
+    {n:2,q:"Cikgu Shanti memberikan ________ tentang topik tersebut.",o:["penjelasan","mempunyai","menurut","layari"],a:"penjelasan"},
+    {n:3,q:"________ Cikgu Shanti, graviti ialah daya yang menarik objek ke bumi.",o:["Dinasihati","Menurut","Penjelasan","Layari"],a:"Menurut"},
+    {n:4,q:"“Sila ________ laman sesawang untuk mencari maklumat,” kata Cikgu Shanti.",o:["menurut","layari","terapung","telapak"],a:"layari"},
+    {n:5,q:"Angkasawan di stesen ________ kerana tiada graviti.",o:["angkasawan","terapung","berselerak","telapak"],a:"terapung"},
+    {n:6,q:"Video ini ________ perbandingan kehidupan di stesen angkasa lepas dan di bumi.",o:["menunjukkan","tunjuk","metunjukkan","bertunjuk"],a:"menunjukkan"},
+    {n:7,q:"Dengan adanya graviti, kita boleh ________ di atas permukaan bumi.",o:["tarikan","kehidupan","berselerak","berjalan"],a:"berjalan"},
+    {n:8,q:"Dengan adanya graviti, daun-daun akan gugur lalu ________ di atas tanah.",o:["tarikan","kehidupan","berselerak","berjalan"],a:"berselerak"},
+    {n:9,q:"Cikgu Shanti ________ klip video (…) tablet pintar.",o:["memainkan, menerusi","dimainkan, menerusi","memainkan, diteruskan","dimainkan, diteruskan"],a:"memainkan, menerusi"},
+    {n:10,q:"Tablet pintar ________ di atas meja.",o:["meletakkan","diletakkan","letak","terletak"],a:"diletakkan"},
+    {n:11,q:"Ali memberikan tablet pada ________ tangan ibunya.",o:["angkasawan","terapung","berselerak","telapak"],a:"telapak"},
+    {n:12,q:"Klip video memaparkan kehidupan ________ di stesen angkasa lepas.",o:["angkasawan","terapung","berselerak","telapak"],a:"angkasawan"},
+    {n:13,q:"Dengan adanya graviti, kita boleh menjalani ________ di bumi dengan mudah.",o:["tarikan","kehidupan","berselerak","berjalan"],a:"kehidupan"},
+    {n:14,q:"Daya ________ graviti bumi sangat penting.",o:["menarik","tarikan","tertarik","tarik"],a:"tarikan"},
+    {n:15,q:"Daya tarikan graviti bumi ________ setiap objek berada pada kedudukannya.",o:["sebab","disebabkan","menyebabkan","punca"],a:"menyebabkan"},
+    {n:16,q:"Cikgu Shanti ________ agar muridnya memahami (…) graviti.",o:["berharap, kepentingan","harap, penting","diharap, kepentingan","harapan, penting"],a:"berharap, kepentingan"}
+  ]}
+]},
+{ no:35, part:"A", unitTitle:"Unit 24 · Ayat Aktif dan Ayat Pasif", sections:[
+  { key:"A", type:"circle", title:"Tandakan (∕) pada ayat pasif yang betul", instr:"Tandakan (∕) pada ayat pasif yang betul.", items:[
+    {n:1,q:"Saya baru membasuh baju adik yang kotor ini.",o:["Baju adik yang kotor ini baru saya basuh.","Baju adik yang kotor ini baru dibasuh oleh saya."],a:"Baju adik yang kotor ini baru saya basuh."},
+    {n:2,q:"Kita mesti menjaga kebersihan alam sekitar.",o:["Kebersihan alam sekitar mesti jaga kita.","Kebersihan alam sekitar mesti kita jaga."],a:"Kebersihan alam sekitar mesti kita jaga."},
+    {n:3,q:"Kami telah membersihkan kelas pada hari ini.",o:["Kelas telah kami bersihkan pada hari ini.","Kelas telah bersihkan kami pada hari ini."],a:"Kelas telah kami bersihkan pada hari ini."}
+  ]}
+]}
+);
+
+window.TB_PART = 'A';
+(function () {
+  'use strict';
+  var $ = function (id) { return document.getElementById(id); };
+  var PART = window.TB_PART || 'A';
+  var KEY = 'tatabahasa-b-t5-v1';
+  window.LESSON_STATE_KEY = KEY;
+  var st = {};
+  try { st = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (e) { st = {}; }
+  st.v = st.v || {}; st.done = st.done || {};
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(st)); } catch (e) {} }
+
+  var PAGES = (window.TB || []).filter(function (p) { return p.part === PART; }).sort(function (a, b) { return a.no - b.no; });
+  function firstOpen() { for (var j = 0; j < PAGES.length; j++) { if (!st.done[PAGES[j].no]) return j; } return PAGES.length - 1; }
+  var cur = Math.min(Math.max(+st.cur || 0, 0), PAGES.length - 1);
+
+
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function norm(s) {
+    return String(s == null ? '' : s).toLowerCase()
+      .replace(/[‘’“”"'.,;:!?()\[\]\-–—_\/]+/g, ' ')
+      .replace(/\s+/g, ' ').trim();
+  }
+  function nospace(s) { return norm(s).replace(/ /g, ''); }
+  function pics(no, key) { return (window.TB_PICS && window.TB_PICS[no + '-' + key]) || []; }
+  // a section may name its picture set with picSide (e.g. "103-A:R"); fall back to the plain key
+  function secPics(no, sec) {
+    var l = sec.picSide ? pics(no, sec.key + ':' + sec.picSide) : [];
+    return l.length ? l : pics(no, sec.key);
+  }
+  function picSrc(file) { return (window.TB_IMGS && window.TB_IMGS[file]) || ''; }
+
+  function blanksIn(q) { return (String(q).match(/_{2,}/g) || []).length; }
+  function splitBlanks(q) { return String(q).split(/_{2,}/); }
+
+  // ---- answer checking per item ----
+  function checkItem(no, si, sec, it, ii) {
+    // returns {total, right, blank}
+    var k = no + '|' + si + '|' + ii;
+    var t = sec.type;
+    if (t === 'pic') {
+      var v = st.v[k + '|0'] || '';
+      return { total: 1, right: nospace(v) === nospace(it.a) ? 1 : 0, blank: v.trim() ? 0 : 1, els: [k + '|0'] };
+    }
+    if (t === 'circle' || t === 'sel') {
+      var nbs = Math.max(1, splitBlanks(it.q).length - 1);
+      var ansS = Array.isArray(it.a) ? it.a : [it.a];
+      var rS = 0, bS = 0, elsS = [];
+      for (var cs = 0; cs < nbs; cs++) {
+        var vs = st.v[k + '|' + cs] || ''; elsS.push(k + '|' + cs);
+        if (vs && vs === ansS[cs]) rS++;
+        if (!vs) bS++;
+      }
+      return { total: nbs, right: rS, blank: bS, els: elsS };
+    }
+    if (t === 'drag' && sec.units) {
+      var ua = it.a || []; var ur = 0, ub = 0, uels = [];
+      for (var ui = 0; ui < ua.length; ui++) { var uv = st.v[k + '|' + ui] || ''; uels.push(k + '|' + ui); if (uv && nospace(uv) === nospace(ua[ui])) ur++; if (!uv) ub++; }
+      return { total: ua.length, right: ur, blank: ub, els: uels };
+    }
+    if (t === 'drag') {
+      var nb = blanksIn(it.q) || 1; var rightN = 0, blankN = 0; var els = [];
+      if (nb === 1) { var dv = st.v[k + '|0'] || ''; els.push(k + '|0'); if (nospace(dv) && nospace(dv) === nospace(it.a)) rightN = 1; if (!dv) blankN = 1; return { total: 1, right: rightN, blank: blankN, els: els }; }
+      var ans = Array.isArray(it.a) ? it.a : [it.a];
+      for (var b = 0; b < nb; b++) { var dv2 = st.v[k + '|' + b] || ''; els.push(k + '|' + b); if (nospace(dv2) && nospace(dv2) === nospace(ans[b])) rightN++; if (!dv2) blankN++; }
+      return { total: nb, right: rightN, blank: blankN, els: els };
+    }
+    if (t === 'fill') {
+      var nb2 = blanksIn(it.q) || 1; var rightF = 0, blankF = 0; var els2 = [];
+      var answers = Array.isArray(it.a) ? it.a : [it.a];
+      for (var c = 0; c < nb2; c++) {
+        var fv = st.v[k + '|' + c] || ''; els2.push(k + '|' + c);
+        var target = answers[c] !== undefined ? answers[c] : answers[0];
+        if (Array.isArray(it.a) && nb2 > 1) { if (nospace(fv) && answers.some(function (a) { return nospace(a) === nospace(fv); })) rightF++; }
+        else if (nospace(fv) && nospace(fv) === nospace(target)) rightF++;
+        if (!fv.trim()) blankF++;
+      }
+      if (nb2 === 1) return { total: 1, right: rightF, blank: blankF, els: els2 };
+      return { total: nb2, right: rightF, blank: blankF, els: els2 };
+    }
+    if (t === 'uline') {
+      var u = JSON.parse(st.v[k] || '[]');
+      var words = it.s.split(' ');
+      var want = {}; (it.a || []).forEach(function (w) { norm(w).split(' ').forEach(function (x) { if (x) want[x] = true; }); });
+      var got = {}; u.forEach(function (i) { norm(words[i] || '').split(' ').forEach(function (x) { if (x) got[x] = true; }); });
+      var ok = Object.keys(want).every(function (x) { return got[x]; }) && Object.keys(got).every(function (x) { return want[x]; });
+      return { total: 1, right: ok ? 1 : 0, blank: u.length ? 0 : 1, els: [k] };
+    }
+    if (t === 'build') {
+      var bsel = JSON.parse(st.v[k] || '[]');
+      var built = bsel.map(function (i) { return it.u[i]; }).join(' ');
+      return { total: 1, right: bsel.length && nospace(built) === nospace(it.a) ? 1 : 0, blank: bsel.length ? 0 : 1, els: [k] };
+    }
+    if (t === 'dots') {
+      var lv = st.v[no + '|' + si + '|L' + ii] || '';
+      var letter = sec.right[it.a].e;
+      return { total: 1, right: lv === letter ? 1 : 0, blank: lv ? 0 : 1, els: [no + '|' + si + '|L' + ii] };
+    }
+    if (t === 'grid') {
+      var rr = 0, bb = 0, els3 = [];
+      var arr = it.a || [];
+      for (var g = 0; g < arr.length; g++) { var gv = st.v[k + '|' + g] || ''; els3.push(k + '|' + g); if (gv && gv === arr[g]) rr++; if (!gv) bb++; }
+      return { total: 1, right: rr === arr.length ? 1 : 0, blank: bb ? 1 : 0, els: els3 };
+    }
+    return { total: 0, right: 0, blank: 0, els: [] };
+  }
+
+  function pageScore(p) {
+    var tot = 0, rt = 0, bl = 0;
+    p.sections.forEach(function (sec, si) {
+      var list = sec.type === 'dots' ? sec.left : sec.items;
+      if (!list) return;
+      list.forEach(function (it, ii) {
+        var r = checkItem(p.no, si, sec, it, ii);
+        tot += r.total; rt += r.right; bl += r.blank;
+      });
+    });
+    return { total: tot, right: rt, blank: bl };
+  }
+
+  // ---- rendering ----
+  function picBox(no, key, idx, n, size) {
+    var list = pics(no, key);
+    var f = list[idx];
+    if (!f) return '';
+    return '<img class="thumb' + (size ? ' ' + size : '') + '" alt="Gambar ' + n + '" src="' + picSrc(f) + '">';
+  }
+
+  function bankChips(p, si, sec) {
+    if (!sec.bank) return '';
+    // every word in the bank stays available; a word can be used in more than one blank
+    var chips = sec.bank.map(function (w) {
+      return '<span class="chip" draggable="true" data-w="' + esc(w) + '">' + esc(w) + '</span>';
+    }).join('');
+    return '<div class="bank" data-si="' + si + '"><span class="bl">Kata:</span>' + chips + '</div>';
+  }
+
+  // Layout: each question is a row. Question text (and any picture) on the left, answers on the right.
+  function renderLeft(p) {
+    var html = '';
+    p.sections.forEach(function (sec) {
+      var list = secPics(p.no, sec);
+      if (!list.length || sec.type === 'grid' || sec.type === 'uline' || sec.type === 'dots') return;
+      var n = (sec.items || []).length;
+      html += '<div class="pcard"><div class="ph">' + esc(sec.key) + '. ' + esc(sec.title) + '</div><div class="pgrid' + (list.length <= 2 ? ' few' : '') + '">';
+      list.forEach(function (f, i) {
+        var label = (list.length === n || n === 0) ? (i + 1) : '';
+        html += '<figure class="pfig">' + (label ? '<figcaption>' + label + '</figcaption>' : '') + '<img alt="Gambar ' + (i + 1) + '" src="' + picSrc(f) + '"></figure>';
+      });
+      html += '</div></div>';
+    });
+    return html;
+  }
+
+  function gapText(q) {
+    return splitBlanks(q).map(function (s) { return esc(s).replace(/\n/g, '<br>'); }).join('<span class="gap">______</span>');
+  }
+
+  function renderRight(p) {
+    var html = '';
+    p.sections.forEach(function (sec, si) {
+      if (!sec.items && sec.type !== 'dots') return;
+      var hasPics = secPics(p.no, sec).length > 0;
+      html += '<div class="qsec"><h3><span class="letter">' + esc(sec.key) + '</span> ' + esc(sec.title) + '</h3>';
+      if (sec.instr) html += '<p class="instr">' + esc(sec.instr) + '</p>';
+
+      if (sec.bank && (sec.type === 'drag' || sec.type === 'pic')) html += bankChips(p, si, sec);
+      if (sec.type === 'grid') html += bankChips(p, si, sec) + gridHtml(p, si, sec);
+      else if (sec.type === 'dots') html += dotsHtml(p, si, sec);
+      else if (sec.type === 'uline') html += ulineHtml(p, si, sec);
+      else if (sec.type === 'build') html += buildHtml(p, si, sec);
+      else {
+        // two columns: the first half of the questions on the left, the rest on the right (even split)
+        var half = Math.ceil(sec.items.length / 2);
+        var rowsOf = function (list, from) { return list.map(function (it, i) { return rowHtml(p, si, sec, it, from + i, hasPics); }).join(''); };
+        html += '<div class="cols"><div class="col">' + rowsOf(sec.items.slice(0, half), 0) + '</div>' +
+          '<div class="col">' + rowsOf(sec.items.slice(half), half) + '</div></div>';
+      }
+      html += '</div>';
+    });
+    return html;
+  }
+
+  // Every blank is shown on its own line: the drop box, dropdown or typed box sits in the blank.
+  function rowHtml(p, si, sec, it, ii, hasPics) {
+    var k = p.no + '|' + si + '|' + ii;
+    var numHtml = it.n ? '<span class="qn">' + it.n + '.</span>' : '';
+    var ctl = function (kk, opts) {
+      if (sec.type === 'circle' || sec.type === 'sel') {
+        return '<select class="ans inl" data-k="' + kk + '"><option value="">— Pilih —</option>' +
+          (it.o || sec.o || []).map(function (o) { return '<option value="' + esc(o) + '"' + (st.v[kk] === o ? ' selected' : '') + '>' + esc(o) + '</option>'; }).join('') + '</select>';
+      }
+      if (sec.type === 'drag' || (sec.type === 'pic' && sec.bank)) {
+        return '<span class="drop" data-k="' + kk + '">' + (st.v[kk] ? esc(st.v[kk]) : '…') + '</span>';
+      }
+      return '<input class="ans ' + (sec.wide ? 'wide' : 'inl') + '" data-k="' + kk + '" autocomplete="off" value="' + esc(st.v[kk] || '') + '">';
+    };
+    var body = '';
+    if (sec.type === 'drag' && sec.units) {
+      var placed = {}; (it.a || []).forEach(function (_, ui) { var pv = st.v[k + '|' + ui]; if (pv) placed[pv] = true; });
+      var chipsU = (it.u || []).filter(function (w) { return !placed[w]; }).map(function (w) { return '<span class="chip" draggable="true" data-w="' + esc(w) + '">' + esc(w) + '</span>'; }).join('');
+      body = '<div class="bank">' + chipsU + '</div><div>' + (it.a || []).map(function (_, ui) { return ctl(k + '|' + ui); }).join(' ') + '</div>';
+    } else if (sec.type === 'pic' && sec.bank) {
+      body = ctl(k + '|0');
+    } else if (sec.type === 'pic') {
+      var kk0 = k + '|0';
+      body = '<span class="scr">' + esc(it.h) + '</span> <span class="paren">(</span><input class="ans short" data-k="' + kk0 + '" autocomplete="off" value="' + esc(st.v[kk0] || '') + '"><span class="paren">)</span>';    } else {
+      var parts = splitBlanks(it.q);
+      if (parts.length <= 1) {
+        body = esc(it.q).replace(/\n/g, '<br>') + ' ' + ctl(k + '|0');
+      } else {
+        body = parts.map(function (s, bi) {
+          return esc(s).replace(/\n/g, '<br>') + (bi < parts.length - 1 ? ctl(k + '|' + bi) : '');
+        }).join('');
+      }
+    }
+    return '<div class="q row">' + numHtml + '<div class="qt">' + body + '</div></div>';
+  }
+  function ulineHtml(p, si, sec) {
+    var html = '';
+    sec.items.forEach(function (it, ii) {
+      var k = p.no + '|' + si + '|' + ii;
+      var sel = JSON.parse(st.v[k] || '[]');
+      var words = it.s.split(' ').map(function (w, i) {
+        return '<span class="w' + (sel.indexOf(i) >= 0 ? ' on' : '') + '" data-k="' + k + '" data-i="' + i + '">' + esc(w) + '</span>';
+      }).join(' ');
+      html += '<div class="q"><span class="qn">' + it.n + '.</span><div class="qb"><div class="qt uword">' + words + '</div></div></div>';
+    });
+    return html;
+  }
+
+  // Build a sentence: the words are shown as chips; tap a chip to add it, tap a word in the sentence to remove it.
+  function buildHtml(p, si, sec) {
+    var half = Math.ceil(sec.items.length / 2);
+    var one = function (it, ii) {
+      var k = p.no + '|' + si + '|' + ii;
+      var sel = JSON.parse(st.v[k] || '[]');
+      var used = {}; sel.forEach(function (i) { used[i] = true; });
+      var chips = it.u.map(function (w, i) {
+        return '<span class="bw' + (used[i] ? ' used' : '') + '" data-k="' + k + '" data-i="' + i + '">' + esc(w) + '</span>';
+      }).join('');
+      var built = sel.length ? sel.map(function (i) {
+        return '<span class="bwd" data-k="' + k + '" data-i="' + i + '">' + esc(it.u[i]) + '</span>';
+      }).join(' ') : '<span class="muted">…</span>';
+      return '<div class="q bq"><span class="qn">' + it.n + '.</span><div class="qb"><div class="bank">' + chips + '</div>' +
+        '<div class="built" data-bk="' + k + '">' + built + '</div></div></div>';
+    };
+    var rows = function (list, from) { return list.map(function (it, i) { return one(it, from + i); }).join(''); };
+    return '<div class="cols"><div class="col">' + rows(sec.items.slice(0, half), 0) + '</div><div class="col">' + rows(sec.items.slice(half), half) + '</div></div>';
+  }
+
+  function dotsHtml(p, si, sec) {
+    var sp = pics(p.no, sec.key);
+    var rights = sec.right.map(function (r, i) {
+      var content = sp.length && picSrc(sp[i]) ? '<img class="rpic" alt="Gambar ' + String.fromCharCode(65 + i) + '" src="' + picSrc(sp[i]) + '">' : esc(r.e);
+      return '<li><b>' + String.fromCharCode(65 + i) + '.</b> ' + content + '</li>';
+    }).join('');
+    // the answer texts go into the dropdown; the list above is only kept when there are pictures
+    var letters = sec.right.map(function (r) { return r.e; });
+    var html = sp.length ? '<ol class="rlist">' + rights + '</ol>' : '';
+    var rowsD = sec.left.map(function (l, li) {
+      var k = p.no + '|' + si + '|L' + li;
+      var v = st.v[k] || '';
+      var opts = '<option value="">— Pilih —</option>' + letters.map(function (L) { return '<option value="' + esc(L) + '"' + (v === L ? ' selected' : '') + '>' + esc(L) + '</option>'; }).join('');
+      // question text and its dropdown sit side by side on one line
+      return '<div class="q dq"><span class="qn">' + l.n + '.</span><div class="qt">' + esc(l.q) + '</div><select class="ans dsel" data-k="' + k + '">' + opts + '</select></div>';
+    });
+    var halfD = Math.ceil(rowsD.length / 2);
+    html += '<div class="cols"><div class="col">' + rowsD.slice(0, halfD).join('') + '</div><div class="col">' + rowsD.slice(halfD).join('') + '</div></div>';
+    return html;
+  }
+
+  function gridHtml(p, si, sec) {
+    var head = '<tr><th></th>' + sec.cols.map(function (c) { return '<th>' + esc(c) + '</th>'; }).join('') + '</tr>';
+    var rows = sec.items.map(function (it, ii) {
+      var cells = sec.cols.map(function (c, ci) {
+        var k = p.no + '|' + si + '|' + ii + '|' + ci;
+        return '<td><span class="drop" data-k="' + k + '">' + (st.v[k] ? esc(st.v[k]) : '…') + '</span></td>';
+      }).join('');
+      return '<tr><td class="rn">' + it.n + '.</td>' + cells + '</tr>';
+    }).join('');
+    return '<div class="tblwrap"><table class="gtbl">' + head + rows + '</table></div>';
+  }
+
+  function render() {
+    var p = PAGES[cur];
+    renderTabs();
+    $('pagehead').textContent = 'Latihan ' + p.no + ' · ' + p.unitTitle;
+    $('counter').textContent = (cur + 1) + ' / ' + PAGES.length;
+    var left = renderLeft(p);
+    $('left').innerHTML = left;
+    $('left').style.display = left ? '' : 'none';
+    $('split').classList.toggle('single', !left);
+    $('right').innerHTML = renderRight(p);
+    $('score').textContent = '';
+    $('blank').textContent = '';
+    $('prev').disabled = cur === 0;
+    $('next').disabled = cur === PAGES.length - 1;
+    st.cur = cur; save();
+    window.scrollTo(0, 0);
+    bind();
+  }
+
+  function bind() {
+    document.querySelectorAll('#right [data-k]').forEach(function (el) {
+      if (el.classList.contains('drop')) return;
+      el.addEventListener(el.tagName === 'SELECT' ? 'change' : 'input', function () {
+        st.v[el.dataset.k] = el.value; save(); el.classList.remove('ok', 'bad');
+        $('score').textContent = ''; $('blank').textContent = '';
+      });
+    });
+    // build-a-sentence: tap a word to add it, tap a word in the sentence to remove it
+    document.querySelectorAll('#right .bw').forEach(function (w) {
+      w.addEventListener('click', function () {
+        if (w.classList.contains('used')) return;
+        var k = w.dataset.k, i = +w.dataset.i;
+        var sel = JSON.parse(st.v[k] || '[]');
+        if (sel.indexOf(i) < 0) sel.push(i);
+        st.v[k] = JSON.stringify(sel); save(); render();
+      });
+    });
+    document.querySelectorAll('#right .bwd').forEach(function (w) {
+      w.addEventListener('click', function () {
+        var k = w.dataset.k, i = +w.dataset.i;
+        var sel = JSON.parse(st.v[k] || '[]').filter(function (x) { return x !== i; });
+        st.v[k] = JSON.stringify(sel); save(); render();
+      });
+    });
+    document.querySelectorAll('#right .w').forEach(function (w) {
+      w.addEventListener('click', function () {
+        var k = w.dataset.k, i = +w.dataset.i;
+        var sel = JSON.parse(st.v[k] || '[]');
+        var at = sel.indexOf(i);
+        if (at >= 0) sel.splice(at, 1); else sel.push(i);
+        st.v[k] = JSON.stringify(sel); save();
+        w.classList.toggle('on');
+        $('score').textContent = ''; $('blank').textContent = '';
+      });
+    });
+    // drag chips and drop zones (drag, or tap a chip then tap a box)
+    var selected = null;
+    document.querySelectorAll('#right .chip').forEach(function (c) {
+      c.addEventListener('dragstart', function (e) { e.dataTransfer.setData('text/plain', c.dataset.w); });
+      c.addEventListener('click', function () {
+        selected = (selected === c.dataset.w) ? null : c.dataset.w;
+        document.querySelectorAll('#right .chip').forEach(function (x) { x.classList.toggle('sel', x.dataset.w === selected); });
+      });
+    });
+    document.querySelectorAll('#right .drop').forEach(function (d) {
+      d.addEventListener('dragover', function (e) { e.preventDefault(); });
+      d.addEventListener('drop', function (e) { e.preventDefault(); place(d, e.dataTransfer.getData('text/plain')); });
+      d.addEventListener('click', function () {
+        if (st.v[d.dataset.k]) { delete st.v[d.dataset.k]; save(); render(); return; }
+        if (selected) { place(d, selected); selected = null; }
+      });
+    });
+  }
+
+  function place(d, word) {
+    if (!word) return;
+    st.v[d.dataset.k] = word; save(); render();
+  }
+
+  function check() {
+    var p = PAGES[cur];
+    var s = pageScore(p);
+    $('score').textContent = s.right + '/' + s.total;
+    if (s.blank > 0) $('blank').textContent = 'Masih ada ' + s.blank + ' soalan kosong.';
+    else if (s.total > 0 && s.right === s.total) $('blank').textContent = 'Tahniah! Semua jawapan betul.';
+    else $('blank').textContent = 'Cuba semula. Jawapan merah perlu disemak.';
+    // mark each item
+    p.sections.forEach(function (sec, si) {
+      var list = sec.type === 'dots' ? sec.left : sec.items;
+      if (!list) return;
+      list.forEach(function (it, ii) {
+        var r = checkItem(p.no, si, sec, it, ii);
+        if (sec.type === 'build') {
+          var bb = document.querySelector('#right .built[data-bk="' + r.els[0] + '"]');
+          if (bb) { bb.classList.toggle('ok', r.right === 1); bb.classList.toggle('bad', r.right !== 1 && r.blank === 0); }
+          return;
+        }
+        r.els.forEach(function (k) {
+          var el = document.querySelector('#right [data-k="' + k + '"]');
+          if (!el) return;
+          var v = st.v[k] || '';
+          var good = null;
+          if (sec.type === 'pic' || sec.type === 'fill') good = nospace(v) && (Array.isArray(it.a) ? it.a.some(function (a) { return nospace(a) === nospace(v); }) : nospace(v) === nospace(it.a));
+          if (sec.type === 'circle' || sec.type === 'sel') { var bIdx = +(k.split('|').pop()) || 0; good = v === (Array.isArray(it.a) ? it.a[bIdx] : it.a); }
+          if (sec.type === 'drag' && sec.units) good = v && nospace(v) === nospace(it.a[+(k.split('|').pop())]);
+          else if (sec.type === 'drag') good = v && (Array.isArray(it.a) ? true : nospace(v) === nospace(it.a));
+          if (good === null) return;
+          el.classList.toggle('ok', !!good); el.classList.toggle('bad', !good && !!v);
+        });
+      });
+    });
+    var allOk = !!(s.total > 0 && s.right === s.total);
+    st.done[p.no] = allOk;
+    st.bad = st.bad || {};
+    st.bad[p.no] = !allOk;
+    save();
+    if (allOk && cur < PAGES.length - 1) { cur++; render(); window.scrollTo(0, 0); } else { render_sel(); }
+  }
+  function renderTabs() {
+    $('tabs').innerHTML = PAGES.map(function (q, i) {
+      return '<button class="tab' + (i === cur ? ' on' : '') + (st.done[q.no] ? ' ok' : '') + (st.bad && st.bad[q.no] && !st.done[q.no] ? ' bad' : '') + '" type="button" data-i="' + i + '">Latihan ' + q.no + (st.done[q.no] ? ' ✓' : '') + '</button>';
+    }).join('');
+  }
+  function render_sel() { renderTabs(); }
+
+  function redo() {
+    var p = PAGES[cur];
+    Object.keys(st.v).forEach(function (k) { if (k.indexOf(p.no + '|') === 0) delete st.v[k]; });
+    delete st.done[p.no];
+    if (st.bad) delete st.bad[p.no];
+    save(); render();
+  }
+
+  $('tabs').addEventListener('click', function (e) { var b = e.target.closest('.tab'); if (!b) return; cur = +b.dataset.i; render(); });
+  $('prev').addEventListener('click', function () { if (cur > 0) { cur--; render(); } });
+  $('next').addEventListener('click', function () { if (cur < PAGES.length - 1) { cur++; render(); } });
+  $('checkBtn').addEventListener('click', check);
+  $('resetAll').addEventListener('click', redo);
+  render();
+})();
+
+</script>
+</body>
+</html>

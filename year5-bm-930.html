@@ -1,0 +1,2152 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tahun 5 · Isi Tempat Kosong 930 · Bahasa Melayu</title>
+<script src="lesson.js"></script>
+<style>
+:root{--bg:#f6f3ea;--panel:#fffdf8;--ink:#1f3d31;--muted:#6d6a5c;--line:#e3dac6;--green:#2f5e4a;--green2:#3f7a60;--accent:#e8914a;--good:#2e8b57;--okbg:#e6f5ec;--bad:#c0392b;--badbg:#fbe9e7}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Segoe UI",system-ui,Arial,sans-serif;font-size:16px;line-height:1.6}
+button{font:inherit;cursor:pointer}
+.top{position:sticky;top:0;z-index:5;background:var(--panel);border-bottom:1px solid var(--line);padding:12px 18px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.top h1{font-size:19px;margin:0 auto 0 0}
+.top a{color:var(--green)}
+.wrap{display:grid;grid-template-columns:240px minmax(0,1fr);gap:16px;max-width:1280px;margin:0 auto;padding:16px}
+@media (max-width:860px){.wrap{grid-template-columns:1fr;padding:12px 16px}}
+.list{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:10px;max-height:84vh;overflow:auto;position:sticky;top:76px;align-self:start;display:flex;flex-direction:column;gap:4px}
+@media (max-width:860px){.list{position:static;max-height:none;flex-direction:row;flex-wrap:wrap;gap:6px}}
+.tab{display:block;width:100%;text-align:left;padding:7px 10px;border-radius:12px;border:1px solid transparent;background:none;color:var(--ink);font-size:15px;font-weight:700}
+.tab.ok{color:var(--good)}
+.tab.on{background:var(--green);color:#fff}
+.tab.bad{background:#c62828;color:#fff;border-color:#c62828}
+@media (max-width:860px){.tab{width:auto;min-width:48px;text-align:center;border-color:var(--line);background:#fff}.tab.on{border-color:var(--green)}}
+.main{display:flex;flex-direction:column;gap:12px;min-width:0}
+.info{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:12px 16px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.info b{font-size:18px;margin-right:auto}
+.score{font-weight:700;background:#f1ede2;border-radius:999px;padding:4px 12px}
+.score:empty{display:none}
+.btn{padding:8px 14px;border-radius:12px;border:1px solid var(--line);background:#fff;color:var(--ink);font-weight:700}
+.btn.primary{background:var(--green);color:#fff;border-color:var(--green)}
+.btn:disabled{opacity:.4;cursor:default}
+.split{display:grid;grid-template-columns:minmax(0,1fr);gap:16px;align-items:start}
+.split.single .left{display:none}
+@media (min-width:900px){
+  .split:not(.single){grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr)}
+  .split:not(.single) .left,.split .panel{position:sticky;top:90px;max-height:82vh;overflow:auto}
+}
+.left{min-width:0}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px;min-width:0}
+.foot{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.foot .hint{font-size:14px;color:var(--muted)}
+.foot .blank{font-size:15px;color:var(--muted);font-weight:600}
+.foot .bts{display:flex;gap:8px}
+/* left: worksheet pictures and passages */
+.pcard{background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin-bottom:12px}
+.pcard h3{margin:0 0 6px;font-size:16px;color:var(--green)}
+.ph{font-weight:800;color:var(--green);margin-bottom:8px}
+.ptext{margin:6px 0;font-size:17px;line-height:1.75}
+.vocab .vline{margin:4px 0;font-size:15px}
+.pgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+@media (min-width:600px){.pgrid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.pgrid.few{grid-template-columns:minmax(0,1fr)}
+.pfig{margin:0;position:relative;border:1px solid var(--line);border-radius:12px;background:#fff;padding:4px;text-align:center;overflow:hidden}
+.pfig img{width:100%;height:auto;display:block;max-width:100%}
+.pgrid.few .pfig img{max-height:460px;width:auto;margin:0 auto;object-fit:contain}
+.pfig figcaption{position:absolute;left:6px;top:6px;background:var(--green);color:#fff;border-radius:999px;font-weight:800;font-size:13px;padding:0 8px}
+.rpic{display:inline-block;vertical-align:middle;max-width:150px;max-height:110px;border:1px solid var(--line);border-radius:8px;background:#fff;margin:4px 0}
+.thumb{max-width:180px;border:1px solid var(--line);border-radius:10px}
+.shared{display:flex;flex-wrap:wrap;gap:10px;margin:6px 0 10px}
+.muted{color:var(--muted)}
+/* right: answers */
+.qsec{border-bottom:1px dashed var(--line);padding:6px 0 12px;margin-bottom:10px}
+.qsec:last-child{border-bottom:none}
+.qsec h3{margin:6px 0 4px;font-size:16px;display:flex;align-items:center;gap:8px}
+.letter{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;background:var(--green);color:#fff;font-size:13px;font-weight:800;flex:none}
+.instr{margin:2px 0 8px;font-weight:600;color:var(--muted);font-size:14px}
+.q{display:flex;gap:8px;margin:8px 0;align-items:flex-start}
+.qn{font-weight:800;color:var(--green);min-width:24px;flex:none}
+.qb{flex:1;min-width:0}
+.qt{flex:1;min-width:0;font-size:15.5px;line-height:2.1}
+.qt .gap{display:inline-block;min-width:60px;border-bottom:2px solid #9a8c6a;margin:0 2px;color:transparent}
+.scr{font-size:14px;font-weight:800;letter-spacing:.04em;color:var(--green);margin-right:4px;white-space:nowrap}
+.paren{font-size:14px;font-weight:700;white-space:nowrap}
+.qt .ans.short{width:80px;height:28px;padding:2px 6px;margin:0 2px}
+.scr{letter-spacing:.02em}
+.paren{font-size:17px;font-weight:700;margin:0 2px}
+input.ans,select.ans,textarea.ans{font:inherit;font-size:15px;padding:4px 8px;border:2px solid #cfc3a6;border-radius:10px;background:#fff;color:var(--ink);max-width:100%;vertical-align:middle}
+input.ans.inl{width:130px;margin:0 3px}
+input.ans.short{width:100px;margin:0 2px}
+input.ans.wide{display:block;width:100%;margin-top:6px}
+select.ans.inl{min-width:130px;margin:0 3px}
+select.ans{min-width:200px}
+textarea.ans{display:block;width:100%;margin-top:6px}
+.ans.ok{border-color:var(--good)!important;background:var(--okbg)}
+.ans.bad{border-color:var(--bad)!important;background:var(--badbg)}
+.ans:focus{outline:none;border-color:var(--green2);box-shadow:0 0 0 3px #dfeee5}
+.bank{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:4px 0 10px;padding:8px;border:1.5px dashed #b9ab86;border-radius:14px;background:#fff}
+.bank .bl{font-weight:800;color:var(--green);margin-right:4px}
+.chip{background:#fff;border:1px solid var(--line);border-radius:10px;padding:5px 12px;font-size:15px;font-weight:700;cursor:grab;user-select:none;touch-action:manipulation}
+.chip.sel{background:var(--accent);color:#fff;border-color:var(--accent)}
+.drop{display:inline-block;min-width:110px;min-height:30px;margin:0 4px;padding:2px 10px;border:2px dashed #b9ab86;border-radius:10px;background:#fff;font-weight:700;vertical-align:middle;cursor:pointer;text-align:center}
+.drop.ok{border:2px solid var(--good);background:var(--okbg)}
+.drop.bad{border:2px solid var(--bad);background:var(--badbg)}
+.uword .w{cursor:pointer;padding:2px 3px;border-radius:6px;border-bottom:2.5px solid transparent}
+.uword .w:hover{background:#eef6ef}
+.uword .w.on{border-bottom-color:#2d5f9a;color:#2d5f9a;font-weight:700}
+.tblwrap{overflow-x:auto;margin:6px 0 10px}
+.gtbl{width:100%;border-collapse:collapse;font-size:15px}
+.gtbl th,.gtbl td{border:1px solid var(--line);padding:5px 7px;text-align:center;background:#fff}
+.gtbl th{background:#f6efe0}
+.gtbl .rn{width:40px;font-weight:800;color:var(--green)}
+.rlist{margin:6px 0 10px;padding-left:4px;list-style:none;font-size:15px}
+.rlist li{margin:4px 0}
+.q.dq{align-items:center}
+.q.dq .qt{flex:1;min-width:0}
+.dsel{min-width:150px;max-width:100%;flex:none;padding:3px 4px;margin:0;font-size:14px}
+.bw{display:inline-block;background:#fff;border:1px solid var(--line);border-radius:10px;padding:4px 10px;font-size:15px;font-weight:700;cursor:pointer;user-select:none;margin:2px 0}
+.bw.used{opacity:.3;cursor:default}
+.bwd{display:inline-block;background:#eef6ef;border:1.5px solid var(--green2);border-radius:10px;padding:3px 9px;font-size:15px;font-weight:700;cursor:pointer;margin:2px 0}
+.built{min-height:38px;border-bottom:2px solid #cfc3a6;padding:4px 2px;line-height:2.1;border-radius:6px}
+.built.ok{background:var(--okbg);border-color:var(--good)}
+.built.bad{background:var(--badbg);border-color:var(--bad)}
+.cols{display:grid;grid-template-columns:minmax(0,1fr);gap:0 18px;align-items:start}
+.col{min-width:0}
+@media (min-width:900px){.cols{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}
+.tab:disabled{opacity:.45;cursor:not-allowed}`n</style>
+</head>
+<body data-lang="bm">
+<header class="top">
+  <h1>Tahun 5 · Isi Tempat Kosong 930</h1>
+  <a href="index.html?sub=bm5">← Kembali ke menu</a>
+  <span class="hint" id="counter"></span>
+</header>
+<div class="wrap">
+  <nav class="list" id="tabs" aria-label="Senarai halaman"></nav>
+  <section class="main">
+    <div class="info">
+      <b id="pagehead"></b>
+      <span class="score" id="score"></span>
+      <button class="btn" id="prev" type="button">← Sebelum</button>
+      <button class="btn" id="next" type="button">Seterusnya →</button>
+    </div>
+    <div class="split" id="split">
+      <section class="left" id="left"></section>
+      <section class="panel" id="right"></section>
+    </div>
+    <div class="foot">
+      <span class="blank" id="blank"></span>
+      <div class="bts">
+        <button class="btn" id="resetAll" type="button">↺ Redo</button>
+        <button class="btn primary" id="checkBtn" type="button">✔ Semak Jawapan</button>
+      </div>
+    </div>
+  </section>
+</div>
+<script>
+window.TB_PICS = {
+  "1-A": ["p-003.jpg", "p-004.jpg"],
+  "2-A": ["p-005.jpg"],
+  "3-A": ["p-006.jpg", "p-007.jpg"],
+  "4-A": ["p-008.jpg"],
+  "5-A": ["p-009.jpg", "p-010.jpg"],
+  "6-A": ["p-011.jpg", "p-012.jpg"],
+  "7-A": ["p-013.jpg", "p-014.jpg"],
+  "8-A": ["p-015.jpg"]
+};
+window.TB_IMGS = {
+  "p-003.jpg": "year5-bm-930-pages/p-003.jpg",
+  "p-004.jpg": "year5-bm-930-pages/p-004.jpg",
+  "p-005.jpg": "year5-bm-930-pages/p-005.jpg",
+  "p-006.jpg": "year5-bm-930-pages/p-006.jpg",
+  "p-007.jpg": "year5-bm-930-pages/p-007.jpg",
+  "p-008.jpg": "year5-bm-930-pages/p-008.jpg",
+  "p-009.jpg": "year5-bm-930-pages/p-009.jpg",
+  "p-010.jpg": "year5-bm-930-pages/p-010.jpg",
+  "p-011.jpg": "year5-bm-930-pages/p-011.jpg",
+  "p-012.jpg": "year5-bm-930-pages/p-012.jpg",
+  "p-013.jpg": "year5-bm-930-pages/p-013.jpg",
+  "p-014.jpg": "year5-bm-930-pages/p-014.jpg",
+  "p-015.jpg": "year5-bm-930-pages/p-015.jpg"
+};
+window.TB = window.TB || [];
+TB.push(
+{ no:1, part:"A", unitTitle:"Unit 1 · Riangnya Keluarganya", sections:[
+  { key:"A", type:"drag", pic:true, bank:["riang","idaman","mencadangkan","berkembar","lokasi","keistimewaan","tersesat","positif","berselisih","sukar"], title:"Isi tempat kosong", instr:"Isi tempat kosong dengan perkataan yang sesuai. Seret perkataan ke tempat kosong.", items:[
+    {n:1,q:"Kami sekeluarga melakukan aktiviti menghias rumah dengan ___________ sekali.",a:"riang"},
+    {n:2,q:"Encik Remy berhasrat hendak membeli rumah ___________ sebelum dia bersara.",a:"idaman"},
+    {n:3,q:"Emir ___________ supaya ibu dan bapanya membeli rumah di pinggir bandar.",a:"mencadangkan"},
+    {n:4,q:"Rumah ___________ yang dijual di kawasan itu agak mahal dan reka bentuknya sangat menarik.",a:"berkembar"},
+    {n:5,q:"Chan Meng sedang mencari ___________ yang menarik bagi menyambut ulang tahun perkahwinan ibu bapanya.",a:"lokasi"},
+    {n:6,q:"Beberapa ___________ akan diberikan kepada pembeli terawal rumah berkembar yang akan dibina di situ.",a:"keistimewaan"},
+    {n:7,q:"Pasukan penyelamat telah diarahkan untuk mencari seorang pendaki yang ___________ di dalam hutan.",a:"tersesat"},
+    {n:8,q:"Adib selalu mengamalkan sikap ___________ dalam pelajaran walaupun tidak pandai seperti abangnya.",a:"positif"},
+    {n:9,q:"Encik Halim dan isterinya tidak pernah bermasam muka walaupun sering ___________ pendapat dalam mendidik anak-anak mereka.",a:"berselisih"},
+    {n:10,q:"Encik Subra berjaya membaiki kereta antiknya itu sendiri walaupun agak ___________ mencari alat ganti.",a:"sukar"}
+  ]}
+]},
+{ no:2, part:"A", unitTitle:"Unit 1 · Riangnya Keluarganya", sections:[
+  { key:"A", type:"drag", pic:true, bank:["tersesat","bersorak","mencabar","hidangan","membayangkan","merancang","positif","sukar","keistimewaan","riang"], title:"Isi tempat kosong", instr:"Isi tempat kosong dengan perkataan yang sesuai. Seret perkataan ke tempat kosong.", items:[
+    {n:1,q:"Yi Ying akan menyertai pertandingan itu kerana dia suka ___________ dirinya.",a:"mencabar"},
+    {n:2,q:"Apakah ___________ rumah yang kamu beli?",a:"keistimewaan"},
+    {n:3,q:"Chan Ho dan adiknya mengamalkan sikap yang ___________ dalam permainan itu.",a:"positif"},
+    {n:4,q:"Guan Hong mendapat angpau daripada ibu bapa dengan ___________.",a:"riang"},
+    {n:5,q:"Seorang budak lelaki ___________ di pusat beli-belah.",a:"tersesat"},
+    {n:6,q:"Soalan Matematik itu amat ___________.",a:"sukar"},
+    {n:7,q:"Para penonton ___________ bagi pasukan yang mereka sokong.",a:"bersorak"},
+    {n:8,q:"Ang dan adiknya ___________ untuk mengadakan majlis hari jadi ibu mereka.",a:"merancang"},
+    {n:9,q:"Ibu menyediakan pelbagai jenis ___________ pada Tahun Baharu Cina.",a:"hidangan"},
+    {n:10,q:"Chan Ho ___________ keseronokan bercuti di Pulau Langkawi nanti.",a:"membayangkan"}
+  ]}
+]},
+{ no:3, part:"A", unitTitle:"Unit 1 · Riangnya Keluarganya", sections:[
+  { key:"A", type:"drag", pic:true, bank:["bersorak","tumbang","membayangkan","animasi","dalih","mengisahkan","merancang","daya","menjamu selera","hidangan"], title:"Isi tempat kosong", instr:"Isi tempat kosong dengan perkataan yang sesuai. Seret perkataan ke tempat kosong.", items:[
+    {n:1,q:"Rizal dan Huan Hong ___________ gembira kerana pasukan bola sepak sekolah mereka berjaya mara ke perlawanan seterusnya.",a:"bersorak"},
+    {n:2,q:"Nadia dan kakaknya ___________ untuk membuat kek sempena hari lahir ibu mereka.",a:"merancang"},
+    {n:3,q:"Puan Sandy tidak dapat ___________ kesukaran mangsa banjir untuk membersihkan rumah yang dipenuhi lumpur.",a:"membayangkan"},
+    {n:4,q:"Adik Rita gemar menonton filem ___________ yang telah dialih suara ke dalam Bahasa Melayu.",a:"animasi"},
+    {n:5,q:"Buku yang dibacanya itu ___________ seorang pemuda kampung yang merantau ke negara asing.",a:"mengisahkan"},
+    {n:6,q:"Sarah berhenti di situ kerana dia sudah tiada ___________ untuk mendaki gunung yang tinggi itu.",a:"daya"},
+    {n:7,q:"Dia terpaksa memberikan bermacam-macam ___________ supaya tidak terpilih sebagai ketua pasukan bola jaring.",a:"dalih"},
+    {n:8,q:"Afiq dan keluarganya tiba di kampung agak lewat kerana terdapat pokok ___________ yang menghalang perjalanan mereka.",a:"tumbang"},
+    {n:9,q:"Fahim dan keluarganya pergi ke restoran bapa saudaranya untuk ___________.",a:"menjamu selera"},
+    {n:10,q:"Kami makan dengan berselera sekali kerana ___________ itu sungguh enak.",a:"hidangan"}
+  ]}
+]},
+{ no:4, part:"A", unitTitle:"Unit 1 · Riangnya Keluarganya", sections:[
+  { key:"A", type:"drag", pic:true, bank:["ceria","berkembar","mencadangkan","lokasi","tersesat","minda","idaman","mengamalkan","keistimewaan","riang"], title:"Isi tempat kosong", instr:"Isi tempat kosong dengan perkataan yang sesuai. Seret perkataan ke tempat kosong.", items:[
+    {n:1,q:"Alisha berasa ___________ kerana mendapat hadiah daripada ibunya.",a:"riang"},
+    {n:2,q:"Encik Chan telah membeli kereta ___________nya.",a:"idaman"},
+    {n:3,q:"Kakak ___________ supaya kami bercuti ke Pulau Pangkor.",a:"mencadangkan"},
+    {n:4,q:"Keluarga Chan Ho tinggal di rumah ___________ yang cantik.",a:"berkembar"},
+    {n:5,q:"___________ sekolah Aiman tidak jauh dari rumahnya.",a:"lokasi"},
+    {n:6,q:"Anak-anak Mak Lee mempunyai ___________ masing-masing.",a:"keistimewaan"},
+    {n:7,q:"Adik ___________ semasa bermain dengan rakan-rakannya.",a:"ceria"},
+    {n:8,q:"Puan Lim memberikan soalan untuk menguji ___________ anak-anaknya.",a:"minda"},
+    {n:9,q:"Encik Alif menasihati anak-anaknya supaya ___________ sikap yang baik.",a:"mengamalkan"},
+    {n:10,q:"Pihak penyelamat sedang mencari remaja yang ___________ di hutan.",a:"tersesat"}
+  ]}
+]},
+{ no:5, part:"A", unitTitle:"Unit 1 · Riangnya Keluarganya", sections:[
+  { key:"A", type:"drag", pic:true, bank:["riang","jauh","mencari","bersorak","luas","mencabar","idaman","lokasi","mencadangkan","berfaedah"], title:"Isi tempat kosong", instr:"Isi tempat kosong dengan perkataan yang sesuai. Seret perkataan ke tempat kosong.", items:[
+    {n:1,q:"Amir dan adiknya menunggang basikal dengan ___________nya di halaman rumah.",a:"riang"},
+    {n:2,q:"Rumah ___________ Encik Kim ialah rumah yang dibina di atas bukit dan mempunyai kolam renang.",a:"idaman"},
+    {n:3,q:"Ayah sedang ___________ kunci keretanya yang hilang di dalam laci.",a:"mencari"},
+    {n:4,q:"Li Ying ___________ supaya keluarganya bercuti di Pulau Pangkor.",a:"mencadangkan"},
+    {n:5,q:"Kebun mangga milik datuk Yi Pei sangat ___________.",a:"luas"},
+    {n:6,q:"Jarak antara rumah Yong dengan rumah neneknya sangat ___________, iaitu 200 kilometer.",a:"jauh"},
+    {n:7,q:"Kami memilih kawasan air terjun sebagai ___________ untuk berkelah.",a:"lokasi"},
+    {n:8,q:"Permainan uji minda itu sungguh ___________.",a:"mencabar"},
+    {n:9,q:"Johar ___________ semasa melihat adiknya menyertai acara sukaneka.",a:"bersorak"},
+    {n:10,q:"Adam mengisi masa lapangnya dengan aktiviti yang ___________.",a:"berfaedah"}
+  ]}
+]},
+{ no:6, part:"A", unitTitle:"Unit 1 · Riangnya Keluarganya", sections:[
+  { key:"A", type:"drag", pic:true, bank:["sukar","cabaran","percutian","keputusan","berhibur","teruja","menyelamatkan","tersesat","positif","bertengkar"], title:"Isi tempat kosong", instr:"Isi tempat kosong dengan perkataan yang sesuai. Seret perkataan ke tempat kosong.", items:[
+    {n:1,q:"Kerja membaiki paip yang bocor itu agak ___________.",a:"sukar"},
+    {n:2,q:"Permainan uji minda itu penuh dengan ___________.",a:"cabaran"},
+    {n:3,q:"___________ keluarga kami di Melaka sungguh menyeronokkan.",a:"percutian"},
+    {n:4,q:"Encik Hong membuat ___________ tidak membenarkan anak-anaknya keluar pada waktu malam.",a:"keputusan"},
+    {n:5,q:"Ai Lin suka ___________ di rumah bersama-sama dengan keluarganya.",a:"berhibur"},
+    {n:6,q:"Ho Min berasa ___________ hendak belajar di universiti seperti kakaknya.",a:"teruja"},
+    {n:7,q:"Li Wei ___________ anak kucing yang terjatuh ke dalam longkang itu.",a:"menyelamatkan"},
+    {n:8,q:"Lelaki itu ___________ di hutan semasa melakukan aktiviti merentas hutan.",a:"tersesat"},
+    {n:9,q:"Sikap ___________ seperti jujur, rajin, dan baik hati harus dipupuk dalam diri setiap individu.",a:"positif"},
+    {n:10,q:"Mereka ___________ akibat salah faham yang berlaku antara mereka.",a:"bertengkar"}
+  ]}
+]},
+{ no:7, part:"A", unitTitle:"Unit 1 · Riangnya Keluarganya", sections:[
+  { key:"A", type:"drag", pic:true, bank:["mencabar","berbincang","keputusan","sukar","merancang","tumbang","berpuas hati","menyelesaikan","berpelukan","bimbang"], title:"Isi tempat kosong", instr:"Isi tempat kosong dengan perkataan yang sesuai. Seret perkataan ke tempat kosong.", items:[
+    {n:1,q:"Encik Goh dan isterinya ___________ tentang majlis makan malam keluarga mereka.",a:"berbincang"},
+    {n:2,q:"Encik Abu ___________ masalah itu dengan memanggil kedua-dua pihak untuk bersemuka.",a:"menyelesaikan"},
+    {n:3,q:"Alif tidak dapat menjawab soalan matematik yang ___________ itu.",a:"sukar"},
+    {n:4,q:"Permainan sahibba sangat ___________ kerana pemain perlu membina perkataan dengan menggunakan jubin berhuruf.",a:"mencabar"},
+    {n:5,q:"Encik Hakim ___________ dengan makanan itu kerana menepati cita rasanya.",a:"berpuas hati"},
+    {n:6,q:"Hadi ___________ dengan datuknya sebelum berpisah.",a:"berpelukan"},
+    {n:7,q:"Fiza ___________ untuk membuat kejutan bersempena dengan hari ulang tahun kelahiran ibunya.",a:"merancang"},
+    {n:8,q:"Encik Hadi membuat ___________ untuk membeli rumah itu setelah berbincang dengan isterinya.",a:"keputusan"},
+    {n:9,q:"Puan Mei berasa ___________ kerana sudah tiga hari anaknya demam.",a:"bimbang"},
+    {n:10,q:"Pokok pisang itu ___________ akibat ditiup angin kencang semalam.",a:"tumbang"}
+  ]}
+]},
+{ no:8, part:"A", unitTitle:"Unit 1 · Riangnya Keluarganya", sections:[
+  { key:"A", type:"drag", pic:true, bank:["animasi","kesusahan","nyawa","tanduk","gua","langkah","daya","dalih","titi","seberang"], title:"Isi tempat kosong", instr:"Isi tempat kosong dengan perkataan yang sesuai. Seret perkataan ke tempat kosong.", items:[
+    {n:1,q:"Kami sekeluarga menonton rancangan ___________ itu pada hujung minggu.",a:"animasi"},
+    {n:2,q:"Keluarga Puan Shanti menghadapi ___________ itu bersama-sama.",a:"kesusahan"},
+    {n:3,q:"Encik Lim melarang anak-anaknya melakukan aktiviti yang membahayakan ___________ mereka.",a:"nyawa"},
+    {n:4,q:"___________ kerbau itu sangat tajam.",a:"tanduk"},
+    {n:5,q:"Siew Lan tidak berani masuk ke dalam ___________ yang gelap itu.",a:"gua"},
+    {n:6,q:"Dharma segera menghentikan ___________ kakinya apabila terdengar namanya dipanggil.",a:"langkah"},
+    {n:7,q:"Datuk tiada ___________ untuk mengangkat bakul yang berat itu.",a:"daya"},
+    {n:8,q:"Kok Beng tidak terperdaya dengan ___________ yang diberikan oleh adiknya itu.",a:"dalih"},
+    {n:9,q:"Umar membantu jirannya membaiki ___________ yang rosak.",a:"titi"},
+    {n:10,q:"Sang Kancil mahu membawa anaknya ke ___________ sungai.",a:"seberang"}
+  ]}
+]}
+);
+Object.assign(window.TB_PICS, {
+  "9-A": ["p-016.jpg", "p-017.jpg"],
+  "10-A": ["p-018.jpg", "p-019.jpg"],
+  "11-A": ["p-020.jpg", "p-021.jpg"],
+  "12-A": ["p-022.jpg", "p-023.jpg"],
+  "13-A": ["p-024.jpg"],
+  "14-A": ["p-025.jpg", "p-026.jpg"],
+  "15-A": ["p-027.jpg", "p-028.jpg"],
+  "16-A": ["p-029.jpg", "p-030.jpg"]
+});
+Object.assign(window.TB_IMGS, {
+  "p-016.jpg": "year5-bm-930-pages/p-016.jpg", "p-017.jpg": "year5-bm-930-pages/p-017.jpg", "p-018.jpg": "year5-bm-930-pages/p-018.jpg", "p-019.jpg": "year5-bm-930-pages/p-019.jpg",
+  "p-020.jpg": "year5-bm-930-pages/p-020.jpg", "p-021.jpg": "year5-bm-930-pages/p-021.jpg", "p-022.jpg": "year5-bm-930-pages/p-022.jpg", "p-023.jpg": "year5-bm-930-pages/p-023.jpg",
+  "p-024.jpg": "year5-bm-930-pages/p-024.jpg", "p-025.jpg": "year5-bm-930-pages/p-025.jpg", "p-026.jpg": "year5-bm-930-pages/p-026.jpg", "p-027.jpg": "year5-bm-930-pages/p-027.jpg",
+  "p-028.jpg": "year5-bm-930-pages/p-028.jpg", "p-029.jpg": "year5-bm-930-pages/p-029.jpg", "p-030.jpg": "year5-bm-930-pages/p-030.jpg"
+});
+TB.push(
+{ no:9, part:"A", unitTitle:"Unit 2 · Keluarga Bestari", sections:[
+  { key:"A", type:"drag", pic:true, bank:["johan","tekun","mementingkan","album digital","bestari","bas","mengumumkan","bermutu","disandang"], title:"Isi tempat kosong", instr:"Isi tempat kosong dengan perkataan yang sesuai. Seret perkataan ke tempat kosong.", items:[
+    {n:1,q:"Rahmi mendapat ___________ dalam pertandingan nyanyian.",a:"johan"},
+    {n:2,q:"Ayah telah membeli sebuah ___________ mini kepada saya.",a:"bas"},
+    {n:3,q:"Kita haruslah ___________ kesihatan dan kebersihan badan.",a:"mementingkan"},
+    {n:4,q:"Ibu telah membeli segulung tikar yang ___________.",a:"bermutu"},
+    {n:5,q:"Adik ___________ mengulang kaji pelajaran untuk persediaan peperiksaan.",a:"tekun"},
+    {n:6,q:"Shamala melihat gambar abangnya dalam ___________ keluarga.",a:"album digital"},
+    {n:7,q:"Amalan membaca dapat melahirkan keluarga ___________ dalam pelbagai bidang.",a:"bestari"},
+    {n:8,q:"Pengacara majlis akan ___________ pemenang Pertandingan Keluarga Bahagia sebentar lagi.",a:"mengumumkan"},
+    {n:9,q:"Encik Lim berbangga dengan anaknya yang telah menjadi ___________ dalam pertandingan bercerita.",a:"johan"},
+    {n:10,q:"Pemenang Pertandingan Keluargaku Bahagia ___________ oleh keluarga Encik Syukri yang akan menerima hadiah wang tunai sebanyak RM5000.",a:"disandang"}
+  ]}
+]},
+{ no:10, part:"A", unitTitle:"Unit 2 · Keluarga Bestari", sections:[
+  { key:"A", type:"drag", pic:true, bank:["layak","mini","mementingkan","bermutu","bermaklumat","dukung","kosa kata","pangku","perisian","tatang"], title:"Isi tempat kosong", instr:"Isi tempat kosong dengan perkataan yang sesuai. Seret perkataan ke tempat kosong.", items:[
+    {n:1,q:"Fahmi tidak ___________ untuk memasuki pertandingan itu kerana dia murid tahap satu.",a:"layak"},
+    {n:2,q:"Cikgu Kishan membeli sebuah komputer ___________ untuk memudahkannya menyiapkan tugasan sekolah.",a:"mini"},
+    {n:3,q:"Puan Lina akan memasak makanan yang berkhasiat untuk ahli keluarganya kerana dia sangat ___________ kesihatan.",a:"mementingkan"},
+    {n:4,q:"Perabot yang dijual di kedai itu sangat ___________ dan tahan lasak.",a:"bermutu"},
+    {n:5,q:"Nadia dan kakaknya membeli beberapa keping poster yang sangat cantik dan ___________.",a:"bermaklumat"},
+    {n:6,q:"Syarikat tempat Encik Hafiz bekerja sedang membina ___________ yang boleh digunakan oleh pihak sekolah.",a:"perisian"},
+    {n:7,q:"Permainan komputer itu dapat memantapkan ___________ kanak-kanak dalam Bahasa Melayu.",a:"kosa kata"},
+    {n:8,q:"Mei Ling ___________ sedulang air teh untuk dihidangkan kepada tetamu yang datang ke rumahnya.",a:"tatang"},
+    {n:9,q:"Hazim meletakkan sebekas bertih jagung di atas ___________nya untuk memudahkannya makan sambil menonton televisyen.",a:"pangku"},
+    {n:10,q:"Kanak-kanak itu terus diam apabila ibunya ___________ dan membawanya bersiar-siar di luar rumah.",a:"dukung"}
+  ]}
+]},
+{ no:11, part:"A", unitTitle:"Unit 2 · Keluarga Bestari", sections:[
+  { key:"A", type:"drag", pic:true, bank:["merujuk","kerjaya","tercipta","diharumkan","handal","konvokesyen","media elektronik","album digital","berbakat","tekun"], title:"Isi tempat kosong", instr:"Isi tempat kosong dengan perkataan yang sesuai. Seret perkataan ke tempat kosong.", items:[
+    {n:1,q:"Murid-murid perlu rajin ___________ kamus bagi mencari maksud sesuatu perkataan yang sukar difahami.",a:"merujuk"},
+    {n:2,q:"Berita tentang kejayaan anak Malaysia menghasilkan perisian komputer yang dapat digunakan oleh orang cacat penglihatan telah tersebar di media cetak dan ___________.",a:"media elektronik"},
+    {n:3,q:"Chan Ho sedang mengemaskini ___________ keluarganya agar dapat memudahkan ahli keluarganya yang lain melihatnya.",a:"album digital"},
+    {n:4,q:"Abang Lajis ___________ mengulang kaji pelajaran di dalam biliknya kerana dia tidak suka membuang masa.",a:"tekun"},
+    {n:5,q:"Encik Hafizi dan isterinya sangat gembira kerana dapat menghadiri majlis ___________ anak sulungnya.",a:"konvokesyen"},
+    {n:6,q:"Dia telah membuktikan bahawa ___________ sebagai jurukimpal mempunyai masa depan yang cerah.",a:"kerjaya"},
+    {n:7,q:"Sejarah telah ___________ apabila Yazid diumumkan sebagai pemenang termuda dalam pertandingan reka cipta itu.",a:"tercipta"},
+    {n:8,q:"Datuk Ming Jun sangat ___________ dalam mencipta syair Bahasa Melayu.",a:"berbakat"},
+    {n:9,q:"Anak-anak lelaki Encik Malik ___________ dalam permainan sepak takraw.",a:"handal"},
+    {n:10,q:"Nama sekolah itu berjaya ___________ oleh Ruby dan rakan-rakannya selepas memenangi sebuah pertandingan di luar negara.",a:"diharumkan"}
+  ]}
+]},
+{ no:12, part:"A", unitTitle:"Unit 2 · Keluarga Bestari", sections:[
+  { key:"A", type:"drag", pic:true, bank:["persada","bestari","menekat","johan","disandang","hadirin","tertera","pintar","terpikat","bertanding"], title:"Isi tempat kosong", instr:"Isi tempat kosong dengan perkataan yang sesuai. Seret perkataan ke tempat kosong.", items:[
+    {n:1,q:"Nama jaguh sukan yang berasal dari Malaysia itu sudah terkenal di ___________ dunia.",a:"persada"},
+    {n:2,q:"Puan May sangat terkejut apabila melihat namanya ___________ di kaca televisyen kerana memenangi sebuah pertandingan.",a:"tertera"},
+    {n:3,q:"Beliau mendalami kemahiran ___________ benang emas sejak berumur 18 tahun lagi.",a:"menekat"},
+    {n:4,q:"Para pelancong ___________ dengan keindahan pemandangan di Teluk Chempedak.",a:"terpikat"},
+    {n:5,q:"Kishan gembira kerana mempunyai adik-beradik yang ___________.",a:"pintar"},
+    {n:6,q:"Puan Hasnah mempersilakan ___________ menjamu selera.",a:"hadirin"},
+    {n:7,q:"Abang sulung Wee Hock sangat ___________.",a:"bestari"},
+    {n:8,q:"Dahlan menjadi ___________ dalam pertandingan syarahan.",a:"johan"},
+    {n:9,q:"Jawatan Pengerusi Persatuan Penduduk Taman Melur ___________ oleh ayah Zakiah.",a:"disandang"},
+    {n:10,q:"Adik Umar sedang ___________ dalam pertandingan catur.",a:"bertanding"}
+  ]}
+]},
+{ no:13, part:"A", unitTitle:"Unit 2 · Keluarga Bestari", sections:[
+  { key:"A", type:"drag", pic:true, bank:["mengemas","menggalakkan","kerjaya","menyiapkan","tercipta","tugasan","perisian","bermutu","dewasa","menghias"], title:"Isi tempat kosong", instr:"Isi tempat kosong dengan perkataan yang sesuai. Seret perkataan ke tempat kosong.", items:[
+    {n:1,q:"Encik Sunil ___________ anak-anaknya belajar secara berkumpulan.",a:"menggalakkan"},
+    {n:2,q:"Puan Lina membeli bahan bacaan ___________ untuk anak-anaknya.",a:"bermutu"},
+    {n:3,q:"Mei Lin gemar ___________ biliknya.",a:"menghias"},
+    {n:4,q:"Ibu menyuruh kami ___________ tempat tidur setiap pagi.",a:"mengemas"},
+    {n:5,q:"Abang sedang menyiapkan ___________ sekolahnya di dalam pustaka mini keluarga.",a:"tugasan"},
+    {n:6,q:"Ayah Yi Ying pandai mencipta ___________ komputer.",a:"perisian"},
+    {n:7,q:"Ibu menyuruh adik ___________ kerja sekolahnya sebelum keluar bermain.",a:"menyiapkan"},
+    {n:8,q:"Semua anak Encik Ramlan sudah ___________.",a:"dewasa"},
+    {n:9,q:"Abang Hasni memilih ___________ sebagai doktor kerana beliau amat meminati bidang perubatan.",a:"kerjaya"},
+    {n:10,q:"Kejayaan itu ___________ hasil sokongan kuat daripada keluarganya.",a:"tercipta"}
+  ]}
+]},
+{ no:14, part:"A", unitTitle:"Unit 2 · Keluarga Bestari", sections:[
+  { key:"A", type:"drag", pic:true, bank:["berbakat","bertanding","mengumumkan","mengukir","layak","pustaka mini","tertera","handal","pemenang","terpikat"], title:"Isi tempat kosong", instr:"Isi tempat kosong dengan perkataan yang sesuai. Seret perkataan ke tempat kosong.", items:[
+    {n:1,q:"Anak-anak Encik Gong amat ___________ dalam sukan.",a:"berbakat"},
+    {n:2,q:"Nama Tunku Abdul Rahman ___________ dalam sejarah negara.",a:"tertera"},
+    {n:3,q:"Pengacara majlis itu ___________ ketibaan tetamu kehormat.",a:"mengumumkan"},
+    {n:4,q:"Adik Jia Kai telah dipilih sebagai ___________ tempat pertama dalam pertandingan mewarna.",a:"pemenang"},
+    {n:5,q:"Ayah ___________ mendapat Anugerah Pekerja Cemerlang 2021 kerana beliau sangat berdedikasi semasa menjalankan tugas.",a:"layak"},
+    {n:6,q:"Nazim akan ___________ dalam acara lompat jauh yang akan berlangsung sebentar lagi.",a:"bertanding"},
+    {n:7,q:"Bapa Hui Ting menyediakan ___________ di rumahnya untuk memudahkan mereka sekeluarga untuk membaca buku.",a:"pustaka mini"},
+    {n:8,q:"Tuk Awang amat terkenal sebagai tukang kayu yang ___________.",a:"handal"},
+    {n:9,q:"Sahir sedang melihat datuknya ___________ kayu.",a:"mengukir"},
+    {n:10,q:"Ibu ___________ apabila melihat pasu bunga yang cantik itu.",a:"terpikat"}
+  ]}
+]},
+{ no:15, part:"A", unitTitle:"Unit 2 · Keluarga Bestari", sections:[
+  { key:"A", type:"drag", pic:true, bank:["pengunjung","menggalakkan","anugerah","menghias","mencalonkan","mementingkan","gemilang","bermutu","penerima","mengemas"], title:"Isi tempat kosong", instr:"Isi tempat kosong dengan perkataan yang sesuai. Seret perkataan ke tempat kosong.", items:[
+    {n:1,q:"Taman rekreasi itu dipenuhi ___________ pada hujung minggu.",a:"pengunjung"},
+    {n:2,q:"Puan Aida sentiasa mendoakan anak-anaknya mendapat kejayaan yang ___________.",a:"gemilang"},
+    {n:3,q:"Baru-baru ini ayah Han Jia telah menerima ___________ daripada majikannya.",a:"anugerah"},
+    {n:4,q:"___________ bantuan kewangan itu dipilih daripada keluarga yang kurang berkemampuan.",a:"penerima"},
+    {n:5,q:"Rina telah ___________ ibunya sebagai Tokoh Ibu Penyayang.",a:"mencalonkan"},
+    {n:6,q:"Mei Mei rajin bersenam kerana dia sangat ___________ kesihatan dirinya.",a:"mementingkan"},
+    {n:7,q:"Ibu ___________ Nisa menabung untuk kegunaannya pada masa akan datang.",a:"menggalakkan"},
+    {n:8,q:"Set meja makan itu sangat ___________ tinggi kerana dibuat daripada kayu jati.",a:"bermutu"},
+    {n:9,q:"Ibu ___________ meja makan itu dengan alas meja dan bunga hiasan.",a:"menghias"},
+    {n:10,q:"Kakak ___________ alat mainan adik yang berselerak di ruang tamu itu.",a:"mengemas"}
+  ]}
+]},
+{ no:16, part:"A", unitTitle:"Unit 2 · Keluarga Bestari", sections:[
+  { key:"A", type:"drag", pic:true, bank:["merujuk","menampalkan","tugasan","dewasa","bertanggungjawab","kejayaan","handal","berbakat","diharumkan","mencipta"], title:"Isi tempat kosong", instr:"Isi tempat kosong dengan perkataan yang sesuai. Seret perkataan ke tempat kosong.", items:[
+    {n:1,q:"Hazil ___________ lukisannya pada dinding biliknya.",a:"menampalkan"},
+    {n:2,q:"Cikgu Fara memberikan ___________ kepada murid-murid untuk dibuat semasa cuti sekolah.",a:"tugasan"},
+    {n:3,q:"Li Wei ___________ Kamus Dewan untuk mencari makna perkataan yang tidak difahami.",a:"merujuk"},
+    {n:4,q:"Wan Shing bercita-cita untuk menjadi peguam apabila ___________ nanti.",a:"dewasa"},
+    {n:5,q:"Encik Bidin seorang bapa yang ___________ kerana beliau sentiasa memastikan keperluan anak-anaknya sentiasa terjaga.",a:"bertanggungjawab"},
+    {n:6,q:"Anis mencapai ___________ dalam peperiksaan kerana dia rajin mengulang kaji pelajaran.",a:"kejayaan"},
+    {n:7,q:"Ibu Nadia ___________ dalam bidang jahitan kerana beliau boleh menjahit pelbagai jenis pakaian mengikut fesyen terkini.",a:"handal"},
+    {n:8,q:"Li Xing ___________ bermain badminton kerana dia sering berlatih bermain badminton dengan ayahnya.",a:"berbakat"},
+    {n:9,q:"Nama sekolah dapat ___________ sekiranya murid cemerlang dalam bidang akademik dan sukan.",a:"diharumkan"},
+    {n:10,q:"Encik Guang ___________ rak kasut dengan menggunakan barangan terpakai.",a:"mencipta"}
+  ]}
+]}
+);
+
+Object.assign(window.TB_PICS, {
+  "17-A": ["p-031.jpg", "p-032.jpg"], "18-A": ["p-033.jpg", "p-034.jpg"], "19-A": ["p-035.jpg", "p-036.jpg"], "20-A": ["p-037.jpg", "p-038.jpg"],
+  "21-A": ["p-039.jpg", "p-040.jpg"], "22-A": ["p-041.jpg"], "23-A": ["p-042.jpg", "p-043.jpg"], "24-A": ["p-044.jpg", "p-045.jpg"]
+});
+TB.push(
+{ no:17, part:"A", unitTitle:"Unit 3 · Hadapi Bersama-sama", sections:[
+  { key:"A", type:"drag", pic:true, bank:["raikan","diundang","mengait","swafoto","penat","kesyukuran","menikmati","mengeratkan","guni","paparan"], title:"Isi tempat kosong", instr:"Isi tempat kosong dengan perkataan yang sesuai. Seret perkataan ke tempat kosong.", items:[
+    {n:1,q:"Pak Cik Wong ___________ buah rambutan dengan menggunakan sebatang galah.",a:"mengait"},
+    {n:2,q:"Ali menyertai acara lari dalam ___________ pada Hari Sukan.",a:"guni"},
+    {n:3,q:"Mei Ling sedang ___________ makanan tengah hari di sebuah kedai makanan.",a:"menikmati"},
+    {n:4,q:"Saya berasa sangat ___________ kerana bergotong-royong sepanjang hari.",a:"penat"},
+    {n:5,q:"Mereka sepakat untuk ___________ kejayaan bapa memperoleh ijazah di sebuah restoran makanan laut.",a:"raikan"},
+    {n:6,q:"Majlis ___________ itu diadakan pada hujung minggu supaya saudara-mara yang jauh dapat hadir.",a:"kesyukuran"},
+    {n:7,q:"Semua jirannya telah ___________ untuk menghadiri majlis perkahwinan anaknya.",a:"diundang"},
+    {n:8,q:"Pada setiap minggu, Puan Sandy akan makan tengah hari bersama semua ahli keluarganya bagi ___________ lagi hubungan antara mereka.",a:"mengeratkan"},
+    {n:9,q:"Gadis itu gemar memuat naik gambar ___________nya di media sosial untuk tatapan umum.",a:"swafoto"},
+    {n:10,q:"Encik Lim membeli sebuah telefon pintar yang mempunyai ___________ grafik yang besar.",a:"paparan"}
+  ]}
+]},
+{ no:18, part:"A", unitTitle:"Unit 3 · Hadapi Bersama-sama", sections:[
+  { key:"A", type:"drag", pic:true, bank:["muncul","pakej","penyertaan","menjayakan","sepakat","peranginan","harta karun","pertimbangan","bebas","rela"], title:"Isi tempat kosong", instr:"Isi tempat kosong dengan perkataan yang sesuai. Seret perkataan ke tempat kosong.", items:[
+    {n:1,q:"Satu simbol amaran ___________ secara tiba-tiba pada skrin telefon pintarnya ketika dia sedang menaip mesej.",a:"muncul"},
+    {n:2,q:"Beberapa tempat ___________ telah gulung tikar kesan daripada pandemik COVID-19 yang melanda seluruh dunia.",a:"peranginan"},
+    {n:3,q:"Setiap murid hanya boleh menghantar satu ___________ untuk memenangi hadiah utama pertandingan menulis esei itu.",a:"penyertaan"},
+    {n:4,q:"Anak-anak Puan Rita ___________ melakukan aktiviti yang digemari pada hujung minggu.",a:"bebas"},
+    {n:5,q:"Encik Hadi telah membeli satu ___________ percutian ke Bali untuk keluarganya.",a:"pakej"},
+    {n:6,q:"Zahim sedang membuat ___________ sama ada hendak menyertai perkhemahan itu atau tidak.",a:"pertimbangan"},
+    {n:7,q:"Murid-murid kelas itu ___________ untuk menghias dan menceriakan kelas mereka pada hari Sabtu.",a:"sepakat"},
+    {n:8,q:"Azlan dan rakan-rakannya sudah tidak sabar untuk menyertai pertandingan mencari ___________ anjuran sekolah mereka.",a:"harta karun"},
+    {n:9,q:"Mei Ling dan dua orang adiknya akan bekerjasama untuk ___________ majlis ulang tahun perkahwinan ibu bapa mereka.",a:"menjayakan"},
+    {n:10,q:"Encik Yip ___________ mendermakan sebahagian hatinya untuk anaknya yang menghidap penyakit hati.",a:"rela"}
+  ]}
+]},
+{ no:19, part:"A", unitTitle:"Unit 3 · Hadapi Bersama-sama", sections:[
+  { key:"A", type:"drag", pic:true, bank:["lurah","menempuh","daki","guni","membelah","jiwa","dusun","mengait","rintangan","maruah"], title:"Isi tempat kosong", instr:"Isi tempat kosong dengan perkataan yang sesuai. Seret perkataan ke tempat kosong.", items:[
+    {n:1,q:"Verun telah ___________ pelbagai dugaan sebelum berjaya dalam perniagaan.",a:"menempuh"},
+    {n:2,q:"Kami tidak akan mudah mengalah walaupun pelbagai ___________ perlu ditempuh.",a:"rintangan"},
+    {n:3,q:"Kita perlu menjaga ___________ diri apabila merantau ke negara asing.",a:"maruah"},
+    {n:4,q:"Saya menyayanginya dengan sepenuh ___________.",a:"jiwa"},
+    {n:5,q:"“Bukit itu kami rela ___________ untuk membuktikan kesungguhan kami dalam pertandingan ini,” kata Munir mewakili rakan-rakannya.",a:"daki"},
+    {n:6,q:"Pendaki itu berjalan berhati-hati semasa melalui ___________ yang licin itu.",a:"lurah"},
+    {n:7,q:"Kami akan bermalam di ___________ durian pada malam ini kerana ingin merasai pengalaman mengutip durian yang baru gugur.",a:"dusun"},
+    {n:8,q:"Encik Jamil ___________ buah rambutan yang masak ranum di depan rumahnya.",a:"mengait"},
+    {n:9,q:"Datuk memasukkan beberapa tongkol jagung ke dalam ___________ untuk dibawa pulang.",a:"guni"},
+    {n:10,q:"Kakak sedang ___________ sebiji tembikai dengan pisau yang tajam.",a:"membelah"}
+  ]}
+]},
+{ no:20, part:"A", unitTitle:"Unit 3 · Hadapi Bersama-sama", sections:[
+  { key:"A", type:"drag", pic:true, bank:["penat","diundang","menikmati","swafoto","paparan","majlis","rebus","mengeratkan","balasan","melayari"], title:"Isi tempat kosong", instr:"Isi tempat kosong dengan perkataan yang sesuai. Seret perkataan ke tempat kosong.", items:[
+    {n:1,q:"Kami berehat di pangkin selepas ___________ mengutip durian yang baru gugur.",a:"penat"},
+    {n:2,q:"Nenek sedang makan kacang ___________ sambil berbual dengan ibu di dapur.",a:"rebus"},
+    {n:3,q:"Ketika mereka sampai, kami sedang ___________ nasi ayam yang dimasak oleh ibu.",a:"menikmati"},
+    {n:4,q:"Kamil memberikan dua biji mangga kepada Mohan sebagai ___________.",a:"balasan"},
+    {n:5,q:"Encik Zaki mengadakan ___________ kesyukuran kerana anaknya berjaya melanjutkan pelajaran ke universiti.",a:"majlis"},
+    {n:6,q:"Sebanyak 500 orang tetamu ___________ ke majlis perkahwinan anak Encik Aziz.",a:"diundang"},
+    {n:7,q:"Arif sekeluarga menikmati makan malam bersama-sama pada setiap hari untuk ___________ hubungan kekeluargaan.",a:"mengeratkan"},
+    {n:8,q:"___________ ialah merakam gambar dengan usaha sendiri menggunakan kamera telefon pintar atau kamera digital.",a:"swafoto"},
+    {n:9,q:"Mimi ___________ Internet untuk mencari maklumat tentang tempat percutian yang menarik.",a:"melayari"},
+    {n:10,q:"Kakak membaca ___________ nota kuliahnya pada skrin komputer riba itu.",a:"paparan"}
+  ]}
+]},
+{ no:21, part:"A", unitTitle:"Unit 3 · Hadapi Bersama-sama", sections:[
+  { key:"A", type:"drag", pic:true, bank:["Majlis","peluang","melayari","kraf tangan","mengeratkan","sepakat","peranginan","yuran","diundang","menyertai"], title:"Isi tempat kosong", instr:"Isi tempat kosong dengan perkataan yang sesuai. Seret perkataan ke tempat kosong.", items:[
+    {n:1,q:"___________ sambutan hari lahir Lucas sungguh meriah.",a:"Majlis"},
+    {n:2,q:"Aktiviti perkhemahan itu dapat ___________ hubungan kekeluargaan.",a:"mengeratkan"},
+    {n:3,q:"Kami ___________ ke majlis perkahwinan anak Encik Rafi.",a:"diundang"},
+    {n:4,q:"Wee Hock meminta kebenaran daripada ibu bapanya untuk ___________ Internet.",a:"melayari"},
+    {n:5,q:"Puan Lee sudah membayar ___________ sekolah anaknya.",a:"yuran"},
+    {n:6,q:"Kawasan ___________ itu sering dikunjungi oleh pelancong.",a:"peranginan"},
+    {n:7,q:"Yun mendapat ___________ untuk melanjutkan pelajaran ke luar negara.",a:"peluang"},
+    {n:8,q:"Kami sekeluarga ___________ untuk mengecat pagar rumah.",a:"sepakat"},
+    {n:9,q:"Ayah membenarkan kami ___________ lawatan sambil belajar.",a:"menyertai"},
+    {n:10,q:"Puan Tan membeli barangan ___________ itu dari Sarawak.",a:"kraf tangan"}
+  ]}
+]},
+{ no:22, part:"A", unitTitle:"Unit 3 · Hadapi Bersama-sama", sections:[
+  { key:"A", type:"drag", pic:true, bank:["berkorban","maruah","rintangan","lurah","berbakti","kepayahan","menempuh","mendaki","menghadapi","menuruni"], title:"Isi tempat kosong", instr:"Isi tempat kosong dengan perkataan yang sesuai. Seret perkataan ke tempat kosong.", items:[
+    {n:1,q:"Encik Hasan sanggup ___________ demi anak-anaknya.",a:"berkorban"},
+    {n:2,q:"Mereka tetap bersabar walaupun terpaksa ___________ pelbagai dugaan.",a:"menempuh"},
+    {n:3,q:"___________ yang dihadapi tidak mematahkan semangatnya.",a:"kepayahan"},
+    {n:4,q:"Janganlah kita mudah berputus asa apabila ___________ masalah.",a:"menghadapi"},
+    {n:5,q:"Keluarga itu sedang menghadapi ___________ dalam hidup mereka.",a:"rintangan"},
+    {n:6,q:"Kita hendaklah ___________ kepada kedua-dua ibu bapa.",a:"berbakti"},
+    {n:7,q:"Jagalah ___________ diri dan keluarga kita.",a:"maruah"},
+    {n:8,q:"Farid ___________ bukit itu bersama-sama dengan abangnya.",a:"mendaki"},
+    {n:9,q:"Kami melihat ___________ itu dari puncak gunung.",a:"lurah"},
+    {n:10,q:"Ayah menasihati kami supaya berhati-hati semasa ___________ tangga.",a:"menuruni"}
+  ]}
+]},
+{ no:23, part:"A", unitTitle:"Unit 3 · Hadapi Bersama-sama", sections:[
+  { key:"A", type:"drag", pic:true, bank:["iklan","dusun","tempat peranginan","penyertaan","kraf tangan","pakej pelancongan","muncul","sepakat","rintangan","mengait"], title:"Isi tempat kosong", instr:"Isi tempat kosong dengan perkataan yang sesuai. Seret perkataan ke tempat kosong.", items:[
+    {n:1,q:"___________ susu itu disiarkan di televisyen untuk memperkenalkan susu tersebut kepada pengguna.",a:"iklan"},
+    {n:2,q:"Zarif yang tiba-tiba ___________ di ruang tamu itu telah mengejutkan abangnya.",a:"muncul"},
+    {n:3,q:"Pulau Sipadan merupakan satu daripada ___________ yang menarik di Sabah.",a:"tempat peranginan"},
+    {n:4,q:"___________ untuk pertandingan melukis itu hanya terbuka kepada kanak-kanak yang berusia sepuluh tahun dan ke bawah.",a:"penyertaan"},
+    {n:5,q:"___________ selama tiga hari dua malam ke Pulau Perhentian itu berharga RM399.00.",a:"pakej pelancongan"},
+    {n:6,q:"Azim dan adiknya ___________ untuk membantu ayah mereka mencuci kereta.",a:"sepakat"},
+    {n:7,q:"Nenek membuat ___________ seperti tudung saji, tikar, dan bakul hiasan dengan menggunakan daun mengkuang.",a:"kraf tangan"},
+    {n:8,q:"Banyak ___________ yang dilalui oleh abang semasa mendaki bukit yang curam itu.",a:"rintangan"},
+    {n:9,q:"Pak Halim membawa cucunya mengutip buah durian di ___________.",a:"dusun"},
+    {n:10,q:"Encik Yong ___________ buah rambutan itu dengan menggunakan sebatang galah.",a:"mengait"}
+  ]}
+]},
+{ no:24, part:"A", unitTitle:"Unit 3 · Hadapi Bersama-sama", sections:[
+  { key:"A", type:"drag", pic:true, bank:["memetik","mengait","berbakti","rela","membanting tulang","membelah","maruah","balasan","mengumpulkan"], title:"Isi tempat kosong", instr:"Isi tempat kosong dengan perkataan yang sesuai. Seret perkataan ke tempat kosong.", items:[
+    {n:1,q:"Sarah ___________ bunga ros untuk dijadikan hiasan biliknya.",a:"memetik"},
+    {n:2,q:"Pak Jamal ___________ kayu api dengan menggunakan sebilah kapak.",a:"membelah"},
+    {n:3,q:"Ibu memberikan kek kepada Puan Yee sebagai ___________ atas pertolongannya.",a:"balasan"},
+    {n:4,q:"Puan Laili ___________ kepada ibunya dengan menjaga ibunya semasa sakit.",a:"berbakti"},
+    {n:5,q:"Pak Cik Abu ___________ di kebunnya pada setiap hari untuk menyara kehidupannya sekeluarga.",a:"membanting tulang"},
+    {n:6,q:"Hanan sentiasa menjaga tingkah laku dan tutur katanya untuk memelihara ___________ diri dan keluarganya.",a:"maruah"},
+    {n:7,q:"Ibu bapa ___________ berkorban tenaga dan wang ringgit untuk kesejahteraan anak-anak mereka.",a:"rela"},
+    {n:8,q:"Ayah ___________ buah mangga dengan menggunakan galah.",a:"mengait"},
+    {n:9,q:"Kakak ___________ cili lalu memasukkannya ke dalam bekas kecil.",a:"memetik"},
+    {n:10,q:"Datuk ___________ buah-buah nanas yang baru dipetik di suatu tempat sebelum dijual kepada peraih.",a:"mengumpulkan"}
+  ]}
+]}
+);
+
+Object.assign(window.TB_PICS, {
+  "25-A": ["p-047.jpg", "p-048.jpg"], "26-A": ["p-049.jpg", "p-050.jpg"], "27-A": ["p-051.jpg", "p-052.jpg"], "28-A": ["p-053.jpg", "p-054.jpg"],
+  "29-A": ["p-055.jpg", "p-056.jpg"], "30-A": ["p-057.jpg", "p-058.jpg"], "31-A": ["p-059.jpg", "p-060.jpg"], "32-A": ["p-061.jpg", "p-062.jpg"]
+});
+TB.push(
+{ no:25, part:"A", unitTitle:"Unit 4 · Bersama-sama Pupuk Perpaduan", sections:[
+  { key:"A", type:"drag", pic:true, bank:["beragam","curiga-mencurigai","terompah","menentang","bersatu teguh","merampas","sukaneka","menceroboh","membuktikan","benteng"], title:"Isi tempat kosong", instr:"Isi tempat kosong dengan perkataan yang sesuai. Seret perkataan ke tempat kosong.", items:[
+    {n:1,q:"Vithia telah memenangi tempat kedua pertandingan pakaian ___________ yang dianjurkan oleh persatuan kebudayaan.",a:"beragam"},
+    {n:2,q:"Murid-murid prasekolah menyertai ___________ yang diadakan di padang sekolah.",a:"sukaneka"},
+    {n:3,q:"Wanita muda itu berbaju kebaya dan memakai ___________ semasa menyertai pertandingan pakaian tradisional.",a:"terompah"},
+    {n:4,q:"Pemuda yang jujur itu telah ___________ dirinya tidak bersalah dalam perkara ini.",a:"membuktikan"},
+    {n:5,q:"Kita hendaklah ___________ mempertahankan negara yang tercinta.",a:"bersatu teguh"},
+    {n:6,q:"Sikap ___________ antara kita boleh mengugat perpaduan kaum di negara ini.",a:"curiga-mencurigai"},
+    {n:7,q:"Adik menangis apabila abang ___________ gula-gula miliknya.",a:"merampas"},
+    {n:8,q:"Lelaki yang ___________ masuk ke rumah Datuk Kamal telah diberkas oleh pihak polis.",a:"menceroboh"},
+    {n:9,q:"Pasukan Hanif akan ___________ pasukan Robin dalam perlawanan bola tampar.",a:"menentang"},
+    {n:10,q:"Ketua kampung mengarahkan penduduk kampung membina ___________ daripada batu untuk mengelak daripada ombak besar.",a:"benteng"}
+  ]}
+]},
+{ no:26, part:"A", unitTitle:"Unit 4 · Bersama-sama Pupuk Perpaduan", sections:[
+  { key:"A", type:"drag", pic:true, bank:["menyerang","harmoni","aman","sangkar","bersempena","bertengkar","peraduan","stesen","memupuk","melabuhkan"], title:"Isi tempat kosong", instr:"Isi tempat kosong dengan perkataan yang sesuai. Seret perkataan ke tempat kosong.", items:[
+    {n:1,q:"Beberapa orang pemuda yang tidak dikenali telah ___________ Aiman semalam.",a:"menyerang"},
+    {n:2,q:"Rakyat hidup dalam suasana ___________ di bawah pentadbiran Sultan Johor.",a:"harmoni"},
+    {n:3,q:"___________ dengan Bulan Kebangsaan, pertandingan lagu-lagu patriotik diadakan.",a:"bersempena"},
+    {n:4,q:"Aisyah telah memenangi ___________ menulis esei sempena Bulan Kebangsaan.",a:"peraduan"},
+    {n:5,q:"Setiap peserta perlu menjawab soalan di setiap ___________ bagi membolehkan mereka meneruskan pertandingan.",a:"stesen"},
+    {n:6,q:"Program yang dijalankan dapat ___________ semangat kerjasama antara penduduk di taman ini.",a:"memupuk"},
+    {n:7,q:"Pak Cik Saad memelihara dua ekor burung merbuk di dalam ___________.",a:"sangkar"},
+    {n:8,q:"Encik Chong cuba meleraikan dua orang pemuda yang ___________ di stesen minyak.",a:"bertengkar"},
+    {n:9,q:"Rakyat di negara ini dapat hidup ___________ dan damai di bawah satu bumbung.",a:"aman"},
+    {n:10,q:"Jurumudi kapal telah ___________ sauh di Pelabuhan Klang.",a:"melabuhkan"}
+  ]}
+]},
+{ no:27, part:"A", unitTitle:"Unit 4 · Bersama-sama Pupuk Perpaduan", sections:[
+  { key:"A", type:"drag", pic:true, bank:["gelama","bahtera","mengundang","mengail","mendongak","bermanfaat","pegangan","menuntut","berpegangan","menyampaikan"], title:"Isi tempat kosong", instr:"Isi tempat kosong dengan perkataan yang sesuai. Seret perkataan ke tempat kosong.", items:[
+    {n:1,q:"Sebuah ___________ yang membawa barang-barang dagangan dari Timur telah karam di lautan.",a:"bahtera"},
+    {n:2,q:"Abang Zaini sedang ___________ ilmu di luar negara dalam bidang kedoktoran.",a:"menuntut"},
+    {n:3,q:"Pada hujung minggu, ramai orang suka ___________ ikan di Sungai Tembeling.",a:"mengail"},
+    {n:4,q:"Ibu menggoreng lima ekor ikan ___________ untuk hidangan tengah hari.",a:"gelama"},
+    {n:5,q:"Hidup dengan jujur telah menjadi ___________ keluarga Encik Saiful.",a:"pegangan"},
+    {n:6,q:"Saya telah ___________ rakan-rakan baik ke majlis hari jadi yang akan diadakan minggu depan.",a:"mengundang"},
+    {n:7,q:"Cikgu Firdaus telah ___________ piala kepada pemain bola sepak sekolah kerana memenangi perlawanan yang diadakan.",a:"menyampaikan"},
+    {n:8,q:"Kami saling ___________ tangan ketika melintas jalan yang sibuk pada waktu pagi.",a:"berpegangan"},
+    {n:9,q:"Kita perlu mengisi masa lapang dengan perkara yang ___________ seperti berkebun.",a:"bermanfaat"},
+    {n:10,q:"Saya ___________ ke langit untuk melihat pemandangan awan yang indah.",a:"mendongak"}
+  ]}
+]},
+{ no:28, part:"A", unitTitle:"Unit 4 · Bersama-sama Pupuk Perpaduan", sections:[
+  { key:"A", type:"drag", pic:true, bank:["memupuk","terompah gergasi","beragam","Yoyo Cina","tarian tradisional","berkumpulan","perpaduan","tradisional","galah panjang"], title:"Isi tempat kosong", instr:"Isi tempat kosong dengan perkataan yang sesuai. Seret perkataan ke tempat kosong.", items:[
+    {n:1,q:"Pertandingan nyanyian lagu patriotik dapat ___________ semangat cinta akan tanah air dalam kalangan murid.",a:"memupuk"},
+    {n:2,q:"Tarian Singa dan Tarian Kipas merupakan ___________ kaum Cina.",a:"tarian tradisional"},
+    {n:3,q:"Permainan ___________ memerlukan beberapa orang pemain memakai terompah yang sama untuk berjalan secara serentak menuju ke garisan penamat.",a:"terompah gergasi"},
+    {n:4,q:"___________ dimainkan dengan cara memegang hujung kedua-dua batang kayu kecil untuk mengimbangi yoyo yang berpusing pada tali daripada terjatuh.",a:"Yoyo Cina"},
+    {n:5,q:"Permainan ___________ dimainkan di gelanggang yang dilakar di atas tanah yang lapang.",a:"galah panjang"},
+    {n:6,q:"Murid-murid tahun lima menghasilkan projek reka cipta secara ___________.",a:"berkumpulan"},
+    {n:7,q:"Aktiviti yang dapat ___________ perpaduan kaum perlu digalakkan.",a:"memupuk"},
+    {n:8,q:"Kita perlu memelihara ___________ agar hidup kita aman damai.",a:"perpaduan"},
+    {n:9,q:"Yee Ling menjadi johan dalam pertandingan pakaian ___________.",a:"beragam"},
+    {n:10,q:"Murid-murid pelbagai kaum mempersembahkan tarian ___________.",a:"tradisional"}
+  ]}
+]},
+{ no:29, part:"A", unitTitle:"Unit 4 · Bersama-sama Pupuk Perpaduan", sections:[
+  { key:"A", type:"drag", pic:true, bank:["bersatu","gergasi","hujung","terompah","menceroboh","mencurigai","teguh","boling","garang","galah"], title:"Isi tempat kosong", instr:"Isi tempat kosong dengan perkataan yang sesuai. Seret perkataan ke tempat kosong.", items:[
+    {n:1,q:"Penduduk Taman Sentosa bekerjasama menjalankan projek memasang bendera ___________.",a:"gergasi"},
+    {n:2,q:"Chun Wah dan kawan-kawannya sedang bermain ___________.",a:"boling"},
+    {n:3,q:"Lily menghadiahkan ___________ yang cantik itu kepada jirannya.",a:"terompah"},
+    {n:4,q:"Pak Malek menjolok buah mangga itu dengan menggunakan sebatang ___________.",a:"galah"},
+    {n:5,q:"“Ayuh kita ___________,” kata Ketua Kampung kepada penduduk kampung.",a:"bersatu"},
+    {n:6,q:"Perpaduan akan menjadi ___________ jika kita saling menghormati.",a:"teguh"},
+    {n:7,q:"Sikap Kok Man yang suka ___________ orang lain tidak disukai oleh rakan-rakannya.",a:"mencurigai"},
+    {n:8,q:"“Keluarga Pak Mail tinggal di ___________ jalan itu,” kata Hadi.",a:"hujung"},
+    {n:9,q:"Murid-murid takut kepada Cikgu Maniam kerana beliau sangat ___________.",a:"garang"},
+    {n:10,q:"“Sesiapa yang ___________ kawasan larangan ini akan didakwa,” kata Inspektor Razif.",a:"menceroboh"}
+  ]}
+]},
+{ no:30, part:"A", unitTitle:"Unit 4 · Bersama-sama Pupuk Perpaduan", sections:[
+  { key:"A", type:"drag", pic:true, bank:["bertemakan","garang","bersatu","dihalau","curiga-mencurigai","merampas","menganjurkan","menceroboh","anak buah","aman"], title:"Isi tempat kosong", instr:"Isi tempat kosong dengan perkataan yang sesuai. Seret perkataan ke tempat kosong.", items:[
+    {n:1,q:"Cikgu Liza mencipta sajak yang ___________ patriotisme.",a:"bertemakan"},
+    {n:2,q:"SJKC Mawar telah ___________ aktiviti sukaneka bersempena dengan sambutan Hari Malaysia.",a:"menganjurkan"},
+    {n:3,q:"Penduduk Kampung Simpang ___________ untuk membina jambatan baharu di hujung kampung.",a:"bersatu"},
+    {n:4,q:"Ketua kampung itu meminta ___________nya bekerjasama untuk meraih kejayaan dalam pertandingan itu.",a:"anak buah"},
+    {n:5,q:"Sikap ___________ antara Sara dan Li Ying menyebabkan mereka sering bergaduh.",a:"curiga-mencurigai"},
+    {n:6,q:"Seekor anjing yang ___________ mengejar seorang pemuda yang sedang berjalan di kawasan itu.",a:"garang"},
+    {n:7,q:"Dua orang pencuri telah ___________ masuk ke dalam rumah Encik Kumar semasa beliau pulang ke kampung.",a:"menceroboh"},
+    {n:8,q:"Mohan dimarahi oleh Cikgu Wong kerana ___________ pensel milik Jun Hao.",a:"merampas"},
+    {n:9,q:"Monyet-monyet itu ___________ kerana telah merosakkan tanaman di kebun datuk.",a:"dihalau"},
+    {n:10,q:"Malaysia merupakan negara yang ___________ kerana masyarakatnya dapat hidup dengan harmoninya walaupun terdiri daripada berbilang bangsa.",a:"aman"}
+  ]}
+]},
+{ no:31, part:"A", unitTitle:"Unit 4 · Bersama-sama Pupuk Perpaduan", sections:[
+  { key:"A", type:"drag", pic:true, bank:["merampas","perayaan","dihalau","sangkar","mencatat","benteng","paya","peraduan","bergaul"], title:"Isi tempat kosong", instr:"Isi tempat kosong dengan perkataan yang sesuai. Seret perkataan ke tempat kosong.", items:[
+    {n:1,q:"Pihak kastam berjaya ___________ beratus-ratus kotak rokok yang mahu diseludup.",a:"merampas"},
+    {n:2,q:"Penduduk kampung bekerjasama membuat ___________ di sekeliling kampung.",a:"benteng"},
+    {n:3,q:"Lelaki itu ___________ oleh Tauke Wong kerana menimbulkan kekacauan di kedai beliau.",a:"dihalau"},
+    {n:4,q:"Semua kaum boleh menyertai ___________ yang dianjurkan itu.",a:"peraduan"},
+    {n:5,q:"Setiap kaum di negara kita menyambut ___________ dalam suasana yang ceria dan harmoni.",a:"perayaan"},
+    {n:6,q:"Kawasan ___________ itu tidak sesuai untuk dijadikan tempat tinggal.",a:"paya"},
+    {n:7,q:"Yi Min ___________ nota-nota penting pada buku catatannya semasa mendengar ceramah itu.",a:"mencatat"},
+    {n:8,q:"Keluarga Fei Fei menyambut ___________ Tahun Baharu Cina dengan meriahnya.",a:"perayaan"},
+    {n:9,q:"Farid memasukkan kucing peliharaannya ke dalam ___________.",a:"sangkar"},
+    {n:10,q:"Mei Mei suka ___________ dengan rakan-rakan yang berlainan bangsa di sekolahnya.",a:"bergaul"}
+  ]}
+]},
+{ no:32, part:"A", unitTitle:"Unit 4 · Bersama-sama Pupuk Perpaduan", sections:[
+  { key:"A", type:"drag", pic:true, bank:["mengail","halaman","melibatkan","bahtera","muara","sangkar","buah mengkudu","bertengkar","bermanfaat"], title:"Isi tempat kosong", instr:"Isi tempat kosong dengan perkataan yang sesuai. Seret perkataan ke tempat kosong.", items:[
+    {n:1,q:"Ayah ___________ di sungai yang berhampiran dengan rumah datuk.",a:"mengail"},
+    {n:2,q:"___________ mempunyai rasa yang pahit dan banyak mengandungi khasiat.",a:"buah mengkudu"},
+    {n:3,q:"Program Anak Angkat SJKC Subang Perdana itu ___________ murid-murid yang berbilang bangsa.",a:"melibatkan"},
+    {n:4,q:"Aktiviti perkhemahan badan beruniform sangat ___________ kerana dapat mendidik murid-murid untuk berdikari.",a:"bermanfaat"},
+    {n:5,q:"Pak Malek membantu jirannya membuat ___________ ayam.",a:"sangkar"},
+    {n:6,q:"Puan Wong berbual dengan Puan Shanti di ___________ rumah.",a:"halaman"},
+    {n:7,q:"Cikgu Alias menegur sikap Yok Meng yang suka ___________ dengan rakan-rakannya.",a:"bertengkar"},
+    {n:8,q:"Mereka bertungkus lumus menyelamatkan ___________ itu daripada karam.",a:"bahtera"},
+    {n:9,q:"Sampan yang dinaiki oleh Aziz menuju ke ___________.",a:"muara"},
+    {n:10,q:"Kazim dan Ramesh mempunyai hobi yang sama, iaitu ___________ ikan.",a:"mengail"}
+  ]}
+]}
+);
+
+Object.assign(window.TB_PICS, {
+  "33-A": ["p-063.jpg", "p-064.jpg"], "34-A": ["p-065.jpg", "p-066.jpg"], "35-A": ["p-067.jpg", "p-068.jpg"], "36-A": ["p-069.jpg", "p-070.jpg"],
+  "37-A": ["p-071.jpg", "p-072.jpg"], "38-A": ["p-073.jpg", "p-074.jpg"], "39-A": ["p-075.jpg", "p-076.jpg"], "40-A": ["p-077.jpg", "p-078.jpg"]
+});
+TB.push(
+{ no:33, part:"A", unitTitle:"Unit 5 · Hidup Berjiran Amalan Kita", sections:[
+  { key:"A", type:"drag", pic:true, bank:["bantuan","kebajikan","keceriaan","bersurai","biro","lemau","menyiasat","meriah","menyiang","hanyir"], title:"Isi tempat kosong", instr:"Isi tempat kosong dengan perkataan yang sesuai. Seret perkataan ke tempat kosong.", items:[
+    {n:1,q:"Encik Tan memberi ___________ kepada orang miskin itu.",a:"bantuan"},
+    {n:2,q:"Pihak polis akan ___________ kes kecurian itu yang berlaku pada hari Isnin yang lalu.",a:"menyiasat"},
+    {n:3,q:"Ibu sedang ___________ ikan dengan berhati-hati di dapur.",a:"menyiang"},
+    {n:4,q:"Ikan yang berbau ___________ telah dibuang oleh penjual itu.",a:"hanyir"},
+    {n:5,q:"Biskut itu telah ___________ kerana terlupa tutup dengan ketat.",a:"lemau"},
+    {n:6,q:"Hari Sukan SJK(C) Chong Hwa disambut dengan ___________.",a:"meriah"},
+    {n:7,q:"Selepas majlis penyampaian hadiah, para tetamu ___________.",a:"bersurai"},
+    {n:8,q:"Selaku ___________ keselamatan, Encik Ganesan bertanggungjawab memastikan taman ini dalam keadaan yang aman dan selamat.",a:"biro"},
+    {n:9,q:"Wakil rakyat telah menghulurkan bantuan makanan dan pakaian kepada mangsa banjir untuk menjaga ___________ penduduk.",a:"kebajikan"},
+    {n:10,q:"Setiap tahun pertandingan ___________ kelas diadakan bagi menggalakkan murid-murid menjaga dan menceriakan kelas.",a:"keceriaan"}
+  ]}
+]},
+{ no:34, part:"A", unitTitle:"Unit 5 · Hidup Berjiran Amalan Kita", sections:[
+  { key:"A", type:"drag", pic:true, bank:["organisasi","dirancang","menceriakan","bermuafakat","komuniti","berfungsi","menyatupadukan","kenduri","berkenal-kenalan","bantuan"], title:"Isi tempat kosong", instr:"Isi tempat kosong dengan perkataan yang sesuai. Seret perkataan ke tempat kosong.", items:[
+    {n:1,q:"Cikgu Badrul meminta ketua kelas menyiapkan carta ___________ kelas untuk ditampal pada papan kenyataan.",a:"organisasi"},
+    {n:2,q:"Majlis hari jadi yang meriah ini telah ___________ oleh Puan Mahani untuk anaknya.",a:"dirancang"},
+    {n:3,q:"Murid-murid Kelas 5 Cemerlang sedang ___________ kelas supaya dapat belajar dengan selesa.",a:"menceriakan"},
+    {n:4,q:"Penduduk taman ini telah ___________ untuk mengadakan rondaan menjaga keselamatan penduduk.",a:"bermuafakat"},
+    {n:5,q:"Setiap penduduk di dalam ___________ ini haruslah bekerjasama bagi menjayakan program yang telah dirancang.",a:"komuniti"},
+    {n:6,q:"Televisyen lama itu masih ___________ walaupun sudah berusia dua puluh tahun.",a:"berfungsi"},
+    {n:7,q:"Amalan rumah terbuka yang diadakan setiap tahun dapat ___________ rakyat berbilang bangsa di negara ini.",a:"menyatupadukan"},
+    {n:8,q:"Pak Cik Omar menjemput jiran tetangga untuk menghadiri majlis ___________ yang diadakan di rumahnya esok.",a:"kenduri"},
+    {n:9,q:"Penduduk di Taman Saujana dapat ___________ ketika diadakan aktiviti sukaneka semalam.",a:"berkenal-kenalan"},
+    {n:10,q:"___________ akan diberikan kepada penduduk yang terjejas teruk akibat banjir di negeri Pahang dan Johor.",a:"bantuan"}
+  ]}
+]},
+{ no:35, part:"A", unitTitle:"Unit 5 · Hidup Berjiran Amalan Kita", sections:[
+  { key:"A", type:"drag", pic:true, bank:["menyiasat","perangkap","keprihatinan","kedamaian","belantara","rimba","dikongsikan","serius","aplikasi","kebimbangan"], title:"Isi tempat kosong", instr:"Isi tempat kosong dengan perkataan yang sesuai. Seret perkataan ke tempat kosong.", items:[
+    {n:1,q:"___________ yang ditunjukkan oleh pemimpin dalam membantu rakyat harus dipuji.",a:"keprihatinan"},
+    {n:2,q:"Rezeki yang banyak eloklah ___________ bersama-sama ahli keluarga.",a:"dikongsikan"},
+    {n:3,q:"Melalui ___________ telefon pintar, kita dapat pergi ke mana-mana lokasi dengan mudah.",a:"aplikasi"},
+    {n:4,q:"Pada zaman dahulu, tinggal seekor raja rimba yang buas memerintah di ___________.",a:"belantara"},
+    {n:5,q:"Binatang di ___________ ini hidup aman damai dan saling membantu apabila ada masalah.",a:"rimba"},
+    {n:6,q:"“Kamu mesti menyiapkan kerja yang telah diberi oleh cikgu hari ini juga,” kata ayah dengan wajah yang ___________.",a:"serius"},
+    {n:7,q:"Puan Maimon menyatakan ___________ setelah suaminya dibuang kerja semalam.",a:"kebimbangan"},
+    {n:8,q:"“Saya sendiri akan ___________ kes buli yang dilaporkan semalam,” kata Cikgu Leong kepada ibu bapa pelajar.",a:"menyiasat"},
+    {n:9,q:"Datuk Kamal memasang ___________ untuk menangkap tikus yang banyak di dapur rumahnya.",a:"perangkap"},
+    {n:10,q:"Encik Ghani dapat merasai ___________ apabila tinggal di kampung.",a:"kedamaian"}
+  ]}
+]},
+{ no:36, part:"A", unitTitle:"Unit 5 · Hidup Berjiran Amalan Kita", sections:[
+  { key:"A", type:"drag", pic:true, bank:["lemau","hapak","bersurai","menyiang","meriah","garing","aur","amalan","hanyir","menjalankan"], title:"Isi tempat kosong", instr:"Isi tempat kosong dengan perkataan yang sesuai. Seret perkataan ke tempat kosong.", items:[
+    {n:1,q:"Ibu menjemur bantal yang berbau ___________ di bawah cahaya matahari yang terik.",a:"hapak"},
+    {n:2,q:"Adik suka makan nasi dengan ikan yang digoreng ___________.",a:"garing"},
+    {n:3,q:"Kami ___________ semua ikan itu untuk dibuat keropok lekor.",a:"menyiang"},
+    {n:4,q:"Air ikan yang tertumpah di dalam kereta menyebabkan kereta ayah berbau ___________.",a:"hanyir"},
+    {n:5,q:"Biskut di dalam tin itu sudah ___________ dan tidak boleh dimakan lagi.",a:"lemau"},
+    {n:6,q:"Majlis rumah terbuka yang diadakan di rumah Datuk Mazlan sungguh ___________.",a:"meriah"},
+    {n:7,q:"Para tetamu ___________ setelah menjamu selera dengan makanan yang dihidangkan di majlis itu.",a:"bersurai"},
+    {n:8,q:"___________ kunjung-mengunjungi antara jiran tetangga amat digalakkan.",a:"amalan"},
+    {n:9,q:"Terdapat pelbagai jenis ___________ tumbuh di tepi sungai itu.",a:"aur"},
+    {n:10,q:"Setiap peserta ___________ tugas yang diberikan dengan berkesan.",a:"menjalankan"}
+  ]}
+]},
+{ no:37, part:"A", unitTitle:"Unit 5 · Hidup Berjiran Amalan Kita", sections:[
+  { key:"A", type:"drag", pic:true, bank:["bermuafakat","kenduri","menyatupadukan","keprihatinan","belantara","ziarah","berfungsi","cakna","setempat","kebimbangan"], title:"Isi tempat kosong", instr:"Isi tempat kosong dengan perkataan yang sesuai. Seret perkataan ke tempat kosong.", items:[
+    {n:1,q:"Mereka ___________ sebelum menjalankan aktiviti gotong-royong di taman permainan.",a:"bermuafakat"},
+    {n:2,q:"Skuad Keselamatan Taman Kencana ___________ untuk mengawal keselamatan penduduk di kawasan itu.",a:"berfungsi"},
+    {n:3,q:"Aktiviti perpaduan perlu dilakukan bagi ___________ penduduk di negara kita.",a:"menyatupadukan"},
+    {n:4,q:"Sebagai ketua kampung, Pak Omar amat dihormati oleh masyarakat ___________.",a:"setempat"},
+    {n:5,q:"Encik Jamil mengundang jiran-jiran ke majlis ___________ yang diadakannya.",a:"kenduri"},
+    {n:6,q:"“Mari kita ___________ rakan kita yang sakit di hospital,” kata Hazli kepada Rajan.",a:"ziarah"},
+    {n:7,q:"“Kita perlu ___________ terhadap masalah yang dihadapi oleh masyarakat di sekeliling kita,” kata Encik Leong.",a:"cakna"},
+    {n:8,q:"“Saya amat berterima kasih atas ___________ yang ditunjukkan oleh saudara,” kata Encik Lam kepada Encik Arif.",a:"keprihatinan"},
+    {n:9,q:"Sebahagian besar negeri itu masih diliputi hutan ___________.",a:"belantara"},
+    {n:10,q:"Lee Fong tidak senang duduk kerana dia dalam ___________.",a:"kebimbangan"}
+  ]}
+]},
+{ no:38, part:"A", unitTitle:"Unit 5 · Hidup Berjiran Amalan Kita", sections:[
+  { key:"A", type:"drag", pic:true, bank:["kebajikan","hakim","gotong-royong","ziarah-menziarahi","menceriakan","sakit","menyatupadukan","mengamalkan","majlis kenduri perkahwinan","dielakkan"], title:"Isi tempat kosong", instr:"Isi tempat kosong dengan perkataan yang sesuai. Seret perkataan ke tempat kosong.", items:[
+    {n:1,q:"___________ penduduk miskin di kampung itu terjaga kerana mereka mendapat bantuan kewangan daripada pihak yang berwajib.",a:"kebajikan"},
+    {n:2,q:"Perut Nina berasa ___________ selepas makan makanan yang tercemar itu.",a:"sakit"},
+    {n:3,q:"Penduduk Taman Nuri akan mengadakan ___________ untuk membersihkan dewan.",a:"gotong-royong"},
+    {n:4,q:"Puan Yap ___________ halaman rumahnya dengan menanam pelbagai jenis pokok bunga.",a:"menceriakan"},
+    {n:5,q:"___________ menilai semua peserta pertandingan pidato itu dengan adilnya.",a:"hakim"},
+    {n:6,q:"Tok Penghulu meminta penduduk ___________ sikap bertolak ansur dan bekerjasama dalam kehidupan seharian.",a:"mengamalkan"},
+    {n:7,q:"Sikap hasad haruslah ___________ agar kita dapat hidup dengan harmoninya.",a:"dielakkan"},
+    {n:8,q:"Program Hari Sukaneka Taman Mawar itu dapat ___________ penduduk yang berbilang bangsa.",a:"menyatupadukan"},
+    {n:9,q:"Amalan ___________ jiran tetangga dapat mengeratkan silaturahim.",a:"ziarah-menziarahi"},
+    {n:10,q:"Dewan itu dihias dengan pelamin yang sangat cantik untuk ___________ anak Encik Rahim.",a:"majlis kenduri perkahwinan"}
+  ]}
+]},
+{ no:39, part:"A", unitTitle:"Unit 5 · Hidup Berjiran Amalan Kita", sections:[
+  { key:"A", type:"drag", pic:true, bank:["pemburu","perangkap","hanyir","berwaspada","kedamaian","lemau","hapak","garing","menyiang","lewat"], title:"Isi tempat kosong", instr:"Isi tempat kosong dengan perkataan yang sesuai. Seret perkataan ke tempat kosong.", items:[
+    {n:1,q:"Sang Rusa lari ketakutan apabila ternampak seorang ___________.",a:"pemburu"},
+    {n:2,q:"Sang Kancil berjaya melepaskan diri daripada ___________ itu.",a:"perangkap"},
+    {n:3,q:"Puan Lai sentiasa menasihati anak-anaknya agar ___________ selalu.",a:"berwaspada"},
+    {n:4,q:"Kami mengunjungi hutan lipur itu kerana mahu mencari ___________.",a:"kedamaian"},
+    {n:5,q:"Pakaian lama itu berbau ___________ kerana sudah lama tersimpan di dalam kotak.",a:"hapak"},
+    {n:6,q:"Kakak membantu ibu ___________ ikan di dapur.",a:"menyiang"},
+    {n:7,q:"Keropok kentang itu sangat ___________ dan enak rasanya.",a:"garing"},
+    {n:8,q:"Kak Ani membasuh tangannya yang berbau ___________ dengan sabun.",a:"hanyir"},
+    {n:9,q:"Ibu menyuruh adik menutup bekas itu rapat-rapat supaya biskut dalamnya tidak ___________.",a:"lemau"},
+    {n:10,q:"“Jangan pulang ___________,” pesan ibu kepada kakak.",a:"lewat"}
+  ]}
+]},
+{ no:40, part:"A", unitTitle:"Unit 5 · Hidup Berjiran Amalan Kita", sections:[
+  { key:"A", type:"drag", pic:true, bank:["bersurai","keprihatinan","berwaspada","memanggil","rimba","ditemukan","pemburu","perangkap","berpeluh","Wajah"], title:"Isi tempat kosong", instr:"Isi tempat kosong dengan perkataan yang sesuai. Seret perkataan ke tempat kosong.", items:[
+    {n:1,q:"Setelah majlis itu selesai, para tetamu pun ___________.",a:"bersurai"},
+    {n:2,q:"___________ masyarakat tentang kepentingan penjagaan kebersihan diri dapat mencegah penularan wabak COVID-19.",a:"keprihatinan"},
+    {n:3,q:"Ketua kampung ___________ semua anggota jawatankuasa persatuan penduduk untuk bermesyuarat.",a:"memanggil"},
+    {n:4,q:"Terdapat pelbagai spesies flora dan fauna di ___________.",a:"rimba"},
+    {n:5,q:"Lembu Pak Cik Razi yang hilang itu telah ___________ di kawasan semak samun oleh penduduk kampung.",a:"ditemukan"},
+    {n:6,q:"___________ itu melepaskan satu das tembakan ke arah haiwan buruannya itu.",a:"pemburu"},
+    {n:7,q:"Pak Cik Jali memasang sangkar besi di kawasan sawahnya untuk dijadikan sebagai ___________ tikus.",a:"perangkap"},
+    {n:8,q:"Penduduk kampung dinasihatkan supaya sentiasa ___________ semasa membersihkan kawasan semak samun itu.",a:"berwaspada"},
+    {n:9,q:"Badan Li Wei ___________ setelah melakukan senaman selama 30 minit.",a:"berpeluh"},
+    {n:10,q:"___________ Asri ceria ketika bertemu dengan rakan-rakan sekolahnya.",a:"Wajah"}
+  ]}
+]}
+);
+
+Object.assign(window.TB_PICS, {
+  "41-A": ["p-079.jpg", "p-080.jpg"], "42-A": ["p-081.jpg", "p-082.jpg"], "43-A": ["p-083.jpg", "p-084.jpg"], "44-A": ["p-085.jpg", "p-086.jpg"],
+  "45-A": ["p-087.jpg", "p-088.jpg"], "46-A": ["p-089.jpg", "p-090.jpg"], "47-A": ["p-091.jpg", "p-092.jpg"], "48-A": ["p-093.jpg", "p-094.jpg"]
+});
+TB.push(
+{ no:41, part:"A", unitTitle:"Unit 6 · Rakyat Bersatu Negara Maju", sections:[
+  { key:"A", type:"drag", pic:true, bank:["anak yatim","bangsa","permohonan","taklimat","memuji","menemani","berkomunikasi","tonggak"], title:"Isi tempat kosong", instr:"Isi tempat kosong dengan perkataan yang sesuai. Seret perkataan ke tempat kosong.", items:[
+    {n:1,q:"Jika anda ingin rentas negeri, perlulah membuat ___________ di balai polis.",a:"permohonan"},
+    {n:2,q:"Ayah ___________ Guan Hong ke klinik kesihatan untuk menerima rawatan.",a:"menemani"},
+    {n:3,q:"Cikgu Tan memberi ___________ kepada murid-murid sebelum bertolak ke Kuala Lumpur.",a:"taklimat"},
+    {n:4,q:"Murid-murid SJKC(C) Sin Hwa melawat ke rumah ___________.",a:"anak yatim"},
+    {n:5,q:"Ibu ___________ Ali kerana dia mendapat keputusan yang cemerlang.",a:"memuji"},
+    {n:6,q:"Pembinaan jati diri ___________ sangat wajar dipupuk melalui bahasa kebangsaan.",a:"bangsa"},
+    {n:7,q:"Saya telah menghantar surat ___________ untuk jawatan sebagai guru tadika.",a:"permohonan"},
+    {n:8,q:"Saya ___________ ibu ke pasar raya untuk membeli barang-barang keperluan sekolah.",a:"menemani"},
+    {n:9,q:"Salah satu ___________ perpaduan rakyat di negara ini ialah menggunakan bahasa Melayu sebagai bahasa kebangsaan.",a:"tonggak"},
+    {n:10,q:"Pada zaman ini, kita dapat ___________ dengan mudah menggunakan telefon pintar.",a:"berkomunikasi"}
+  ]}
+]},
+{ no:42, part:"A", unitTitle:"Unit 6 · Rakyat Bersatu Negara Maju", sections:[
+  { key:"A", type:"drag", pic:true, bank:["adat resam","etnik","peribumi","bergegas","berkepul-kepul","laung","insaf","taklimat","semarak","tunjang"], title:"Isi tempat kosong", instr:"Isi tempat kosong dengan perkataan yang sesuai. Seret perkataan ke tempat kosong.", items:[
+    {n:1,q:"Masyarakat Melayu masih mengamalkan ___________ dalam kehidupan seharian.",a:"adat resam"},
+    {n:2,q:"Pelbagai ___________ hidup dalam suasana harmoni di bawah satu bumbung.",a:"etnik"},
+    {n:3,q:"Masyarakat ___________ di sini mencari hasil hutan untuk menyara kehidupan.",a:"peribumi"},
+    {n:4,q:"Encik Leong ___________ turun ke tingkat bawah apabila terdengar dentuman yang kuat.",a:"bergegas"},
+    {n:5,q:"Jamal ternampak asap ___________ naik ke udara dari rumah yang terbakar itu.",a:"berkepul-kepul"},
+    {n:6,q:"“Semua murid, sila berbaris di hadapan saya,” ___________ Cikgu Haris.",a:"laung"},
+    {n:7,q:"Kami berasa ___________ melihat kehidupan pemuda yang dihimpit kemiskinan itu.",a:"insaf"},
+    {n:8,q:"Ketua kampung sedang memberi ___________ ringkas kepada peserta yang menyertai aktiviti gotong-royong.",a:"taklimat"},
+    {n:9,q:"___________ cinta akan negara haruslah dipupuk dalam diri setiap pelajar.",a:"semarak"},
+    {n:10,q:"Perpaduan kaum menjadi ___________ kejayaan negara.",a:"tunjang"}
+  ]}
+]},
+{ no:43, part:"A", unitTitle:"Unit 6 · Rakyat Bersatu Negara Maju", sections:[
+  { key:"A", type:"drag", pic:true, bank:["sanggup","persengketaan","dicanang","menabur bakti","pengasas","menghalang","melimpah","terik","para","menjalar"], title:"Isi tempat kosong", instr:"Isi tempat kosong dengan perkataan yang sesuai. Seret perkataan ke tempat kosong.", items:[
+    {n:1,q:"“Saya ___________ korbankan wang belanja sekolah saya untuk membeli buku,” kata Mona.",a:"sanggup"},
+    {n:2,q:"___________ antara Pak Halim dan Pak Abu berlanjutan selama beberapa tahun.",a:"persengketaan"},
+    {n:3,q:"Berita tentang perkahwinan penyanyi itu telah ___________ kepada peminat-peminatnya.",a:"dicanang"},
+    {n:4,q:"Sebagai anak, kita hendaklah ___________ kepada orang tua yang telah membesarkan kita.",a:"menabur bakti"},
+    {n:5,q:"Datuk Khalid merupakan ___________ sebuah pertubuhan silat yang dikenali di daerah ini.",a:"pengasas"},
+    {n:6,q:"Kita mesti ___________ orang ramai bersesak-sesak di pasar raya itu untuk mengelak jangkitan penyakit.",a:"menghalang"},
+    {n:7,q:"Hujan lebat yang turun menyebabkan air sungai ___________ ke tebing.",a:"melimpah"},
+    {n:8,q:"Tekaknya terasa haus ketika berjalan di bawah cuaca yang panas ___________.",a:"terik"},
+    {n:9,q:"Ibu menyusun pinggan mangkuk di atas ___________ selepas mencucinya.",a:"para"},
+    {n:10,q:"Pokok timun yang ditanam oleh datuk mula ___________ di pagar rumah.",a:"menjalar"}
+  ]}
+]},
+{ no:44, part:"A", unitTitle:"Unit 6 · Rakyat Bersatu Negara Maju", sections:[
+  { key:"A", type:"drag", pic:true, bank:["memuji","menubuhkan","bersanding","budaya","berkomunikasi","permohonan","tersenyum","menemani","dirakamkan","tonggak"], title:"Isi tempat kosong", instr:"Isi tempat kosong dengan perkataan yang sesuai. Seret perkataan ke tempat kosong.", items:[
+    {n:1,q:"Cikgu Aini ___________ sikap pelajar-pelajar yang datang awal ke sekolah.",a:"memuji"},
+    {n:2,q:"Ibu hanya ___________ melihat gelagat anak-anak yang berebut untuk memeluknya.",a:"tersenyum"},
+    {n:3,q:"Tetamu yang hadir memuji pasangan pengantin yang ___________ di atas pelamin yang indah.",a:"bersanding"},
+    {n:4,q:"“Cerita tentang kegigihan kanak-kanak istimewa itu telah ___________ dan akan disiarkan esok,” kata wartawan itu.",a:"dirakamkan"},
+    {n:5,q:"Encik Goh Seng membuat ___________ kepada pengerusi persatuan penduduk untuk menggunakan dewan.",a:"permohonan"},
+    {n:6,q:"Encik Halim merancang untuk ___________ kelab kesukarelawanan di kawasan perumahannya.",a:"menubuhkan"},
+    {n:7,q:"Fazil ___________ ayahnya pergi ke Istana Budaya.",a:"menemani"},
+    {n:8,q:"Prinsip Rukun Negara menjadi ___________ pegangan rakyat Malaysia.",a:"tonggak"},
+    {n:9,q:"Zhi Qiang menggunakan bahasa Melayu untuk ___________ dengan ibu bapanya di rumah.",a:"berkomunikasi"},
+    {n:10,q:"Upacara minum teh merupakan ___________ masyarakat Cina untuk menghormati tetamu.",a:"budaya"}
+  ]}
+]},
+{ no:45, part:"A", unitTitle:"Unit 6 · Rakyat Bersatu Negara Maju", sections:[
+  { key:"A", type:"drag", pic:true, bank:["etnik","ambil peduli","bergegas","terbakar","terdengar","teguh","bertolak","persiapan","wira","insaf"], title:"Isi tempat kosong", instr:"Isi tempat kosong dengan perkataan yang sesuai. Seret perkataan ke tempat kosong.", items:[
+    {n:1,q:"Masyarakat di Sabah terdiri daripada pelbagai ___________ seperti Kadazan Dusun, Bajau, Iban, dan lain-lain.",a:"etnik"},
+    {n:2,q:"Encik Zaril mengenali semua penduduk di kampungnya kerana beliau ___________ terhadap masyarakat di sekelilingnya.",a:"ambil peduli"},
+    {n:3,q:"Raihan ___________ suara seorang wanita meminta tolong berhampiran dengan kawasan perhentian bas itu.",a:"terdengar"},
+    {n:4,q:"Encik Mohan ___________ menuju ke sungai itu untuk menyelamatkan kanak-kanak yang hampir lemas itu.",a:"bergegas"},
+    {n:5,q:"Hutan itu ___________ berpunca daripada puntung rokok yang dibuang oleh individu yang tidak bertanggungjawab.",a:"terbakar"},
+    {n:6,q:"Jia Kai sudah ___________ dan berjanji tidak akan berbohong lagi.",a:"insaf"},
+    {n:7,q:"Kami akan ___________ dari Klang ke perkampungan orang asli di Perak pada pukul 8:00 pagi.",a:"bertolak"},
+    {n:8,q:"Zhi Lee berlatih bermain badminton pada setiap hari sebagai ___________ untuk bertanding dalam pertandingan badminton peringkat daerah.",a:"persiapan"},
+    {n:9,q:"Hubungan penduduk Taman Indah ___________ kerana mereka sentiasa bersepakat dalam melakukan sesuatu perkara.",a:"teguh"},
+    {n:10,q:"Ehsan dianggap sebagai ___________ di kampungnya kerana beliau suka membantu orang yang memerlukan pertolongan.",a:"wira"}
+  ]}
+]},
+{ no:46, part:"A", unitTitle:"Unit 6 · Rakyat Bersatu Negara Maju", sections:[
+  { key:"A", type:"drag", pic:true, bank:["anak yatim","menabur bakti","sukarela","menyokong","adat resam","bangsa","rondaan","kesusilaan","tonggak","mendekati"], title:"Isi tempat kosong", instr:"Isi tempat kosong dengan perkataan yang sesuai. Seret perkataan ke tempat kosong.", items:[
+    {n:1,q:"Encik Ikmal ___________ kepada masyarakat dengan mengajar tuisyen secara percuma kepada murid yang tidak berkemampuan.",a:"menabur bakti"},
+    {n:2,q:"Encik Zaid ___________ tindakan anaknya yang ingin menyertai aktiviti kesukarelawanan itu.",a:"menyokong"},
+    {n:3,q:"Faris ___________ lelaki yang cacat penglihatan itu untuk membantunya melintas jalan.",a:"mendekati"},
+    {n:4,q:"Fahim dan adiknya menjadi ___________ setelah bapanya meninggal dunia akibat kemalangan jalan raya.",a:"anak yatim"},
+    {n:5,q:"Penduduk negara kita terdiri daripada pelbagai ___________.",a:"bangsa"},
+    {n:6,q:"Pasukan keselamatan melakukan ___________ di sekeliling kampung pada setiap malam.",a:"rondaan"},
+    {n:7,q:"Penduduk Taman Mulia melakukan kerja amal itu secara ___________.",a:"sukarela"},
+    {n:8,q:"Kita perlu menjaga ___________ semasa bergaul dalam masyarakat agar maruah kita terpelihara.",a:"kesusilaan"},
+    {n:9,q:"Sikap saling menghormati menjadi ___________ perpaduan masyarakat berbilang kaum.",a:"tonggak"},
+    {n:10,q:"Kita perlu berbangga dengan ___________ bangsa kita.",a:"adat resam"}
+  ]}
+]},
+{ no:47, part:"A", unitTitle:"Unit 6 · Rakyat Bersatu Negara Maju", sections:[
+  { key:"A", type:"drag", pic:true, bank:["bergegas","pondok","laung","berkepul-kepul","cubit","Paha","taklimat","sawah","dialek","persiapan"], title:"Isi tempat kosong", instr:"Isi tempat kosong dengan perkataan yang sesuai. Seret perkataan ke tempat kosong.", items:[
+    {n:1,q:"Encik Leong ___________ ke rumah jirannya apabila terdengar jeritan jirannya meminta tolong.",a:"bergegas"},
+    {n:2,q:"Pak Daud membina sebuah ___________ di tepi sawah padi.",a:"pondok"},
+    {n:3,q:"“Kawan-kawan, mari kita pergi sekarang,” ___________ Andy kepada Sani dan Raju.",a:"laung"},
+    {n:4,q:"Zain ternampak asap hitam ___________ dari kawasan perumahan itu.",a:"berkepul-kepul"},
+    {n:5,q:"“Jangan ___________ adik kamu,” kata ibu kepada kakak.",a:"cubit"},
+    {n:6,q:"___________ Azirul lebam kerana dia terlanggar bucu meja semalam.",a:"Paha"},
+    {n:7,q:"Penduduk kampung Sagu sedang mendengar ___________ tentang projek membina jambatan.",a:"taklimat"},
+    {n:8,q:"Pemandangan di kawasan ___________ padi itu sungguh indah.",a:"sawah"},
+    {n:9,q:"Pak Cik Zaki berbual dengan abangnya dengan menggunakan ___________ Kelantan.",a:"dialek"},
+    {n:10,q:"Mereka bekerjasama membuat ___________ bagi mengadakan majlis rumah terbuka.",a:"persiapan"}
+  ]}
+]},
+{ no:48, part:"A", unitTitle:"Unit 6 · Rakyat Bersatu Negara Maju", sections:[
+  { key:"A", type:"drag", pic:true, bank:["tersemat","mengurus","wirawati","dicanang","menyemarakkan","perbalahan","tunjang","bercerai","mengiktiraf","roboh"], title:"Isi tempat kosong", instr:"Isi tempat kosong dengan perkataan yang sesuai. Seret perkataan ke tempat kosong.", items:[
+    {n:1,q:"Beberapa orang ahli jawatankuasa akan dilantik bagi ___________ acara larian muhibah itu.",a:"mengurus"},
+    {n:2,q:"“Jika kita ___________, musuh akan mudah untuk menewaskan kita,” kata Tuk Ketua kepada penduduk kampung.",a:"bercerai"},
+    {n:3,q:"Jika masyarakat kita tidak bersatu padu, negara yang kita bina ini akan ___________.",a:"roboh"},
+    {n:4,q:"Semangat perpaduan telah ___________ dalam hatinya sejak kecil lagi.",a:"tersemat"},
+    {n:5,q:"___________ antara Encik Lam dengan Encik Muthu akhirnya berjaya diselesaikan secara baik.",a:"perbalahan"},
+    {n:6,q:"Tujuan program itu adalah untuk ___________ semangat perpaduan dalam kalangan penduduk.",a:"menyemarakkan"},
+    {n:7,q:"Semangat bermuafakat merupakan ___________ perpaduan masyarakat kita.",a:"tunjang"},
+    {n:8,q:"Majlis itu diadakan bagi menghargai sumbangan ___________ negara.",a:"wirawati"},
+    {n:9,q:"Nama beliau kurang dikenali kerana kejayaannya tidak pernah ___________.",a:"dicanang"},
+    {n:10,q:"Anugerah itu diberikan kepada Encik Salim untuk ___________ sumbangan beliau kepada masyarakat.",a:"mengiktiraf"}
+  ]}
+]}
+);
+
+Object.assign(window.TB_PICS, {
+  "49-A": ["p-096.jpg", "p-097.jpg"], "50-A": ["p-098.jpg", "p-099.jpg"], "51-A": ["p-100.jpg", "p-101.jpg"], "52-A": ["p-102.jpg", "p-103.jpg"],
+  "53-A": ["p-104.jpg", "p-105.jpg"], "54-A": ["p-106.jpg", "p-107.jpg"], "55-A": ["p-108.jpg", "p-109.jpg"]
+});
+TB.push(
+{ no:49, part:"A", unitTitle:"Unit 7 · Sentiasa Peka Setiap Masa", sections:[
+  { key:"A", type:"drag", pic:true, bank:["mengawasi","memantau","penceroboh","panduan","jeriji","balkoni","peronda","terjamin","koridor","memaklumkan"], title:"Isi tempat kosong", instr:"Isi tempat kosong dengan perkataan yang sesuai. Seret perkataan ke tempat kosong.", items:[
+    {n:1,q:"Pihak berkuasa telah menahan ___________ yang cuba memasuki negara.",a:"penceroboh"},
+    {n:2,q:"Pihak sekolah telah ___________ kepada semua ibu bapa agar hadir ke sekolah esok.",a:"memaklumkan"},
+    {n:3,q:"Beberapa buah kereta ___________ polis sedang melakukan rondaan di tempat kejadian jenayah.",a:"peronda"},
+    {n:4,q:"Ibu bapa diminta selalu ___________ anak-anak di luar untuk mengelak daripada bahaya.",a:"mengawasi"},
+    {n:5,q:"Encik Abdullah meminta jiran agar ___________ rumahnya semasa ketiadaannya.",a:"memantau"},
+    {n:6,q:"Kita hendaklah selalu bersenam agar kesihatan ___________.",a:"terjamin"},
+    {n:7,q:"Encik Eric sedang membaca buku ___________ pendaftaran pelajar baharu ke universiti awam.",a:"panduan"},
+    {n:8,q:"Pemilik rumah itu memasang ___________ pada tingkap rumahnya agar tidak mudah dicerobohi.",a:"jeriji"},
+    {n:9,q:"Puan Maimunah mengemop ___________ di hadapan rumahnya yang kotor.",a:"koridor"},
+    {n:10,q:"Adik berdiri di ___________ sambil melambai-lambai tangan ke ayah.",a:"balkoni"}
+  ]}
+]},
+{ no:50, part:"A", unitTitle:"Unit 7 · Sentiasa Peka Setiap Masa", sections:[
+  { key:"A", type:"drag", pic:true, bank:["identiti","saudagar","mangga","terperangkap","sebuntil","keringat","pengesan","pandai besi","membandingkan","lesu"], title:"Isi tempat kosong", instr:"Isi tempat kosong dengan perkataan yang sesuai. Seret perkataan ke tempat kosong.", items:[
+    {n:1,q:"___________ lelaki yang bersenjata itu telah dikenal pasti oleh pihak polis.",a:"identiti"},
+    {n:2,q:"Bangunan itu dilengkapi alat ___________ asap untuk menghalang kebakaran.",a:"pengesan"},
+    {n:3,q:"Ayah membeli ___________ untuk mengunci pintu pagar rumah.",a:"mangga"},
+    {n:4,q:"Ibu bapa dinasihatkan agar tidak ___________ kebolehan anak-anak.",a:"membandingkan"},
+    {n:5,q:"Sultan Melaka menitahkan ___________ dari Arab menghadap di istana.",a:"saudagar"},
+    {n:6,q:"___________ itu dapat memperoleh pendapatan yang lumayan melalui kerjanya.",a:"pandai besi"},
+    {n:7,q:"Saudagar Arab itu menghadiahi pekerjanya yang amanah ___________ emas.",a:"sebuntil"},
+    {n:8,q:"Hasil ___________ bekerja setiap hari, dia berjaya mengumpul wang untuk membeli sebuah rumah.",a:"keringat"},
+    {n:9,q:"Kanak-kanak itu ___________ di dalam lif selama sejam.",a:"terperangkap"},
+    {n:10,q:"Pengemis itu dalam keadaan ___________ kerana sudah dua hari tidak makan.",a:"lesu"}
+  ]}
+]},
+{ no:51, part:"A", unitTitle:"Unit 7 · Sentiasa Peka Setiap Masa", sections:[
+  { key:"A", type:"drag", pic:true, bank:["penceroboh","koridor","persekitaran","aras","memantau","jeriji","merakam","bermaya","memaklumkan","mencurigakan"], title:"Isi tempat kosong", instr:"Isi tempat kosong dengan perkataan yang sesuai. Seret perkataan ke tempat kosong.", items:[
+    {n:1,q:"Nenek yang tidak ___________ telah dikejarkan ke hospital untuk menerima rawatan.",a:"bermaya"},
+    {n:2,q:"Encik Yong dapat melihat wajah ___________ itu menerusi kamera litar tertutup rumahnya.",a:"penceroboh"},
+    {n:3,q:"Siew Min ___________ video dengan menggunakan telefon pintarnya.",a:"merakam"},
+    {n:4,q:"Encik Abu dan Encik Gan sentiasa memastikan kawasan ___________ rumah mereka selamat.",a:"persekitaran"},
+    {n:5,q:"Cikgu Alia ___________ langkah keselamatan yang perlu diambil oleh setiap peserta lawatan.",a:"memaklumkan"},
+    {n:6,q:"Pihak polis akan ___________ kawasan itu bagi mengelakkan kes jenayah berulang.",a:"memantau"},
+    {n:7,q:"Encik Azlan sedang memasang ___________ pada tingkap rumahnya.",a:"jeriji"},
+    {n:8,q:"Murid-murid tidak dibenarkan berlari di ___________ sekolah.",a:"koridor"},
+    {n:9,q:"Pejabat Encik Jamal terletak di ___________ lima bangunan itu.",a:"aras"},
+    {n:10,q:"Gerak-geri lelaki yang berbaju hitam itu amat ___________.",a:"mencurigakan"}
+  ]}
+]},
+{ no:52, part:"A", unitTitle:"Unit 7 · Sentiasa Peka Setiap Masa", sections:[
+  { key:"A", type:"drag", pic:true, bank:["peka","Panduan keselamatan","merakam","memantau","jeriji","tenang","menghalang","koridor","balkoni","memaklumkan"], title:"Isi tempat kosong", instr:"Isi tempat kosong dengan perkataan yang sesuai. Seret perkataan ke tempat kosong.", items:[
+    {n:1,q:"Yusri mengunci pintu pagar rumahnya kerana dia ___________ akan keselamatan rumahnya.",a:"peka"},
+    {n:2,q:"Pintu keselamatan itu dipasang untuk ___________ kegiatan jenayah.",a:"menghalang"},
+    {n:3,q:"Kamera litar tertutup berfungsi untuk ___________ kawasan persekitaran supaya sentiasa terjaga.",a:"merakam"},
+    {n:4,q:"Mereka membuat rondaan untuk ___________ keadaan di kawasan perumahan itu.",a:"memantau"},
+    {n:5,q:"Encik Lim ___________ kepulangannya ke kampung kepada jirannya.",a:"memaklumkan"},
+    {n:6,q:"Encik Hilmi dapat bercuti dengan ___________nya kerana kawasan rumahnya sentiasa dipantau oleh pengawal keselamatan.",a:"tenang"},
+    {n:7,q:"___________ semasa berada di rumah ialah memastikan pintu dan tingkap sentiasa berkunci.",a:"Panduan keselamatan"},
+    {n:8,q:"___________ ialah laluan yang menghubungkan satu bahagian dengan satu bahagian yang lain dalam sesebuah bangunan.",a:"koridor"},
+    {n:9,q:"Jian Yi dan ibunya mengambil angin sambil berbual-bual di ___________ rumah.",a:"balkoni"},
+    {n:10,q:"Encik Yong Ling memasang ___________ pada pintu dan tingkap rumahnya untuk mengelakkan kecurian.",a:"jeriji"}
+  ]}
+]},
+{ no:53, part:"A", unitTitle:"Unit 7 · Sentiasa Peka Setiap Masa", sections:[
+  { key:"A", type:"drag", pic:true, bank:["pengesan","membandingkan","kecemasan","saudagar","melindungi","terjamin","meluas","malang","peristiwa","tersebar"], title:"Isi tempat kosong", instr:"Isi tempat kosong dengan perkataan yang sesuai. Seret perkataan ke tempat kosong.", items:[
+    {n:1,q:"Encik Ismadi memasang kamera litar tertutup bagi memastikan keselamatan keluarganya ___________.",a:"terjamin"},
+    {n:2,q:"Encik Lam memasang ___________ asap pada siling bilik tidurnya.",a:"pengesan"},
+    {n:3,q:"Kami diingatkan supaya menelefon pihak bomba dan penyelamat jika berlaku ___________.",a:"kecemasan"},
+    {n:4,q:"Encik Kam ___________ alat pemadam api yang dibelinya dengan alat pemadam api jirannya.",a:"membandingkan"},
+    {n:5,q:"Kapal itu dimiliki oleh seorang ___________ yang kaya.",a:"saudagar"},
+    {n:6,q:"Sejak ___________ itu, Dalila sentiasa berhati-hati semasa menunggang basikal.",a:"peristiwa"},
+    {n:7,q:"Berita tentang kejadian jenayah itu telah ___________ ke seluruh negara.",a:"tersebar"},
+    {n:8,q:"Kekuasaan Empayar British ___________ hingga seluruh dunia.",a:"meluas"},
+    {n:9,q:"Orang ramai menghulurkan bantuan kepada kanak-kanak yang ___________ itu.",a:"malang"},
+    {n:10,q:"Topi keledar dapat ___________ kepala kita daripada kecederaan.",a:"melindungi"}
+  ]}
+]},
+{ no:54, part:"A", unitTitle:"Unit 7 · Sentiasa Peka Setiap Masa", sections:[
+  { key:"A", type:"drag", pic:true, bank:["Pelan laluan keselamatan","beringat","Identiti","tempahan","membenarkan","lesu","bermaya","keringat","Alat keselamatan","terperangkap"], title:"Isi tempat kosong", instr:"Isi tempat kosong dengan perkataan yang sesuai. Seret perkataan ke tempat kosong.", items:[
+    {n:1,q:"Kita dinasihati agar ___________ selalu bagi mengelakkan kemalangan.",a:"beringat"},
+    {n:2,q:"Petani itu mengesat ___________ di dahinya dengan menggunakan sehelai tuala kecil.",a:"keringat"},
+    {n:3,q:"Kaunter itu disediakan kepada orang ramai yang mahu membuat ___________ tiket kapal terbang.",a:"tempahan"},
+    {n:4,q:"Banyak kenderaan ___________ dalam kesesakan jalan raya itu.",a:"terperangkap"},
+    {n:5,q:"Badan kita akan ___________ jika tidak mendapat khasiat yang secukupnya.",a:"lesu"},
+    {n:6,q:"Pengemis itu kelihatan tidak ___________ kerana sudah dua hari tidak makan.",a:"bermaya"},
+    {n:7,q:"___________ disediakan untuk membantu kita menyelamatkan diri jika berlaku kebakaran.",a:"Pelan laluan keselamatan"},
+    {n:8,q:"___________ penjenayah itu sudah dikenal pasti oleh anggota polis.",a:"Identiti"},
+    {n:9,q:"Ibu ___________ Hadi pergi ke taman permainan dengan pengawasan abangnya.",a:"membenarkan"},
+    {n:10,q:"___________ seperti peti pertolongan cemas mestilah disediakan di rumah kita untuk tujuan keselamatan.",a:"Alat keselamatan"}
+  ]}
+]},
+{ no:55, part:"A", unitTitle:"Unit 7 · Sentiasa Peka Setiap Masa", sections:[
+  { key:"A", type:"drag", pic:true, bank:["alat pemadam api","alat pengesan asap","talian kecemasan","pandai besi","saudagar emas","kecurian","tersebar","bersebelahan","lesu","terkejut"], title:"Isi tempat kosong", instr:"Isi tempat kosong dengan perkataan yang sesuai. Seret perkataan ke tempat kosong.", items:[
+    {n:1,q:"Encik Gan menggunakan ___________ untuk memadamkan kebakaran kecil yang berlaku di rumahnya.",a:"alat pemadam api"},
+    {n:2,q:"___________ akan berbunyi apabila mengesan asap kebakaran di sekelilingnya.",a:"alat pengesan asap"},
+    {n:3,q:"Amir menghubungi ___________ 999 untuk melaporkan kebakaran rumah di kampungnya.",a:"talian kecemasan"},
+    {n:4,q:"Ibu meletakkan bekas kunci itu ___________ dengan pintu utama.",a:"bersebelahan"},
+    {n:5,q:"___________ itu mahir mencipta barang daripada besi dan keluli.",a:"pandai besi"},
+    {n:6,q:"___________ itu mempunyai beberapa buah kedai emas di negeri Kelantan.",a:"saudagar emas"},
+    {n:7,q:"Kejadian ___________ di kedai emas itu berlaku pada malam tadi.",a:"kecurian"},
+    {n:8,q:"Berita itu telah ___________ secara meluas di media sosial.",a:"tersebar"},
+    {n:9,q:"Ayah ___________ apabila melihat ular sawa sedang menelan seekor ayam di belakang rumah.",a:"terkejut"},
+    {n:10,q:"Badan Aiman berasa ___________ kerana sudah dua hari dia tidak lalu makan.",a:"lesu"}
+  ]}
+]}
+);
+
+Object.assign(window.TB_PICS, {
+  "56-A": ["p-110.jpg", "p-111.jpg"], "57-A": ["p-112.jpg", "p-113.jpg"], "58-A": ["p-114.jpg", "p-115.jpg"], "59-A": ["p-116.jpg", "p-117.jpg"],
+  "60-A": ["p-118.jpg", "p-119.jpg"], "61-A": ["p-120.jpg", "p-121.jpg"], "62-A": ["p-122.jpg", "p-123.jpg"], "63-A": ["p-124.jpg", "p-125.jpg"]
+});
+TB.push(
+{ no:56, part:"A", unitTitle:"Unit 8 · Prihatin Pasti Selamat", sections:[
+  { key:"A", type:"drag", pic:true, bank:["bersandar","pencegahan","undang-undang","memaparkan","Jejantas","menayangkan","mengantuk","wabak","mematuhi","menangani"], title:"Isi tempat kosong", instr:"Isi tempat kosong dengan perkataan yang sesuai. Seret perkataan ke tempat kosong.", items:[
+    {n:1,q:"Datuk berehat sambil ___________ di sebatang pokok.",a:"bersandar"},
+    {n:2,q:"Saya berasa ___________ kerana lewat tidur semalam.",a:"mengantuk"},
+    {n:3,q:"Setiap negara mempunyai ___________ yang telah ditetapkan.",a:"undang-undang"},
+    {n:4,q:"___________ digunakan oleh pejalan kaki.",a:"Jejantas"},
+    {n:5,q:"Murid-murid ___________ peraturan sekolah.",a:"mematuhi"},
+    {n:6,q:"Langkah-langkah ___________ wabak COVID-19 perlu dilakukan bagi mengelakkan wabak ini menular.",a:"pencegahan"},
+    {n:7,q:"Radio Televisyen Malaysia (RTM) telah ___________ cerita-cerita bertemakan patriotik sempena Hari Kebangsaan.",a:"menayangkan"},
+    {n:8,q:"___________ Covid-19 yang menular di seluruh negara semakin membimbangkan semua pihak.",a:"wabak"},
+    {n:9,q:"Berita petang ini ___________ jumlah mangsa banjir yang terpaksa dipindahkan.",a:"memaparkan"},
+    {n:10,q:"Kita hendaklah segera ___________ stres agar tidak menjejaskan pelajaran.",a:"menangani"}
+  ]}
+]},
+{ no:57, part:"A", unitTitle:"Unit 8 · Prihatin Pasti Selamat", sections:[
+  { key:"A", type:"drag", pic:true, bank:["saringan","bersandar","berisiko","punca","semoga","platform","nyahkuman","draf","sempat","paparan"], title:"Isi tempat kosong", instr:"Isi tempat kosong dengan perkataan yang sesuai. Seret perkataan ke tempat kosong.", items:[
+    {n:1,q:"Pihak sekolah melakukan beberapa ___________ sebelum memilih kemasukan pelajar baharu.",a:"saringan"},
+    {n:2,q:"Kementerian Kesihatan sedang giat menjalankan kerja ___________ di tempat-tempat yang menjadi tumpuan orang ramai.",a:"nyahkuman"},
+    {n:3,q:"Warga emas dan kanak-kanak ___________ untuk dijangkiti penyakit kerana mempunyai antibodi yang lemah.",a:"berisiko"},
+    {n:4,q:"Penonton dapat melihat ___________ markah pertandingan yang ditunjukkan pada skrin televisyen.",a:"paparan"},
+    {n:5,q:"Puan Halimah ___________ menyiapkan pakaian yang ditempah oleh pelanggannya.",a:"sempat"},
+    {n:6,q:"Semua penumpang diminta menjauhi lintasan kuning di ___________ semasa Transit Laju Massa (MRT) berhenti.",a:"platform"},
+    {n:7,q:"Pelajar dilarang ___________ pada pintu kerana cat masih basah.",a:"bersandar"},
+    {n:8,q:"Cikgu Tan meminta murid-murid menulis ___________ karangan yang bertajuk Pasar Malam.",a:"draf"},
+    {n:9,q:"Antara ___________ kemalangan jalan raya ialah sikap cuai pemandu.",a:"punca"},
+    {n:10,q:"Saya berdoa ___________ usaha kalian untuk mengharumkan nama negara berjaya.",a:"semoga"}
+  ]}
+]},
+{ no:58, part:"A", unitTitle:"Unit 8 · Prihatin Pasti Selamat", sections:[
+  { key:"A", type:"drag", pic:true, bank:["tumpuan","disemat","mengantuk","diingkari","malapetaka","berhemat","terbabas","undang-undang","dihindari","terleka"], title:"Isi tempat kosong", instr:"Isi tempat kosong dengan perkataan yang sesuai. Seret perkataan ke tempat kosong.", items:[
+    {n:1,q:"Aina ___________ di dalam kelas kerana tidak tidur semalaman.",a:"mengantuk"},
+    {n:2,q:"Kita hendaklah memberi ___________ semasa guru sedang mengajar supaya mudah faham.",a:"tumpuan"},
+    {n:3,q:"Kereta yang dipandu dengan laju itu ___________ lalu melanggar pembahagi jalan.",a:"terbabas"},
+    {n:4,q:"Kita diminta mematuhi ___________ yang telah ditetapkan demi kesejahteraan semua pihak.",a:"undang-undang"},
+    {n:5,q:"Nasihat ibu bapa janganlah ___________ agar kita selamat.",a:"diingkari"},
+    {n:6,q:"Perbuatan yang melanggar peraturan sekolah hendaklah ___________ agar kita tidak didenda.",a:"dihindari"},
+    {n:7,q:"“Nasihat berguna ini hendaklah ___________ dalam ingatan,” pesan ibu kepada anaknya.",a:"disemat"},
+    {n:8,q:"Pemandu haruslah ___________ ketika memandu untuk mengelak kemalangan berlaku.",a:"berhemat"},
+    {n:9,q:"Janganlah ___________ bermandi-manda kerana kita boleh dihanyutkan arus yang deras.",a:"terleka"},
+    {n:10,q:"Hujan lebat yang turun telah menyebabkan ___________ yang besar di negara itu.",a:"malapetaka"}
+  ]}
+]},
+{ no:59, part:"A", unitTitle:"Unit 8 · Prihatin Pasti Selamat", sections:[
+  { key:"A", type:"drag", pic:true, bank:["diredah","menangani","jejantas","berisiko","mematuhi","menayangkan","eksperimen","kaunter saringan","bergurau","nyahkuman"], title:"Isi tempat kosong", instr:"Isi tempat kosong dengan perkataan yang sesuai. Seret perkataan ke tempat kosong.", items:[
+    {n:1,q:"Pejalan kaki diminta menggunakan ___________ untuk melintas jalan raya yang sibuk.",a:"jejantas"},
+    {n:2,q:"Hutan yang tebal ___________ demi mencari hasil hutan untuk dijual.",a:"diredah"},
+    {n:3,q:"Semua murid diminta tidak bermain-main semasa menjalankan ___________ di bilik sains.",a:"eksperimen"},
+    {n:4,q:"Saiful suka ___________ dengan rakan-rakan sekelasnya.",a:"bergurau"},
+    {n:5,q:"Semua pekerja di kilang itu ___________ arahan yang dikeluarkan oleh majikan.",a:"mematuhi"},
+    {n:6,q:"Cikgu Alif ___________ video tentang keselamatan diri di bilik tayangan.",a:"menayangkan"},
+    {n:7,q:"Penduduk ___________ jangkitan demam denggi dengan menghapuskan tempat pembiakan nyamuk Aedes.",a:"menangani"},
+    {n:8,q:"Ayah membuat pemeriksaan suhu di ___________ sebelum masuk ke dalam klinik.",a:"kaunter saringan"},
+    {n:9,q:"Pihak bomba melakukan semburan ___________ di bangunan itu untuk mencegah penularan wabak COVID-19.",a:"nyahkuman"},
+    {n:10,q:"Kanak-kanak dan warga emas merupakan golongan yang ___________ tinggi untuk dijangkiti wabak COVID-19.",a:"berisiko"}
+  ]}
+]},
+{ no:60, part:"A", unitTitle:"Unit 8 · Prihatin Pasti Selamat", sections:[
+  { key:"A", type:"drag", pic:true, bank:["dilarang","menaiki","membahayakan","berhemat","Kemalangan","leka","dihindari","Simbol","tercedera","pencegahan"], title:"Isi tempat kosong", instr:"Isi tempat kosong dengan perkataan yang sesuai. Seret perkataan ke tempat kosong.", items:[
+    {n:1,q:"Aini dan Mei Mei ___________ bas untuk pergi ke sekolah.",a:"menaiki"},
+    {n:2,q:"___________ pagar pada papan tanda itu membawa maksud lintasan kereta api berpagar.",a:"Simbol"},
+    {n:3,q:"Murid-murid ___________ berlari semasa turun dari bas.",a:"dilarang"},
+    {n:4,q:"Perbuatan memandu dalam keadaan mengantuk ___________ diri sendiri dan pengguna jalan raya yang lain.",a:"membahayakan"},
+    {n:5,q:"Ajis ___________ akibat terjatuh daripada basikal.",a:"tercedera"},
+    {n:6,q:"___________ itu melibatkan sebuah kereta dan motosikal.",a:"Kemalangan"},
+    {n:7,q:"Haraz ___________ bermain permainan video sehingga dia tidak menyedari akan kehadiran ibunya.",a:"leka"},
+    {n:8,q:"Sikap cuai seperti memandu sambil menggunakan telefon bimbit haruslah ___________.",a:"dihindari"},
+    {n:9,q:"Pemandu yang ___________ akan mematuhi undang-undang jalan raya yang ditetapkan.",a:"berhemat"},
+    {n:10,q:"Langkah ___________ perlu dilakukan bagi mengelakkan masalah pencemaran bertambah serius.",a:"pencegahan"}
+  ]}
+]},
+{ no:61, part:"A", unitTitle:"Unit 8 · Prihatin Pasti Selamat", sections:[
+  { key:"A", type:"drag", pic:true, bank:["menangani","tersurat","jangkitan","memaparkan","saluran","nyahkuman","wabak","punca","penjarakan","bagasi"], title:"Isi tempat kosong", instr:"Isi tempat kosong dengan perkataan yang sesuai. Seret perkataan ke tempat kosong.", items:[
+    {n:1,q:"___________ COVID-19 telah menyebabkan jutaan manusia di seluruh dunia terkorban.",a:"wabak"},
+    {n:2,q:"Cikgu Ying ___________ panduan menjawab soalan matematik di papan tulis.",a:"memaparkan"},
+    {n:3,q:"Encik Sundram ___________ masalah pekerjanya secara bijak dan berhemah.",a:"menangani"},
+    {n:4,q:"Proses ___________ dilakukan di kawasan itu bagi menghapuskan virus COVID-19.",a:"nyahkuman"},
+    {n:5,q:"Kita perlu mengamalkan ___________ fizikal bagi mencegah wabak COVID-19.",a:"penjarakan"},
+    {n:6,q:"Kita perlu sentiasa menjaga kebersihan diri supaya tidak terkena ___________ kuman.",a:"jangkitan"},
+    {n:7,q:"Pesakit itu dibawa ke hospital kerana mengalami masalah pada ___________ pernafasan.",a:"saluran"},
+    {n:8,q:"Semua ___________ itu akan diperiksa dan disimpan di tempat yang selamat.",a:"bagasi"},
+    {n:9,q:"Kami dapat memahami maksud ___________ petikan itu dengan mudahnya.",a:"tersurat"},
+    {n:10,q:"Sikap tidak mahu bertolak ansur menjadi ___________ berlakunya pergaduhan itu.",a:"punca"}
+  ]}
+]},
+{ no:62, part:"A", unitTitle:"Unit 8 · Prihatin Pasti Selamat", sections:[
+  { key:"A", type:"drag", pic:true, bank:["melintas","eksperimen","mengantuk","malapetaka","diingkari","tersirat","bergurau","diredah","leka","padah"], title:"Isi tempat kosong", instr:"Isi tempat kosong dengan perkataan yang sesuai. Seret perkataan ke tempat kosong.", items:[
+    {n:1,q:"Aidil ___________ dengan adiknya dengan membuat gaya harimau yang ingin menerkam mangsanya.",a:"bergurau"},
+    {n:2,q:"Keluarga Yu Ting ditimpa ___________ apabila rumah mereka hangus dijilat api.",a:"malapetaka"},
+    {n:3,q:"Murid-murid ___________ jalan apabila Lampu Orang Hijau bernyala di lintasan.",a:"melintas"},
+    {n:4,q:"Anak sungai itu ___________ oleh peserta Kem Jati Diri untuk ke seberang sungai.",a:"diredah"},
+    {n:5,q:"Sikap cuai pemandu itu telah membawa ___________ apabila kereta yang dipandunya terbabas lalu melanggar pembahagi jalan.",a:"padah"},
+    {n:6,q:"Murid-murid membuat ___________ tentang doh roti di makmal sains.",a:"eksperimen"},
+    {n:7,q:"Cikgu Zaidi menerangkan maksud ___________ sajak itu kepada murid-muridnya.",a:"tersirat"},
+    {n:8,q:"Suriati tertidur di atas sofa kerana dia terlalu ___________.",a:"mengantuk"},
+    {n:9,q:"Adik ___________ menonton televisyen sehingga terlupa untuk menyiapkan kerja sekolahnya.",a:"leka"},
+    {n:10,q:"Nasihat ibu bapa janganlah ___________.",a:"diingkari"}
+  ]}
+]},
+{ no:63, part:"A", unitTitle:"Unit 8 · Prihatin Pasti Selamat", sections:[
+  { key:"A", type:"drag", pic:true, bank:["padah","berhemat","mengundang","bergurau","diredah","eksperimen","malapetaka","sesal","pintas","Hindari"], title:"Isi tempat kosong", instr:"Isi tempat kosong dengan perkataan yang sesuai. Seret perkataan ke tempat kosong.", items:[
+    {n:1,q:"Pemandu yang ___________ akan selamat.",a:"berhemat"},
+    {n:2,q:"“___________ sikap yang buruk agar kamu tidak dibenci orang,” kata Puan Yee kepada anaknya.",a:"Hindari"},
+    {n:3,q:"Farhana suka ___________ dengan kawan-kawannya.",a:"bergurau"},
+    {n:4,q:"Sikap lalai dan tidak berhati-hati ___________ bahaya.",a:"mengundang"},
+    {n:5,q:"Pak Karim berdoa agar keluarganya dijauhkan daripada ___________.",a:"malapetaka"},
+    {n:6,q:"Kumar menggunakan jalan ___________ kerana mahu cepat sampai di tempat kerjanya.",a:"pintas"},
+    {n:7,q:"Pelbagai halangan terpaksa ___________ olehnya semasa mahu menyelamatkan diri.",a:"diredah"},
+    {n:8,q:"Jika kita tidak peka akan keselamatan, bersedialah untuk menerima ___________nya.",a:"padah"},
+    {n:9,q:"Amir berasa ___________ kerana kemalangan itu terjadi berpunca daripada kecuaiannya.",a:"sesal"},
+    {n:10,q:"Mereka sentiasa berwaspada semasa menjalankan ___________ sains di makmal.",a:"eksperimen"}
+  ]}
+]}
+);
+
+Object.assign(window.TB_PICS, {
+  "64-A": ["p-126.jpg", "p-127.jpg"], "65-A": ["p-128.jpg", "p-129.jpg"], "66-A": ["p-130.jpg", "p-131.jpg"], "67-A": ["p-132.jpg", "p-133.jpg"],
+  "68-A": ["p-134.jpg", "p-135.jpg"], "69-A": ["p-136.jpg", "p-137.jpg"], "70-A": ["p-138.jpg", "p-139.jpg"], "71-A": ["p-140.jpg", "p-141.jpg"]
+});
+TB.push(
+{ no:64, part:"A", unitTitle:"Unit 9 · Bersiap Sedia Hadapi Kemungkinan", sections:[
+  { key:"A", type:"drag", pic:true, bank:["prosedur","berganjak","rakit","terjongket","pancuran","bonggolan","penggera","resapan","runtuh","tembok"], title:"Isi tempat kosong", instr:"Isi tempat kosong dengan perkataan yang sesuai. Seret perkataan ke tempat kosong.", items:[
+    {n:1,q:"Kita mesti mengikut ___________ yang ditetapkan untuk menghantar barang.",a:"prosedur"},
+    {n:2,q:"Alat ___________ dibunyikan apabila berlaku kebakaran di sekolah.",a:"penggera"},
+    {n:3,q:"Pada zaman dahulu, manusia menggunakan ___________ untuk pergi dari satu tempat ke tempat yang lain.",a:"rakit"},
+    {n:4,q:"Kejadian tanah ___________ yang berlaku menyebabkan perhubungan terputus.",a:"runtuh"},
+    {n:5,q:"Kami duduk mengelilingi ___________ air di tepi taman pada waktu petang.",a:"pancuran"},
+    {n:6,q:"___________ air yang berlaku menyebabkan tanah runtuh di lereng bukit.",a:"resapan"},
+    {n:7,q:"___________ besar di tengah jalan telah menghalang laluan orang ramai.",a:"bonggolan"},
+    {n:8,q:"Saya tidak akan ___________ dari rumah ini walau apa-apa pun yang terjadi.",a:"berganjak"},
+    {n:9,q:"Lantai papan yang rosak itu ___________ apabila terpijak.",a:"terjongket"},
+    {n:10,q:"Lelaki itu membina ___________ di sekeliling rumahnya agar tidak mudah dimasuki pencuri.",a:"tembok"}
+  ]}
+]},
+{ no:65, part:"A", unitTitle:"Unit 9 · Bersiap Sedia Hadapi Kemungkinan", sections:[
+  { key:"A", type:"drag", pic:true, bank:["mendap","perwira","berdaulat","cekal","hancur","mengekang","cerun","dentuman","sesak","mengenyahkan"], title:"Isi tempat kosong", instr:"Isi tempat kosong dengan perkataan yang sesuai. Seret perkataan ke tempat kosong.", items:[
+    {n:1,q:"Setelah air itu dibiarkan semalaman, semua kotoran ___________ ke bawah.",a:"mendap"},
+    {n:2,q:"Selepas beberapa bulan, ___________ bukit di belakang rumah saya mulai landai.",a:"cerun"},
+    {n:3,q:"Kami menoleh apabila mendengar bunyi ___________ yang kuat di jalan raya.",a:"dentuman"},
+    {n:4,q:"Jalan raya utama menjadi ___________ kerana terdapat kemalangan yang melibatkan tiga buah kereta di hadapan.",a:"sesak"},
+    {n:5,q:"Anggota bomba sedang menyembur air untuk ___________ kotoran pada bangunan itu.",a:"mengenyahkan"},
+    {n:6,q:"Jasa ___________ negara dalam mempertahankan tanah air akan sentiasa dikenang.",a:"perwira"},
+    {n:7,q:"Wanita itu ___________ menjalankan perniagaannya walaupun beberapa kali mengalami kerugian.",a:"cekal"},
+    {n:8,q:"Pihak hospital sedang cuba ___________ penyakit itu daripada merebak.",a:"mengekang"},
+    {n:9,q:"Kita hendaklah bersyukur hidup dalam negara yang ___________.",a:"berdaulat"},
+    {n:10,q:"Negara akan ___________ sekiranya rakyat berpecah dan saling bermusuh.",a:"hancur"}
+  ]}
+]},
+{ no:66, part:"A", unitTitle:"Unit 9 · Bersiap Sedia Hadapi Kemungkinan", sections:[
+  { key:"A", type:"drag", pic:true, bank:["bengkang-bengkok","merebak","peribadi","Sengatan","kencang","merancang","menara","dititikberatkan","panik","kecelakaan"], title:"Isi tempat kosong", instr:"Isi tempat kosong dengan perkataan yang sesuai. Seret perkataan ke tempat kosong.", items:[
+    {n:1,q:"Kita tidak boleh mendedahkan maklumat ___________ kepada orang yang tidak dikenali.",a:"peribadi"},
+    {n:2,q:"Ibu berasa ___________ apabila adik hilang ketika sedang berbelanja di kedai.",a:"panik"},
+    {n:3,q:"Jalan menuju ke Cameron Highlands ___________ menyebabkan adik berasa pening.",a:"bengkang-bengkok"},
+    {n:4,q:"Api yang marak ___________ ke bahagian lain kerana angin kencang.",a:"merebak"},
+    {n:5,q:"Soal pelajaran anak-anak haruslah ___________ oleh semua ibu bapa.",a:"dititikberatkan"},
+    {n:6,q:"Angin ___________ yang bertiup menyebabkan banyak bumbung yang rosak.",a:"kencang"},
+    {n:7,q:"Ayah telah ___________ untuk membawa kami bercuti ke luar negara hujung tahun ini.",a:"merancang"},
+    {n:8,q:"Sebuah ___________ kawalan telah dibina di lapangan terbang untuk membantu juruterbang mendarat dengan selamat.",a:"menara"},
+    {n:9,q:"___________ ular yang berbisa boleh menyebabkan kematian jika tidak dirawat dengan segera.",a:"Sengatan"},
+    {n:10,q:"Pemandu kereta diminta berhati-hati di lebuh raya untuk mengelakkan ___________.",a:"kecelakaan"}
+  ]}
+]},
+{ no:67, part:"A", unitTitle:"Unit 9 · Bersiap Sedia Hadapi Kemungkinan", sections:[
+  { key:"A", type:"drag", pic:true, bank:["kemungkinan","prosedur","rakit","panik","jaket","petanda","pancuran","resapan","Rekahan","bonggolan"], title:"Isi tempat kosong", instr:"Isi tempat kosong dengan perkataan yang sesuai. Seret perkataan ke tempat kosong.", items:[
+    {n:1,q:"Langkah pencegahan perlu diambil bagi mengelakkan ___________ berlakunya tanah runtuh.",a:"kemungkinan"},
+    {n:2,q:"Semua penumpang kapal terbang perlu mengikut ___________ yang ditetapkan bagi mengelakkan kemalangan.",a:"prosedur"},
+    {n:3,q:"Pak Man menyeberangi sungai itu dengan menaiki ___________.",a:"rakit"},
+    {n:4,q:"Shila ___________ apabila menyedari ada seorang lelaki sedang mengekorinya.",a:"panik"},
+    {n:5,q:"Encik Malik membeli ___________ kulit itu semasa bercuti di Sarawak.",a:"jaket"},
+    {n:6,q:"Bunyi guruh di langit merupakan ___________ bahawa hujan akan turun tidak lama lagi.",a:"petanda"},
+    {n:7,q:"Kami sekeluarga bergambar di hadapan ___________ air yang cantik.",a:"pancuran"},
+    {n:8,q:"Tanah di kawasan itu menjadi mendap akibat ___________ air.",a:"resapan"},
+    {n:9,q:"___________ pada dinding bangunan itu perlu dibaiki segera.",a:"Rekahan"},
+    {n:10,q:"Pengguna jalan raya perlu berhati-hati kerana terdapat ___________ besar di jalan raya itu.",a:"bonggolan"}
+  ]}
+]},
+{ no:68, part:"A", unitTitle:"Unit 9 · Bersiap Sedia Hadapi Kemungkinan", sections:[
+  { key:"A", type:"drag", pic:true, bank:["bertindak","dipindahkan","penumpang","prosedur","meneliti","brosur","jaket keselamatan","rakit","Rekahan","panik"], title:"Isi tempat kosong", instr:"Isi tempat kosong dengan perkataan yang sesuai. Seret perkataan ke tempat kosong.", items:[
+    {n:1,q:"Penduduk itu ___________ untuk memadamkan kebakaran itu sementara menunggu ketibaan anggota bomba.",a:"bertindak"},
+    {n:2,q:"Pelanggan perlu mengambil nombor giliran sebagai ___________ untuk berurusan di bank itu.",a:"prosedur"},
+    {n:3,q:"Para ___________ bas ekspres itu sedang beratur untuk menaiki bas.",a:"penumpang"},
+    {n:4,q:"___________ merupakan alat pengangkutan air pada masa dahulu.",a:"rakit"},
+    {n:5,q:"Pesakit itu telah ___________ dari unit rawatan rapi ke wad biasa.",a:"dipindahkan"},
+    {n:6,q:"Encik Niza berasa ___________ apabila enjin botnya tiba-tiba rosak semasa dia berada di tengah laut.",a:"panik"},
+    {n:7,q:"Kita mestilah memakai ___________ apabila menaiki pengangkutan air untuk keselamatan.",a:"jaket keselamatan"},
+    {n:8,q:"Ayah sedang ___________ tajuk utama pada muka hadapan surat khabar itu.",a:"meneliti"},
+    {n:9,q:"___________ itu mengandungi maklumat tentang langkah pencegahan COVID-19 di sekolah.",a:"brosur"},
+    {n:10,q:"___________ tanah itu berlaku akibat hujan lebat sejak beberapa hari yang lalu.",a:"Rekahan"}
+  ]}
+]},
+{ no:69, part:"A", unitTitle:"Unit 9 · Bersiap Sedia Hadapi Kemungkinan", sections:[
+  { key:"A", type:"drag", pic:true, bank:["berganjak","retak","mendap","cerun","saliran","lebuh raya","dentuman","menghiraukan","sesak","amaran"], title:"Isi tempat kosong", instr:"Isi tempat kosong dengan perkataan yang sesuai. Seret perkataan ke tempat kosong.", items:[
+    {n:1,q:"Wai Meng tidak ___________ dari tempat duduknya kerana sedang tekun mengulang kaji pelajaran.",a:"berganjak"},
+    {n:2,q:"Pinggan yang ___________ itu sudah tidak boleh digunakan lagi.",a:"retak"},
+    {n:3,q:"Lumpur dan kekotoran ___________ di dasar sungai.",a:"mendap"},
+    {n:4,q:"Ayah melarang kami bermain di ___________ bukit.",a:"cerun"},
+    {n:5,q:"Setiap kawasan kediaman perlu mempunyai ___________ yang baik.",a:"saliran"},
+    {n:6,q:"Yee Yong menyesal kerana tidak ___________ nasihat ibu bapanya.",a:"menghiraukan"},
+    {n:7,q:"Shamil terkejut apabila terdengar bunyi ___________ yang kuat.",a:"dentuman"},
+    {n:8,q:"Jumlah kenderaan di ___________ pada petang itu sungguh banyak.",a:"lebuh raya"},
+    {n:9,q:"Keadaan di dalam bas itu ___________ dengan penumpang yang mahu pulang ke kampung.",a:"sesak"},
+    {n:10,q:"Anggota bomba memberikan ___________ kepada penduduk kampung supaya segera berpindah ke pusat pemindahan banjir.",a:"amaran"}
+  ]}
+]},
+{ no:70, part:"A", unitTitle:"Unit 9 · Bersiap Sedia Hadapi Kemungkinan", sections:[
+  { key:"A", type:"drag", pic:true, bank:["Cerun","dentuman","sesak","kerosakan","berasap","dusun","rawatan","terbalik","ternampak","tertumpah"], title:"Isi tempat kosong", instr:"Isi tempat kosong dengan perkataan yang sesuai. Seret perkataan ke tempat kosong.", items:[
+    {n:1,q:"Puan Chua mendapatkan ___________ buah pinggang di Hospital Serdang.",a:"rawatan"},
+    {n:2,q:"Rumah Puan Huda mengalami ___________ akibat dihempap pokok yang tumbang.",a:"kerosakan"},
+    {n:3,q:"___________ bukit itu ditanami tanaman tutup bumi untuk mencegah hakisan tanah.",a:"Cerun"},
+    {n:4,q:"Faris pergi ke ___________ datuknya untuk memetik buah-buahan.",a:"dusun"},
+    {n:5,q:"Bunyi ___________ yang kuat itu terhasil akibat pertembungan antara sebuah kereta dengan lori.",a:"dentuman"},
+    {n:6,q:"Perahu milik nelayan itu ___________ akibat ditiup angin kencang semalam.",a:"terbalik"},
+    {n:7,q:"Air milo itu ___________ kerana terkena tangan Hanif.",a:"tertumpah"},
+    {n:8,q:"Jalan raya itu menjadi ___________ kerana terdapat sekatan jalan raya oleh anggota polis.",a:"sesak"},
+    {n:9,q:"Idham terkejut apabila ___________ asap keluar dari tingkap rumah jirannya semasa pulang dari sekolah.",a:"ternampak"},
+    {n:10,q:"Encik Chan segera memberhentikan keretanya apabila enjin keretanya ___________.",a:"berasap"}
+  ]}
+]},
+{ no:71, part:"A", unitTitle:"Unit 9 · Bersiap Sedia Hadapi Kemungkinan", sections:[
+  { key:"A", type:"drag", pic:true, bank:["mendail","mengenyahkan","palsu","ombak","panggilan","petir","terhalang","tumpahan","mencantumkan","dititikberatkan"], title:"Isi tempat kosong", instr:"Isi tempat kosong dengan perkataan yang sesuai. Seret perkataan ke tempat kosong.", items:[
+    {n:1,q:"Para petugas kesihatan sedang melakukan kerja pembersihan bagi ___________ kuman.",a:"mengenyahkan"},
+    {n:2,q:"Kapal tangki yang bocor itu telah menyebabkan ___________ minyak di kawasan perairan negara.",a:"tumpahan"},
+    {n:3,q:"Farah membaca majalah sementara menunggu ___________ telefon daripada rakannya.",a:"panggilan"},
+    {n:4,q:"Siew Ang ___________ nombor 999 untuk membuat panggilan kecemasan.",a:"mendail"},
+    {n:5,q:"Jalan masuk ke kampung itu ___________ akibat kejadian tanah runtuh.",a:"terhalang"},
+    {n:6,q:"Pihak polis mengesahkan bahawa berita tentang kejadian rompakan itu ___________.",a:"palsu"},
+    {n:7,q:"Sofia ___________ bunga hiasan itu pada tangkainya dengan menggunakan gam.",a:"mencantumkan"},
+    {n:8,q:"Pengetahuan tentang keselamatan jalan raya perlu ___________ bagi mengurangkan jumlah kemalangan jalan raya.",a:"dititikberatkan"},
+    {n:9,q:"Azman segera masuk ke dalam rumah apabila terdengar bunyi ___________.",a:"petir"},
+    {n:10,q:"Kami berlari-lari di pantai itu sambil bermain ___________.",a:"ombak"}
+  ]}
+]}
+);
+
+Object.assign(window.TB_PICS, {
+  "72-A": ["p-143.jpg", "p-144.jpg"], "73-A": ["p-145.jpg", "p-146.jpg"], "74-A": ["p-147.jpg", "p-148.jpg"], "75-A": ["p-149.jpg", "p-150.jpg"],
+  "76-A": ["p-151.jpg", "p-152.jpg"], "77-A": ["p-153.jpg", "p-154.jpg"], "78-A": ["p-155.jpg", "p-156.jpg"]
+});
+TB.push(
+{ no:72, part:"A", unitTitle:"Unit 10 · Bersikap jujur", sections:[
+  { key:"A", type:"drag", pic:true, bank:["jenayah","keterangan","siasatan","mengesan","dihadapkan","terperinci","berpesan","urusan","menjejaki","kolej"], title:"Isi tempat kosong", instr:"Isi tempat kosong dengan perkataan yang sesuai. Seret perkataan ke tempat kosong.", items:[
+    {n:1,q:"Kita perlu melaporkan perbuatan ___________ kepada pihak berkuasa.",a:"jenayah"},
+    {n:2,q:"Kim Hoo telah dipanggil oleh pihak polis untuk memberi ___________ tentang kejadian rompakan itu.",a:"keterangan"},
+    {n:3,q:"Pihak polis memerlukan maklumat ___________ untuk mengenal pasti penjenayah yang memecah masuk rumah Kim Hoo.",a:"terperinci"},
+    {n:4,q:"Pihak polis akan melakukan ___________ sejurus menerima laporan kejadian pecah rumah itu.",a:"siasatan"},
+    {n:5,q:"Perompak yang merompak rumah Kim Hoo telah ___________ ke muka pengadilan.",a:"dihadapkan"},
+    {n:6,q:"Pihak polis telah berusaha ___________ perompak yang merompak rumah Kim Hoo setelah menerima laporan daripadanya.",a:"menjejaki"},
+    {n:7,q:"Pihak polis telah berjaya ___________ penjenayah yang memecahkan masuk rumah Kim Hoo.",a:"mengesan"},
+    {n:8,q:"Ayah dan ibu Kim Hoo telah pergi ke Johor Bahru kerana mempunyai ___________ perniagaan.",a:"urusan"},
+    {n:9,q:"Sebelum bertolak ke Johor Bahru, ibu ___________ agar kami menjaga kebersihan rumah.",a:"berpesan"},
+    {n:10,q:"Abang akan pergi ke ___________ jika kakinya yang terseliuh sudah baik.",a:"kolej"}
+  ]}
+]},
+{ no:73, part:"A", unitTitle:"Unit 10 · Bersikap jujur", sections:[
+  { key:"A", type:"drag", pic:true, bank:["dekorasi","dusta","melayari","mengukir janji","pembelajaran","berbicara","tablet","sekelumit","laman sesawang","dimungkiri"], title:"Isi tempat kosong", instr:"Isi tempat kosong dengan perkataan yang sesuai. Seret perkataan ke tempat kosong.", items:[
+    {n:1,q:"Kim Hoo dan abangnya sedang memasang ___________ di rumah mereka sempena menyambut Tahun Baharu Cina.",a:"dekorasi"},
+    {n:2,q:"Kita perlu menggunakan ___________ yang diberikan oleh kerajaan dengan bertanggungjawab.",a:"tablet"},
+    {n:3,q:"Kim Hoo dan Ali sedang ___________ Internet untuk mencari maklumat tentang kemerdekaan negara.",a:"melayari"},
+    {n:4,q:"Kita hendaklah sentiasa bertanggungjawab apabila melayari ___________.",a:"laman sesawang"},
+    {n:5,q:"Gina sedang menonton video ___________ tentang cara-cara membuat ulasan.",a:"pembelajaran"},
+    {n:6,q:"Kita hendaklah bersopan apabila ___________ dengan orang yang lebih tua.",a:"berbicara"},
+    {n:7,q:"Tuduhan yang dilemparkan kepada saya semuanya ___________ belaka.",a:"dusta"},
+    {n:8,q:"Kita tidak harus ada perasaan iri hati terhadap kejayaan kawan-kawan kita walaupun hanya ___________.",a:"sekelumit"},
+    {n:9,q:"Apabila kita ___________ kepada seseorang, kita perlu menunaikannya.",a:"mengukir janji"},
+    {n:10,q:"Segala janji yang diberikan telah ___________ oleh kawan-kawannya.",a:"dimungkiri"}
+  ]}
+]},
+{ no:74, part:"A", unitTitle:"Unit 10 · Bersikap jujur", sections:[
+  { key:"A", type:"drag", pic:true, bank:["dikhianati","tulus","asas","julang","Contohilah","dinasihati","pemberian","berlaukkan","memulangkan","wang belanja"], title:"Isi tempat kosong", instr:"Isi tempat kosong dengan perkataan yang sesuai. Seret perkataan ke tempat kosong.", items:[
+    {n:1,q:"Gina berasa sedih apabila ___________ oleh sahabat baiknya sendiri.",a:"dikhianati"},
+    {n:2,q:"Kita hendaklah membantu orang lain dengan penuh ___________.",a:"tulus"},
+    {n:3,q:"Kita perlu mempunyai ___________ yang kukuh dalam pengetahuan agama.",a:"asas"},
+    {n:4,q:"Kedaulatan negara harus kita ___________ bagi memastikan keamanan negara.",a:"julang"},
+    {n:5,q:"“___________ kejayaan yang dilakar oleh Gina dalam peperiksaan,” kata Cikgu Jamal kepada murid-muridnya.",a:"Contohilah"},
+    {n:6,q:"Tan ___________ agar berehat di rumah kerana dia tidak sihat.",a:"dinasihati"},
+    {n:7,q:"Kita mesti mengucapkan terima kasih atas setiap ___________ yang diperoleh.",a:"pemberian"},
+    {n:8,q:"Kami makan nasi ___________ ikan sungai yang dijala oleh ayah di sungai.",a:"berlaukkan"},
+    {n:9,q:"Kita harus ___________ semula barang yang dipinjam.",a:"memulangkan"},
+    {n:10,q:"Setiap hari, ibu memberi ___________ sebanyak Rm5.00.",a:"wang belanja"}
+  ]}
+]},
+{ no:75, part:"A", unitTitle:"Unit 10 · Bersikap jujur", sections:[
+  { key:"A", type:"drag", pic:true, bank:["jaminan","jenayah","ditangkap","urusan","menyiasat","terperinci","mahkamah","keterangan","bukti","menjejaki"], title:"Isi tempat kosong", instr:"Isi tempat kosong dengan perkataan yang sesuai. Seret perkataan ke tempat kosong.", items:[
+    {n:1,q:"Janganlah kita melakukan ___________.",a:"jenayah"},
+    {n:2,q:"Encik Loke diminta hadir ke balai polis untuk memberikan ___________.",a:"keterangan"},
+    {n:3,q:"Inspektor Azman sedang ___________ kes jenayah itu.",a:"menyiasat"},
+    {n:4,q:"Cikgu Yong menerangkan formula sains itu secara ___________.",a:"terperinci"},
+    {n:5,q:"Penjenayah itu akan didakwa di ___________ tidak lama lagi.",a:"mahkamah"},
+    {n:6,q:"Kita tidak boleh menuduh seseorang melakukan kesalahan jika tidak mempunyai ___________.",a:"bukti"},
+    {n:7,q:"Pihak polis berusaha ___________ penjenayah itu dengan bantuan orang awam.",a:"menjejaki"},
+    {n:8,q:"Ishak memberikan ___________ bahawa dia akan menghadiri latihan bola sepak pada minggu hadapan.",a:"jaminan"},
+    {n:9,q:"Banduan yang melarikan diri itu telah berjaya ___________.",a:"ditangkap"},
+    {n:10,q:"Encik Tong mempunyai ___________ kerja di Kuala Lumpur selama tiga hari.",a:"urusan"}
+  ]}
+]},
+{ no:76, part:"A", unitTitle:"Unit 10 · Bersikap jujur", sections:[
+  { key:"A", type:"drag", pic:true, bank:["eksperimen","bertolak","sekelumit","menginginkan","dusta","percuma","pertimbangan","berbicara","janji","Andai"], title:"Isi tempat kosong", instr:"Isi tempat kosong dengan perkataan yang sesuai. Seret perkataan ke tempat kosong.", items:[
+    {n:1,q:"Mereka ___________ dari stesen kereta api itu pada pukul 8:00 pagi.",a:"bertolak"},
+    {n:2,q:"Sebelum membuat sesuatu keputusan, kita perlulah membuat ___________ yang bijak.",a:"pertimbangan"},
+    {n:3,q:"Farhan ___________ sebuah basikal baharu sebagai hadiah hari lahirnya.",a:"menginginkan"},
+    {n:4,q:"Profesor Wen sedang menjalankan ___________ sains di makmalnya.",a:"eksperimen"},
+    {n:5,q:"Cikgu Azman mengadakan kelas tuisyen Bahasa Melayu secara ___________.",a:"percuma"},
+    {n:6,q:"___________ kita menjadi kaya, janganlah kita bersikap sombong dan bongkak.",a:"Andai"},
+    {n:7,q:"Adik Kok Seng pendiam dan tidak suka ___________.",a:"berbicara"},
+    {n:8,q:"“Berita yang kamu dengar itu ___________ belaka,” kata Azli kepada Lim.",a:"dusta"},
+    {n:9,q:"“Tiada ___________ pun rasa marah terhadap kamu,” kata Kak Ina kepada adiknya.",a:"sekelumit"},
+    {n:10,q:"Kita hendaklah menunaikan ___________ yang telah kita lafazkan.",a:"janji"}
+  ]}
+]},
+{ no:77, part:"A", unitTitle:"Unit 10 · Bersikap jujur", sections:[
+  { key:"A", type:"drag", pic:true, bank:["terperinci","jenayah","menjejaki","keterangan","ditangkap","bukti","mahkamah","melaporkan","diselesaikan","menyiasat"], title:"Isi tempat kosong", instr:"Isi tempat kosong dengan perkataan yang sesuai. Seret perkataan ke tempat kosong.", items:[
+    {n:1,q:"Kegiatan mencuri dan merompak merupakan suatu ___________.",a:"jenayah"},
+    {n:2,q:"Encik Ali ___________ kejadian pecah rumah itu kepada anggota polis.",a:"melaporkan"},
+    {n:3,q:"Inspektor Izati mengambil ___________ daripada saksi kes rompakan itu.",a:"keterangan"},
+    {n:4,q:"Cikgu Hilmi memanggil beberapa orang murid yang terlibat untuk ___________ kes buli yang berlaku itu.",a:"menyiasat"},
+    {n:5,q:"Encik Lim memberikan keterangan secara ___________ kepada anggota polis untuk membantu siasatan.",a:"terperinci"},
+    {n:6,q:"Penjenayah itu dibawa ke ___________ untuk dibicarakan sebelum dijatuhkan hukuman.",a:"mahkamah"},
+    {n:7,q:"___________ kes rompakan di kedai emas itu dilihat melalui rakaman kamera litar tertutup yang dipasang di kedai tersebut.",a:"bukti"},
+    {n:8,q:"Polis berjaya ___________ penjenayah itu dengan kerjasama orang awam.",a:"menjejaki"},
+    {n:9,q:"Kerja sekolah itu berjaya ___________ oleh Faris sebelum pukul 10:00 malam.",a:"diselesaikan"},
+    {n:10,q:"Pencuri itu berjaya ___________ oleh pihak polis semalam.",a:"ditangkap"}
+  ]}
+]},
+{ no:78, part:"A", unitTitle:"Unit 10 · Bersikap jujur", sections:[
+  { key:"A", type:"drag", pic:true, bank:["hak","pemberian","baki","dijulang","tulus","dikhianati","belanja","menghadiahi","memulangkan","memikul"], title:"Isi tempat kosong", instr:"Isi tempat kosong dengan perkataan yang sesuai. Seret perkataan ke tempat kosong.", items:[
+    {n:1,q:"Foo Chan berusaha ___________ tanggungjawab itu dengan sebaiknya.",a:"memikul"},
+    {n:2,q:"Mereka melakukan kerja amal di pusat jagaan warga emas itu dengan ___________ hati.",a:"tulus"},
+    {n:3,q:"Bangunan tinggi ini ___________ milik Syarikat ABC.",a:"hak"},
+    {n:4,q:"Nama beliau ___________ oleh masyarakat sebagai tokoh pemimpin yang berwibawa.",a:"dijulang"},
+    {n:5,q:"Syarikat Encik Chok telah mengeluarkan ___________ yang besar untuk menyiapkan projek pembinaan itu.",a:"belanja"},
+    {n:6,q:"Chandra menyimpan ___________ wang belanja sekolahnya di dalam tabung.",a:"baki"},
+    {n:7,q:"Shukri menjaga jam tangan ___________ datuknya itu dengan cermat sekali.",a:"pemberian"},
+    {n:8,q:"Koh Huat pergi ke perpustakaan untuk ___________ buku cerita yang dipinjamnya.",a:"memulangkan"},
+    {n:9,q:"Encik Zhen ___________ anaknya sebuah kamus elektronik.",a:"menghadiahi"},
+    {n:10,q:"Encik Li Wei berasa ___________ kerana rakan kongsinya sendiri sanggup mencuri wang syarikat.",a:"dikhianati"}
+  ]}
+]}
+);
+
+Object.assign(window.TB_PICS, {
+  "79-A": ["p-157.jpg", "p-158.jpg"], "80-A": ["p-159.jpg", "p-160.jpg"], "81-A": ["p-161.jpg", "p-162.jpg"], "82-A": ["p-163.jpg", "p-164.jpg"],
+  "83-A": ["p-165.jpg", "p-166.jpg"], "84-A": ["p-167.jpg", "p-168.jpg"], "85-A": ["p-169.jpg", "p-170.jpg"]
+});
+TB.push(
+{ no:79, part:"A", unitTitle:"Unit 11 · Integriti Menyejahterakan Sekolah", sections:[
+  { key:"A", type:"drag", pic:true, bank:["integriti","menyejahterakan","melahirkan","berpisah","mendisiplinkan","Lontaran","menyambut","amanah","terngiang-ngiang","ternanti-nanti"], title:"Isi tempat kosong", instr:"Isi tempat kosong dengan perkataan yang sesuai. Seret perkataan ke tempat kosong.", items:[
+    {n:1,q:"Perbuatan rasuah mencemarkan nama baik dan ___________ jabatan kerajaan.",a:"integriti"},
+    {n:2,q:"Kempen itu diharap dapat ___________ rakyat di samping memupuk perpaduan.",a:"menyejahterakan"},
+    {n:3,q:"Peraturan baharu itu dapat ___________ warga sekolah yang menepati masa.",a:"melahirkan"},
+    {n:4,q:"Dari Ipoh kami bersama, sesampai di Kuala Lumpur, kami ___________.",a:"berpisah"},
+    {n:5,q:"Kita mesti terus ___________ dengan normal baharu kehidupan.",a:"mendisiplinkan"},
+    {n:6,q:"Dia ___________ kedatangan kami dengan senyuman terukir di bibir.",a:"menyambut"},
+    {n:7,q:"___________ suara yang padu daripada Azim telah memukau juri.",a:"Lontaran"},
+    {n:8,q:"Dia perlu bersikap ___________ dalam menjaga bungkusan-bungkusan itu.",a:"amanah"},
+    {n:9,q:"Wasiat itu masih ___________ di telinganya.",a:"terngiang-ngiang"},
+    {n:10,q:"Ibu tirinya memang ___________ hendak mendengar buah fikirannya.",a:"ternanti-nanti"}
+  ]}
+]},
+{ no:80, part:"A", unitTitle:"Unit 11 · Integriti Menyejahterakan Sekolah", sections:[
+  { key:"A", type:"drag", pic:true, bank:["azimat","pergaulan","tikar","ceramah","kategori","rumusan","bersyukur","tersemai","anugerah","bertoleransi"], title:"Isi tempat kosong", instr:"Isi tempat kosong dengan perkataan yang sesuai. Seret perkataan ke tempat kosong.", items:[
+    {n:1,q:"Cikgu Nurul memberikan kata-kata ___________ kepada murid-muridnya agar mereka bersemangat untuk belajar.",a:"azimat"},
+    {n:2,q:"Dia ___________ kerana adiknya memperoleh keputusan cemerlang dalam peperiksaan.",a:"bersyukur"},
+    {n:3,q:"Semangat kebangsaan ___________ dalam diri setiap warganegara Malaysia.",a:"tersemai"},
+    {n:4,q:"Pensyarah itu memberi ___________ tentang bahasa pasar yang digunakan dalam kalangan murid.",a:"ceramah"},
+    {n:5,q:"Murid-murid kelas itu ___________ dalam menjalankan tugas menceriakan kelas.",a:"bertoleransi"},
+    {n:6,q:"Ibu bapa perlu memantau ___________ anak-anak mereka agar tidak terlalu bebas.",a:"pergaulan"},
+    {n:7,q:"Mereka telah memilih ___________ yang terbaik untuk dihantar.",a:"rumusan"},
+    {n:8,q:"___________ itu dijual dengan harga yang mahal kerana dianyam berwarna-warni.",a:"tikar"},
+    {n:9,q:"Dia merupakan salah seorang penerima ___________ pada malam itu.",a:"anugerah"},
+    {n:10,q:"Pemenang bagi ___________ murid paling aktif ialah Fahmi.",a:"kategori"}
+  ]}
+]},
+{ no:81, part:"A", unitTitle:"Unit 11 · Integriti Menyejahterakan Sekolah", sections:[
+  { key:"A", type:"drag", pic:true, bank:["membangkang","setanding","tokoh","wibawa","dilantik","sebarkan","cabaran","berpaut","punah","kecewa"], title:"Isi tempat kosong", instr:"Isi tempat kosong dengan perkataan yang sesuai. Seret perkataan ke tempat kosong.", items:[
+    {n:1,q:"Dia sahaja yang suka ___________ apa-apa cadangan rakan-rakan sekelasnya.",a:"membangkang"},
+    {n:2,q:"Mereka tidak pernah gentar dalam setiap ___________ yang diberikan.",a:"cabaran"},
+    {n:3,q:"Beliau ialah ___________ yang sangat disegani dalam bidang ekonomi.",a:"tokoh"},
+    {n:4,q:"Dia terselamat daripada dihanyutkan arus deras kerana tangan kanannya sempat ___________ pada dahan pokok.",a:"berpaut"},
+    {n:5,q:"Dia seorang pemimpin yang sangat ___________ dan dihormati.",a:"wibawa"},
+    {n:6,q:"Dia sangat ___________ kerana sahabat baiknya tidak dapat menolongnya yang dalam kesusahan.",a:"kecewa"},
+    {n:7,q:"Makanan yang dimakannya itu tidak ___________ dengan keenakan masakan ibunya.",a:"setanding"},
+    {n:8,q:"“___________ agama Islam di negeri itu,” kata lelaki itu.",a:"sebarkan"},
+    {n:9,q:"Tanaman mereka habis ___________ dimakan oleh sekawan gajah liar semalam.",a:"punah"},
+    {n:10,q:"Abdullah telah ___________ sebagai ketua murid yang baharu.",a:"dilantik"}
+  ]}
+]},
+{ no:82, part:"A", unitTitle:"Unit 11 · Integriti Menyejahterakan Sekolah", sections:[
+  { key:"A", type:"drag", pic:true, bank:["berlangsung","sabar","terawal","disempurnakan","menyambut","mengucapkan","berdisiplin","amanah","tersemai","pergaulan"], title:"Isi tempat kosong", instr:"Isi tempat kosong dengan perkataan yang sesuai. Seret perkataan ke tempat kosong.", items:[
+    {n:1,q:"Iman murid yang ___________ kerana dia sentiasa mematuhi peraturan sekolah.",a:"berdisiplin"},
+    {n:2,q:"Sepuluh orang peserta ___________ yang mendaftar dalam kem motivasi itu akan mendapat buku nota secara percuma.",a:"terawal"},
+    {n:3,q:"Cikgu Chua ___________ ibu bapa yang hadir ke majlis itu dengan senyuman.",a:"menyambut"},
+    {n:4,q:"Cikgu Alia ___________ terima kasih kepada Mei Fong kerana telah membantunya menyusun buku.",a:"mengucapkan"},
+    {n:5,q:"Hakim sentiasa ___________ dalam menjalankan tugasnya sebagai seorang pengawas sekolah.",a:"amanah"},
+    {n:6,q:"Sikap jujur telah ___________ dalam diri Aini sejak kecil hasil didikan daripada ibu dan ayahnya.",a:"tersemai"},
+    {n:7,q:"Cikgu Chen ___________ melayan murid-muridnya yang pelbagai ragam itu.",a:"sabar"},
+    {n:8,q:"Majlis penyampaian anugerah itu telah ___________ oleh Guru Besar SJC Nuri.",a:"disempurnakan"},
+    {n:9,q:"Ceramah tentang murid berintegriti itu sedang ___________ di Dewan Angsana.",a:"berlangsung"},
+    {n:10,q:"Puan Noni membataskan ___________ anaknya supaya tidak terjebak dengan kegiatan yang tidak berfaedah.",a:"pergaulan"}
+  ]}
+]},
+{ no:83, part:"A", unitTitle:"Unit 11 · Integriti Menyejahterakan Sekolah", sections:[
+  { key:"A", type:"drag", pic:true, bank:["mengangkat","membangkang","berkumpul","idea","berfikir","membetulkan","Manfaat","persembahan","dilantik","rumusan"], title:"Isi tempat kosong", instr:"Isi tempat kosong dengan perkataan yang sesuai. Seret perkataan ke tempat kosong.", items:[
+    {n:1,q:"Murid-murid ___________ di padang untuk mendengar taklimat ringkas daripada Cikgu Umar.",a:"berkumpul"},
+    {n:2,q:"Sebelum mengakhiri ceramah itu, Encik Bakri membuat ___________ bahawa setiap murid perlulah berusaha dengan bersungguh-sungguh untuk berjaya.",a:"rumusan"},
+    {n:3,q:"Cikgu Hanani ___________ kesalahan ayat dalam penulisan karangan Mei Mei.",a:"membetulkan"},
+    {n:4,q:"Faiz dan rakan-rakannya ___________ kerusi-kerusi itu untuk dibawa ke dewan.",a:"mengangkat"},
+    {n:5,q:"___________ daripada amalan membaca ialah menjadikan seseorang lebih berilmu.",a:"Manfaat"},
+    {n:6,q:"Hong Tao membuat ___________ nyanyian di atas pentas.",a:"persembahan"},
+    {n:7,q:"Fateh sedang ___________ cara untuk menyelesaikan soalan matematik yang sukar itu.",a:"berfikir"},
+    {n:8,q:"Xin Jie ___________ cadangan Zuri untuk membawa telefon bimbit ke sekolah.",a:"membangkang"},
+    {n:9,q:"Cai Xia memberikan ___________ kepada rakan-rakannya untuk membuat ulang kaji secara berkumpulan.",a:"idea"},
+    {n:10,q:"Jia Wei ___________ sebagai ketua pengawas kerana dia berani dan sangat bertanggungjawab.",a:"dilantik"}
+  ]}
+]},
+{ no:84, part:"A", unitTitle:"Unit 11 · Integriti Menyejahterakan Sekolah", sections:[
+  { key:"A", type:"drag", pic:true, bank:["saban","azimat","berintegriti","terngiang-ngiang","bertoleransi","tersemai","menyejahterakan","pergaulan","melahirkan","rumusan"], title:"Isi tempat kosong", instr:"Isi tempat kosong dengan perkataan yang sesuai. Seret perkataan ke tempat kosong.", items:[
+    {n:1,q:"Sikap saling menghormati amat penting kerana dapat ___________ masyarakat kita.",a:"menyejahterakan"},
+    {n:2,q:"Pemimpin yang ___________ dihormati oleh rakyat.",a:"berintegriti"},
+    {n:3,q:"Program integriti itu diadakan bertujuan untuk ___________ masyarakat yang jujur dan amanah.",a:"melahirkan"},
+    {n:4,q:"Majlis Sambutan Rumah Terbuka Aidilfitri diadakan ___________ tahun di taman perumahan saya.",a:"saban"},
+    {n:5,q:"Kata-kata nasihat yang disampaikan oleh Cikgu Badrul masih ___________ di telinga.",a:"terngiang-ngiang"},
+    {n:6,q:"Farhan menjadikan pesanan ibunya itu sebagai ___________ untuk dia berjaya.",a:"azimat"},
+    {n:7,q:"Sikap sopan santun dan berbudi bahasa telah ___________ dalam dirinya sejak kecil.",a:"tersemai"},
+    {n:8,q:"Sikap bermuafakat dan ___________ amat penting bagi mewujudkan masyarakat harmoni.",a:"bertoleransi"},
+    {n:9,q:"Murid-murid perlu menjaga tingkah laku terutamanya dalam ___________ dengan rakan-rakan.",a:"pergaulan"},
+    {n:10,q:"Cikgu Hasnah meminta murid-murid membuat ___________ daripada aktiviti yang dijalankan.",a:"rumusan"}
+  ]}
+]},
+{ no:85, part:"A", unitTitle:"Unit 11 · Integriti Menyejahterakan Sekolah", sections:[
+  { key:"A", type:"drag", pic:true, bank:["pengayuh","teladan","berpaut","kategori","sejajar","kembang","membangkang","tokoh","punah","manfaat"], title:"Isi tempat kosong", instr:"Isi tempat kosong dengan perkataan yang sesuai. Seret perkataan ke tempat kosong.", items:[
+    {n:1,q:"Sikapnya yang baik seperti suka membantu orang perlu dijadikan ___________.",a:"teladan"},
+    {n:2,q:"Datuk Hisham merupakan ___________ perniagaan kayu yang terkenal.",a:"tokoh"},
+    {n:3,q:"Su Lin menjadi johan dalam pertandingan syarahan bagi ___________ murid sekolah rendah.",a:"kategori"},
+    {n:4,q:"Program lawatan sambil belajar ke Pusat Sains Negara memberikan banyak ___________.",a:"manfaat"},
+    {n:5,q:"Pak Mat mendayung sampannya dengan menggunakan ___________.",a:"pengayuh"},
+    {n:6,q:"Encik Wong ___________ cadangan yang dikemukakan oleh rakan sekerjanya.",a:"membangkang"},
+    {n:7,q:"Seekor kera sedang ___________ pada batang pokok kelapa itu.",a:"berpaut"},
+    {n:8,q:"Bunga mawar yang ditanam di dalam pasu itu sedang ___________.",a:"kembang"},
+    {n:9,q:"Kebun pisang itu ___________ kerana dirosakkan oleh sekumpulan gajah liar.",a:"punah"},
+    {n:10,q:"Pokok mangga di dusun datuk ditanam ___________.",a:"sejajar"}
+  ]}
+]}
+);
+
+Object.assign(window.TB_PICS, {
+  "86-A": ["p-171.jpg", "p-172.jpg"], "87-A": ["p-173.jpg", "p-174.jpg"], "88-A": ["p-175.jpg", "p-176.jpg"], "89-A": ["p-177.jpg", "p-178.jpg"],
+  "90-A": ["p-179.jpg", "p-180.jpg"], "91-A": ["p-181.jpg", "p-182.jpg"], "92-A": ["p-183.jpg", "p-184.jpg"], "93-A": ["p-185.jpg", "p-186.jpg"]
+});
+TB.push(
+{ no:86, part:"A", unitTitle:"Unit 12 · Nilai Integriti", sections:[
+  { key:"A", type:"drag", pic:true, bank:["taat","membela","imej","hasad dengki","nyawa","terapkan","mempertahankan","kedaulatan","bersedia","rasuah"], title:"Isi tempat kosong", instr:"Isi tempat kosong dengan perkataan yang sesuai. Seret perkataan ke tempat kosong.", items:[
+    {n:1,q:"Sebagai warganegara Malaysia kita perlu ___________ kepada negara.",a:"taat"},
+    {n:2,q:"Askar itu ___________ tanah air daripada serangan musuh.",a:"mempertahankan"},
+    {n:3,q:"___________ negara kita akan tercalar apabila ramai rakyatnya yang tidak berintegriti.",a:"imej"},
+    {n:4,q:"Pewira negara sentiasa ___________ dalam mempertahankan kedaulatan negara.",a:"bersedia"},
+    {n:5,q:"Dia sanggup berkorban ___________ demi keamanan tanah air tercinta.",a:"nyawa"},
+    {n:6,q:"Kita perlu ___________ nilai integriti dalam kalangan pelajar.",a:"terapkan"},
+    {n:7,q:"Tidak ada seorang peguam pun yang sanggup ___________ pembunuh itu semasa di mahkamah nanti.",a:"membela"},
+    {n:8,q:"Anggota tentera itu telah berjuang bermati-matian untuk mempertahankan ___________ nusa dan bangsa.",a:"kedaulatan"},
+    {n:9,q:"Kita perlu jauhi sikap ___________ sesama sendiri.",a:"hasad dengki"},
+    {n:10,q:"Dia dituduh memberi ___________ kepada pegawai polis itu.",a:"rasuah"}
+  ]}
+]},
+{ no:87, part:"A", unitTitle:"Unit 12 · Nilai Integriti", sections:[
+  { key:"A", type:"drag", pic:true, bank:["perangi","berprestij","insaf","personaliti","idola","kesempitan","dedikasi","menunaikan","gelabah","mentor"], title:"Isi tempat kosong", instr:"Isi tempat kosong dengan perkataan yang sesuai. Seret perkataan ke tempat kosong.", items:[
+    {n:1,q:"Kita harus ___________ dadah habis-habisan demi keamanan negara.",a:"perangi"},
+    {n:2,q:"Encik Chong mempunyai kedudukan yang ___________ dalam kerajaan.",a:"berprestij"},
+    {n:3,q:"Semua anggota keselamatan sentiasa menjalankan tugas dengan penuh ___________.",a:"dedikasi"},
+    {n:4,q:"Cikgu Wong mempunyai ___________ yang menarik serta diminati oleh pelajarnya.",a:"personaliti"},
+    {n:5,q:"Cikgu Wong merupakan salah satu ___________ yang berpengalaman dalam bidang muzik di sekolah saya.",a:"mentor"},
+    {n:6,q:"Beliau merupakan tokoh pemimpin ___________ saya sejak dahulu lagi.",a:"idola"},
+    {n:7,q:"Disebabkan ___________ hidup kerana hasil pertanian tidak menjadi, penduduk kampung telah berpindah mencari tempat baharu.",a:"kesempitan"},
+    {n:8,q:"Sejak hari itu, beliau ___________ akan segala perbuatannya yang jahat.",a:"insaf"},
+    {n:9,q:"Kendi gagal ___________ segala janji yang dilafazkan kepada Atoi.",a:"menunaikan"},
+    {n:10,q:"Penduduk kampung kian ___________ kerana hasil pertanian mereka semakin berkurangan.",a:"gelabah"}
+  ]}
+]},
+{ no:88, part:"A", unitTitle:"Unit 12 · Nilai Integriti", sections:[
+  { key:"A", type:"drag", pic:true, bank:["berkeretot","menggeletar","telapak","semerbak","berkerepot","kemelut","gemuruh","kemuncup","telunjuk","komited"], title:"Isi tempat kosong", instr:"Isi tempat kosong dengan perkataan yang sesuai. Seret perkataan ke tempat kosong.", items:[
+    {n:1,q:"Kulit buah limau purut itu memang ___________.",a:"berkeretot"},
+    {n:2,q:"Masyarakat harus dibimbing untuk membuat keputusan sendiri apabila menghadapi konflik dan ___________ dalam kehidupan.",a:"kemelut"},
+    {n:3,q:"Apabila mendengar kata-kata daripada pegawai polis itu, maka penyeludup itu pun terperanjat dan ___________ badannya kerana takut.",a:"menggeletar"},
+    {n:4,q:"___________ mudah melekat pada bulu haiwan.",a:"kemuncup"},
+    {n:5,q:"Berbagai-bagai bunga yang ___________ baunya terdapat di taman itu.",a:"semerbak"},
+    {n:6,q:"Kulit pipinya yang cengkung dan ___________ menunjukkan wanita itu sudah tua.",a:"berkerepot"},
+    {n:7,q:"Komputer kecil itu cukup diletakkan di atas ___________ tangan sahaja.",a:"telapak"},
+    {n:8,q:"Ucapan menteri itu disambut dengan tepukan yang ___________.",a:"gemuruh"},
+    {n:9,q:"Dia menunjukkan arah pekerja-pekerja itu perlu berkumpul menggunakan jari ___________nya.",a:"telunjuk"},
+    {n:10,q:"Pengawal keselamatan itu sentiasa ___________ dalam menjalankan tugasnya.",a:"komited"}
+  ]}
+]},
+{ no:89, part:"A", unitTitle:"Unit 12 · Nilai Integriti", sections:[
+  { key:"A", type:"drag", pic:true, bank:["merangkul","rintangan","idola","berprestij","perlakuan","taat","tercela","pegangan","kedaulatan","pertiwi"], title:"Isi tempat kosong", instr:"Isi tempat kosong dengan perkataan yang sesuai. Seret perkataan ke tempat kosong.", items:[
+    {n:1,q:"Shamsul sangat ___________ kepada kedua-dua ibu bapanya.",a:"taat"},
+    {n:2,q:"Walaupun menghadapi pelbagai ___________, akhirnya pasukan catur sekolah kami berjaya menjadi johan.",a:"rintangan"},
+    {n:3,q:"Sebagai rakyat Malaysia, kita perlulah menghormati ___________ undang-undang negara.",a:"kedaulatan"},
+    {n:4,q:"Jagalah ___________ dan tutur kata agar kita tidak menyakiti hati orang lain.",a:"perlakuan"},
+    {n:5,q:"Jauhilah sikap ___________ seperti sombong, bongkak dan hasad dengki.",a:"tercela"},
+    {n:6,q:"Semangat setiakawan dan saling membantu perlu dijadikan ___________ hidup kita.",a:"pegangan"},
+    {n:7,q:"Anggota keselamatan negara berjuang melawan musuh demi mempertahankan ibu ___________.",a:"pertiwi"},
+    {n:8,q:"Pasukan badminton sekolah saya berjaya ___________ kejuaraan dalam pertandingan peringkat daerah.",a:"merangkul"},
+    {n:9,q:"Datuk Seri Siti Nurhaliza ialah penyanyi ___________ ibu saya.",a:"idola"},
+    {n:10,q:"Abang Shamila berjaya melanjutkan pelajaran ke sebuah universiti ___________ di luar negara.",a:"berprestij"}
+  ]}
+]},
+{ no:90, part:"A", unitTitle:"Unit 12 · Nilai Integriti", sections:[
+  { key:"A", type:"drag", pic:true, bank:["rasuah","taat","mungkir janji","pecah amanah","menyelamatkan","mempertahankan","berbohong","berkorban","merangkul","berprestij"], title:"Isi tempat kosong", instr:"Isi tempat kosong dengan perkataan yang sesuai. Seret perkataan ke tempat kosong.", items:[
+    {n:1,q:"Haziq anak yang ___________ kerana tidak pernah ingkar akan suruhan ibu dan bapanya.",a:"taat"},
+    {n:2,q:"Perajurit negara rela ___________ nyawa untuk menjaga keamanan negara.",a:"berkorban"},
+    {n:3,q:"Anggota bomba sanggup meredah api yang marak itu untuk ___________ nyawa mangsa yang terperangkap.",a:"menyelamatkan"},
+    {n:4,q:"Kita dapat ___________ keamanan negara dengan sentiasa bersatu padu dan bertolak ansur.",a:"mempertahankan"},
+    {n:5,q:"Haris ___________ kerana dia menceritakan perkara yang tidak benar kepada Zhi Li.",a:"berbohong"},
+    {n:6,q:"Ain ___________ kerana dia tidak pergi ke rumah Fiza sedangkan mereka sudah berjanji untuk belajar bersama-sama.",a:"mungkir janji"},
+    {n:7,q:"Encik Chan didapati ___________ kerana beliau telah menggunakan wang syarikat untuk kegunaan peribadi.",a:"pecah amanah"},
+    {n:8,q:"Encik Ravi memberikan ___________ kepada pengurus syarikat itu supaya meluluskan projek syarikatnya.",a:"rasuah"},
+    {n:9,q:"Sheng Jie berjaya ___________ pingat emas dalam acara lompat jauh peringkat daerah.",a:"merangkul"},
+    {n:10,q:"Anugerah Tokoh Bersahsiah dianggap sebagai anugerah ___________ kerana diiktiraf oleh Kementerian Pendidikan Malaysia.",a:"berprestij"}
+  ]}
+]},
+{ no:91, part:"A", unitTitle:"Unit 12 · Nilai Integriti", sections:[
+  { key:"A", type:"drag", pic:true, bank:["insaf","mentor","dingin","kesempitan","gelanggang","kemelut","gelabah","desa","berkeretot","sejenak"], title:"Isi tempat kosong", instr:"Isi tempat kosong dengan perkataan yang sesuai. Seret perkataan ke tempat kosong.", items:[
+    {n:1,q:"Suriati mendapat bimbingan daripada ___________nya untuk menjadi pelukis yang berjaya.",a:"mentor"},
+    {n:2,q:"Penduduk di ___________ itu kebanyakannya bekerja sebagai petani.",a:"desa"},
+    {n:3,q:"Encik Hamid memberikan bantuan kewangan kepada jirannya yang ___________ wang.",a:"kesempitan"},
+    {n:4,q:"Pemuda itu terdiam ___________ sebelum meneruskan kata-katanya.",a:"sejenak"},
+    {n:5,q:"Murid yang nakal itu ___________ setelah dinasihati oleh Cikgu Ali.",a:"insaf"},
+    {n:6,q:"“Jangan ___________,” kata Arif ketika menenangkan rakannya itu.",a:"gelabah"},
+    {n:7,q:"Petani itu mengasingkan buah-buahan yang elok daripada yang ___________.",a:"berkeretot"},
+    {n:8,q:"Zaid dan Hock Man bermain badminton di ___________ badminton sekolah.",a:"gelanggang"},
+    {n:9,q:"Badan Jui Meng menggigil kerana cuaca pada pagi itu amat ___________.",a:"dingin"},
+    {n:10,q:"Pakar ekonomi dunia sedang berusaha mencari jalan untuk menyelesaikan ___________ ekonomi dunia.",a:"kemelut"}
+  ]}
+]},
+{ no:92, part:"A", unitTitle:"Unit 12 · Nilai Integriti", sections:[
+  { key:"A", type:"drag", pic:true, bank:["titik peluh","semerbak","idola","berkerepot","gemuruh","mentor","berhijrah","keuntungan","telapak","jala"], title:"Isi tempat kosong", instr:"Isi tempat kosong dengan perkataan yang sesuai. Seret perkataan ke tempat kosong.", items:[
+    {n:1,q:"Taman itu dipenuhi bunga-bungaan yang ___________ baunya.",a:"semerbak"},
+    {n:2,q:"Zahari ___________ ke kota ketika usianya 24 tahun.",a:"berhijrah"},
+    {n:3,q:"Nenek tua itu badannya bongkok dan kulitnya ___________.",a:"berkerepot"},
+    {n:4,q:"Fung Chan membasuh kedua-dua ___________ tangannya dengan air dan sabun.",a:"telapak"},
+    {n:5,q:"Para penonton memberikan tepukan ___________ kepada pasukan pancaragam sekolah.",a:"gemuruh"},
+    {n:6,q:"Abang membaiki sebuah motosikal baharu hasil ___________ bekerja di kedai itu.",a:"titik peluh"},
+    {n:7,q:"___________ Program Celik Bahasa Melayu itu akan membimbing murid-murid dalam mempelajari bahasa Melayu.",a:"mentor"},
+    {n:8,q:"Li Li menjadikan Cikgu Suzi sebagai ___________nya kerana beliau sangat berdedikasi dan penyayang.",a:"idola"},
+    {n:9,q:"Pak Cik Sudin menggunakan ___________ untuk menangkap ikan di sungai.",a:"jala"},
+    {n:10,q:"Pak Cik Jali mendapat ___________ sebanyak RM200.00 hasil jualannya pada hari itu.",a:"keuntungan"}
+  ]}
+]},
+{ no:93, part:"A", unitTitle:"Unit 12 · Nilai Integriti", sections:[
+  { key:"A", type:"drag", pic:true, bank:["rela hati","telaga","peliharaan","Seruling","kesejukan","berkhemah","berhijrah","mengarahkan","petempatan","saliran"], title:"Isi tempat kosong", instr:"Isi tempat kosong dengan perkataan yang sesuai. Seret perkataan ke tempat kosong.", items:[
+    {n:1,q:"Guo Wei dengan ___________ memaafkan kesalahan yang dilakukan oleh Hadi kepadanya.",a:"rela hati"},
+    {n:2,q:"Datuk mengambil air di ___________ untuk menyiram pokok bunga.",a:"telaga"},
+    {n:3,q:"Ayam merupakan haiwan ___________ datuk di kampung.",a:"peliharaan"},
+    {n:4,q:"___________ ialah alat muzik tradisional yang dimainkan dengan cara meniup.",a:"Seruling"},
+    {n:5,q:"Fizi menggigil ___________ akibat kehujanan semasa berbasikal di taman itu.",a:"kesejukan"},
+    {n:6,q:"Pasukan pengakap akan ___________ di Kem Kijang selama tiga hari dua malam.",a:"berkhemah"},
+    {n:7,q:"Abang ___________ dari kampung ke Kuala Lumpur untuk mencari pekerjaan.",a:"berhijrah"},
+    {n:8,q:"Encik Goh ___________ pekerjanya supaya menghantar dokumen syarikat dengan segeranya.",a:"mengarahkan"},
+    {n:9,q:"Mereka membuka ___________ baharu di kawasan lembah sungai.",a:"petempatan"},
+    {n:10,q:"Penduduk Kampung Pinang Indah membina ___________ untuk mengairi sawah mereka.",a:"saliran"}
+  ]}
+]}
+);
+
+Object.assign(window.TB_IMGS, {
+  "p-031.jpg": "year5-bm-930-pages/p-031.jpg",
+  "p-032.jpg": "year5-bm-930-pages/p-032.jpg",
+  "p-033.jpg": "year5-bm-930-pages/p-033.jpg",
+  "p-034.jpg": "year5-bm-930-pages/p-034.jpg",
+  "p-035.jpg": "year5-bm-930-pages/p-035.jpg",
+  "p-036.jpg": "year5-bm-930-pages/p-036.jpg",
+  "p-037.jpg": "year5-bm-930-pages/p-037.jpg",
+  "p-038.jpg": "year5-bm-930-pages/p-038.jpg",
+  "p-039.jpg": "year5-bm-930-pages/p-039.jpg",
+  "p-040.jpg": "year5-bm-930-pages/p-040.jpg",
+  "p-041.jpg": "year5-bm-930-pages/p-041.jpg",
+  "p-042.jpg": "year5-bm-930-pages/p-042.jpg",
+  "p-043.jpg": "year5-bm-930-pages/p-043.jpg",
+  "p-044.jpg": "year5-bm-930-pages/p-044.jpg",
+  "p-045.jpg": "year5-bm-930-pages/p-045.jpg",
+  "p-046.jpg": "year5-bm-930-pages/p-046.jpg",
+  "p-047.jpg": "year5-bm-930-pages/p-047.jpg",
+  "p-048.jpg": "year5-bm-930-pages/p-048.jpg",
+  "p-049.jpg": "year5-bm-930-pages/p-049.jpg",
+  "p-050.jpg": "year5-bm-930-pages/p-050.jpg",
+  "p-051.jpg": "year5-bm-930-pages/p-051.jpg",
+  "p-052.jpg": "year5-bm-930-pages/p-052.jpg",
+  "p-053.jpg": "year5-bm-930-pages/p-053.jpg",
+  "p-054.jpg": "year5-bm-930-pages/p-054.jpg",
+  "p-055.jpg": "year5-bm-930-pages/p-055.jpg",
+  "p-056.jpg": "year5-bm-930-pages/p-056.jpg",
+  "p-057.jpg": "year5-bm-930-pages/p-057.jpg",
+  "p-058.jpg": "year5-bm-930-pages/p-058.jpg",
+  "p-059.jpg": "year5-bm-930-pages/p-059.jpg",
+  "p-060.jpg": "year5-bm-930-pages/p-060.jpg",
+  "p-061.jpg": "year5-bm-930-pages/p-061.jpg",
+  "p-062.jpg": "year5-bm-930-pages/p-062.jpg",
+  "p-063.jpg": "year5-bm-930-pages/p-063.jpg",
+  "p-064.jpg": "year5-bm-930-pages/p-064.jpg",
+  "p-065.jpg": "year5-bm-930-pages/p-065.jpg",
+  "p-066.jpg": "year5-bm-930-pages/p-066.jpg",
+  "p-067.jpg": "year5-bm-930-pages/p-067.jpg",
+  "p-068.jpg": "year5-bm-930-pages/p-068.jpg",
+  "p-069.jpg": "year5-bm-930-pages/p-069.jpg",
+  "p-070.jpg": "year5-bm-930-pages/p-070.jpg",
+  "p-071.jpg": "year5-bm-930-pages/p-071.jpg",
+  "p-072.jpg": "year5-bm-930-pages/p-072.jpg",
+  "p-073.jpg": "year5-bm-930-pages/p-073.jpg",
+  "p-074.jpg": "year5-bm-930-pages/p-074.jpg",
+  "p-075.jpg": "year5-bm-930-pages/p-075.jpg",
+  "p-076.jpg": "year5-bm-930-pages/p-076.jpg",
+  "p-077.jpg": "year5-bm-930-pages/p-077.jpg",
+  "p-078.jpg": "year5-bm-930-pages/p-078.jpg",
+  "p-079.jpg": "year5-bm-930-pages/p-079.jpg",
+  "p-080.jpg": "year5-bm-930-pages/p-080.jpg",
+  "p-081.jpg": "year5-bm-930-pages/p-081.jpg",
+  "p-082.jpg": "year5-bm-930-pages/p-082.jpg",
+  "p-083.jpg": "year5-bm-930-pages/p-083.jpg",
+  "p-084.jpg": "year5-bm-930-pages/p-084.jpg",
+  "p-085.jpg": "year5-bm-930-pages/p-085.jpg",
+  "p-086.jpg": "year5-bm-930-pages/p-086.jpg",
+  "p-087.jpg": "year5-bm-930-pages/p-087.jpg",
+  "p-088.jpg": "year5-bm-930-pages/p-088.jpg",
+  "p-089.jpg": "year5-bm-930-pages/p-089.jpg",
+  "p-090.jpg": "year5-bm-930-pages/p-090.jpg",
+  "p-091.jpg": "year5-bm-930-pages/p-091.jpg",
+  "p-092.jpg": "year5-bm-930-pages/p-092.jpg",
+  "p-093.jpg": "year5-bm-930-pages/p-093.jpg",
+  "p-094.jpg": "year5-bm-930-pages/p-094.jpg",
+  "p-095.jpg": "year5-bm-930-pages/p-095.jpg",
+  "p-096.jpg": "year5-bm-930-pages/p-096.jpg",
+  "p-097.jpg": "year5-bm-930-pages/p-097.jpg",
+  "p-098.jpg": "year5-bm-930-pages/p-098.jpg",
+  "p-099.jpg": "year5-bm-930-pages/p-099.jpg",
+  "p-100.jpg": "year5-bm-930-pages/p-100.jpg",
+  "p-101.jpg": "year5-bm-930-pages/p-101.jpg",
+  "p-102.jpg": "year5-bm-930-pages/p-102.jpg",
+  "p-103.jpg": "year5-bm-930-pages/p-103.jpg",
+  "p-104.jpg": "year5-bm-930-pages/p-104.jpg",
+  "p-105.jpg": "year5-bm-930-pages/p-105.jpg",
+  "p-106.jpg": "year5-bm-930-pages/p-106.jpg",
+  "p-107.jpg": "year5-bm-930-pages/p-107.jpg",
+  "p-108.jpg": "year5-bm-930-pages/p-108.jpg",
+  "p-109.jpg": "year5-bm-930-pages/p-109.jpg",
+  "p-110.jpg": "year5-bm-930-pages/p-110.jpg",
+  "p-111.jpg": "year5-bm-930-pages/p-111.jpg",
+  "p-112.jpg": "year5-bm-930-pages/p-112.jpg",
+  "p-113.jpg": "year5-bm-930-pages/p-113.jpg",
+  "p-114.jpg": "year5-bm-930-pages/p-114.jpg",
+  "p-115.jpg": "year5-bm-930-pages/p-115.jpg",
+  "p-116.jpg": "year5-bm-930-pages/p-116.jpg",
+  "p-117.jpg": "year5-bm-930-pages/p-117.jpg",
+  "p-118.jpg": "year5-bm-930-pages/p-118.jpg",
+  "p-119.jpg": "year5-bm-930-pages/p-119.jpg",
+  "p-120.jpg": "year5-bm-930-pages/p-120.jpg",
+  "p-121.jpg": "year5-bm-930-pages/p-121.jpg",
+  "p-122.jpg": "year5-bm-930-pages/p-122.jpg",
+  "p-123.jpg": "year5-bm-930-pages/p-123.jpg",
+  "p-124.jpg": "year5-bm-930-pages/p-124.jpg",
+  "p-125.jpg": "year5-bm-930-pages/p-125.jpg",
+  "p-126.jpg": "year5-bm-930-pages/p-126.jpg",
+  "p-127.jpg": "year5-bm-930-pages/p-127.jpg",
+  "p-128.jpg": "year5-bm-930-pages/p-128.jpg",
+  "p-129.jpg": "year5-bm-930-pages/p-129.jpg",
+  "p-130.jpg": "year5-bm-930-pages/p-130.jpg",
+  "p-131.jpg": "year5-bm-930-pages/p-131.jpg",
+  "p-132.jpg": "year5-bm-930-pages/p-132.jpg",
+  "p-133.jpg": "year5-bm-930-pages/p-133.jpg",
+  "p-134.jpg": "year5-bm-930-pages/p-134.jpg",
+  "p-135.jpg": "year5-bm-930-pages/p-135.jpg",
+  "p-136.jpg": "year5-bm-930-pages/p-136.jpg",
+  "p-137.jpg": "year5-bm-930-pages/p-137.jpg",
+  "p-138.jpg": "year5-bm-930-pages/p-138.jpg",
+  "p-139.jpg": "year5-bm-930-pages/p-139.jpg",
+  "p-140.jpg": "year5-bm-930-pages/p-140.jpg",
+  "p-141.jpg": "year5-bm-930-pages/p-141.jpg",
+  "p-142.jpg": "year5-bm-930-pages/p-142.jpg",
+  "p-143.jpg": "year5-bm-930-pages/p-143.jpg",
+  "p-144.jpg": "year5-bm-930-pages/p-144.jpg",
+  "p-145.jpg": "year5-bm-930-pages/p-145.jpg",
+  "p-146.jpg": "year5-bm-930-pages/p-146.jpg",
+  "p-147.jpg": "year5-bm-930-pages/p-147.jpg",
+  "p-148.jpg": "year5-bm-930-pages/p-148.jpg",
+  "p-149.jpg": "year5-bm-930-pages/p-149.jpg",
+  "p-150.jpg": "year5-bm-930-pages/p-150.jpg",
+  "p-151.jpg": "year5-bm-930-pages/p-151.jpg",
+  "p-152.jpg": "year5-bm-930-pages/p-152.jpg",
+  "p-153.jpg": "year5-bm-930-pages/p-153.jpg",
+  "p-154.jpg": "year5-bm-930-pages/p-154.jpg",
+  "p-155.jpg": "year5-bm-930-pages/p-155.jpg",
+  "p-156.jpg": "year5-bm-930-pages/p-156.jpg",
+  "p-157.jpg": "year5-bm-930-pages/p-157.jpg",
+  "p-158.jpg": "year5-bm-930-pages/p-158.jpg",
+  "p-159.jpg": "year5-bm-930-pages/p-159.jpg",
+  "p-160.jpg": "year5-bm-930-pages/p-160.jpg",
+  "p-161.jpg": "year5-bm-930-pages/p-161.jpg",
+  "p-162.jpg": "year5-bm-930-pages/p-162.jpg",
+  "p-163.jpg": "year5-bm-930-pages/p-163.jpg",
+  "p-164.jpg": "year5-bm-930-pages/p-164.jpg",
+  "p-165.jpg": "year5-bm-930-pages/p-165.jpg",
+  "p-166.jpg": "year5-bm-930-pages/p-166.jpg",
+  "p-167.jpg": "year5-bm-930-pages/p-167.jpg",
+  "p-168.jpg": "year5-bm-930-pages/p-168.jpg",
+  "p-169.jpg": "year5-bm-930-pages/p-169.jpg",
+  "p-170.jpg": "year5-bm-930-pages/p-170.jpg",
+  "p-171.jpg": "year5-bm-930-pages/p-171.jpg",
+  "p-172.jpg": "year5-bm-930-pages/p-172.jpg",
+  "p-173.jpg": "year5-bm-930-pages/p-173.jpg",
+  "p-174.jpg": "year5-bm-930-pages/p-174.jpg",
+  "p-175.jpg": "year5-bm-930-pages/p-175.jpg",
+  "p-176.jpg": "year5-bm-930-pages/p-176.jpg",
+  "p-177.jpg": "year5-bm-930-pages/p-177.jpg",
+  "p-178.jpg": "year5-bm-930-pages/p-178.jpg",
+  "p-179.jpg": "year5-bm-930-pages/p-179.jpg",
+  "p-180.jpg": "year5-bm-930-pages/p-180.jpg",
+  "p-181.jpg": "year5-bm-930-pages/p-181.jpg",
+  "p-182.jpg": "year5-bm-930-pages/p-182.jpg",
+  "p-183.jpg": "year5-bm-930-pages/p-183.jpg",
+  "p-184.jpg": "year5-bm-930-pages/p-184.jpg",
+  "p-185.jpg": "year5-bm-930-pages/p-185.jpg",
+  "p-186.jpg": "year5-bm-930-pages/p-186.jpg"
+});
+window.TB_PART = 'A';
+(function () {
+  'use strict';
+  var $ = function (id) { return document.getElementById(id); };
+  var PART = window.TB_PART || 'A';
+  var KEY = 'isi-state-930-v1';
+  window.LESSON_STATE_KEY = KEY;
+  var st = {};
+  try { st = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (e) { st = {}; }
+  st.v = st.v || {}; st.done = st.done || {};
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(st)); } catch (e) {} }
+
+  var PAGES = (window.TB || []).filter(function (p) { return p.part === PART; }).sort(function (a, b) { return a.no - b.no; });
+  function firstOpen() { for (var j = 0; j < PAGES.length; j++) { if (!st.done[PAGES[j].no]) return j; } return PAGES.length - 1; }
+  var cur = Math.min(Math.max(+st.cur || 0, 0), PAGES.length - 1);
+
+
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function norm(s) {
+    return String(s == null ? '' : s).toLowerCase()
+      .replace(/[‘’“”"'.,;:!?()\[\]\-–—_\/]+/g, ' ')
+      .replace(/\s+/g, ' ').trim();
+  }
+  function nospace(s) { return norm(s).replace(/ /g, ''); }
+  function pics(no, key) { return (window.TB_PICS && window.TB_PICS[no + '-' + key]) || []; }
+  // a section may name its picture set with picSide (e.g. "103-A:R"); fall back to the plain key
+  function secPics(no, sec) {
+    var l = sec.picSide ? pics(no, sec.key + ':' + sec.picSide) : [];
+    return l.length ? l : pics(no, sec.key);
+  }
+  function picSrc(file) { return (window.TB_IMGS && window.TB_IMGS[file]) || ''; }
+
+  function blanksIn(q) { return (String(q).match(/_{2,}/g) || []).length; }
+  function splitBlanks(q) { return String(q).split(/_{2,}/); }
+
+  // ---- answer checking per item ----
+  function checkItem(no, si, sec, it, ii) {
+    // returns {total, right, blank}
+    var k = no + '|' + si + '|' + ii;
+    var t = sec.type;
+    if (t === 'pic') {
+      var v = st.v[k + '|0'] || '';
+      return { total: 1, right: nospace(v) === nospace(it.a) ? 1 : 0, blank: v.trim() ? 0 : 1, els: [k + '|0'] };
+    }
+    if (t === 'circle' || t === 'sel') {
+      var nbs = Math.max(1, splitBlanks(it.q).length - 1);
+      var ansS = Array.isArray(it.a) ? it.a : [it.a];
+      var rS = 0, bS = 0, elsS = [];
+      for (var cs = 0; cs < nbs; cs++) {
+        var vs = st.v[k + '|' + cs] || ''; elsS.push(k + '|' + cs);
+        if (vs && vs === ansS[cs]) rS++;
+        if (!vs) bS++;
+      }
+      return { total: nbs, right: rS, blank: bS, els: elsS };
+    }
+    if (t === 'drag' && sec.units) {
+      var ua = it.a || []; var ur = 0, ub = 0, uels = [];
+      for (var ui = 0; ui < ua.length; ui++) { var uv = st.v[k + '|' + ui] || ''; uels.push(k + '|' + ui); if (uv && nospace(uv) === nospace(ua[ui])) ur++; if (!uv) ub++; }
+      return { total: ua.length, right: ur, blank: ub, els: uels };
+    }
+    if (t === 'drag') {
+      var nb = blanksIn(it.q) || 1; var rightN = 0, blankN = 0; var els = [];
+      if (nb === 1) { var dv = st.v[k + '|0'] || ''; els.push(k + '|0'); if (nospace(dv) && nospace(dv) === nospace(it.a)) rightN = 1; if (!dv) blankN = 1; return { total: 1, right: rightN, blank: blankN, els: els }; }
+      var ans = Array.isArray(it.a) ? it.a : [it.a];
+      for (var b = 0; b < nb; b++) { var dv2 = st.v[k + '|' + b] || ''; els.push(k + '|' + b); if (nospace(dv2) && nospace(dv2) === nospace(ans[b])) rightN++; if (!dv2) blankN++; }
+      return { total: nb, right: rightN, blank: blankN, els: els };
+    }
+    if (t === 'fill') {
+      var nb2 = blanksIn(it.q) || 1; var rightF = 0, blankF = 0; var els2 = [];
+      var answers = Array.isArray(it.a) ? it.a : [it.a];
+      for (var c = 0; c < nb2; c++) {
+        var fv = st.v[k + '|' + c] || ''; els2.push(k + '|' + c);
+        var target = answers[c] !== undefined ? answers[c] : answers[0];
+        if (Array.isArray(it.a) && nb2 > 1) { if (nospace(fv) && answers.some(function (a) { return nospace(a) === nospace(fv); })) rightF++; }
+        else if (nospace(fv) && nospace(fv) === nospace(target)) rightF++;
+        if (!fv.trim()) blankF++;
+      }
+      if (nb2 === 1) return { total: 1, right: rightF, blank: blankF, els: els2 };
+      return { total: nb2, right: rightF, blank: blankF, els: els2 };
+    }
+    if (t === 'uline') {
+      var u = JSON.parse(st.v[k] || '[]');
+      var words = it.s.split(' ');
+      var want = {}; (it.a || []).forEach(function (w) { norm(w).split(' ').forEach(function (x) { if (x) want[x] = true; }); });
+      var got = {}; u.forEach(function (i) { norm(words[i] || '').split(' ').forEach(function (x) { if (x) got[x] = true; }); });
+      var ok = Object.keys(want).every(function (x) { return got[x]; }) && Object.keys(got).every(function (x) { return want[x]; });
+      return { total: 1, right: ok ? 1 : 0, blank: u.length ? 0 : 1, els: [k] };
+    }
+    if (t === 'build') {
+      var bsel = JSON.parse(st.v[k] || '[]');
+      var built = bsel.map(function (i) { return it.u[i]; }).join(' ');
+      return { total: 1, right: bsel.length && nospace(built) === nospace(it.a) ? 1 : 0, blank: bsel.length ? 0 : 1, els: [k] };
+    }
+    if (t === 'dots') {
+      var lv = st.v[no + '|' + si + '|L' + ii] || '';
+      var letter = sec.right[it.a].e;
+      return { total: 1, right: lv === letter ? 1 : 0, blank: lv ? 0 : 1, els: [no + '|' + si + '|L' + ii] };
+    }
+    if (t === 'grid') {
+      var rr = 0, bb = 0, els3 = [];
+      var arr = it.a || [];
+      for (var g = 0; g < arr.length; g++) { var gv = st.v[k + '|' + g] || ''; els3.push(k + '|' + g); if (gv && gv === arr[g]) rr++; if (!gv) bb++; }
+      return { total: 1, right: rr === arr.length ? 1 : 0, blank: bb ? 1 : 0, els: els3 };
+    }
+    return { total: 0, right: 0, blank: 0, els: [] };
+  }
+
+  function pageScore(p) {
+    var tot = 0, rt = 0, bl = 0;
+    p.sections.forEach(function (sec, si) {
+      var list = sec.type === 'dots' ? sec.left : sec.items;
+      if (!list) return;
+      list.forEach(function (it, ii) {
+        var r = checkItem(p.no, si, sec, it, ii);
+        tot += r.total; rt += r.right; bl += r.blank;
+      });
+    });
+    return { total: tot, right: rt, blank: bl };
+  }
+
+  // ---- rendering ----
+  function picBox(no, key, idx, n, size) {
+    var list = pics(no, key);
+    var f = list[idx];
+    if (!f) return '';
+    return '<img class="thumb' + (size ? ' ' + size : '') + '" alt="Gambar ' + n + '" src="' + picSrc(f) + '">';
+  }
+
+  function bankChips(p, si, sec) {
+    if (!sec.bank) return '';
+    // every word in the bank stays available; a word can be used in more than one blank
+    var chips = sec.bank.map(function (w) {
+      return '<span class="chip" draggable="true" data-w="' + esc(w) + '">' + esc(w) + '</span>';
+    }).join('');
+    return '<div class="bank" data-si="' + si + '"><span class="bl">Kata:</span>' + chips + '</div>';
+  }
+
+  // Layout: each question is a row. Question text (and any picture) on the left, answers on the right.
+  function renderLeft(p) {
+    var html = '';
+    p.sections.forEach(function (sec) {
+      var list = secPics(p.no, sec);
+      if (!list.length || sec.type === 'grid' || sec.type === 'uline' || sec.type === 'dots') return;
+      var n = (sec.items || []).length;
+      html += '<div class="pcard"><div class="ph">' + esc(sec.key) + '. ' + esc(sec.title) + '</div><div class="pgrid' + (list.length <= 2 ? ' few' : '') + '">';
+      list.forEach(function (f, i) {
+        var label = (list.length === n || n === 0) ? (i + 1) : '';
+        html += '<figure class="pfig">' + (label ? '<figcaption>' + label + '</figcaption>' : '') + '<img alt="Gambar ' + (i + 1) + '" src="' + picSrc(f) + '"></figure>';
+      });
+      html += '</div></div>';
+    });
+    return html;
+  }
+
+  function gapText(q) {
+    return splitBlanks(q).map(function (s) { return esc(s).replace(/\n/g, '<br>'); }).join('<span class="gap">______</span>');
+  }
+
+  function renderRight(p) {
+    var html = '';
+    p.sections.forEach(function (sec, si) {
+      if (!sec.items && sec.type !== 'dots') return;
+      var hasPics = secPics(p.no, sec).length > 0;
+      html += '<div class="qsec"><h3><span class="letter">' + esc(sec.key) + '</span> ' + esc(sec.title) + '</h3>';
+      if (sec.instr) html += '<p class="instr">' + esc(sec.instr) + '</p>';
+
+      if (sec.bank && (sec.type === 'drag' || sec.type === 'pic')) html += bankChips(p, si, sec);
+      if (sec.type === 'grid') html += bankChips(p, si, sec) + gridHtml(p, si, sec);
+      else if (sec.type === 'dots') html += dotsHtml(p, si, sec);
+      else if (sec.type === 'uline') html += ulineHtml(p, si, sec);
+      else if (sec.type === 'build') html += buildHtml(p, si, sec);
+      else {
+        // two columns: the first half of the questions on the left, the rest on the right (even split)
+        var half = Math.ceil(sec.items.length / 2);
+        var rowsOf = function (list, from) { return list.map(function (it, i) { return rowHtml(p, si, sec, it, from + i, hasPics); }).join(''); };
+        html += '<div class="cols"><div class="col">' + rowsOf(sec.items.slice(0, half), 0) + '</div>' +
+          '<div class="col">' + rowsOf(sec.items.slice(half), half) + '</div></div>';
+      }
+      html += '</div>';
+    });
+    return html;
+  }
+
+  // Every blank is shown on its own line: the drop box, dropdown or typed box sits in the blank.
+  function rowHtml(p, si, sec, it, ii, hasPics) {
+    var k = p.no + '|' + si + '|' + ii;
+    var numHtml = it.n ? '<span class="qn">' + it.n + '.</span>' : '';
+    var ctl = function (kk, opts) {
+      if (sec.type === 'circle' || sec.type === 'sel') {
+        return '<select class="ans inl" data-k="' + kk + '"><option value="">— Pilih —</option>' +
+          (it.o || sec.o || []).map(function (o) { return '<option value="' + esc(o) + '"' + (st.v[kk] === o ? ' selected' : '') + '>' + esc(o) + '</option>'; }).join('') + '</select>';
+      }
+      if (sec.type === 'drag' || (sec.type === 'pic' && sec.bank)) {
+        return '<span class="drop" data-k="' + kk + '">' + (st.v[kk] ? esc(st.v[kk]) : '…') + '</span>';
+      }
+      return '<input class="ans ' + (sec.wide ? 'wide' : 'inl') + '" data-k="' + kk + '" autocomplete="off" value="' + esc(st.v[kk] || '') + '">';
+    };
+    var body = '';
+    if (sec.type === 'drag' && sec.units) {
+      var placed = {}; (it.a || []).forEach(function (_, ui) { var pv = st.v[k + '|' + ui]; if (pv) placed[pv] = true; });
+      var chipsU = (it.u || []).filter(function (w) { return !placed[w]; }).map(function (w) { return '<span class="chip" draggable="true" data-w="' + esc(w) + '">' + esc(w) + '</span>'; }).join('');
+      body = '<div class="bank">' + chipsU + '</div><div>' + (it.a || []).map(function (_, ui) { return ctl(k + '|' + ui); }).join(' ') + '</div>';
+    } else if (sec.type === 'pic' && sec.bank) {
+      body = ctl(k + '|0');
+    } else if (sec.type === 'pic') {
+      var kk0 = k + '|0';
+      body = '<span class="scr">' + esc(it.h) + '</span> <span class="paren">(</span><input class="ans short" data-k="' + kk0 + '" autocomplete="off" value="' + esc(st.v[kk0] || '') + '"><span class="paren">)</span>';    } else {
+      var parts = splitBlanks(it.q);
+      if (parts.length <= 1) {
+        body = esc(it.q).replace(/\n/g, '<br>') + ' ' + ctl(k + '|0');
+      } else {
+        body = parts.map(function (s, bi) {
+          return esc(s).replace(/\n/g, '<br>') + (bi < parts.length - 1 ? ctl(k + '|' + bi) : '');
+        }).join('');
+      }
+    }
+    return '<div class="q row">' + numHtml + '<div class="qt">' + body + '</div></div>';
+  }
+  function ulineHtml(p, si, sec) {
+    var html = '';
+    sec.items.forEach(function (it, ii) {
+      var k = p.no + '|' + si + '|' + ii;
+      var sel = JSON.parse(st.v[k] || '[]');
+      var words = it.s.split(' ').map(function (w, i) {
+        return '<span class="w' + (sel.indexOf(i) >= 0 ? ' on' : '') + '" data-k="' + k + '" data-i="' + i + '">' + esc(w) + '</span>';
+      }).join(' ');
+      html += '<div class="q"><span class="qn">' + it.n + '.</span><div class="qb"><div class="qt uword">' + words + '</div></div></div>';
+    });
+    return html;
+  }
+
+  // Build a sentence: the words are shown as chips; tap a chip to add it, tap a word in the sentence to remove it.
+  function buildHtml(p, si, sec) {
+    var half = Math.ceil(sec.items.length / 2);
+    var one = function (it, ii) {
+      var k = p.no + '|' + si + '|' + ii;
+      var sel = JSON.parse(st.v[k] || '[]');
+      var used = {}; sel.forEach(function (i) { used[i] = true; });
+      var chips = it.u.map(function (w, i) {
+        return '<span class="bw' + (used[i] ? ' used' : '') + '" data-k="' + k + '" data-i="' + i + '">' + esc(w) + '</span>';
+      }).join('');
+      var built = sel.length ? sel.map(function (i) {
+        return '<span class="bwd" data-k="' + k + '" data-i="' + i + '">' + esc(it.u[i]) + '</span>';
+      }).join(' ') : '<span class="muted">…</span>';
+      return '<div class="q bq"><span class="qn">' + it.n + '.</span><div class="qb"><div class="bank">' + chips + '</div>' +
+        '<div class="built" data-bk="' + k + '">' + built + '</div></div></div>';
+    };
+    var rows = function (list, from) { return list.map(function (it, i) { return one(it, from + i); }).join(''); };
+    return '<div class="cols"><div class="col">' + rows(sec.items.slice(0, half), 0) + '</div><div class="col">' + rows(sec.items.slice(half), half) + '</div></div>';
+  }
+
+  function dotsHtml(p, si, sec) {
+    var sp = pics(p.no, sec.key);
+    var rights = sec.right.map(function (r, i) {
+      var content = sp.length && picSrc(sp[i]) ? '<img class="rpic" alt="Gambar ' + String.fromCharCode(65 + i) + '" src="' + picSrc(sp[i]) + '">' : esc(r.e);
+      return '<li><b>' + String.fromCharCode(65 + i) + '.</b> ' + content + '</li>';
+    }).join('');
+    // the answer texts go into the dropdown; the list above is only kept when there are pictures
+    var letters = sec.right.map(function (r) { return r.e; });
+    var html = sp.length ? '<ol class="rlist">' + rights + '</ol>' : '';
+    var rowsD = sec.left.map(function (l, li) {
+      var k = p.no + '|' + si + '|L' + li;
+      var v = st.v[k] || '';
+      var opts = '<option value="">— Pilih —</option>' + letters.map(function (L) { return '<option value="' + esc(L) + '"' + (v === L ? ' selected' : '') + '>' + esc(L) + '</option>'; }).join('');
+      // question text and its dropdown sit side by side on one line
+      return '<div class="q dq"><span class="qn">' + l.n + '.</span><div class="qt">' + esc(l.q) + '</div><select class="ans dsel" data-k="' + k + '">' + opts + '</select></div>';
+    });
+    var halfD = Math.ceil(rowsD.length / 2);
+    html += '<div class="cols"><div class="col">' + rowsD.slice(0, halfD).join('') + '</div><div class="col">' + rowsD.slice(halfD).join('') + '</div></div>';
+    return html;
+  }
+
+  function gridHtml(p, si, sec) {
+    var head = '<tr><th></th>' + sec.cols.map(function (c) { return '<th>' + esc(c) + '</th>'; }).join('') + '</tr>';
+    var rows = sec.items.map(function (it, ii) {
+      var cells = sec.cols.map(function (c, ci) {
+        var k = p.no + '|' + si + '|' + ii + '|' + ci;
+        return '<td><span class="drop" data-k="' + k + '">' + (st.v[k] ? esc(st.v[k]) : '…') + '</span></td>';
+      }).join('');
+      return '<tr><td class="rn">' + it.n + '.</td>' + cells + '</tr>';
+    }).join('');
+    return '<div class="tblwrap"><table class="gtbl">' + head + rows + '</table></div>';
+  }
+
+  function render() {
+    var p = PAGES[cur];
+    renderTabs();
+    $('pagehead').textContent = 'Latihan ' + p.no + ' · ' + p.unitTitle;
+    $('counter').textContent = (cur + 1) + ' / ' + PAGES.length;
+    var left = renderLeft(p);
+    $('left').innerHTML = left;
+    $('left').style.display = left ? '' : 'none';
+    $('split').classList.toggle('single', !left);
+    $('right').innerHTML = renderRight(p);
+    $('score').textContent = '';
+    $('blank').textContent = '';
+    $('prev').disabled = cur === 0;
+    $('next').disabled = cur === PAGES.length - 1;
+    st.cur = cur; save();
+    window.scrollTo(0, 0);
+    bind();
+  }
+
+  function bind() {
+    document.querySelectorAll('#right [data-k]').forEach(function (el) {
+      if (el.classList.contains('drop')) return;
+      el.addEventListener(el.tagName === 'SELECT' ? 'change' : 'input', function () {
+        st.v[el.dataset.k] = el.value; save(); el.classList.remove('ok', 'bad');
+        $('score').textContent = ''; $('blank').textContent = '';
+      });
+    });
+    // build-a-sentence: tap a word to add it, tap a word in the sentence to remove it
+    document.querySelectorAll('#right .bw').forEach(function (w) {
+      w.addEventListener('click', function () {
+        if (w.classList.contains('used')) return;
+        var k = w.dataset.k, i = +w.dataset.i;
+        var sel = JSON.parse(st.v[k] || '[]');
+        if (sel.indexOf(i) < 0) sel.push(i);
+        st.v[k] = JSON.stringify(sel); save(); render();
+      });
+    });
+    document.querySelectorAll('#right .bwd').forEach(function (w) {
+      w.addEventListener('click', function () {
+        var k = w.dataset.k, i = +w.dataset.i;
+        var sel = JSON.parse(st.v[k] || '[]').filter(function (x) { return x !== i; });
+        st.v[k] = JSON.stringify(sel); save(); render();
+      });
+    });
+    document.querySelectorAll('#right .w').forEach(function (w) {
+      w.addEventListener('click', function () {
+        var k = w.dataset.k, i = +w.dataset.i;
+        var sel = JSON.parse(st.v[k] || '[]');
+        var at = sel.indexOf(i);
+        if (at >= 0) sel.splice(at, 1); else sel.push(i);
+        st.v[k] = JSON.stringify(sel); save();
+        w.classList.toggle('on');
+        $('score').textContent = ''; $('blank').textContent = '';
+      });
+    });
+    // drag chips and drop zones (drag, or tap a chip then tap a box)
+    var selected = null;
+    document.querySelectorAll('#right .chip').forEach(function (c) {
+      c.addEventListener('dragstart', function (e) { e.dataTransfer.setData('text/plain', c.dataset.w); });
+      c.addEventListener('click', function () {
+        selected = (selected === c.dataset.w) ? null : c.dataset.w;
+        document.querySelectorAll('#right .chip').forEach(function (x) { x.classList.toggle('sel', x.dataset.w === selected); });
+      });
+    });
+    document.querySelectorAll('#right .drop').forEach(function (d) {
+      d.addEventListener('dragover', function (e) { e.preventDefault(); });
+      d.addEventListener('drop', function (e) { e.preventDefault(); place(d, e.dataTransfer.getData('text/plain')); });
+      d.addEventListener('click', function () {
+        if (st.v[d.dataset.k]) { delete st.v[d.dataset.k]; save(); render(); return; }
+        if (selected) { place(d, selected); selected = null; }
+      });
+    });
+  }
+
+  function place(d, word) {
+    if (!word) return;
+    st.v[d.dataset.k] = word; save(); render();
+  }
+
+  function check() {
+    var p = PAGES[cur];
+    var s = pageScore(p);
+    $('score').textContent = s.right + '/' + s.total;
+    if (s.blank > 0) $('blank').textContent = 'Masih ada ' + s.blank + ' soalan kosong.';
+    else if (s.total > 0 && s.right === s.total) $('blank').textContent = 'Tahniah! Semua jawapan betul.';
+    else $('blank').textContent = 'Cuba semula. Jawapan merah perlu disemak.';
+    // mark each item
+    p.sections.forEach(function (sec, si) {
+      var list = sec.type === 'dots' ? sec.left : sec.items;
+      if (!list) return;
+      list.forEach(function (it, ii) {
+        var r = checkItem(p.no, si, sec, it, ii);
+        if (sec.type === 'build') {
+          var bb = document.querySelector('#right .built[data-bk="' + r.els[0] + '"]');
+          if (bb) { bb.classList.toggle('ok', r.right === 1); bb.classList.toggle('bad', r.right !== 1 && r.blank === 0); }
+          return;
+        }
+        r.els.forEach(function (k) {
+          var el = document.querySelector('#right [data-k="' + k + '"]');
+          if (!el) return;
+          var v = st.v[k] || '';
+          var good = null;
+          if (sec.type === 'pic' || sec.type === 'fill') good = nospace(v) && (Array.isArray(it.a) ? it.a.some(function (a) { return nospace(a) === nospace(v); }) : nospace(v) === nospace(it.a));
+          if (sec.type === 'circle' || sec.type === 'sel') { var bIdx = +(k.split('|').pop()) || 0; good = v === (Array.isArray(it.a) ? it.a[bIdx] : it.a); }
+          if (sec.type === 'drag' && sec.units) good = v && nospace(v) === nospace(it.a[+(k.split('|').pop())]);
+          else if (sec.type === 'drag') good = v && (Array.isArray(it.a) ? true : nospace(v) === nospace(it.a));
+          if (good === null) return;
+          el.classList.toggle('ok', !!good); el.classList.toggle('bad', !good && !!v);
+        });
+      });
+    });
+    var allOk = !!(s.total > 0 && s.right === s.total);
+    st.done[p.no] = allOk;
+    st.bad = st.bad || {};
+    st.bad[p.no] = !allOk;
+    save();
+    if (allOk && cur < PAGES.length - 1) { cur++; render(); window.scrollTo(0, 0); } else { render_sel(); }
+  }
+  function renderTabs() {
+    $('tabs').innerHTML = PAGES.map(function (q, i) {
+      return '<button class="tab' + (i === cur ? ' on' : '') + (st.done[q.no] ? ' ok' : '') + (st.bad && st.bad[q.no] && !st.done[q.no] ? ' bad' : '') + '" type="button" data-i="' + i + '">Latihan ' + q.no + (st.done[q.no] ? ' ✓' : '') + '</button>';
+    }).join('');
+  }
+  function render_sel() { renderTabs(); }
+
+  function redo() {
+    var p = PAGES[cur];
+    Object.keys(st.v).forEach(function (k) { if (k.indexOf(p.no + '|') === 0) delete st.v[k]; });
+    delete st.done[p.no];
+    if (st.bad) delete st.bad[p.no];
+    save(); render();
+  }
+
+  $('tabs').addEventListener('click', function (e) { var b = e.target.closest('.tab'); if (!b) return; cur = +b.dataset.i; render(); });
+  $('prev').addEventListener('click', function () { if (cur > 0) { cur--; render(); } });
+  $('next').addEventListener('click', function () { if (cur < PAGES.length - 1) { cur++; render(); } });
+  $('checkBtn').addEventListener('click', check);
+  $('resetAll').addEventListener('click', redo);
+  render();
+})();
+
+</script>
+</body>
+</html>
