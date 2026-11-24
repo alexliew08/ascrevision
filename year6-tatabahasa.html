@@ -1,0 +1,1419 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tahun 6 · Tatabahasa Jilid A · Bahasa Melayu</title>
+<script src="lesson.js"></script>
+<style>
+:root{--bg:#f6f3ea;--panel:#fffdf8;--ink:#1f3d31;--muted:#6d6a5c;--line:#e3dac6;--green:#2f5e4a;--green2:#3f7a60;--accent:#e8914a;--good:#2e8b57;--okbg:#e6f5ec;--bad:#c0392b;--badbg:#fbe9e7}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Segoe UI",system-ui,Arial,sans-serif;font-size:16px;line-height:1.6}
+button{font:inherit;cursor:pointer}
+.top{position:sticky;top:0;z-index:5;background:var(--panel);border-bottom:1px solid var(--line);padding:12px 18px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.top h1{font-size:19px;margin:0 auto 0 0}
+.top a{color:var(--green)}
+.wrap{display:grid;grid-template-columns:240px minmax(0,1fr);gap:16px;max-width:1280px;margin:0 auto;padding:16px}
+@media (max-width:860px){.wrap{grid-template-columns:1fr;padding:12px 16px}}
+.list{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:10px;max-height:84vh;overflow:auto;position:sticky;top:76px;align-self:start;display:flex;flex-direction:column;gap:4px}
+@media (max-width:860px){.list{position:static;max-height:none;flex-direction:row;flex-wrap:wrap;gap:6px}}
+.tab{display:block;width:100%;text-align:left;padding:7px 10px;border-radius:12px;border:1px solid transparent;background:none;color:var(--ink);font-size:15px;font-weight:700}
+.tab.ok{color:var(--good)}
+.tab.on{background:var(--green);color:#fff}
+.tab.bad{background:#c62828;color:#fff;border-color:#c62828}
+@media (max-width:860px){.tab{width:auto;min-width:48px;text-align:center;border-color:var(--line);background:#fff}.tab.on{border-color:var(--green)}}
+.main{display:flex;flex-direction:column;gap:12px;min-width:0}
+.info{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:12px 16px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.info b{font-size:18px;margin-right:auto}
+.score{font-weight:700;background:#f1ede2;border-radius:999px;padding:4px 12px}
+.score:empty{display:none}
+.btn{padding:8px 14px;border-radius:12px;border:1px solid var(--line);background:#fff;color:var(--ink);font-weight:700}
+.btn.primary{background:var(--green);color:#fff;border-color:var(--green)}
+.btn:disabled{opacity:.4;cursor:default}
+.split{display:grid;grid-template-columns:minmax(0,1fr);gap:16px;align-items:start}
+.split.single .left{display:none}
+@media (min-width:900px){
+  .split:not(.single){grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr)}
+  .split:not(.single) .left,.split .panel{position:sticky;top:90px;max-height:82vh;overflow:auto}
+}
+.left{min-width:0}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px;min-width:0}
+.foot{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.foot .hint{font-size:14px;color:var(--muted)}
+.foot .blank{font-size:15px;color:var(--muted);font-weight:600}
+.foot .bts{display:flex;gap:8px}
+/* left: worksheet pictures and passages */
+.pcard{background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin-bottom:12px}
+.pcard h3{margin:0 0 6px;font-size:16px;color:var(--green)}
+.ph{font-weight:800;color:var(--green);margin-bottom:8px}
+.ptext{margin:6px 0;font-size:17px;line-height:1.75}
+.vocab .vline{margin:4px 0;font-size:15px}
+.pgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+@media (min-width:600px){.pgrid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.pgrid.few{grid-template-columns:minmax(0,1fr)}
+.pfig{margin:0;position:relative;border:1px solid var(--line);border-radius:12px;background:#fff;padding:4px;text-align:center;overflow:hidden}
+.pfig img{width:100%;height:auto;display:block;max-width:100%}
+.pgrid.few .pfig img{max-height:460px;width:auto;margin:0 auto;object-fit:contain}
+.pfig figcaption{position:absolute;left:6px;top:6px;background:var(--green);color:#fff;border-radius:999px;font-weight:800;font-size:13px;padding:0 8px}
+.rpic{display:inline-block;vertical-align:middle;max-width:150px;max-height:110px;border:1px solid var(--line);border-radius:8px;background:#fff;margin:4px 0}
+.thumb{max-width:180px;border:1px solid var(--line);border-radius:10px}
+.shared{display:flex;flex-wrap:wrap;gap:10px;margin:6px 0 10px}
+.muted{color:var(--muted)}
+/* right: answers */
+.qsec{border-bottom:1px dashed var(--line);padding:6px 0 12px;margin-bottom:10px}
+.qsec:last-child{border-bottom:none}
+.qsec h3{margin:6px 0 4px;font-size:16px;display:flex;align-items:center;gap:8px}
+.letter{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;background:var(--green);color:#fff;font-size:13px;font-weight:800;flex:none}
+.instr{margin:2px 0 8px;font-weight:600;color:var(--muted);font-size:14px}
+.q{display:flex;gap:8px;margin:8px 0;align-items:flex-start}
+.qn{font-weight:800;color:var(--green);min-width:24px;flex:none}
+.qb{flex:1;min-width:0}
+.qt{flex:1;min-width:0;font-size:15.5px;line-height:2.1}
+.qt .gap{display:inline-block;min-width:60px;border-bottom:2px solid #9a8c6a;margin:0 2px;color:transparent}
+.scr{font-size:14px;font-weight:800;letter-spacing:.04em;color:var(--green);margin-right:4px;white-space:nowrap}
+.paren{font-size:14px;font-weight:700;white-space:nowrap}
+.qt .ans.short{width:80px;height:28px;padding:2px 6px;margin:0 2px}
+.scr{letter-spacing:.02em}
+.paren{font-size:17px;font-weight:700;margin:0 2px}
+input.ans,select.ans,textarea.ans{font:inherit;font-size:15px;padding:4px 8px;border:2px solid #cfc3a6;border-radius:10px;background:#fff;color:var(--ink);max-width:100%;vertical-align:middle}
+input.ans.inl{width:130px;margin:0 3px}
+input.ans.short{width:100px;margin:0 2px}
+input.ans.wide{display:block;width:100%;margin-top:6px}
+select.ans.inl{min-width:130px;margin:0 3px}
+select.ans{min-width:200px}
+textarea.ans{display:block;width:100%;margin-top:6px}
+.ans.ok{border-color:var(--good)!important;background:var(--okbg)}
+.ans.bad{border-color:var(--bad)!important;background:var(--badbg)}
+.ans:focus{outline:none;border-color:var(--green2);box-shadow:0 0 0 3px #dfeee5}
+.bank{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:4px 0 10px;padding:8px;border:1.5px dashed #b9ab86;border-radius:14px;background:#fff}
+.bank .bl{font-weight:800;color:var(--green);margin-right:4px}
+.chip{background:#fff;border:1px solid var(--line);border-radius:10px;padding:5px 12px;font-size:15px;font-weight:700;cursor:grab;user-select:none;touch-action:manipulation}
+.chip.sel{background:var(--accent);color:#fff;border-color:var(--accent)}
+.drop{display:inline-block;min-width:110px;min-height:30px;margin:0 4px;padding:2px 10px;border:2px dashed #b9ab86;border-radius:10px;background:#fff;font-weight:700;vertical-align:middle;cursor:pointer;text-align:center}
+.drop.ok{border:2px solid var(--good);background:var(--okbg)}
+.drop.bad{border:2px solid var(--bad);background:var(--badbg)}
+.uword .w{cursor:pointer;padding:2px 3px;border-radius:6px;border-bottom:2.5px solid transparent}
+.uword .w:hover{background:#eef6ef}
+.uword .w.on{border-bottom-color:#2d5f9a;color:#2d5f9a;font-weight:700}
+.tblwrap{overflow-x:auto;margin:6px 0 10px}
+.gtbl{width:100%;border-collapse:collapse;font-size:15px}
+.gtbl th,.gtbl td{border:1px solid var(--line);padding:5px 7px;text-align:center;background:#fff}
+.gtbl th{background:#f6efe0}
+.gtbl .rn{width:40px;font-weight:800;color:var(--green)}
+.rlist{margin:6px 0 10px;padding-left:4px;list-style:none;font-size:15px}
+.rlist li{margin:4px 0}
+.q.dq{align-items:center}
+.q.dq .qt{flex:1;min-width:0}
+.dsel{min-width:150px;max-width:100%;flex:none;padding:3px 4px;margin:0;font-size:14px}
+.bw{display:inline-block;background:#fff;border:1px solid var(--line);border-radius:10px;padding:4px 10px;font-size:15px;font-weight:700;cursor:pointer;user-select:none;margin:2px 0}
+.bw.used{opacity:.3;cursor:default}
+.bwd{display:inline-block;background:#eef6ef;border:1.5px solid var(--green2);border-radius:10px;padding:3px 9px;font-size:15px;font-weight:700;cursor:pointer;margin:2px 0}
+.built{min-height:38px;border-bottom:2px solid #cfc3a6;padding:4px 2px;line-height:2.1;border-radius:6px}
+.built.ok{background:var(--okbg);border-color:var(--good)}
+.built.bad{background:var(--badbg);border-color:var(--bad)}
+.cols{display:grid;grid-template-columns:minmax(0,1fr);gap:0 18px;align-items:start}
+.col{min-width:0}
+@media (min-width:900px){.cols{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}
+.notes{background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px 16px;font-size:16px;line-height:1.7}
+.notes h4{margin:14px 0 6px;color:var(--green);font-size:17px}
+.notes table{width:100%;border-collapse:collapse;margin:8px 0;font-size:15px}
+.notes td,.notes th{border:1px solid var(--line);padding:6px 9px;vertical-align:top;background:#fff}
+.notes th{background:#f6efe0;text-align:left}
+.notes .cn{color:#6d6a5c;font-size:14px}
+.notes .hl{background:#fff3c9;padding:0 2px}
+.tab.note{font-style:italic}
+</style>
+</head>
+<body data-lang="bm">
+<header class="top">
+  <h1>Tahun 6 · Tatabahasa Jilid A</h1>
+  <a href="index.html?sub=bm6">← Kembali ke menu</a>
+  <span class="hint" id="counter"></span>
+</header>
+<div class="wrap">
+  <nav class="list" id="tabs" aria-label="Senarai halaman"></nav>
+  <section class="main">
+    <div class="info">
+      <b id="pagehead"></b>
+      <span class="score" id="score"></span>
+      <button class="btn" id="prev" type="button">← Sebelum</button>
+      <button class="btn" id="next" type="button">Seterusnya →</button>
+    </div>
+    <div class="split" id="split">
+      <section class="left" id="left"></section>
+      <section class="panel" id="right"></section>
+    </div>
+    <div class="foot" id="footBar">
+      <span class="blank" id="blank"></span>
+      <div class="bts">
+        <button class="btn" id="resetAll" type="button">↺ Ulang</button>
+        <button class="btn primary" id="checkBtn" type="button">✔ Semak Jawapan</button>
+      </div>
+    </div>
+  </section>
+</div>
+<script>
+/* ---- year6-tb-u1.js ---- */
+// Tahun 6 · Tatabahasa Jilid A · Unit 1
+// Source: 郑老师好棒棒 六年级语法 Latihan Tatabahasa Tahun 6 Jilid A (pp. 1-6 notes and exercises; answers from Jawapan p. 48)
+window.TB = window.TB || [];
+TB.push(
+{ no:1, part:"A", kind:"notes", unitTitle:"Unit 1 · Kata Nama Am, Kata Nama Khas, Kata Ganti Nama dan Penjodoh Bilangan", sections:[
+  { key:"N", type:"notes", title:"Kata Nama Am dan Kata Nama Khas", html:
+    '<h4>Kata Nama Am 普通名词</h4>' +
+    '<ul><li>Nama umum bagi manusia, haiwan, benda, tempat dan tumbuhan. <span class="cn">人、动物、东西、地方、植物的统一名称。</span></li>' +
+    '<li>Huruf pertama hanya ditulis dengan huruf besar pada permulaan ayat. <span class="cn">除了在句子开头第一个字大写，其他的时候小写。</span></li></ul>' +
+    '<p><b>Contoh (课本 Unit 1):</b> beg 书包 · tongkat 拐杖 · bukit 山坡 · hutan 森林 · jam 手表</p>' +
+    '<h4>Kata Nama Khas 特别名词</h4>' +
+    '<ul><li>Nama khusus bagi manusia, haiwan, benda, tempat dan tumbuhan. <span class="cn">人、动物、东西、地方、植物的特别指称。</span></li>' +
+    '<li>Setiap perkataan bermula dengan huruf besar. <span class="cn">每个字的开头要大写。</span></li></ul>' +
+    '<p><b>Contoh (课本 Unit 1):</b> Puan Siew 人名 · Si Putih 宠物的名字 · Proton X70 车名 · Proton X50 车名 · Wei Hong 人名 · Jalan Kuala Klawang 路的名字 · Nayan 牌子的名字 · Bucida 树的名字</p>'
+  }
+]},
+{ no:2, part:"A", unitTitle:"Unit 1 · Kata Nama Am, Kata Nama Khas, Kata Ganti Nama dan Penjodoh Bilangan", sections:[
+  { key:"A", type:"circle", title:"Pilih jawapan yang paling sesuai", instr:"Pilih jawapan yang paling sesuai.", items:[
+    {n:1,q:"Kami memasukkan sebuah ________ pakaian ke dalam kereta.",o:["beg","tongkat","hutan","jam"],a:"beg"},
+    {n:2,q:"Kita perlu berhati-hati semasa menaiki dan menuruni ________.",o:["bukit","hutan","kucing","kerusi"],a:"bukit"},
+    {n:3,q:"Datuk memegang sebuah ________ yang berukiran cantik.",o:["bukit","hutan","tongkat","pokok"],a:"tongkat"},
+    {n:4,q:"Dalam perjalanan, Ali dapat melihat pemandangan ________ rimba yang cantik.",o:["hutan","Proton Persona","tongkat","pokok"],a:"hutan"},
+    {n:5,q:"Seutas ________ tangan djadikan hadiah kepada adik.",o:["beg","tongkat","hutan","jam"],a:"jam"},
+    {n:6,q:"________ ialah nenek Li Chen.",o:["Puan Siew","Si Putih","Wei Hong","Proton X50"],a:"Puan Siew"},
+    {n:7,q:"Kucing peliharaan Ali bernama ________.",o:["Proton X50","Puan Siew","Si Putih","Jalan Kuala Klawang"],a:"Si Putih"},
+    {n:8,q:"________ ialah rakan baik Li Chen.",o:["Proton X70","Pokok Bucida","Wei Hong","Noyan"],a:"Wei Hong"},
+    {n:9,q:"Kedai makanan itu terletak di ________.",o:["Puan Siew","Pokok Bucida","Wei Hong","Jalan Kuala Klawang"],a:"Jalan Kuala Klawang"},
+    {n:10,q:"Kami berlibur ke hutan lipur dengan menaiki kereta ________.",o:["Proton X50","Puan Siew","Si Putih","Jalan Kuala Klawang"],a:"Proton X50"},
+    {n:11,q:"Saya berehat di bawah ________.",o:["Puan Siew","Pokok Bucida","Wei Hong","Noyan"],a:"Pokok Bucida"}
+  ]}
+]},
+{ no:3, part:"A", kind:"notes", unitTitle:"Unit 1 · Kata Ganti Nama", sections:[
+  { key:"N", type:"notes", title:"Kata Ganti Nama 代名词", html:
+    '<p>Kata ganti nama ialah perkataan yang digunakan untuk menggantikan kata nama. <span class="cn">代名词就是用来代替名词的词语。</span></p>' +
+    '<table><tr><th>Unit 1 用到的第一人称</th><th>意思</th></tr>' +
+    '<tr><td>saya</td><td>我 （通常用在对话的自称）</td></tr>' +
+    '<tr><td>kami</td><td>我们 （不包括听的人）</td></tr>' +
+    '<tr><td>Kita</td><td>我们大家 （包括听的人在内）</td></tr></table>' +
+    '<table><tr><th>Unit 1 用到的第三人称</th><th>意思</th></tr>' +
+    '<tr><td>Mereka</td><td>他们 （题目前面提到的人，后面在指称回他们）</td></tr></table>' +
+    '<h4>分清楚 Kami 和 Kita</h4>' +
+    '<table><tr><th>Kami 我们 · 不包括听的人</th><th>Kita 我们大家 · 包括听的人</th></tr>' +
+    '<tr><td>例子：(你和你的朋友要去上厕所) “Cikgu, bolehkah <span class="hl">kami</span> pergi ke tandas?” <span class="cn">这句话只包含你和你的朋友，不包括老师，因为老师只是听的人。</span></td>' +
+    '<td>例子：“Ali, cepat bangun. <span class="hl">Kita</span> hendak pergi ke zoo negara hari ini,” kata ibu kepada Ali. <span class="cn">意思就是妈妈会和Ali一起去，因为用到kita，包括听的人。</span></td></tr></table>'
+  }
+]},
+{ no:4, part:"A", unitTitle:"Unit 1 · Kata Ganti Nama", sections:[
+  { key:"A", type:"drag", title:"Isi tempat kosong", instr:"Isi tempat kosong dengan kata ganti nama yang sesuai. Pilih dari kotak.", bank:["saya","kami","mereka","Kita"], items:[
+    {n:1,q:"“Ali, cepat bangun. ________ perlu bertolak awal ke Hutan Lipur Bukit Perdana,” kata nenek kepada cucunya.",a:"Kita"},
+    {n:2,q:"Saya dan keluarga telah bercuti ke Melaka. ________ bertolak 出发 pada pukul tujuh pagi.",a:"kami"},
+    {n:3,q:"Ali sekeluarga berlibur di hutan lipur. ________ bertolak awal.",a:"mereka"},
+    {n:4,q:"“Jumpa ________ di bilik guru pada waktu rehat nanti,” kata Cikgu Azhari kepada Alif.",a:"saya"}
+  ]}
+]},
+{ no:5, part:"A", kind:"notes", unitTitle:"Unit 1 · Penjodoh Bilangan", sections:[
+  { key:"N", type:"notes", title:"Penjodoh Bilangan 量词", html:
+    '<table><tr><th>量词</th><th>Digunakan untuk ……</th><th>Contoh</th></tr>' +
+    '<tr><td><b>buah</b> 个、辆</td><td>benda yang besar · 大样的东西</td><td>kereta 车、kerusi 椅子、rumah 屋子、beg 书包</td></tr>' +
+    '<tr><td><b>ekor</b> 只</td><td>haiwan, ikan, serangga · 动物、鱼、昆虫</td><td>burung 鸟、kucing 猫、kuda 马</td></tr>' +
+    '<tr><td><b>batang</b> 枝</td><td>benda halus dan panjang / sungai / jalan · 细长的物品/河/路</td><td>pensel 笔、sungai 河水、jalan 马路</td></tr>' +
+    '<tr><td><b>utas</b> 条</td><td>benda berbentuk rantai, panjang · 链状、长的物品</td><td>tali 绳子、dawai 电线、rantai 项链、jam tangan 手表</td></tr></table>'
+  }
+]},
+{ no:6, part:"A", unitTitle:"Unit 1 · Penjodoh Bilangan", sections:[
+  { key:"A", type:"fill", title:"Isi tempat kosong dengan penjodoh bilangan yang betul", instr:"Sila isikan jawapan yang betul. (Taip penjodoh bilangan selepas se.)", items:[
+    {n:1,q:"se________ anjing",a:"ekor"},
+    {n:2,q:"se________ jalan",a:"batang"},
+    {n:3,q:"se________ rumah",a:"buah"},
+    {n:4,q:"se________ tali",a:"utas"}
+  ]}
+]},
+{ no:7, part:"A", unitTitle:"Unit 1 · Penjodoh Bilangan", sections:[
+  { key:"B", type:"circle", title:"Pilih jawapan yang betul", instr:"Sila pilih jawapan yang betul.", items:[
+    {n:1,q:"Ali menolong ibunya untuk memasukkan se________ beg ke dalam kereta.",o:["buah","ekor","batang","utas"],a:"buah"},
+    {n:2,q:"Se________ jam tangan milik Ali berharga RM 50.00.",o:["buah","ekor","batang","utas"],a:"utas"},
+    {n:3,q:"Ayah memandu kereta menuju ke se________ jalan, iaitu Jalan Kluang.",o:["buah","ekor","batang","utas"],a:"batang"},
+    {n:4,q:"Saya ternampak se________ kucing yang comel di tepi jalan.",o:["buah","ekor","batang","utas"],a:"ekor"},
+    {n:5,q:"Di belakang rumah Ali ada se________ sungai yang jernih.",o:["buah","ekor","batang","utas"],a:"batang"},
+    {n:6,q:"Terdapat tiga ________ kereta berhenti di tepi padang.",o:["buah","ekor","batang","utas"],a:"buah"},
+    {n:7,q:"Se________ tali dibeli oleh ayah.",o:["buah","ekor","batang","utas"],a:"utas"},
+    {n:8,q:"Adik mempunyai tiga ________ pensel.",o:["buah","ekor","batang","utas"],a:"batang"}
+  ]}
+]},
+{ no:8, part:"A", unitTitle:"Unit 1 · Soalan Cabaran", sections:[
+  { key:"A", type:"circle", title:"Pilih jawapan yang paling sesuai", instr:"Pilih jawapan yang paling sesuai. (Pilih pasangan yang betul untuk tempat kosong (…).)", items:[
+    {n:1,q:"“ Ali, cepat keluar. (…) akan bertolak awal ke Melaka,” kata (…) kepada anaknya.",o:["kami, Si Putih","Kita, Puan Lim","mereka, Wei Hong","Saya, Proton X50"],a:"Kita, Puan Lim"},
+    {n:2,q:"Ali sekeluarga melihat pemandangan (…) rimba yang cantik. (…) mengambil gambar sebagai kenangan.",o:["hutan, Mereka","jalan, Kita","Hutan Lipur Perdana, Dia","pokok, kami"],a:"hutan, Mereka"},
+    {n:3,q:"“(…) akan berlibur di (…) pada minggu depan,” kata Lily dan Lucy kepada Ali.",o:["Dia, Bukit Perdana","Kami, Bukit Fraser","Mereka, Jalan Maju","Saya, Bukit Fraser"],a:"Kami, Bukit Fraser"},
+    {n:4,q:"Ayah membeli se(…) jam tangan yang berjenama (…) kepada adik.",o:["kaki, Si Putih","utas, Casio","batang, Sungai Nur","ekor, Jalan Kluang."],a:"utas, Casio"},
+    {n:5,q:"Kami berehat di bawah se(…) pokok (…).",o:["ekor, Si Putih","buah, Hotel Landmark","batang, Bucida","ekor, Jalan Kluang."],a:"batang, Bucida"},
+    {n:6,q:"Ayah memandu (…) dengan berhati-hati semasa menaiki dan menuruni (…).",o:["Proton Persona, bukit","Proton X50, pokok","Perodua Myvi, beg","Proton X70, jam tangan"],a:"Proton Persona, bukit"},
+    {n:7,q:"Mereka mencari se(…) kucing yang bernama (…).",o:["buah, Si Putih","ekor, Si Comel","batang, Si Belang","utas, Si Tompok"],a:"ekor, Si Comel"}
+  ]}
+]}
+);
+/* ---- year6-tb-u2.js ---- */
+// Tahun 6 · Tatabahasa Jilid A · Unit 2
+// Source: 郑老师好棒棒 六年级语法 Latihan Tatabahasa Tahun 6 Jilid A (pp. 7-12 notes and exercises; answers from Jawapan p. 49)
+window.TB = window.TB || [];
+TB.push(
+{ no:9, part:"A", kind:"notes", unitTitle:"Unit 2 · Kata Nama Am, Kata Nama Khas, Kata Ganti Nama dan Penjodoh Bilangan", sections:[
+  { key:"N", type:"notes", title:"Kata Nama Am dan Kata Nama Khas", html:
+    '<table><tr><th>Kata Nama Am</th><th>Kata Nama Khas</th></tr>' +
+    '<tr><td>sungai <span class="cn">河水</span></td><td>Tadika Amal <span class="cn">幼稚园的名字</span></td></tr>' +
+    '<tr><td>ambal <span class="cn">地毯</span></td><td>Si Putih / Si Gebu / Si Pantas <span class="cn">宠物的名字</span></td></tr>' +
+    '<tr><td>sangkar <span class="cn">笼子</span></td><td>Fong Yin <span class="cn">人名</span></td></tr>' +
+    '<tr><td>gambar <span class="cn">图片/照片</span></td><td>Universiti Pendidikan Sultan Idris <span class="cn">大学的名字</span></td></tr>' +
+    '<tr><td>papan tanda <span class="cn">告示牌</span></td><td>SJK (C) Taman Budi <span class="cn">校名</span></td></tr>' +
+    '<tr><td>kereta <span class="cn">汽车</span></td><td></td></tr>' +
+    '<tr><td>gunting <span class="cn">剪刀</span></td><td></td></tr></table>'
+  }
+]},
+{ no:10, part:"A", unitTitle:"Unit 2 · Kata Nama Am dan Kata Nama Khas", sections:[
+  { key:"A", type:"drag", title:"Isi tempat kosong", instr:"Isi tempat kosong dengan perkataan dari kotak.", bank:["gambar","sangkar","gunting","ambal","sungai","papan tanda","kereta"], items:[
+    {n:1,q:"Tadika itu terletak di tepi ________.",a:"sungai"},
+    {n:2,q:"Di hadapan tadika, terdapat sebidang ________.",a:"ambal"},
+    {n:3,q:"Mereka mengambil ________ sebagai kenangan yang manis.",a:"gambar"},
+    {n:4,q:"________ burung dibeli oleh ayah.",a:"sangkar"},
+    {n:5,q:"Ali mendirikan ________ di hadapan tadika.",a:"papan tanda"},
+    {n:6,q:"Ayah memandu ________ dengan perlahan.",a:"kereta"},
+    {n:7,q:"Adik memotong kertas dengan ________.",a:"gunting"}
+  ]}
+]},
+{ no:11, part:"A", unitTitle:"Unit 2 · Kata Nama Am dan Kata Nama Khas", sections:[
+  { key:"B", type:"circle", title:"Pilih jawapan yang paling sesuai", instr:"Pilih jawapan yang paling sesuai.", items:[
+    {n:1,q:"Fong Yin sekeluarga mengusahakan sebuah tadika yang bernama ________.",o:["Si Putih","Tadika Amal","batang","Universiti Pendidikan Sultan Idris"],a:"Tadika Amal"},
+    {n:2,q:"Kakak Fong Yew baru tamat belajar di ________ berusia 25 tahun.",o:["Si Putih","Tadika Amal","batang","Universiti Pendidikan Sultan Idris"],a:"Universiti Pendidikan Sultan Idris"},
+    {n:3,q:"________ berkicau dalam sangkar burung.",o:["Si Putih","Tadika Amal","batang","Universiti Pendidikan Sultan Idris"],a:"Si Putih"},
+    {n:4,q:"Penduduk berkumpul di ________ untuk majlis perasmian.",o:["Dewan Orang Ramai Maju","Universiti Pendidikan Sultan Idris","Fong Yin","Si Gebu"],a:"Dewan Orang Ramai Maju"}
+  ]}
+]},
+{ no:12, part:"A", kind:"notes", unitTitle:"Unit 2 · Kata Ganti Nama", sections:[
+  { key:"N", type:"notes", title:"Kata Ganti Nama Diri dan Kata Ganti Tunjuk", html:
+    '<table><tr><th>Orang</th><th>Kata ganti</th><th>Maksud</th></tr>' +
+    '<tr><td>第一人称 (我)</td><td>1. Kami</td><td>我们</td></tr>' +
+    '<tr><td>第二人称 (你)</td><td>2. kamu</td><td>你</td></tr>' +
+    '<tr><td></td><td>3. Kalian</td><td>你们 （通常用在对话，对两个人说话） <i>kata Ali kepada XX dan XX.</i></td></tr>' +
+    '<tr><td>第三人称 (他)</td><td>4. Baginda</td><td>皇上的他 (Yang di-Pertuan Agong / Sultan)</td></tr>' +
+    '<tr><td></td><td>5. Beliau</td><td>尊敬的他 (Guru besar / ayah / pengurus)</td></tr></table>' +
+    '<h4>Kata Ganti Nama Tunjuk 指示用语</h4>' +
+    '<table><tr><th>sini</th><td>这里</td></tr><tr><th>sana</th><td>那里</td></tr><tr><th>situ</th><td>那里</td></tr></table>' +
+    '<h4>分清楚 Sana 和 Situ</h4>' +
+    '<table><tr><td><b>sana</b> - 很远，看不到的那边</td><td><b>situ</b> - 很近，看得到的那边</td></tr></table>'
+  }
+]},
+{ no:13, part:"A", kind:"notes", unitTitle:"Unit 2 · Kata Ganti Nama", sections:[
+  { key:"N", type:"notes", title:"Kata Ganti Nama Tak Tentu dan Kata Ganti Nama Tanya", html:
+    '<h4>Kata Ganti Nama Tak Tentu 不定代词</h4>' +
+    '<table><tr><th>Perkataan</th><th>Contoh</th><th>Maksud</th></tr>' +
+    '<tr><td><b>apa-apa</b> 任何事件</td><td>Dia tidak membuat apa-apa. <span class="cn">他任何事都没有做。</span></td><td></td></tr>' +
+    '<tr><td><b>siapa-siapa</b> 任何人</td><td>Tidak ada siapa-siapa dalam bilik. <span class="cn">房里没有任何人。</span></td><td></td></tr>' +
+    '<tr><td><b>bila-bila</b> 任何时候/随时</td><td>Kamu boleh berjumpa dengan guru pada bila-bila masa. <span class="cn">你可以随时见老师。</span></td><td></td></tr></table>' +
+    '<h4>Kata Ganti Nama Tanya 疑问代词</h4>' +
+    '<table><tr><th>Perkataan</th><th>Maksud</th></tr>' +
+    '<tr><td><b>mana</b> 哪里</td><td>问地方</td></tr>' +
+    '<tr><td><b>siapa</b> 谁</td><td>问人</td></tr>' +
+    '<tr><td><b>apa</b> 什么</td><td>问东西</td></tr></table>'
+  }
+]},
+{ no:14, part:"A", unitTitle:"Unit 2 · Kata Ganti Nama", sections:[
+  { key:"A", type:"circle", title:"Pilih jawapan yang paling sesuai", instr:"Pilih jawapan yang paling sesuai.", items:[
+    {n:1,q:"“Saya ingin berkongsi cerita ahli keluarga saya. Sudikah ________ mendengarnya?” tanya Ali kepada kawan-kawannya.",o:["kamu","kalian","Baginda","Beliau"],a:"kalian"},
+    {n:2,q:"Yang di-Pertuan Agong seorang yang beramanah. (…) telah menjadi sudi teladan (…).",o:["Beliau, saya","Baginda, kamu","Baginda, kita","Dia, kita"],a:"Baginda, kita"},
+    {n:3,q:"Bapa saya bekerja sebagai pengurus. ________ seorang yang rajin.",o:["kamu","kalian","Baginda","Beliau"],a:"Beliau"},
+    {n:4,q:"“________ boleh datang ke rumah saya pada bila-bila masa sahaja,” kata Ali kepada Lily.",o:["kamu","kalian","Baginda","Beliau"],a:"kamu"}
+  ]}
+]},
+{ no:15, part:"A", unitTitle:"Unit 2 · Kata Ganti Nama", sections:[
+  { key:"B", type:"drag", title:"Isi tempat kosong", instr:"Isi tempat kosong dengan perkataan dari kotak.", bank:["siapa-siapa","bila-bila","siapa","situ","sana","mana"], items:[
+    {n:1,q:"Di ________kah terletaknya Pusat Tuisyen Amal?",a:"mana"},
+    {n:2,q:"________ dalam keluarga akan membantu ibu membuat kerja pada masa lapang.",a:"siapa-siapa"},
+    {n:3,q:"________ yang lewat akan dikenakan tindakan disiplin.",a:"siapa-siapa"},
+    {n:4,q:"________kah orang yang berambut panjang itu?",a:"siapa"},
+    {n:5,q:"“Kamu boleh datang pada ________ masa untuk mendaftarkan adik kamu,” kata pengurus tadika kepada Sze Hong.",a:"bila-bila"},
+    {n:6,q:"Pulau Langkawi terletak di Kedah. Pelancong suka pergi ke ________.",a:"sana"},
+    {n:7,q:"Di rumah saya terdapat sebuah halaman yang cantik. Kami gemar berehat di ________ selepas belajar.",a:"situ"}
+  ]}
+]},
+{ no:16, part:"A", kind:"notes", unitTitle:"Unit 2 · Penjodoh Bilangan", sections:[
+  { key:"N", type:"notes", title:"Penjodoh Bilangan 量词", html:
+    '<table><tr><th>量词</th><th>Digunakan untuk ……</th><th>Contoh</th></tr>' +
+    '<tr><td><b>batang</b> 枝</td><td>benda halus dan panjang / sungai / jalan · 细长的物品/河/路</td><td>pensel 笔、sungai 河水、jalan 马路</td></tr>' +
+    '<tr><td><b>keping</b> 片</td><td>benda rata, nipis, berbentuk kepingan · 平坦、薄、片状的</td><td>gambar 照片、papan tanda 告示牌、kertas 纸、kad 卡片</td></tr>' +
+    '<tr><td><b>kawan</b> 群</td><td>haiwan dan kumpulan · 动物和群体</td><td>gajah 大象、burung 小鸟、lebah 蜜蜂</td></tr>' +
+    '<tr><td><b>bidang</b> 片</td><td>luas, lebar · 宽、广阔的东西</td><td>ambal 地毯、tanah 土地、tikar 草席</td></tr>' +
+    '<tr><td><b>orang</b> 位</td><td>manusia · 人</td><td>murid 同学、guru 老师、doktor 医生</td></tr>' +
+    '<tr><td><b>buah</b> 个</td><td>benda yang besar · 大样的东西</td><td>tadika 幼儿园</td></tr>' +
+    '<tr><td><b>bilah</b> 把</td><td>benda tajam · 尖利的东西</td><td>pisau 刀、gunting 剪刀、cangkul 锄头</td></tr></table>'
+  }
+]},
+{ no:17, part:"A", unitTitle:"Unit 2 · Penjodoh Bilangan", sections:[
+  { key:"A", type:"circle", title:"Pilih jawapan yang betul", instr:"Pilih jawapan yang betul. (Tempat kosong (…) ialah penjodoh bilangan.)", items:[
+    {n:1,q:"Se(…) tadika dibuka di tepi se(…) sungai.",o:["buah,batang","batang,buah","keping,bidang","buah,utas"],a:"buah,batang"},
+    {n:2,q:"Beberapa (…) penduduk berkumpul di se(…) ambal yang luas.",o:["keping,bidang","kawan,bidang","orang,keping","orang,bidang"],a:"orang,bidang"},
+    {n:3,q:"Beberapa ________ burung berterbangan di langit.",o:["utas","ekor","biji","buah"],a:"ekor"},
+    {n:4,q:"Ali mengguntingkan se(…) tali dengan menggunakan se(…) gunting yang disediakan dalam majlis perasmian.",o:["utas, bilah","batang, buah","keping, bidang","buah, utas"],a:"utas, bilah"},
+    {n:5,q:"Se(…) papan tanda telah didirikan di depan pusat tuisyen.",o:["utas","kawan","biji","keping"],a:"keping"}
+  ]}
+]},
+{ no:18, part:"A", unitTitle:"Unit 2 · Soalan Cabaran", sections:[
+  { key:"A", type:"circle", title:"Pilih jawapan yang paling sesuai", instr:"Pilih jawapan yang paling sesuai. (Pilih pasangan yang betul untuk tempat kosong (…).)", items:[
+    {n:1,q:"“ Kawan-kawan, (…) hendak bercerita tentang se(…) tadika yang bernama Tadika Sayang,” kata Ali kepada kawannya.",o:["kami, SJK(C) Taman Budi","saya, tadika","mereka, universiti","saya, gambar"],a:"saya, tadika"},
+    {n:2,q:"“ Tahukah (…) di (…) terletaknya Tadika Amal? ” tanya Ahmad kepada rakan-rakannya.",o:["kamu, siapa","kami, mana","kalian, mana","mereka, bila"],a:"kalian, mana"},
+    {n:3,q:"Kakak Ali, (…) baru melanjutkan pelajarannya di (…).",o:["Fong Yin, Universiti Kebangsaan","Si Putih, Bukit Fraser","SJK(C) Sin Hwa, Jalan Maju","Fang Yin, Tadika Amal"],a:"Fong Yin, Universiti Kebangsaan"},
+    {n:4,q:"Terdapat se(…) sangkar burung yang mempunyai beberapa (…) burung di belakang rumah Ali.",o:["kaki, Si Putih","utas, kawan","buah, ekor","kawan, ekor"],a:"buah, ekor"},
+    {n:5,q:"“(…) boleh datang ke rumah saya pada (…) masa,” kata Ali kepada Ahmad.",o:["Kami, bila-bila","Kamu, bila-bila","Kami, siapa-siapa","Kamu, siapa-siapa"],a:"Kamu, bila-bila"},
+    {n:6,q:"Ayah memandu kereta dengan berhati-hati semasa pergi ke (…). (…) seorang yang cermat.",o:["sana, Beliau","sana, Kita","mana, Mereka","mana, jam tangan"],a:"sana, Beliau"},
+    {n:7,q:"Tadika (…) terletak di tepi se(…) sungai.",o:["sini, batang","ini, keping","sana, keping","itu, batang"],a:"itu, batang"}
+  ]}
+]}
+);
+/* ---- year6-tb-u3.js ---- */
+// Tahun 6 · Tatabahasa Jilid A · Unit 3
+// Source: 郑老师好棒棒 六年级语法 Latihan Tatabahasa Tahun 6 Jilid A (pp. 13-15 notes and exercises; answers from Jawapan p. 50)
+window.TB = window.TB || [];
+TB.push(
+{ no:19, part:"A", kind:"notes", unitTitle:"Unit 3 · Kata Nama Am, Kata Nama Khas, Kata Ganti Nama dan Penjodoh Bilangan", sections:[
+  { key:"N", type:"notes", title:"Kata Nama Am dan Kata Nama Khas", html:
+    '<table><tr><th>Kata Nama Am</th><th>Kata Nama Khas</th></tr>' +
+    '<tr><td>bas <span class="cn">巴士</span></td><td>Kampung Indah <span class="cn">乡村的名字</span></td></tr>' +
+    '<tr><td>University <span class="cn">大学</span></td><td>Puan Norli <span class="cn">人名</span></td></tr>' +
+    '<tr><td>kain rentang <span class="cn">布条</span></td><td>Arisa <span class="cn">人名</span></td></tr>' +
+    '<tr><td>permaidani <span class="cn">地毯</span></td><td>Universiti Malaya <span class="cn">大学名</span></td></tr>' +
+    '<tr><td>payung <span class="cn">雨伞</span></td><td>Sungai Besar <span class="cn">地名</span></td></tr>' +
+    '<tr><td></td><td>Dewan Muhibah <span class="cn">礼堂名</span></td></tr>' +
+    '<tr><td></td><td>Kuala Lumpur <span class="cn">地名</span></td></tr></table>' +
+    '<h4>Penjodoh Bilangan 量词</h4>' +
+    '<table><tr><th>量词</th><th>Digunakan untuk ……</th><th>Contoh</th></tr>' +
+    '<tr><td><b>batang</b> 枝</td><td>细长的物品/河/路</td><td>pensel 笔、sungai 河水、jalan 马路</td></tr>' +
+    '<tr><td><b>buah</b> 辆</td><td>大样的东西</td><td>bas 巴士</td></tr>' +
+    '<tr><td><b>bidang</b> 片</td><td>宽、广阔的东西</td><td>permaidani 地毯、ambal 地毯</td></tr>' +
+    '<tr><td><b>helai</b> 件</td><td>衣服、薄的东西</td><td>baju 衣服、kertas 纸、daun 叶子</td></tr>' +
+    '<tr><td><b>kaki</b></td><td>有握柄的东西</td><td>payung 雨伞、cendawan 蘑菇、bunga 花</td></tr></table>'
+  }
+]},
+{ no:20, part:"A", unitTitle:"Unit 3 · Penjodoh Bilangan dan Kata Nama Am/Khas", sections:[
+  { key:"A", type:"fill", title:"Isi tempat kosong dengan penjodoh bilangan yang betul", instr:"Sila isikan jawapan yang betul. (Taip penjodoh bilangan selepas se.)", items:[
+    {n:1,q:"se________ permaidani",a:"bidang"},
+    {n:2,q:"se________ payung",a:"kaki"},
+    {n:3,q:"se________ dewan",a:"buah"},
+    {n:4,q:"se________ kad",a:"keping"}
+  ]}
+]},
+{ no:21, part:"A", kind:"notes", unitTitle:"Unit 3 · Kata Ganti Nama", sections:[
+  { key:"N", type:"notes", title:"Kata Ganti Nama Diri (orang ketiga)", html:
+    '<table><tr><th>第三人称 (他)</th><td><b>1. Beliau</b></td><td>尊敬的他 (Guru besar / ayah / pengurus)</td></tr>' +
+    '<tr><td></td><td><b>2. Mereka</b></td><td>他们</td></tr></table>'
+  }
+]},
+{ no:22, part:"A", unitTitle:"Unit 3 · Soalan Cabaran", sections:[
+  { key:"A", type:"circle", title:"Pilih jawapan yang paling sesuai", instr:"Pilih jawapan yang paling sesuai. (Pilih pasangan yang betul untuk tempat kosong (…).)", items:[
+    {n:1,q:"Arisa menunggu kakak angkatnya sambil memegang se(…) (…).",o:["bidang, payung","kaki, payung","kaki, bunga","bidang, kain rentang"],a:"kaki, payung"},
+    {n:2,q:"Se(…) bas dari (…) telah sampai di Sungai Besar.",o:["bidang, kain rentang","buah, Universiti Malaya","kaki, payung","buah, permaidani"],a:"buah, Universiti Malaya"},
+    {n:3,q:"Beberapa (…) penduduk memegang se(…) kain rentang untuk menyambut anak-anak angkat.",o:["orang, buah","buah, kaki","orang, bidang","buah, biji"],a:"orang, bidang"},
+    {n:4,q:"Anak angkat berjalan di atas se(…) (…) yang dibeli di Kuala Lumpur.",o:["bidang, kain rentang","buah, Universiti Malaya","kaki, payung","biji, permaidani"],a:"bidang, kain rentang"},
+    {n:5,q:"Anak angkat diberikan sehelai(…) dan sebatang (…) untuk mendaftarkan diri.",o:["baju, pen","baju, pokok","kain rentang, sungai","kain rentang, pensel"],a:"baju, pen"},
+    {n:6,q:"Mereka pergi ke se(…) dewan yang diberikan nama (…).",o:["helai, Kuala Lumpur","buah, Dewan Muhibah","orang, Puan Norli","keping, Kad Hari Raya"],a:"buah, Dewan Muhibah"},
+    {n:7,q:"Puan Norli berbincang dengan anaknya, (…). (…) bersepakat untuk menerima anak angkat.",o:["Si Gebu, Beliau","SJK (C) Ming Tat, Mereka","Arisa, Mereka","kain rentang, Beliau"],a:"Arisa, Mereka"},
+    {n:8,q:"Anak angkat disambut oleh ketua kampung. (…) bersalam dengan pelajar (…).",o:["Beliau, bas","Mereka, Dewan Muhibah","Beliau, SJK (C) Hua Nan","Mereka, payung"],a:"Beliau, SJK (C) Hua Nan"},
+    {n:9,q:"Guru besar memberikan ucapan di atas pentas. (…) mengingatkan murid untuk membawa se(…) kad ke sekolah.",o:["Dia, buah","Beliau, orang","Beliau, keping","Dia, kaki"],a:"Beliau, keping"},
+    {n:10,q:"Bapa saya se(…) guru. (…) telah berkhidmat di sekolah selama 10 tahun.",o:["orang, Beliau","buah, Beliau","orang, Mereka","buah, Mereka"],a:"orang, Beliau"}
+  ]}
+]}
+);
+/* ---- year6-tb-u4.js ---- */
+// Tahun 6 · Tatabahasa Jilid A · Unit 4
+// Source: 郑老师好棒棒 六年级语法 Latihan Tatabahasa Tahun 6 Jilid A (pp. 16-18 notes and exercises; answers from Jawapan p. 50)
+window.TB = window.TB || [];
+TB.push(
+{ no:23, part:"A", kind:"notes", unitTitle:"Unit 4 · Kata Kerja Transitif dan Kata Kerja Tidak Transitif", sections:[
+  { key:"N", type:"notes", title:"Kata Kerja Transitif dan Kata Kerja Tidak Transitif 及物动词和不及物动词", html:
+    '<h4>Kata Kerja Transitif 及物动词</h4>' +
+    '<ul><li>Kata kerja mesti diikuti oleh kata nama. <span class="cn">动词后面一定要跟着名词的。</span></li>' +
+    '<li>Kebanyakannya imbuhan meN-, tetapi tidak semuanya. <span class="cn">多数是imbuhan meN-，但不是全部。</span></li></ul>' +
+    '<p><b>Contoh:</b> menjaga kesihatan 照顾安全 — <i>kesihatan</i> 是名词 (kata nama)</p>' +
+    '<h4>Kata Kerja Tidak Transitif 不及物动词</h4>' +
+    '<ul><li>Kata kerja yang boleh digunakan sendiri, tanpa kata nama selepasnya. <span class="cn">可以单独使用的动词，后面不用名词。</span></li>' +
+    '<li>Kebanyakannya imbuhan beR- atau ter-. <span class="cn">多数是imbuhan beR/ ter-。</span></li>' +
+    '<li>Ada juga yang meN-. <span class="cn">也有meN-的。</span></li></ul>' +
+    '<p><b>terdiri daripada</b> 组成 — <i>daripada</i> 不是名词。</p>' +
+    '<p><b>Contoh ayat:</b> Anjing yang berkeliaran. <span class="cn">游荡的狗。</span> · Adik menangis. <span class="cn">弟弟哭。</span> · Ali menjerit dengan kuatnya. <span class="cn">Ali大声地喊。</span></p>'
+  }
+]},
+{ no:24, part:"A", unitTitle:"Unit 4 · Kata Kerja Transitif dan Kata Kerja Tidak Transitif", sections:[
+  { key:"A", type:"circle", title:"Tentukan jenis kata kerja", instr:"Pilih jenis kata kerja yang betul untuk setiap perkataan.", items:[
+    {n:1,q:"menguji",o:["Kata kerja transitif","Kata kerja tidak transitif"],a:"Kata kerja transitif"},
+    {n:2,q:"melawan",o:["Kata kerja transitif","Kata kerja tidak transitif"],a:"Kata kerja transitif"},
+    {n:3,q:"mengumpulkan",o:["Kata kerja transitif","Kata kerja tidak transitif"],a:"Kata kerja transitif"},
+    {n:4,q:"mengejar",o:["Kata kerja transitif","Kata kerja tidak transitif"],a:"Kata kerja transitif"},
+    {n:5,q:"menyergah",o:["Kata kerja transitif","Kata kerja tidak transitif"],a:"Kata kerja transitif"},
+    {n:6,q:"menarik",o:["Kata kerja transitif","Kata kerja tidak transitif"],a:"Kata kerja transitif"},
+    {n:7,q:"menghampiri",o:["Kata kerja transitif","Kata kerja tidak transitif"],a:"Kata kerja transitif"},
+    {n:8,q:"menyelamatkan",o:["Kata kerja transitif","Kata kerja tidak transitif"],a:"Kata kerja transitif"},
+    {n:9,q:"berkeliaran",o:["Kata kerja transitif","Kata kerja tidak transitif"],a:"Kata kerja tidak transitif"},
+    {n:10,q:"berada",o:["Kata kerja transitif","Kata kerja tidak transitif"],a:"Kata kerja tidak transitif"},
+    {n:11,q:"terdiri",o:["Kata kerja transitif","Kata kerja tidak transitif"],a:"Kata kerja tidak transitif"},
+    {n:12,q:"bertempiaran",o:["Kata kerja transitif","Kata kerja tidak transitif"],a:"Kata kerja tidak transitif"},
+    {n:13,q:"menjerit",o:["Kata kerja transitif","Kata kerja tidak transitif"],a:"Kata kerja tidak transitif"},
+    {n:14,q:"merangkak",o:["Kata kerja transitif","Kata kerja tidak transitif"],a:"Kata kerja tidak transitif"},
+    {n:15,q:"bersembunyi",o:["Kata kerja transitif","Kata kerja tidak transitif"],a:"Kata kerja tidak transitif"},
+    {n:16,q:"terperanjat",o:["Kata kerja transitif","Kata kerja tidak transitif"],a:"Kata kerja tidak transitif"}
+  ]}
+]},
+{ no:25, part:"A", unitTitle:"Unit 4 · Kata Kerja Transitif dan Kata Kerja Tidak Transitif", sections:[
+  { key:"B", type:"drag", title:"Isi tempat kosong", instr:"Isi tempat kosong dengan kata kerja transitif yang sesuai dari kotak.", bank:["menguji","terdiri","mengumpulkan","menarik","menyelamatkan"], items:[
+    {n:1,q:"________ kecergasan 体能",a:"menguji"},
+    {n:2,q:"________ daripada 组成",a:"terdiri"},
+    {n:3,q:"________ data 资料",a:"mengumpulkan"},
+    {n:4,q:"________ minat 兴趣",a:"menarik"},
+    {n:5,q:"________ nyawa 性命",a:"menyelamatkan"}
+  ]}
+]},
+{ no:26, part:"A", unitTitle:"Unit 4 · Kata Kerja Transitif dan Kata Kerja Tidak Transitif", sections:[
+  { key:"C", type:"circle", title:"Pilih jawapan yang betul", instr:"Pilih jawapan yang paling sesuai.", items:[
+    {n:1,q:"SJK(T) Taman Wawasan sekolah telah mengadakan aktiviti sukan untuk ________ kecergasan murid-murid.",o:["melawan","menguji","mengumpulkan","terdiri"],a:"menguji"},
+    {n:2,q:"Ali ________ apabila dikesan oleh Ming Ming dalam permainan Zomba Zombi di padang.",o:["berada","terperanjat","bersembunyi","terdiri"],a:"terperanjat"},
+    {n:3,q:"Anak ayam lari ________ apabila seekor helang cuba merampas ia.",o:["bertempiaran","bersembunyi","mengumpulkan","terdiri"],a:"bertempiaran"},
+    {n:4,q:"Kumpulan A ________ daripada empat orang.",o:["bertempiaran","berkeliaran","mengumpulkan","terdiri"],a:"terdiri"},
+    {n:5,q:"Murid-murid yang ________ di pusat membeli-belah akan dikenakan tindakan disiplin.",o:["terperanjat","bersembunyi","berkeliaran","merangkak"],a:"berkeliaran"},
+    {n:6,q:"Adik yang berumur satu tahun sudah pandai ________.",o:["terperanjat","bersembunyi","berkeliaran","merangkak"],a:"merangkak"},
+    {n:7,q:"Ahmad ________ di belakang pokok bunga untuk mengelakkan diri ditangkap oleh Zombi.",o:["terperanjat","bersembunyi","berkeliaran","merangkak"],a:"bersembunyi"},
+    {n:8,q:"Zombi telah ________ tangan Alysa dengan kuatnya.",o:["melawan","menyergah","menarik","menghampiri"],a:"menarik"},
+    {n:9,q:"Kita perlu bersatu padu untuk ________ penyakit COVID-19.",o:["melawan","menyergah","menarik","menghampiri"],a:"melawan"},
+    {n:10,q:"Doktor perlu ________ data pesakitnya dengan teliti.",o:["bertempiaran","berkeliaran","mengumpulkan","terdiri"],a:"mengumpulkan"},
+    {n:11,q:"Sampah itu ________ di mana-mana tempat.",o:["berada","terperanjat","bersembunyi","terdiri"],a:"berada"},
+    {n:12,q:"Ali ________ kawannya dengan senyap untuk mengejutkannya.",o:["melawan","menyergah","menarik","menghampiri"],a:"menghampiri"},
+    {n:13,q:"Encik Wong ________ budak yang mencuri duitnya.",o:["melawan","menyergah","menarik","menghampiri"],a:"menyergah"},
+    {n:14,q:"Tugas doktor adalah untuk ________ nyawa manusia.",o:["mengumpulkan","menyergah","menyelamatkan","menghampiri"],a:"menyelamatkan"}
+  ]}
+]}
+);
+/* ---- year6-tb-u5.js ---- */
+// Tahun 6 · Tatabahasa Jilid A · Unit 5
+// Source: 郑老师好棒棒 六年级语法 Latihan Tatabahasa Tahun 6 Jilid A (pp. 19-20 notes and exercises; answers from Jawapan p. 51)
+// Note: the picture cues in exercise A are not shown here; each blank has the Chinese meaning instead.
+window.TB = window.TB || [];
+TB.push(
+{ no:27, part:"A", kind:"notes", unitTitle:"Unit 5 · Kata Adjektif", sections:[
+  { key:"N", type:"notes", title:"Kata Adjektif 形容词", html:
+    '<table><tr><th>Kata Adjektif Sifatan / Keadaan 形容性格/情况</th><th>Kata Adjektif Ukuran 形容尺寸</th><th>Kata Adjektif Warna 形容颜色</th><th>Kata Adjektif Pancaindera 形容视觉、听觉、嗅觉、味觉、触觉</th></tr>' +
+    '<tr><td>rajin 勤劳<br>patuh 准守<br>kemas 整齐<br>bersih 清洁</td>' +
+    '<td>besar 大<br>kecil 小<br>panjang 长<br>pendek 短</td>' +
+    '<td>biru 蓝<br>hijau 青<br>kuning 黄<br>merah 红</td>' +
+    '<td>manis 甜<br>cantik 美<br>merdu 悦耳<br>harum 香<br>licin 滑</td></tr></table>'
+  }
+]},
+{ no:28, part:"A", unitTitle:"Unit 5 · Kata Adjektif", sections:[
+  { key:"A", type:"drag", title:"Isi tempat kosong dengan kata adjektif", instr:"Isi tempat kosong dengan kata adjektif dari kotak.", bank:["kering","hitam","putih","tajam","licin","harum","kotor","busuk","jingga","kecil","tebal","basah"], items:[
+    {n:1,q:"________ 脏",a:"kotor"},
+    {n:2,q:"________ 滑",a:"licin"},
+    {n:3,q:"________ 香",a:"harum"},
+    {n:4,q:"________ 臭",a:"busuk"},
+    {n:5,q:"________ 小",a:"kecil"},
+    {n:6,q:"________ 尖利",a:"tajam"},
+    {n:7,q:"________ 橙色",a:"jingga"},
+    {n:8,q:"________ 白色",a:"putih"},
+    {n:9,q:"________ 黑色",a:"hitam"},
+    {n:10,q:"________ 厚",a:"tebal"},
+    {n:11,q:"________ 湿",a:"basah"},
+    {n:12,q:"________ 干",a:"kering"}
+  ]}
+]},
+{ no:29, part:"A", unitTitle:"Unit 5 · Kata Adjektif", sections:[
+  { key:"B", type:"circle", title:"Pilih jawapan yang paling sesuai", instr:"Pilih jawapan yang paling sesuai.", items:[
+    {n:1,q:"Ibu Alisa mencuci pinggan yang ________ dengan cecair pencuci.",o:["kotor","licin","harum","kecil"],a:"kotor"},
+    {n:2,q:"Kita perlu berhati-hati semasa berjalan di bilik air kerana lantainya ________.",o:["kotor","licin","harum","kecil"],a:"licin"},
+    {n:3,q:"Kita perlu mencuci mangkuk tandas agar tidak berbau ________.",o:["dekat","lewat","hapak","busuk"],a:"busuk"},
+    {n:4,q:"Kamus yang ________ itu sangat berat.",o:["tebal","dekat","tajam","lemau"],a:"tebal"},
+    {n:5,q:"Ali mengelap dinding dengan kain yang ________.",o:["kotor","mesra","kering","lemau"],a:"kering"},
+    {n:6,q:"Lily mengecat dinding stor dengan warna ________.",o:["jingga","harum","busuk","basah"],a:"jingga"},
+    {n:7,q:"Naresh dan abangnya membersihkan stor supaya ________.",o:["kotor","kemas","kering","putih"],a:"kemas"},
+    {n:8,q:"Ibu Arisa meletakkan sebotol pewangi (…) supaya bilik air berbau (…).",o:["jingga, harum","harum, kecil","kecil, harum","basah, tebal"],a:"kecil, harum"}
+  ]}
+]}
+);
+/* ---- year6-tb-u6.js ---- */
+// Tahun 6 · Tatabahasa Jilid A · Unit 6
+// Source: 郑老师好棒棒 六年级语法 Latihan Tatabahasa Tahun 6 Jilid A (pp. 21-22 notes and exercises; answers from Jawapan p. 52)
+window.TB = window.TB || [];
+TB.push(
+{ no:30, part:"A", kind:"notes", unitTitle:"Unit 6 · Kata Adjektif", sections:[
+  { key:"N", type:"notes", title:"Kata Adjektif 形容词", html:
+    '<table><tr><th>Kata Adjektif Waktu 形容时间</th><th>Kata Adjektif Jarak 形容距离</th><th>Kata Adjektif Cara 形容方式/动作</th><th>Kata Adjektif Perasaan 形容感受</th></tr>' +
+    '<tr><td>awal 早<br>baharu 新<br>lewat 迟<br>segera 马上</td>' +
+    '<td>dekat 靠近<br>jauh 远<br>hampir 靠近</td>' +
+    '<td>gopoh 匆忙<br>cermat 小心<br>sopan 礼貌<br>perlahan 慢</td>' +
+    '<td>suka 喜欢<br>marah 生气<br>gembira 开心<br>sedih 伤心</td></tr></table>'
+  }
+]},
+{ no:31, part:"A", unitTitle:"Unit 6 · Kata Adjektif", sections:[
+  { key:"A", type:"drag", title:"Isi tempat kosong", instr:"Isi tempat kosong dengan kata adjektif yang sesuai dari kotak.", bank:["sopan","awal","suka","cermat","marah","perlahan","baharu","tebal","gembira","gopoh"], items:[
+    {n:1,q:"Pada suatu hari, Li Chen keluar dari rumah pada ________ pagi.",a:"awal"},
+    {n:2,q:"Li Chen berasa ________ kerana dia memakai kasut sekolah yang ________.",a:["gembira","baharu"]},
+    {n:3,q:"Junaidi seorang yang ________. Dia terpijak kasut Li Chen.",a:"gopoh"},
+    {n:4,q:"Li Chen tidak ________ akan sikap Junaidi yang tidak ________.",a:["suka","cermat"]},
+    {n:5,q:"Namun begitu, Li Chen tidak ________.",a:"marah"},
+    {n:6,q:"Li Chen menegur sikap Junaidi dengan ________.",a:"sopan"},
+    {n:7,q:"Suara Li Chen lembut dan ________.",a:"perlahan"}
+  ]}
+]},
+{ no:32, part:"A", unitTitle:"Unit 6 · Kata Adjektif", sections:[
+  { key:"B", type:"circle", title:"Padankan kata adjektif perasaan yang betul", instr:"Pilih kata adjektif perasaan yang betul. (a) marah, (b) suka, (c) rindu, (d) benci.", items:[
+    {n:1,q:"Cikgu Te sangat ________ terhadap kecuaian muridnya.",o:["marah","suka","rindu","benci"],a:"marah"},
+    {n:2,q:"Amin sangat ________ akan neneknya yang sudah lama tidak berjumpa.",o:["marah","suka","rindu","benci"],a:"rindu"},
+    {n:3,q:"Encik Tan tidak ________ akan sikap anaknya yang malas.",o:["marah","suka","rindu","benci"],a:"suka"},
+    {n:4,q:"Dia ________ akan orang yang terburu-buru dan tidak cermat.",o:["marah","suka","rindu","benci"],a:"benci"}
+  ]}
+]},
+{ no:33, part:"A", unitTitle:"Unit 6 · Kata Adjektif", sections:[
+  { key:"C", type:"circle", title:"Pilih jawapan yang paling sesuai", instr:"Pilih jawapan yang paling sesuai.", items:[
+    {n:1,q:"Tempat duduk Ali ________ dengan Ahmad kerana mereka ialah kawan baik.",o:["kotor","dekat","benci","sedih"],a:"dekat"},
+    {n:2,q:"Ming Ming meletakkan jam ________ dari katil untuk memastikan diri bangun dari katil.",o:["jauh","awal","sopan","perlahan"],a:"jauh"},
+    {n:3,q:"Rumah Ali terletak (…) dari sekolah. Dia bangun (…) untuk pergi ke sekolah pada pukul lima pagi.",o:["dekat, awal","lewat, dekat","jauh, awal","jauh, lewat"],a:"jauh, awal"},
+    {n:4,q:"Cikgu berasa (…) kerana Ali (…) ke sekolah.",o:["gembira, lewat","marah, awal","gembira, sopan","marah, lewat"],a:"marah, lewat"}
+  ]}
+]}
+);
+/* ---- year6-tb-u7.js ---- */
+// Tahun 6 · Tatabahasa Jilid A · Unit 7 (part 1: Kata Seruan, Ayat Perintah, Kata Penguat)
+// Source: 郑老师好棒棒 六年级语法 Latihan Tatabahasa Tahun 6 Jilid A (pp. 23-26 notes and exercises; answers from Jawapan p. 52)
+window.TB = window.TB || [];
+TB.push(
+{ no:34, part:"A", kind:"notes", unitTitle:"Unit 7 · Kata Seruan", sections:[
+  { key:"N", type:"notes", title:"Kata Seruan 感叹句", html:
+    '<p>Kata seruan ialah kata yang diucapkan dengan tujuan melahirkan sesuatu perasaan seperti takjub, marah, takut dan sebagainya. <span class="cn">感叹词是指具有感叹语气，用来表达强烈情感如惊讶，生气和害怕等等的词语。</span></p>' +
+    '<table><tr><th>Kata seru</th><th>Maksud dan penggunaan</th></tr>' +
+    '<tr><td><b>eh</b> 嘿</td><td>表示突然看到一个人或事物时的惊讶</td></tr>' +
+    '<tr><td><b>nah</b> 哪</td><td>表示把东西给对方（nah 后经常会出现 ambil, guna）</td></tr>' +
+    '<tr><td><b>oh</b> 哦</td><td>发现一件事的时候（oh 后经常会出现 rupa-rupanya）</td></tr>' +
+    '<tr><td><b>wah</b> 哇</td><td>表示称赞</td></tr>' +
+    '<tr><td><b>wahai</b> 喂</td><td>引起注意、提醒、劝告（wahai 后不会立刻出现逗号，而是出现人物之后才有逗号）</td></tr>' +
+    '<tr><td><b>amboi</b> 啊</td><td>表示称赞</td></tr>' +
+    '<tr><td><b>aduh</b> 哎呀</td><td>表示疼痛（aduh 后经常会出现 sakitnya）</td></tr>' +
+    '<tr><td><b>hai</b> 嗨</td><td>开心地跟朋友打招呼</td></tr>' +
+    '<tr><td><b>aduhai</b> 唉</td><td>悲哀（aduhai 后经常会出现 malangnya, kasihannya）</td></tr>' +
+    '<tr><td><b>cis</b> 呸</td><td>生气和讨厌（cis 后经常会出现 berani）</td></tr>' +
+    '<tr><td><b>syabas</b> 太好了</td><td>高兴和满意</td></tr></table>'
+  }
+]},
+{ no:35, part:"A", unitTitle:"Unit 7 · Kata Seruan", sections:[
+  { key:"A", type:"drag", title:"Isi tempat kosong dengan kata seru", instr:"Isikan tempat kosong dengan kata seru dari kotak.", bank:["eh","nah","oh","wah","wahai","amboi","aduh","hai","aduhai","cis","syabas"], items:[
+    {n:1,q:"________, kamu sungguh hebat!",a:"wah"},
+    {n:2,q:"________, rupa-rupanya ini segi tiga kecemasan!",a:"oh"},
+    {n:3,q:"________, malangnya orang yang mati dan cedera ini!",a:"aduhai"},
+    {n:4,q:"________, banyaknya alatan di dalam kit kecemasan kenderaan ini!",a:"wah"},
+    {n:5,q:"________, sakitnya kakiku!",a:"aduh"},
+    {n:6,q:"________, ambil pemadam api ini!",a:"nah"},
+    {n:7,q:"________, kamu telah memahami tentang kegunaan kit kecemasan kenderaan!",a:"syabas"},
+    {n:8,q:"________, cantiknya payung ini!",a:"amboi"}
+  ]}
+]},
+{ no:36, part:"A", kind:"notes", unitTitle:"Unit 7 · Ayat Perintah", sections:[
+  { key:"N", type:"notes", title:"Ayat Perintah 祈使句", html:
+    '<p>Ayat perintah ialah ayat yang digunakan dengan tujuan untuk menimbulkan sesuatu tindakan atau perbuatan. <span class="cn">祈使句是用于给予命令、行动的句子。</span></p>' +
+    '<p>Ayat perintah boleh dibahagikan kepada 4 jenis:</p>' +
+    '<h4>a) Ayat silaan 邀请句 (sila, jemput)</h4>' +
+    '<ul><li><b>sila</b> 用于请大家做一件事 — <i>Sila beratur.</i> 请大家排队。</li></ul>' +
+    '<h4>b) Ayat larangan 阻止句 (jangan, usah, tidak boleh, dilarang)</h4>' +
+    '<h4>c) Ayat permintaan 要求句 (tolong, minta, harap)</h4>' +
+    '<ul><li>要求被人帮你做事用 <b>tolong</b>；要求别人或超过一个人做他自己的事用 <b>minta</b>。</li>' +
+    '<li><b>Tolong</b> ambilkan saya buku itu. 帮我拿书 （用 tolong）</li>' +
+    '<li><b>Minta</b> buat kerja sekolah kamu. 做自己的功课 （用 minta）</li>' +
+    '<li><b>Minta</b> murid-murid buat kerja sekolah. 请同学们做功课 （用 minta）</li></ul>' +
+    '<h4>d) Ayat suruhan 吩咐句</h4>'
+  }
+]},
+{ no:37, part:"A", unitTitle:"Unit 7 · Ayat Perintah", sections:[
+  { key:"A", type:"circle", title:"Isi tempat kosong dengan jawapan yang betul", instr:"Pilih jawapan yang betul untuk tempat kosong.", items:[
+    {n:1,q:"________ dapat kamu jelaskan kegunaannya kepada saya.",o:["Harap","Jangan"],a:"Harap"},
+    {n:2,q:"________ berlari di dewan.",o:["Sila","Jangan"],a:"Jangan"},
+    {n:3,q:"________ kamu letakkan kit kecemasan kenderaan ini di dalam but kereta.",o:["Harap","Jemput"],a:"Harap"},
+    {n:4,q:"________ ambilkan saya jaket keselamatan pantul cahaya.",o:["Sila","Tolong"],a:"Tolong"},
+    {n:5,q:"________ makan kuih yang saya buat ini.",o:["Jemput","Minta"],a:"Jemput"}
+  ]}
+]},
+{ no:38, part:"A", kind:"notes", unitTitle:"Unit 7 · Kata Penguat", sections:[
+  { key:"N", type:"notes", title:"Kata Penguat 程度词", html:
+    '<p>Kata penguat digunakan untuk menguatkan maksud sesuatu kata adjektif. <span class="cn">程度词是用来加强形容词意思的词语。</span> Kata penguat terbahagi kepada 3 jenis. <span class="cn">程度词可分成 3 种。</span></p>' +
+    '<table><tr><th>Jenis</th><th>Contoh</th></tr>' +
+    '<tr><td><b>Hadapan</b> 前面</td><td>paling 最，agak 蛮，terlalu 过于</td></tr>' +
+    '<tr><td><b>Belakang</b> 后面</td><td>betul 十分，nian 真，sekali 极，benar 很</td></tr>' +
+    '<tr><td><b>Bebas</b> 自由</td><td>amat 非常，sangat 很，sungguh 极</td></tr></table>' +
+    '<ul><li><b>Kata Penguat Hadapan</b> hanya boleh diletakkan di <b>depan</b> kata adjektif. <span class="cn">Kata Penguat Hadapan 就只能够放在形容词前面。</span><br>' +
+    '✔ Cikgu Chan <b>paling</b> segak. &nbsp;✘ Cikgu Chan segak <b>paling</b>.</li>' +
+    '<li><b>Kata Penguat Belakang</b> hanya boleh diletakkan di <b>belakang</b> kata adjektif. <span class="cn">Kata Penguat Belakang 只可以放在形容词后面。</span><br>' +
+    '✔ Cikgu Chan segak <b>betul</b>. &nbsp;✘ Cikgu Chan <b>betul</b> segak.</li>' +
+    '<li><b>Kata penguat bebas</b> boleh diletakkan di depan atau di belakang kata adjektif. <span class="cn">要放形容词前面也可以，后面也可以，都对。</span><br>' +
+    '✔ Cikgu Chan <b>sangat</b> segak. &nbsp;✔ Cikgu Chan segak <b>sangat</b>.</li></ul>' +
+    '<p><b>先找出形容词的位置就没问题了！</b></p>'
+  }
+]},
+{ no:39, part:"A", unitTitle:"Unit 7 · Kata Penguat", sections:[
+  { key:"A", type:"circle", title:"Pilih jawapan yang paling sesuai", instr:"Pilih jawapan yang paling sesuai.", items:[
+    {n:1,q:"Saya ________ menghargai jasa Cikgu Chan.",o:["sangat","betul","sekali","benar"],a:"sangat"},
+    {n:2,q:"Alatan ini ________ berguna jika berlaku kemalangan.",o:["betul","benar","sungguh","nian"],a:"sungguh"},
+    {n:3,q:"Pemandangan di tepi pantai indah ________.",o:["paling","terlalu","agak","nian"],a:"nian"},
+    {n:4,q:"Cikgu Chan segak ________.",o:["sekali","paling","terlalu","agak"],a:"sekali"},
+    {n:5,q:"Rasa mi goreng yang ibu masak lazat ________.",o:["paling","terlalu","betul","agak"],a:"betul"},
+    {n:6,q:"Tayar simpanan dan alat penukar tayar berat ________.",o:["amat","agak","terlalu","paling"],a:"amat"},
+    {n:7,q:"Kai Cong merupakan murid yang ________ tinggi di kelas 6M.",o:["terlalu","paling","nian","betul"],a:"paling"},
+    {n:8,q:"Seluar ini ________ longgar untuk saya.",o:["sekali","nian","betul","terlalu"],a:"terlalu"}
+  ]}
+]}
+);
+/* ---- year6-tb-u7b.js ---- */
+// Tahun 6 · Tatabahasa Jilid A · Unit 7 (part 2: Kata Bantu, Kata Tanya)
+// Source: 郑老师好棒棒 六年级语法 Latihan Tatabahasa Tahun 6 Jilid A (pp. 27-30 notes and exercises; answers from Jawapan p. 53)
+window.TB = window.TB || [];
+TB.push(
+{ no:40, part:"A", kind:"notes", unitTitle:"Unit 7 · Kata Bantu", sections:[
+  { key:"N", type:"notes", title:"Kata Bantu 助词", html:
+    '<p>Kata bantu digunakan di depan kata kerja. <span class="cn">助词用在动词前面。</span> Terdapat 2 jenis kata bantu:</p>' +
+    '<ul><li><b>a) Kata bantu aspek</b> — menerangkan sesuatu perbuatan dari segi masa. <span class="cn">时间性副词 — 说明某动作的时态</span></li>' +
+    '<li><b>b) Kata bantu ragam</b> — menerangkan ragam/perasaan yang berkaitan dengan sesuatu perbuatan yang dilakukan. <span class="cn">心态性副词 — 说明进行某动作的心态</span></li></ul>' +
+    '<table><tr><th>Kata bantu aspek 时间性副词</th><th>Kata Bantu Ragam 心态性副词</th></tr>' +
+    '<tr><td><b>sudah / telah</b> 已经<br><b>pernah</b> 曾经<br><b>sedang</b> 正在<br><b>masih</b> 还在<br><b>akan</b> 将<br><b>belum</b> 还没<br><b>baru</b> 刚刚</td>' +
+    '<td><b>harus</b> 应该<br><b>hendak / mahu</b> 要<br><b>dapat</b> 能够<br><b>boleh</b> 可以<br><b>mesti</b> 一定<br><b>patut</b> 必须<br><b>perlu</b> 需要<br><b>ingin</b> 想要<br><b>mungkin</b> 可能</td></tr></table>' +
+    '<h4>式林秘籍</h4>' +
+    '<ul><li><b>dapat</b> 用在要有能力才能办到的事情。 — <i>Jun Hong dapat membaiki kenderaan diri sendiri.</i></li>' +
+    '<li><b>boleh</b> 用在可以选择要不要的时候。 — <i>Kita boleh bersiar-siar di taman rekreasi setiap pagi.</i></li></ul>'
+  }
+]},
+{ no:41, part:"A", unitTitle:"Unit 7 · Kata Bantu", sections:[
+  { key:"A", type:"circle", title:"Pilih jawapan yang paling sesuai", instr:"Pilih jawapan yang paling sesuai.", items:[
+    {n:1,q:"Saya ________ melawat ke Zoo Negara pada minggu lepas.",o:["telah","boleh"],a:"telah"},
+    {n:2,q:"Bapa ________ membaiki kereta nanti.",o:["akan","masih"],a:"akan"},
+    {n:3,q:"Kita ________ meletakkan segi tiga kecemasan di belakang kereta jika kereta rosak di jalan raya.",o:["belum","perlu"],a:"perlu"},
+    {n:4,q:"Saya ________ meletakkan kit kecemasan kenderaan di dalam but kereta.",o:["mungkin","telah"],a:"telah"},
+    {n:5,q:"Shi Wei ________ pergi ke Sabah pada dua tahun yang lalu.",o:["pernah","masih"],a:"pernah"},
+    {n:6,q:"Ahmad dimarahi oleh cikgu kerana kerja rumah ________ disiapkan.",o:["dapat","belum"],a:"belum"},
+    {n:7,q:"Mary dipuji oleh cikgu kerana kerja rumah ________ disiapkan.",o:["sudah","belum"],a:"sudah"},
+    {n:8,q:"Ke Qin ________ menulis sebuah karangan yang bagus.",o:["dapat","boleh"],a:"dapat"},
+    {n:9,q:"Kita ________ makan makanan yang seimbang setiap hari.",o:["sedang","harus"],a:"harus"},
+    {n:10,q:"Bangunan baru ini ________ digunakan pada 20 Disember 2024.",o:["akan","telah"],a:"akan"},
+    {n:11,q:"Puan Siti ________ mengisi borang cabutan bertuah.",o:["pernah","sedang"],a:"sedang"}
+  ]}
+]},
+{ no:42, part:"A", kind:"notes", unitTitle:"Unit 7 · Kata Tanya", sections:[
+  { key:"N", type:"notes", title:"Kata Tanya 疑问词", html:
+    '<table><tr><th>Kata Tanya 疑问词</th><th>Penggunaan 用法</th></tr>' +
+    '<tr><td><b>apa</b> 什么</td><td>询问东西、动物和地方</td></tr>' +
+    '<tr><td><b>siapa</b> 谁</td><td>询问人（句子中经常出现 orang）</td></tr>' +
+    '<tr><td><b>bila</b> 几时</td><td>询问时间</td></tr>' +
+    '<tr><td><b>mengapa / kenapa</b> 为什么</td><td>询问原因</td></tr>' +
+    '<tr><td><b>bagaimana</b> 怎么样</td><td>询问情况和方法（句子中经常出现 cara / keadaan）</td></tr>' +
+    '<tr><td><b>berapa</b> 多少</td><td>询问总数、价格和数量（句子中经常出现 harga / jumlah）</td></tr>' +
+    '<tr><td><b>mana</b> 哪里</td><td>询问地方和东西（句子中经常出现 letak）</td></tr></table>' +
+    '<p><b>如果疑问词出现在前面，必须加 kah。</b></p>' +
+    '<ul><li><b>Siapakah</b> nama kamu? 〔疑问词在前面，加 kah〕</li>' +
+    '<li>Nama kamu <b>siapa</b>? 〔后面则不需要〕</li></ul>'
+  }
+]},
+{ no:43, part:"A", unitTitle:"Unit 7 · Kata Tanya", sections:[
+  { key:"A", type:"drag", title:"Isi tempat kosong dengan kata tanya", instr:"Isikan tempat kosong dengan kata tanya dari kotak.", bank:["Apakah","Bilakah","Bagaimanakah","Di manakah","Berapakah"], items:[
+    {n:1,q:"________ cara menggunakan pemadam api?",a:"Bagaimanakah"},
+    {n:2,q:"________ yang ayah angkat?",a:"Apakah"},
+    {n:3,q:"________ letaknya lampu suluh dan bateri tambahan?",a:"Di manakah"},
+    {n:4,q:"________ bapa akan pergi ke Melaka?",a:"Bilakah"},
+    {n:5,q:"________ harga perkakas pelbagai guna?",a:"Berapakah"}
+  ]}
+]},
+{ no:44, part:"A", unitTitle:"Unit 7 · Kata Tanya", sections:[
+  { key:"B", type:"circle", title:"Pilih jawapan yang paling sesuai", instr:"Pilih jawapan yang paling sesuai.", items:[
+    {n:1,q:"________ khabar, Yee Wen?",o:["Bila","Apa","Siapa","Mengapa"],a:"Apa"},
+    {n:2,q:"________ segi tiga kecemasan perlu diletakkan di belakang kenderaan?",o:["Mengapakah","Mengapa","Siapakah","Siapa"],a:"Mengapakah"},
+    {n:3,q:"________ kamu menyimpan kit pertolongan kecemasan?",o:["Berapakah","Siapakah","Apakah","Di manakah"],a:"Di manakah"},
+    {n:4,q:"Harga pemadam api ini ________?",o:["berapa","berapakah","bagaimana","bagaimanakah"],a:"berapa"},
+    {n:5,q:"________ keadaan kereta bapa kamu?",o:["Apakah","Bagaimanakah","Di manakah","Mengapakah"],a:"Bagaimanakah"},
+    {n:6,q:"________ kenderaan ini dapat dibaiki?",o:["Bilakah","Ke manakah","Siapakah","Apakah"],a:"Bilakah"},
+    {n:7,q:"________ yang telah mengambil pengecas telefon pintar saya?",o:["Bilakah","Berapakah","Siapakah","Kenapakah"],a:"Siapakah"},
+    {n:8,q:"________ yang perlu diisi dalam borang ini?",o:["Bagaimanakah","Bilakah","Apakah","Mengapakah"],a:"Apakah"}
+  ]}
+]}
+);
+/* ---- year6-tb-u8a.js ---- */
+// Tahun 6 · Tatabahasa Jilid A · Unit 8 (part 1: Kata Arah, Kata Hubung)
+// Source: 郑老师好棒棒 六年级语法 Latihan Tatabahasa Tahun 6 Jilid A (pp. 31-33 notes and exercises; answers from Jawapan p. 53)
+window.TB = window.TB || [];
+TB.push(
+{ no:45, part:"A", kind:"notes", unitTitle:"Unit 8 · Kata Arah", sections:[
+  { key:"N", type:"notes", title:"Kata Arah 方位词", html:
+    '<p>Kata arah digunakan untuk menunjukkan arah. <span class="cn">方位词用来表示方向。</span></p>' +
+    '<p><span class="cn">方位词一般都被放在介词（kata sendi nama）后面。</span></p>' +
+    '<table><tr><td>atas 上面</td><td>bawah 下面</td><td>dalam 里面</td><td>luar 外面</td></tr>' +
+    '<tr><td>antara 之间</td><td>depan / hadapan 前面</td><td>tepi / sebelah / sisi 旁边</td><td>tengah 中间</td></tr>' +
+    '<tr><td>kiri 左边</td><td>kanan 右边</td><td>penjuru 角落</td><td>hujung 尾</td></tr>' +
+    '<tr><td>utara 北边</td><td>selatan 南边</td><td>barat 西边</td><td>timur 东边</td></tr></table>'
+  }
+]},
+{ no:46, part:"A", unitTitle:"Unit 8 · Kata Arah", sections:[
+  { key:"A", type:"circle", title:"Pilih jawapan yang betul", instr:"Pilih jawapan yang betul.", items:[
+    {n:1,q:"Telefon yang terletak di ________ (atas / penjuru) ruang tamu sedang berdering.",o:["atas","penjuru"],a:"penjuru"},
+    {n:2,q:"Setiap pagi, matahari akan terbit dari ________. (timur / selatan)",o:["timur","selatan"],a:"timur"},
+    {n:3,q:"Puan Harlina duduk di ________ (bawah / depan) kaunter tukar hadiah.",o:["bawah","depan"],a:"depan"},
+    {n:4,q:"Zhi Hao sekeluarga memancing ikan di ________ (antara / tepi) sungai.",o:["antara","tepi"],a:"tepi"},
+    {n:5,q:"Bapa akan membawa kami ke Melaka pada ________ (bawah / hujung) minggu.",o:["bawah","hujung"],a:"hujung"},
+    {n:6,q:"Pengurus memasukkan hadiah cabutan bertuah ini ke ________ (sebelah / dalam) kotak yang besar itu.",o:["sebelah","dalam"],a:"dalam"},
+    {n:7,q:"Kedai Makanan Sedap terletak di ________ (tepi / antara) sebuah kedai bunga dan kedai buku.",o:["tepi","antara"],a:"antara"},
+    {n:8,q:"Semasa membaca ikrar, kita mesti mengangkat tangan ________. (kiri / kanan)",o:["kiri","kanan"],a:"kanan"},
+    {n:9,q:"Nenek meletakkan lauk-pauk yang lazat di ________ (tepi / atas) meja.",o:["tepi","atas"],a:"atas"}
+  ]}
+]},
+{ no:47, part:"A", kind:"notes", unitTitle:"Unit 8 · Kata Hubung", sections:[
+  { key:"N", type:"notes", title:"Kata Hubung 连词", html:
+    '<p>Kata hubung digunakan untuk menggabungkan kata, frasa dan ayat. <span class="cn">连词是用来连接词语，短语和句子的词。</span></p>' +
+    '<table><tr><th>Kata Hubung 连词</th><th>Penggunaan 用法</th></tr>' +
+    '<tr><td><b>dan</b> 和</td><td>连接两个平等的因素</td></tr>' +
+    '<tr><td><b>atau</b> 或</td><td>表示选择（多数时候都是疑问句，需要放问号？）</td></tr>' +
+    '<tr><td><b>tetapi</b> 但是</td><td>表示不同点、相对的事情</td></tr>' +
+    '<tr><td><b>sambil</b> 一边</td><td>表示同时进行的事情</td></tr>' +
+    '<tr><td><b>yang</b> 的、关于</td><td>用来修饰名词，yang 后面是形容词。例：bakul yang besar</td></tr>' +
+    '<tr><td><b>kerana</b> 因为</td><td>表示原因</td></tr>' +
+    '<tr><td><b>jika / kalau / sekiranya</b> 如果</td><td>表示条件</td></tr>' +
+    '<tr><td><b>lalu / kemudian</b> 接着、然后</td><td>表示接下来的事</td></tr>' +
+    '<tr><td><b>ketika / apabila / semasa</b> 当</td><td>表示时间</td></tr>' +
+    '<tr><td><b>semoga / agar / supaya</b> 以便</td><td>表示希望</td></tr>' +
+    '<tr><td><b>meskipun / walaupun / manakala</b> 而</td><td>表示相对的事情</td></tr>' +
+    '<tr><td><b>makin…makin / semakin…semakin</b> 越…越</td><td>表示逐渐增加</td></tr>' +
+    '<tr><td><b>sama ada…ataupun</b> 无论是…或是</td><td>表示共同点。例：Kamu boleh makan sama ada ayam goreng ataupun pisang goreng.</td></tr></table>'
+  }
+]},
+{ no:48, part:"A", unitTitle:"Unit 8 · Kata Hubung", sections:[
+  { key:"A", type:"circle", title:"Pilih jawapan yang betul", instr:"Pilih jawapan yang betul.", items:[
+    {n:1,q:"Puan Harlina bergegas ke ruang tamu ________ mengangkat telefon.",o:["supaya","lalu","dan","jika"],a:"lalu"},
+    {n:2,q:"Lelaki ________ memakai baju biru itu ialah bapa saya.",o:["sambil","manakala","kerana","yang"],a:"yang"},
+    {n:3,q:"Puan Malia terkejut ________ telah memenangi hadiah cabutan bertuah.",o:["kerana","walaupun","jika","tetapi"],a:"kerana"},
+    {n:4,q:"Penyampaian hadiah cabutan bertuah akan ditangguhkan ________ ada orang berjangkit Covid 19.",o:["sambil","dan","jika","atau"],a:"jika"},
+    {n:5,q:"Kamu ingin memilih hadiah wang tunai sebanyak RM1000 ________ telefon pintar?",o:["apabila","atau","agar","lalu"],a:"atau"},
+    {n:6,q:"________ Puan Harlina sampai, semua orang mengucapkan tahniah kepadanya.",o:["Untuk","Manakala","Atau","Apabila"],a:"Apabila"},
+    {n:7,q:"Puan Harlina sedang mengisi borang di kaunter ________ pengurus menyemak maklumat Puan Harlina.",o:["walaupun","manakala","sekiranya","supaya"],a:"manakala"},
+    {n:8,q:"Pegawai-pegawai bersorak-sorai (…) bertepuk tangan (…) Puan Harlina sampai.",o:["sambil…ketika","dan … tetapi","supaya… kerana","lalu … untuk"],a:"sambil…ketika"}
+  ]}
+]}
+);
+/* ---- year6-tb-u8b.js ---- */
+// Tahun 6 · Tatabahasa Jilid A · Unit 8 (part 2: Kata Sendi Nama, Kata Pemeri dan Kata Nafi) and Unit 9
+// Source: 郑老师好棒棒 六年级语法 Latihan Tatabahasa Tahun 6 Jilid A (pp. 34-39 notes and exercises; answers from Jawapan pp. 54-55)
+// Note: the scanned worksheet shows only items 1-6 for Kata Pemeri A, although the answer key lists 8.
+window.TB = window.TB || [];
+TB.push(
+{ no:49, part:"A", kind:"notes", unitTitle:"Unit 8 · Kata Sendi Nama", sections:[
+  { key:"N", type:"notes", title:"Kata Sendi Nama 介词", html:
+    '<p>Kata sendi nama digunakan untuk menyambung frasa nama dengan perkataan atau frasa lain. <span class="cn">介词用来连接名词短语与词语或其他短语。</span></p>' +
+    '<table><tr><th>Kata Sendi Nama</th><th>Penggunaan</th></tr>' +
+    '<tr><td><b>di</b> 在</td><td>表示地方和方向</td></tr>' +
+    '<tr><td><b>ke</b> 去</td><td>表示地方、方向和时间</td></tr>' +
+    '<tr><td><b>pada</b> 在、于</td><td>表示时间、人、地方和动物</td></tr>' +
+    '<tr><td><b>kepada</b> 给、致</td><td>表示人、动物、东西、分成（部分）</td></tr>' +
+    '<tr><td><b>dari</b> 从、自</td><td>表示方向、地方和时间</td></tr>' +
+    '<tr><td><b>daripada</b> 从、自、由、比</td><td>表示人、来源、比较</td></tr>' +
+    '<tr><td><b>untuk / bagi</b> 给、为了</td><td>表示某事物的用途、人</td></tr>' +
+    '<tr><td><b>tentang</b> 关于</td><td>表示一般的事物</td></tr>' +
+    '<tr><td><b>dengan</b> 和、以…工具、方式</td><td>表示一起、某工具的用途、比较</td></tr>' +
+    '<tr><td><b>akan</b> 对</td><td>用在表示感受的形容词后面</td></tr>' +
+    '<tr><td><b>oleh</b> 由、被</td><td>表示被动句</td></tr>' +
+    '<tr><td><b>sejak</b> 自从</td><td>表示开始的情况</td></tr>' +
+    '<tr><td><b>hingga / sampai</b> 直到</td><td>用在期限里</td></tr></table>'
+  }
+]},
+{ no:50, part:"A", unitTitle:"Unit 8 · Kata Sendi Nama", sections:[
+  { key:"A", type:"circle", title:"Pilih jawapan yang betul", instr:"Pilih jawapan yang betul.", items:[
+    {n:1,q:"Encik Marwi menghantar borang penyertaan ________ pengurus.",o:["kepada","akan"],a:"kepada"},
+    {n:2,q:"Helo, bolehkah saya bercakap ________ Puan Siti?",o:["dengan","oleh"],a:"dengan"},
+    {n:3,q:"Saya membuat panggilan ________ Syarikat Air Johor.",o:["dari","daripada"],a:"daripada"}
+  ]}
+]},
+{ no:51, part:"A", unitTitle:"Unit 8 · Kata Sendi Nama", sections:[
+  { key:"B", type:"circle", title:"Pilih jawapan yang paling sesuai", instr:"Pilih jawapan yang paling sesuai. (Pilih pasangan yang betul untuk tempat kosong (…).)", items:[
+    {n:1,q:"Bapa memasukkan wang proses sebanyak RM 1000 ________ pihak syarikat.",o:["kepada","dari","tentang","sejak"],a:"kepada"},
+    {n:2,q:"Encik Chan menerima maklumat (…) cara penipuan (…) pengurus syarikat.",o:["akan…dengan","tentang…daripada","pada…kepada","untuk…ke"],a:"tentang…daripada"},
+    {n:3,q:"Kai Cong memberikan surat momohon cuti ________ Cikgu Koh.",o:["dengan","di","kepada","hingga"],a:"kepada"},
+    {n:4,q:"Kita haruslah mengamalkan sikap berjimat cermat ________ kecil lagi.",o:["sejak","pada","hingga","bagi"],a:"sejak"},
+    {n:5,q:"Meja ini diperbuat ________ kayu yang berkualiti tinggi.",o:["akan","dari","daripada","kepada"],a:"daripada"},
+    {n:6,q:"Kami sekeluarga akan bertolak (…) Kuala Lumpur (…) malam ini.",o:["pada…dari","tentang…untuk","daripada…oleh","ke…pada"],a:"ke…pada"},
+    {n:7,q:"Murid yang baru itu berasal ________ Sabah.",o:["dari","daripada","tentang","dengan"],a:"dari"},
+    {n:8,q:"Buku tatabahasa ini ditulis ________ Cikgu Te.",o:["di","oleh","daripada","sejak"],a:"oleh"}
+  ]}
+]},
+{ no:52, part:"A", kind:"notes", unitTitle:"Unit 8 · Kata Pemeri dan Kata Nafi", sections:[
+  { key:"N", type:"notes", title:"Kata Pemeri dan Kata Nafi 判断词与否定词", html:
+    '<table><tr><th>ialah 是</th><td>digunakan di hadapan frasa nama <span class="cn">用在名词的前面</span></td></tr>' +
+    '<tr><th>adalah 是</th><td>digunakan di hadapan frasa adjektif dan frasa sendi nama <span class="cn">用在形容短语和介词的前面</span></td></tr></table>' +
+    '<table><tr><th>tidak 不、没有</th><td>digunakan untuk menafikan frasa nama dan frasa sendi. <span class="cn">用来否定名词短语和介词短语。</span></td></tr>' +
+    '<tr><th>bukan 不是</th><td>digunakan untuk menafikan frasa kerja dan frasa adjektif. <span class="cn">用来否定动词短语和形容词短语。</span></td></tr></table>' +
+    '<p><b>adalah</b> 和 <b>bukan</b> 后面经常出现 <b>untuk</b>.</p>' +
+    '<ul><li>Buku ini <b>adalah untuk</b> Lee Chun Seng.</li><li>Buku ini <b>bukan untuk</b> Lee Chun Seng.</li></ul>'
+  }
+]},
+{ no:53, part:"A", unitTitle:"Unit 8 · Kata Pemeri dan Kata Nafi", sections:[
+  { key:"A", type:"circle", title:"Sila pilih jawapan yang betul", instr:"Sila pilih jawapan yang betul.", items:[
+    {n:1,q:"Nama saya ________ Soon Kok Thong.",o:["ialah","adalah"],a:"ialah"},
+    {n:2,q:"Swee Lee ________ pengurus dalam syarikat ini.",o:["ialah","adalah"],a:"ialah"},
+    {n:3,q:"Mula-mula, Puan Haris ________ mempercayai bahawa dia telah mendapat hadiah cabutan bertuah.",o:["bukan","tidak"],a:"tidak"},
+    {n:4,q:"Wang sebanyak RM 1000 ini ________ untuk Encik Lam.",o:["ialah","adalah"],a:"adalah"},
+    {n:5,q:"Adik saya ________ suka makan daging sejak kecil.",o:["tidak","bukan"],a:"tidak"},
+    {n:6,q:"Baju yang baru itu ________ warna kuning.",o:["tidak","bukan"],a:"bukan"}
+  ]}
+]},
+{ no:54, part:"A", kind:"notes", unitTitle:"Unit 9 · Kata Berimbuhan Awalan dan Akhiran", sections:[
+  { key:"N", type:"notes", title:"Imbuhan Awalan dan Akhiran 前缀和后缀", html:
+    '<table><tr><th>Imbuhan Awalan 前缀</th><th>Contoh 例子</th></tr>' +
+    '<tr><td><b>beR-</b> 动词</td><td>bertenang 镇定, berbunyi 发出声音, berlaku 发生, bersabar 有耐心, bertindak 举动</td></tr>' +
+    '<tr><td><b>meN-</b> 动词</td><td>memasang 安装, menghalang 阻止, memberikan 给予, mendengar 听, mengikut 跟随, menggelongsor 溜滑, melalui 通过</td></tr>' +
+    '<tr><td><b>peN-</b> 名词</td><td>penghuni 居民, pembuka 开…的工具, penerangan 解释, pengawal 守护者, penulis 作者</td></tr>' +
+    '<tr><td><b>teR-</b> 表示最、不小心</td><td>terjadi 发生, tertinggi 最高, ternampak 看见, terjatuh 跌倒</td></tr>' +
+    '<tr><td><b>ke-</b> 名词、表示序数、全部</td><td>kecelakaan 灾祸, kebakaran 火灾, keempat 第四, keempat-empat 那四个</td></tr>' +
+    '<tr><td><b>di-</b> 被</td><td>diminta 被要求, digunakan 被使用</td></tr>' +
+    '<tr><td><b>se-</b> 一个、一样</td><td>setiap 每个, sebagai 当作, sekeping 一片, sepanjang 一样长</td></tr></table>' +
+    '<table><tr><th>Imbuhan Akhiran 后缀</th><th>Contoh 例子</th></tr>' +
+    '<tr><td><b>-an</b> 名词</td><td>siaran 广播节目, arahan 指示, tindakan 行动, makanan 食物, minuman 饮料, piawaian 标准</td></tr>' +
+    '<tr><td><b>-kan</b> 动词</td><td>pastikan 确保, elakkan 避免, bulatkan 圈起来, hentikan 停下</td></tr>' +
+    '<tr><td><b>-i</b> 动词</td><td>ikuti 跟随, hubungi 联络, patuhi 遵守</td></tr></table>'
+  }
+]},
+{ no:55, part:"A", kind:"notes", unitTitle:"Unit 9 · Kata Berimbuhan Awalan dan Akhiran", sections:[
+  { key:"N", type:"notes", title:"Cara menambah imbuhan 加 imbuhan 小技巧", html:
+    '<ol><li><b>me / pe</b> = l → r → n → m → w。<span class="cn">一开始 l，加了一笔变 r，再加一笔就是 n，又加一笔变成 m，最后跌个四脚朝天，变成了 w。</span></li>' +
+    '<li><b>men / pen</b> = c（迟）, d（到）, j（就是）, t（兔）, z（子）。<span class="cn">迟到了，所以要被删除。</span></li>' +
+    '<li><b>mem / pem</b> = b（不）, f（放）, p（屁）。<span class="cn">你放屁真臭，我要把它删除。</span></li>' +
+    '<li><b>meng / peng</b> = a e i o u（5 个朋友）, g（go）, h（Hong Kong）, k（kong）。<span class="cn">去到 Hong Kong 购物，口袋肯定 kong kong（空空），还带回来干嘛？一律删除。</span></li>' +
+    '<li><b>meny / peny</b> = s（死）。<span class="cn">都死了，还留着干嘛？把它删除吧。</span></li>' +
+    '<li><b>menge / penge</b> = satu suku kata（一个读音）例：cat, lap, mop。</li></ul>' +
+    '<p>如果加 imbuhan “di”，该字后面经常出现 “oleh”。</p>' +
+    '<p><b>Contoh:</b> masak → memasak · tulis → menulis（要把 t 删除） · pasang → memasang（要把 p 删除） · kata → mengata（要把 k 删除） · susu → menyusu（要把 s 删除）</p>'
+  }
+]},
+{ no:56, part:"A", unitTitle:"Unit 9 · Kata Berimbuhan Awalan dan Akhiran", sections:[
+  { key:"A", type:"circle", title:"Pilih jawapan yang paling sesuai", instr:"Pilih jawapan yang paling sesuai.", items:[
+    {n:1,q:"Selamat datang semua ________.",o:["menghuni","kehuni","penghuni","terhuni"],a:"penghuni"},
+    {n:2,q:"Bagaimanakah cara ________ jeriji tingkap?",o:["berpasang","memasang","terpasang","pasangan"],a:"memasang"},
+    {n:3,q:"________ ceramah ini boleh dikongsi dengan kawan-kawan kita.",o:["Siaran","Siarkan","bersiar","menyiarkan"],a:"Siaran"},
+    {n:4,q:"________ pintu dan tingkap ditutup sebelum keluar.",o:["Memastikan","Pastikan","Dipastikan","Pasti"],a:"Pastikan"},
+    {n:5,q:"Sila dengar ________ sebelum menjalankan aktiviti.",o:["arahan","mengarahkan","diarahkan","arahkan"],a:"arahan"},
+    {n:6,q:"Ahli bomba ________ orang ramai masuk ke tempat yang berlaku kebakaran.",o:["halangan","terhalang","berhalang","menghalang"],a:"menghalang"},
+    {n:7,q:"Kamu semua ________ beratur di luar kelas.",o:["permintaan","minta","berminta","diminta"],a:"diminta"},
+    {n:8,q:"Sila ________ ahli bomba jika berlaku kecelakaan.",o:["berhubung","hubungan","hubungi","menghubungkan"],a:"hubungi"},
+    {n:9,q:"Jika ________ kebakaran, kita mestilah bertenang.",o:["menjadi","terjadi","kejadian","menjadikan"],a:"terjadi"},
+    {n:10,q:"Kereta bomba ________ apabila berlaku kebakaran.",o:["berbunyi","terbunyi","bunyian","sebunyi"],a:"berbunyi"}
+  ]}
+]}
+);
+/* ---- year6-tb-u10-12.js ---- */
+// Tahun 6 · Tatabahasa Jilid A · Unit 10, Unit 11, Unit 12
+// Source: 郑老师好棒棒 六年级语法 Latihan Tatabahasa Tahun 6 Jilid A (pp. 40-46 notes and exercises; answers from Jawapan pp. 54-55)
+window.TB = window.TB || [];
+TB.push(
+{ no:57, part:"A", kind:"notes", unitTitle:"Unit 10 · Kata Berimbuhan Apitan", sections:[
+  { key:"N", type:"notes", title:"Kata Berimbuhan Apitan 前后缀", html:
+    '<p>Kata dasar 的前面和后面都有 imbuhan. <span class="cn">词根的前面和后面都加上词缀。</span></p>' +
+    '<ul><li>me<b>nghasil</b>kan 生产 — meng…kan</li><li>ke<b>putus</b>an 成绩 — ke…an</li>' +
+    '<li>per<b>paduan</b> 团结 — per…an</li><li>di<b>hadir</b>i 被出席 — di…i</li></ul>' +
+    '<table><tr><th>Imbuhan apitan 前后缀</th><th>Contoh 例子</th><th>式林秘籍</th></tr>' +
+    '<tr><td>ke…-an<br>peN…-an<br>PeR…-an</td><td>kejayaan 成功<br>pengumuman 宣告<br>permainan 游戏</td>' +
+    '<td>ke / peR / peN- 开头的字都是<b>名词</b>。通常放在句子的开头第一个字或者是最后一个。</td></tr>' +
+    '<tr><td>ber…-kan<br>meN-…-kan<br>meN-…-i<br>di…-kan<br>di…-i</td><td>berpelukan 互相拥抱<br>menggayakan 使优雅<br>menyertai 参加<br>diadakan 被举行<br>dihiasi 被布置</td>' +
+    '<td>ber / meN / di- 开头的都是<b>动词</b>。很少用在句子开头的第一个字；每次出现在人的后面；untuk 的前面/后面。<br>di- 每次出现在 oleh 的前面。<br>句子开头是东西用 di…kan（Bola dimainkan oleh Ali.）</td></tr></table>' +
+    '<h4>分清楚 meN…-i 和 meN…-kan</h4>' +
+    '<table><tr><th>meN…-i 后面是<b>有生命</b>的东西，例如人、动物</th><th>meN…-kan 后面是<b>没生命</b>的，例如东西</th></tr>' +
+    '<tr><td>Ayah memberi <span class="hl">adik</span> buku.<br>adik 是弟弟，有生命，用 memberi.</td>' +
+    '<td>Ayah memberikan <span class="hl">buku</span> kepada adik.<br>buku 是书本，没生命，用 memberikan.</td></tr>' +
+    '<tr><td colspan="2">但有些字就是本来就是 meN-kan 的，例如：membacakan adik buku 读给弟弟听 · menuliskan ibu surat 写信给妈妈 · menjahitkan nenek baju 缝衣服给奶奶</td></tr></table>'
+  }
+]},
+{ no:58, part:"A", unitTitle:"Unit 10 · Kata Berimbuhan Apitan", sections:[
+  { key:"B", type:"circle", title:"Pilih jawapan yang paling sesuai", instr:"Pilih jawapan yang paling sesuai. (Pilih pasangan yang betul untuk tempat kosong (…).)", items:[
+    {n:1,q:"Saya dan Wei Li telah ________ pertandingan bercerita.",o:["menyertai","menggayakan","menghasilkan","mencerminkan"],a:"menyertai"},
+    {n:2,q:"Juara pertandingan bercerita telah ________ oleh Muthu.",o:["dihiasi","dihadiri","diadakan","dimenangi"],a:"dimenangi"},
+    {n:3,q:"Pertandingan itu akan ________ pada minggu depan.",o:["dihadiri","diadakan","diumumkan","dihiasi"],a:"diadakan"},
+    {n:4,q:"Para penonton ________ tepukan kepada pemenang pertandingan.",o:["memberikan","mencerminkan","menghasilkan","menjayakan"],a:"memberikan"},
+    {n:5,q:"Nisha ________ rekaan selendang yang unik.",o:["menghasilkan","berpelukan","menjuarai","menyertai"],a:"menghasilkan"},
+    {n:6,q:"Selendang itu dihiasi slogan yang ________ perpaduan kaum.",o:["menjalani","mencerminkan","berpelukan","menjuarai"],a:"mencerminkan"},
+    {n:7,q:"Pada akhir pertandingan, (…) pertandingan (…).",o:["pertunjukan…dihiasi","perpaduan…diadakan","permainan… dimenangi","keputusan… diumumkan"],a:"keputusan… diumumkan"},
+    {n:8,q:"Siti dan Mei Hua (…) pakaian tradisional dalam (…).",o:["menjayakan… perpaduan","menggayakan… kegembiraan","menjalankan… keputusan","menggayakan…pertunjukan"],a:"menggayakan…pertunjukan"},
+    {n:9,q:"Pihak sekolah mengadakan Kempen Kaum Malaysia untuk memupuk ________ antara kaum.",o:["perpaduan","persamaan","pengayaan","pengusahaan"],a:"perpaduan"},
+    {n:10,q:"Mereka (…) kerana kegembiraan apabila (…) dalam pertandingan.",o:["berpegangan…memberikan","menggayakan… pertunjukan","berpelukan… menjuarai","menghasilkan… keputusan"],a:"berpelukan… menjuarai"}
+  ]}
+]},
+{ no:59, part:"A", kind:"notes", unitTitle:"Unit 11 · Kata Berimbuhan Sisipan", sections:[
+  { key:"N", type:"notes", title:"Kata Berimbuhan Sisipan 中缀", html:
+    '<p>Imbuhan sisipan ialah imbuhan yang disisipkan di tengah-tengah sesuatu kata dasar. <span class="cn">中缀词是加在某词中间的缀词。</span> Ada 4 jenis sisipan: <b>-em-, -el-, -er-, -in-</b>.</p>' +
+    '<table><tr><th colspan="3">Imbuhan Sisipan Kata Nama 名词中缀</th></tr>' +
+    '<tr><th>-el-</th><th>-er-</th><th>-em-</th></tr>' +
+    '<tr><td>k<b>el</b>opak 瓣</td><td>g<b>er</b>igi 锯齿形</td><td>k<b>em</b>ilau 闪光</td></tr>' +
+    '<tr><td>g<b>el</b>egar 支柱，梁</td><td>s<b>er</b>uling 长笛</td><td>k<b>em</b>elut 危机</td></tr></table>' +
+    '<table><tr><th colspan="4">Imbuhan Sisipan Kata Adjektif 形容词中缀</th></tr>' +
+    '<tr><th>-el-</th><th>-er-</th><th>-em-</th><th>-in-</th></tr>' +
+    '<tr><td>s<b>el</b>erak 分散的<br>s<b>el</b>irat 错综<br>g<b>el</b>abah 悲伤<br>men<b>ggel</b>etar 发抖</td>' +
+    '<td>k<b>er</b>epot 皱纹<br>kering-k<b>er</b>ontang 干涸<br>k<b>er</b>etot 弯曲的，皱(果皮)</td>' +
+    '<td>g<b>em</b>entar 发抖<br>g<b>em</b>uruh 雷鸣<br>g<b>em</b>ilang 辉煌<br>g<b>em</b>erlap 光辉</td>' +
+    '<td>s<b>in</b>ambung 连续</td></tr></table>'
+  }
+]},
+{ no:60, part:"A", unitTitle:"Unit 11 · Kata Berimbuhan Sisipan", sections:[
+  { key:"A", type:"circle", title:"Garisi kata berimbuhan sisipan yang betul", instr:"Garisi kata berimbuhan sisipan yang betul. (Pilih jawapan yang betul.)", items:[
+    {n:1,q:"Encik Tan sedang mewarnakan ________ bunga raya di kilangnya.",o:["gerigi","kelopak"],a:"kelopak"},
+    {n:2,q:"Bapa Wei Lun memotong papan dengan menggunakan gergaji yang tajam ________.",o:["geriginya","gemuruh"],a:"geriginya"},
+    {n:3,q:"Puan Koh menyusun meja dan kerusi yang ________ di kelas.",o:["berselerak","berkerepot"],a:"berselerak"},
+    {n:4,q:"Murid-murid meniup ________ di atas pentas semasa persembahan Malam Gemilang Perpaduan.",o:["gerigi","seruling"],a:"seruling"},
+    {n:5,q:"Penonton memberikan tepukan yang ________ selepas persembahan ditamatkan.",o:["gementar","gemuruh"],a:"gemuruh"},
+    {n:6,q:"Pak Cik Ali menggulung wayar yang ________ di atas lantai.",o:["berselirat","berkeretot"],a:"berselirat"},
+    {n:7,q:"Pakaian ahli persembahan bertabur dengan permata yang ________.",o:["selerak","gemerlap"],a:"gemerlap"},
+    {n:8,q:"________ kamera dinyalakan apabila penari membuat persembahan yang amat menghiburkan.",o:["Kemelut","Kemilau"],a:"Kemilau"},
+    {n:9,q:"Ali berasa ________ semasa membuat persembahan di atas pentas.",o:["gementar","gemuruh"],a:"gementar"},
+    {n:10,q:"Majlis penyampaian hadiah itu diadakan dengan ________.",o:["kemelut","gemilang"],a:"gemilang"}
+  ]}
+]},
+{ no:61, part:"A", kind:"notes", unitTitle:"Unit 12 · Kata Majmuk Mantap dan Kata Majmuk Bebas", sections:[
+  { key:"N", type:"notes", title:"Kata Majmuk 合成词", html:
+    '<table><tr><th>Kata Majmuk Mantap 固定组合，连在一起的字</th><th>Kata Majmuk Bebas 两个不同意思的字被放在一起表达一个意思，分开写的</th></tr>' +
+    '<tr><td>sukarela 自愿<br>olahraga 体育<br>matahari 太阳<br>kerjasama 分工合作<br>setiausaha 秘书<br>jawatankuasa 委员会<br>tandatangan 签名<br>beritahu 告诉</td>' +
+    '<td>bapa saudara 伯父<br>ketua kampung 村长<br>tengah hari 中午<br>baju sukan 运动衣<br>biru tua 深蓝<br>naib juara 亚军<br>jam dinding 壁钟<br>temu bual 访谈</td></tr></table>' +
+    '<p><b>老师的话：</b>Kata majmuk 最重要是多做和多背，时间久了就会了哦！</p>'
+  }
+]},
+{ no:62, part:"A", unitTitle:"Unit 12 · Kata Majmuk Mantap dan Kata Majmuk Bebas", sections:[
+  { key:"A", type:"circle", title:"Pilih jawapan yang paling sesuai", instr:"Pilih jawapan yang paling sesuai.", items:[
+    {n:1,q:"Pada minggu yang lalu, Lily telah melawat ke rumah ________nya.",o:["bapa saudara","naib juara","baju sukan","sukarela"],a:"bapa saudara"},
+    {n:2,q:"Pasukan kita telah berjaya menjadi ________ dalam perlawanan.",o:["biru tua","temu bual","ketua kampung","naib johan"],a:"naib johan"},
+    {n:3,q:"Encik Lau ialah ________ di Kampung Puteri.",o:["matahari","jam dinding","ketua kampung","ketua darjah"],a:"ketua kampung"},
+    {n:4,q:"Adik membeli sebuah kotak pensel yang berwarna ________.",o:["bapa saudara","biru tua","baju sukan","olahraga"],a:"biru tua"},
+    {n:5,q:"Penduduk kampung meronda di kawasan kampung secara ________.",o:["naib juara","jam dinding","setiausaha","sukarela"],a:"sukarela"},
+    {n:6,q:"Aktiviti gotong-royong dijalankan dari pagi hingga ________.",o:["matahari","ketua kampung","tengah hari","beritahu"],a:"tengah hari"},
+    {n:7,q:"Pelbagai sukan ________ diadakan di padang pada hari ini.",o:["kerjasama","baju sukan","olahraga","beritahu"],a:"olahraga"},
+    {n:8,q:"Bapa menggantung sebuah ________ pada dinding.",o:["jam dinding","setiausaha","naib juara","tandatangan"],a:"jam dinding"},
+    {n:9,q:"Kita haruslah memakai ________ semasa menjalankan aktiviti sukan.",o:["biru tua","baju sukan","tengah hari","jam tangan"],a:"baju sukan"},
+    {n:10,q:"Kai Cong merupakan ________ Kelab Catur di sekolah saya.",o:["temu bual","biru tua","setiausaha","sukarela"],a:"setiausaha"},
+    {n:11,q:"Para peserta sedang bertanding di bawah terik ________.",o:["matahari","jawatankuasa","olahraga","setiausaha"],a:"matahari"},
+    {n:12,q:"________ antara semua pihak diperlukan untuk menjayakan aktiviti ini.",o:["Tengah hari","Matahari","Kerjasama","Naib juara"],a:"Kerjasama"}
+  ]}
+]}
+);
+/* ---- year6-tb-engine.js ---- */
+window.TB_PART = 'A';
+(function () {
+  'use strict';
+  var $ = function (id) { return document.getElementById(id); };
+  var PART = window.TB_PART || 'A';
+  var KEY = 'tatabahasa-y6-jilid-a-v1';
+  window.LESSON_STATE_KEY = KEY;
+  var st = {};
+  try { st = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (e) { st = {}; }
+  st.v = st.v || {}; st.done = st.done || {};
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(st)); } catch (e) {} }
+
+  var PAGES = (window.TB || []).filter(function (p) { return p.part === PART; }).sort(function (a, b) { return a.no - b.no; });
+  function firstOpen() { for (var j = 0; j < PAGES.length; j++) { if (!st.done[PAGES[j].no]) return j; } return PAGES.length - 1; }
+  var cur = Math.min(Math.max(+st.cur || 0, 0), PAGES.length - 1);
+
+
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function norm(s) {
+    return String(s == null ? '' : s).toLowerCase()
+      .replace(/[‘’“”"'.,;:!?()\[\]\-–—_\/]+/g, ' ')
+      .replace(/\s+/g, ' ').trim();
+  }
+  function nospace(s) { return norm(s).replace(/ /g, ''); }
+  function pics(no, key) { return (window.TB_PICS && window.TB_PICS[no + '-' + key]) || []; }
+  // a section may name its picture set with picSide (e.g. "103-A:R"); fall back to the plain key
+  function secPics(no, sec) {
+    var l = sec.picSide ? pics(no, sec.key + ':' + sec.picSide) : [];
+    return l.length ? l : pics(no, sec.key);
+  }
+  function picSrc(file) { return (window.TB_IMGS && window.TB_IMGS[file]) || ''; }
+
+  function blanksIn(q) { return (String(q).match(/_{2,}/g) || []).length; }
+  function splitBlanks(q) { return String(q).split(/_{2,}/); }
+
+  // ---- answer checking per item ----
+  function checkItem(no, si, sec, it, ii) {
+    // returns {total, right, blank}
+    var k = no + '|' + si + '|' + ii;
+    var t = sec.type;
+    if (t === 'pic') {
+      var v = st.v[k + '|0'] || '';
+      return { total: 1, right: nospace(v) === nospace(it.a) ? 1 : 0, blank: v.trim() ? 0 : 1, els: [k + '|0'] };
+    }
+    if (t === 'circle' || t === 'sel') {
+      var nbs = Math.max(1, splitBlanks(it.q).length - 1);
+      var ansS = Array.isArray(it.a) ? it.a : [it.a];
+      var rS = 0, bS = 0, elsS = [];
+      for (var cs = 0; cs < nbs; cs++) {
+        var vs = st.v[k + '|' + cs] || ''; elsS.push(k + '|' + cs);
+        if (vs && vs === ansS[cs]) rS++;
+        if (!vs) bS++;
+      }
+      return { total: nbs, right: rS, blank: bS, els: elsS };
+    }
+    if (t === 'drag' && sec.units) {
+      var ua = it.a || []; var ur = 0, ub = 0, uels = [];
+      for (var ui = 0; ui < ua.length; ui++) { var uv = st.v[k + '|' + ui] || ''; uels.push(k + '|' + ui); if (uv && nospace(uv) === nospace(ua[ui])) ur++; if (!uv) ub++; }
+      return { total: ua.length, right: ur, blank: ub, els: uels };
+    }
+    if (t === 'drag') {
+      var nb = blanksIn(it.q) || 1; var rightN = 0, blankN = 0; var els = [];
+      if (nb === 1) { var dv = st.v[k + '|0'] || ''; els.push(k + '|0'); if (nospace(dv) && nospace(dv) === nospace(it.a)) rightN = 1; if (!dv) blankN = 1; return { total: 1, right: rightN, blank: blankN, els: els }; }
+      var ans = Array.isArray(it.a) ? it.a : [it.a];
+      for (var b = 0; b < nb; b++) { var dv2 = st.v[k + '|' + b] || ''; els.push(k + '|' + b); if (nospace(dv2) && nospace(dv2) === nospace(ans[b])) rightN++; if (!dv2) blankN++; }
+      return { total: nb, right: rightN, blank: blankN, els: els };
+    }
+    if (t === 'fill') {
+      var nb2 = blanksIn(it.q) || 1; var rightF = 0, blankF = 0; var els2 = [];
+      var answers = Array.isArray(it.a) ? it.a : [it.a];
+      for (var c = 0; c < nb2; c++) {
+        var fv = st.v[k + '|' + c] || ''; els2.push(k + '|' + c);
+        var target = answers[c] !== undefined ? answers[c] : answers[0];
+        if (Array.isArray(it.a) && nb2 > 1) { if (nospace(fv) && answers.some(function (a) { return nospace(a) === nospace(fv); })) rightF++; }
+        else if (nospace(fv) && nospace(fv) === nospace(target)) rightF++;
+        if (!fv.trim()) blankF++;
+      }
+      if (nb2 === 1) return { total: 1, right: rightF, blank: blankF, els: els2 };
+      return { total: nb2, right: rightF, blank: blankF, els: els2 };
+    }
+    if (t === 'uline') {
+      var u = JSON.parse(st.v[k] || '[]');
+      var words = it.s.split(' ');
+      var want = {}; (it.a || []).forEach(function (w) { norm(w).split(' ').forEach(function (x) { if (x) want[x] = true; }); });
+      var got = {}; u.forEach(function (i) { norm(words[i] || '').split(' ').forEach(function (x) { if (x) got[x] = true; }); });
+      var ok = Object.keys(want).every(function (x) { return got[x]; }) && Object.keys(got).every(function (x) { return want[x]; });
+      return { total: 1, right: ok ? 1 : 0, blank: u.length ? 0 : 1, els: [k] };
+    }
+    if (t === 'build') {
+      var bsel = JSON.parse(st.v[k] || '[]');
+      var built = bsel.map(function (i) { return it.u[i]; }).join(' ');
+      return { total: 1, right: bsel.length && nospace(built) === nospace(it.a) ? 1 : 0, blank: bsel.length ? 0 : 1, els: [k] };
+    }
+    if (t === 'dots') {
+      var lv = st.v[no + '|' + si + '|L' + ii] || '';
+      var letter = sec.right[it.a].e;
+      return { total: 1, right: lv === letter ? 1 : 0, blank: lv ? 0 : 1, els: [no + '|' + si + '|L' + ii] };
+    }
+    if (t === 'grid') {
+      var rr = 0, bb = 0, els3 = [];
+      var arr = it.a || [];
+      for (var g = 0; g < arr.length; g++) { var gv = st.v[k + '|' + g] || ''; els3.push(k + '|' + g); if (gv && gv === arr[g]) rr++; if (!gv) bb++; }
+      return { total: 1, right: rr === arr.length ? 1 : 0, blank: bb ? 1 : 0, els: els3 };
+    }
+    return { total: 0, right: 0, blank: 0, els: [] };
+  }
+
+  function pageScore(p) {
+    var tot = 0, rt = 0, bl = 0;
+    p.sections.forEach(function (sec, si) {
+      var list = sec.type === 'dots' ? sec.left : sec.items;
+      if (!list) return;
+      list.forEach(function (it, ii) {
+        var r = checkItem(p.no, si, sec, it, ii);
+        tot += r.total; rt += r.right; bl += r.blank;
+      });
+    });
+    return { total: tot, right: rt, blank: bl };
+  }
+
+  // ---- rendering ----
+  function picBox(no, key, idx, n, size) {
+    var list = pics(no, key);
+    var f = list[idx];
+    if (!f) return '';
+    return '<img class="thumb' + (size ? ' ' + size : '') + '" alt="Gambar ' + n + '" src="' + picSrc(f) + '">';
+  }
+
+  function bankChips(p, si, sec) {
+    if (!sec.bank) return '';
+    // every word in the bank stays available; a word can be used in more than one blank
+    var chips = sec.bank.map(function (w) {
+      return '<span class="chip" draggable="true" data-w="' + esc(w) + '">' + esc(w) + '</span>';
+    }).join('');
+    return '<div class="bank" data-si="' + si + '"><span class="bl">Kata:</span>' + chips + '</div>';
+  }
+
+  // Layout: each question is a row. Question text (and any picture) on the left, answers on the right.
+  function renderLeft(p) {
+    var html = '';
+    p.sections.forEach(function (sec) {
+      var list = secPics(p.no, sec);
+      if (!list.length || sec.type === 'grid' || sec.type === 'uline' || sec.type === 'dots') return;
+      var n = (sec.items || []).length;
+      html += '<div class="pcard"><div class="ph">' + esc(sec.key) + '. ' + esc(sec.title) + '</div><div class="pgrid' + (list.length <= 2 ? ' few' : '') + '">';
+      list.forEach(function (f, i) {
+        var label = (list.length === n || n === 0) ? (i + 1) : '';
+        html += '<figure class="pfig">' + (label ? '<figcaption>' + label + '</figcaption>' : '') + '<img alt="Gambar ' + (i + 1) + '" src="' + picSrc(f) + '"></figure>';
+      });
+      html += '</div></div>';
+    });
+    return html;
+  }
+
+  function gapText(q) {
+    return splitBlanks(q).map(function (s) { return esc(s).replace(/\n/g, '<br>'); }).join('<span class="gap">______</span>');
+  }
+
+  function renderRight(p) {
+    var html = '';
+    p.sections.forEach(function (sec, si) {
+      if (sec.type === 'notes') { html += '<div class="notes">' + sec.html + '</div>'; return; }
+      if (!sec.items && sec.type !== 'dots') return;
+      var hasPics = secPics(p.no, sec).length > 0;
+      html += '<div class="qsec"><h3><span class="letter">' + esc(sec.key) + '</span> ' + esc(sec.title) + '</h3>';
+      if (sec.instr) html += '<p class="instr">' + esc(sec.instr) + '</p>';
+
+      if (sec.bank && (sec.type === 'drag' || sec.type === 'pic')) html += bankChips(p, si, sec);
+      if (sec.type === 'grid') html += bankChips(p, si, sec) + gridHtml(p, si, sec);
+      else if (sec.type === 'dots') html += dotsHtml(p, si, sec);
+      else if (sec.type === 'uline') html += ulineHtml(p, si, sec);
+      else if (sec.type === 'build') html += buildHtml(p, si, sec);
+      else {
+        // two columns: the first half of the questions on the left, the rest on the right (even split)
+        var half = Math.ceil(sec.items.length / 2);
+        var rowsOf = function (list, from) { return list.map(function (it, i) { return rowHtml(p, si, sec, it, from + i, hasPics); }).join(''); };
+        html += '<div class="cols"><div class="col">' + rowsOf(sec.items.slice(0, half), 0) + '</div>' +
+          '<div class="col">' + rowsOf(sec.items.slice(half), half) + '</div></div>';
+      }
+      html += '</div>';
+    });
+    return html;
+  }
+
+  // Every blank is shown on its own line: the drop box, dropdown or typed box sits in the blank.
+  function rowHtml(p, si, sec, it, ii, hasPics) {
+    var k = p.no + '|' + si + '|' + ii;
+    var numHtml = it.n ? '<span class="qn">' + it.n + '.</span>' : '';
+    var ctl = function (kk, opts) {
+      if (sec.type === 'circle' || sec.type === 'sel') {
+        return '<select class="ans inl" data-k="' + kk + '"><option value="">— Pilih —</option>' +
+          (it.o || sec.o || []).map(function (o) { return '<option value="' + esc(o) + '"' + (st.v[kk] === o ? ' selected' : '') + '>' + esc(o) + '</option>'; }).join('') + '</select>';
+      }
+      if (sec.type === 'drag' || (sec.type === 'pic' && sec.bank)) {
+        return '<span class="drop" data-k="' + kk + '">' + (st.v[kk] ? esc(st.v[kk]) : '…') + '</span>';
+      }
+      return '<input class="ans ' + (sec.wide ? 'wide' : 'inl') + '" data-k="' + kk + '" autocomplete="off" value="' + esc(st.v[kk] || '') + '">';
+    };
+    var body = '';
+    if (sec.type === 'drag' && sec.units) {
+      var placed = {}; (it.a || []).forEach(function (_, ui) { var pv = st.v[k + '|' + ui]; if (pv) placed[pv] = true; });
+      var chipsU = (it.u || []).filter(function (w) { return !placed[w]; }).map(function (w) { return '<span class="chip" draggable="true" data-w="' + esc(w) + '">' + esc(w) + '</span>'; }).join('');
+      body = '<div class="bank">' + chipsU + '</div><div>' + (it.a || []).map(function (_, ui) { return ctl(k + '|' + ui); }).join(' ') + '</div>';
+    } else if (sec.type === 'pic' && sec.bank) {
+      body = ctl(k + '|0');
+    } else if (sec.type === 'pic') {
+      var kk0 = k + '|0';
+      body = '<span class="scr">' + esc(it.h) + '</span> <span class="paren">(</span><input class="ans short" data-k="' + kk0 + '" autocomplete="off" value="' + esc(st.v[kk0] || '') + '"><span class="paren">)</span>';    } else {
+      var parts = splitBlanks(it.q);
+      if (parts.length <= 1) {
+        body = esc(it.q).replace(/\n/g, '<br>') + ' ' + ctl(k + '|0');
+      } else {
+        body = parts.map(function (s, bi) {
+          return esc(s).replace(/\n/g, '<br>') + (bi < parts.length - 1 ? ctl(k + '|' + bi) : '');
+        }).join('');
+      }
+    }
+    return '<div class="q row">' + numHtml + '<div class="qt">' + body + '</div></div>';
+  }
+  function ulineHtml(p, si, sec) {
+    var html = '';
+    sec.items.forEach(function (it, ii) {
+      var k = p.no + '|' + si + '|' + ii;
+      var sel = JSON.parse(st.v[k] || '[]');
+      var words = it.s.split(' ').map(function (w, i) {
+        return '<span class="w' + (sel.indexOf(i) >= 0 ? ' on' : '') + '" data-k="' + k + '" data-i="' + i + '">' + esc(w) + '</span>';
+      }).join(' ');
+      html += '<div class="q"><span class="qn">' + it.n + '.</span><div class="qb"><div class="qt uword">' + words + '</div></div></div>';
+    });
+    return html;
+  }
+
+  // Build a sentence: the words are shown as chips; tap a chip to add it, tap a word in the sentence to remove it.
+  function buildHtml(p, si, sec) {
+    var half = Math.ceil(sec.items.length / 2);
+    var one = function (it, ii) {
+      var k = p.no + '|' + si + '|' + ii;
+      var sel = JSON.parse(st.v[k] || '[]');
+      var used = {}; sel.forEach(function (i) { used[i] = true; });
+      var chips = it.u.map(function (w, i) {
+        return '<span class="bw' + (used[i] ? ' used' : '') + '" data-k="' + k + '" data-i="' + i + '">' + esc(w) + '</span>';
+      }).join('');
+      var built = sel.length ? sel.map(function (i) {
+        return '<span class="bwd" data-k="' + k + '" data-i="' + i + '">' + esc(it.u[i]) + '</span>';
+      }).join(' ') : '<span class="muted">…</span>';
+      return '<div class="q bq"><span class="qn">' + it.n + '.</span><div class="qb"><div class="bank">' + chips + '</div>' +
+        '<div class="built" data-bk="' + k + '">' + built + '</div></div></div>';
+    };
+    var rows = function (list, from) { return list.map(function (it, i) { return one(it, from + i); }).join(''); };
+    return '<div class="cols"><div class="col">' + rows(sec.items.slice(0, half), 0) + '</div><div class="col">' + rows(sec.items.slice(half), half) + '</div></div>';
+  }
+
+  function dotsHtml(p, si, sec) {
+    var sp = pics(p.no, sec.key);
+    var rights = sec.right.map(function (r, i) {
+      var content = sp.length && picSrc(sp[i]) ? '<img class="rpic" alt="Gambar ' + String.fromCharCode(65 + i) + '" src="' + picSrc(sp[i]) + '">' : esc(r.e);
+      return '<li><b>' + String.fromCharCode(65 + i) + '.</b> ' + content + '</li>';
+    }).join('');
+    // the answer texts go into the dropdown; the list above is only kept when there are pictures
+    var letters = sec.right.map(function (r) { return r.e; });
+    var html = sp.length ? '<ol class="rlist">' + rights + '</ol>' : '';
+    var rowsD = sec.left.map(function (l, li) {
+      var k = p.no + '|' + si + '|L' + li;
+      var v = st.v[k] || '';
+      var opts = '<option value="">— Pilih —</option>' + letters.map(function (L) { return '<option value="' + esc(L) + '"' + (v === L ? ' selected' : '') + '>' + esc(L) + '</option>'; }).join('');
+      // question text and its dropdown sit side by side on one line
+      return '<div class="q dq"><span class="qn">' + l.n + '.</span><div class="qt">' + esc(l.q) + '</div><select class="ans dsel" data-k="' + k + '">' + opts + '</select></div>';
+    });
+    var halfD = Math.ceil(rowsD.length / 2);
+    html += '<div class="cols"><div class="col">' + rowsD.slice(0, halfD).join('') + '</div><div class="col">' + rowsD.slice(halfD).join('') + '</div></div>';
+    return html;
+  }
+
+  function gridHtml(p, si, sec) {
+    var head = '<tr><th></th>' + sec.cols.map(function (c) { return '<th>' + esc(c) + '</th>'; }).join('') + '</tr>';
+    var rows = sec.items.map(function (it, ii) {
+      var cells = sec.cols.map(function (c, ci) {
+        var k = p.no + '|' + si + '|' + ii + '|' + ci;
+        return '<td><span class="drop" data-k="' + k + '">' + (st.v[k] ? esc(st.v[k]) : '…') + '</span></td>';
+      }).join('');
+      return '<tr><td class="rn">' + it.n + '.</td>' + cells + '</tr>';
+    }).join('');
+    return '<div class="tblwrap"><table class="gtbl">' + head + rows + '</table></div>';
+  }
+
+  function render() {
+    var p = PAGES[cur];
+    renderTabs();
+    var isNote = p.kind === 'notes';
+    $('pagehead').textContent = (isNote ? 'Nota ' : 'Latihan ') + p.no + ' · ' + p.unitTitle;
+    // explanation pages have no check or reset buttons
+    $('footBar').style.display = isNote ? 'none' : '';
+    $('counter').textContent = (cur + 1) + ' / ' + PAGES.length;
+    var left = renderLeft(p);
+    $('left').innerHTML = left;
+    $('left').style.display = left ? '' : 'none';
+    $('split').classList.toggle('single', !left);
+    $('right').innerHTML = renderRight(p);
+    $('score').textContent = '';
+    $('blank').textContent = '';
+    $('prev').disabled = cur === 0;
+    $('next').disabled = cur === PAGES.length - 1;
+    st.cur = cur; save();
+    window.scrollTo(0, 0);
+    bind();
+  }
+
+  function bind() {
+    document.querySelectorAll('#right [data-k]').forEach(function (el) {
+      if (el.classList.contains('drop')) return;
+      el.addEventListener(el.tagName === 'SELECT' ? 'change' : 'input', function () {
+        st.v[el.dataset.k] = el.value; save(); el.classList.remove('ok', 'bad');
+        $('score').textContent = ''; $('blank').textContent = '';
+      });
+    });
+    // build-a-sentence: tap a word to add it, tap a word in the sentence to remove it
+    document.querySelectorAll('#right .bw').forEach(function (w) {
+      w.addEventListener('click', function () {
+        if (w.classList.contains('used')) return;
+        var k = w.dataset.k, i = +w.dataset.i;
+        var sel = JSON.parse(st.v[k] || '[]');
+        if (sel.indexOf(i) < 0) sel.push(i);
+        st.v[k] = JSON.stringify(sel); save(); render();
+      });
+    });
+    document.querySelectorAll('#right .bwd').forEach(function (w) {
+      w.addEventListener('click', function () {
+        var k = w.dataset.k, i = +w.dataset.i;
+        var sel = JSON.parse(st.v[k] || '[]').filter(function (x) { return x !== i; });
+        st.v[k] = JSON.stringify(sel); save(); render();
+      });
+    });
+    document.querySelectorAll('#right .w').forEach(function (w) {
+      w.addEventListener('click', function () {
+        var k = w.dataset.k, i = +w.dataset.i;
+        var sel = JSON.parse(st.v[k] || '[]');
+        var at = sel.indexOf(i);
+        if (at >= 0) sel.splice(at, 1); else sel.push(i);
+        st.v[k] = JSON.stringify(sel); save();
+        w.classList.toggle('on');
+        $('score').textContent = ''; $('blank').textContent = '';
+      });
+    });
+    // drag chips and drop zones (drag, or tap a chip then tap a box)
+    var selected = null;
+    document.querySelectorAll('#right .chip').forEach(function (c) {
+      c.addEventListener('dragstart', function (e) { e.dataTransfer.setData('text/plain', c.dataset.w); });
+      c.addEventListener('click', function () {
+        selected = (selected === c.dataset.w) ? null : c.dataset.w;
+        document.querySelectorAll('#right .chip').forEach(function (x) { x.classList.toggle('sel', x.dataset.w === selected); });
+      });
+    });
+    document.querySelectorAll('#right .drop').forEach(function (d) {
+      d.addEventListener('dragover', function (e) { e.preventDefault(); });
+      d.addEventListener('drop', function (e) { e.preventDefault(); place(d, e.dataTransfer.getData('text/plain')); });
+      d.addEventListener('click', function () {
+        if (st.v[d.dataset.k]) { delete st.v[d.dataset.k]; save(); render(); return; }
+        if (selected) { place(d, selected); selected = null; }
+      });
+    });
+  }
+
+  function place(d, word) {
+    if (!word) return;
+    st.v[d.dataset.k] = word; save(); render();
+  }
+
+  function check() {
+    var p = PAGES[cur];
+    var s = pageScore(p);
+    $('score').textContent = s.right + '/' + s.total;
+    if (s.blank > 0) $('blank').textContent = 'Masih ada ' + s.blank + ' soalan kosong.';
+    else if (s.total > 0 && s.right === s.total) $('blank').textContent = 'Tahniah! Semua jawapan betul.';
+    else $('blank').textContent = 'Cuba semula. Jawapan merah perlu disemak.';
+    // mark each item
+    p.sections.forEach(function (sec, si) {
+      var list = sec.type === 'dots' ? sec.left : sec.items;
+      if (!list) return;
+      list.forEach(function (it, ii) {
+        var r = checkItem(p.no, si, sec, it, ii);
+        if (sec.type === 'build') {
+          var bb = document.querySelector('#right .built[data-bk="' + r.els[0] + '"]');
+          if (bb) { bb.classList.toggle('ok', r.right === 1); bb.classList.toggle('bad', r.right !== 1 && r.blank === 0); }
+          return;
+        }
+        r.els.forEach(function (k) {
+          var el = document.querySelector('#right [data-k="' + k + '"]');
+          if (!el) return;
+          var v = st.v[k] || '';
+          var good = null;
+          if (sec.type === 'pic' || sec.type === 'fill') good = nospace(v) && (Array.isArray(it.a) ? it.a.some(function (a) { return nospace(a) === nospace(v); }) : nospace(v) === nospace(it.a));
+          if (sec.type === 'circle' || sec.type === 'sel') { var bIdx = +(k.split('|').pop()) || 0; good = v === (Array.isArray(it.a) ? it.a[bIdx] : it.a); }
+          if (sec.type === 'drag' && sec.units) good = v && nospace(v) === nospace(it.a[+(k.split('|').pop())]);
+          else if (sec.type === 'drag') good = v && (Array.isArray(it.a) ? nospace(v) === nospace(it.a[+(k.split('|').pop())]) : nospace(v) === nospace(it.a));
+          if (good === null) return;
+          el.classList.toggle('ok', !!good); el.classList.toggle('bad', !good && !!v);
+        });
+      });
+    });
+    var allOk = !!(s.total > 0 && s.right === s.total);
+    st.done[p.no] = allOk;
+    st.bad = st.bad || {};
+    st.bad[p.no] = !allOk;
+    save();
+    if (allOk && cur < PAGES.length - 1) { cur++; render(); window.scrollTo(0, 0); } else { render_sel(); }
+  }
+  function renderTabs() {
+    $('tabs').innerHTML = PAGES.map(function (q, i) {
+      return '<button class="tab' + (i === cur ? ' on' : '') + (st.done[q.no] ? ' ok' : '') + (st.bad && st.bad[q.no] && !st.done[q.no] ? ' bad' : '') + '" type="button" data-i="' + i + '">' + (q.kind === 'notes' ? 'Nota ' : 'Latihan ') + q.no + (st.done[q.no] ? ' ✓' : '') + '</button>';
+    }).join('');
+  }
+  function render_sel() { renderTabs(); }
+
+  function redo() {
+    var p = PAGES[cur];
+    Object.keys(st.v).forEach(function (k) { if (k.indexOf(p.no + '|') === 0) delete st.v[k]; });
+    delete st.done[p.no];
+    if (st.bad) delete st.bad[p.no];
+    save(); render();
+  }
+
+  $('tabs').addEventListener('click', function (e) { var b = e.target.closest('.tab'); if (!b) return; cur = +b.dataset.i; render(); });
+  $('prev').addEventListener('click', function () { if (cur > 0) { cur--; render(); } });
+  $('next').addEventListener('click', function () { if (cur < PAGES.length - 1) { cur++; render(); } });
+  $('checkBtn').addEventListener('click', check);
+  $('resetAll').addEventListener('click', redo);
+  render();
+})();
+</script>
+</body>
+</html>
