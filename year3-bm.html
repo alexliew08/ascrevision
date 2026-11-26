@@ -30,9 +30,9 @@ button{font:inherit;cursor:pointer}
 .btn:disabled{opacity:.4;cursor:default}
 .split{display:grid;grid-template-columns:minmax(0,1fr);gap:16px;align-items:start}
 .split.single .left{display:none}
-@media (min-width:900px){
-  .split:not(.single){grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr)}
-  .split:not(.single) .left,.split .panel{position:sticky;top:90px;max-height:82vh;overflow:auto}
+@media (min-width:640px){
+  .split:not(.single){grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+  .split:not(.single) .left,.split .panel{position:static;max-height:none;overflow:visible}
 }
 .left{min-width:0}
 .panel{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px;min-width:0}
@@ -118,7 +118,7 @@ textarea.ans{display:block;width:100%;margin-top:6px}
 @media (max-width:700px){.rlist{grid-template-columns:repeat(3,minmax(0,1fr))}}
 </style>
 </head>
-<body>
+<body data-lang="bm">
 <div class="top">
   <h1>Bahasa Melayu · Latihan Tatabahasa Tahun 3 · 国语书写填充</h1>
   <a href="index.html?sub=bm">← Kembali ke menu</a>
@@ -147,7 +147,7 @@ textarea.ans{display:block;width:100%;margin-top:6px}
     <div class="foot">
       <span class="hint" id="result"></span>
       <div class="bts">
-        <button class="btn" id="resetBtn" type="button">↺ Redo</button>
+        <button class="btn" id="resetBtn" type="button">↺ Ulang</button>
         <button class="btn" id="showBtn" type="button">👀 Tunjuk</button>
         <button class="btn primary" id="checkBtn" type="button">✓ Semak Jawapan</button>
       </div>
@@ -218,7 +218,7 @@ function check(){
     const good = x.value.trim() !== '' && norm(x.value) === norm(ans);
     x.classList.add(good ? 'ok' : 'bad'); if(good) right++;
   });
-  $('score').textContent = 'Score ' + right + ' / ' + inputs.length;
+  $('score').textContent = 'Skor ' + right + ' / ' + inputs.length;
   $('result').textContent = right === inputs.length ? '🎉 Bagus! Semua jawapan betul.' : 'Betul ' + right + ' daripada ' + inputs.length + '. Cuba lagi, anda boleh! 💪';
   if(right === inputs.length && inputs.length){ st.done[cur] = 1; save(); list(); }
 }

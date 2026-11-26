@@ -27,9 +27,9 @@ button{font:inherit;cursor:pointer}
 .btn.primary{background:var(--green);color:#fff;border-color:var(--green)}
 .btn:disabled{opacity:.4;cursor:default}
 .pdfs img{width:100%;height:auto;display:block;border:1px solid var(--line);border-radius:14px;background:#fff;margin-bottom:10px}
-.split{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,0.9fr);gap:16px;align-items:start}
-.split .panel{position:sticky;top:90px;max-height:82vh;overflow:auto}
-@media (max-width:900px){.split{grid-template-columns:1fr}.split .panel{position:static;max-height:none}}
+.split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:start}
+.split .panel{position:static;max-height:none;overflow:visible}
+@media (max-width:639px){.split{grid-template-columns:1fr}.split .panel{position:static;max-height:none}}
 .panel{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px}
 .sec{margin-bottom:16px}
 .sec h3{font-size:16px;margin:0 0 8px}
@@ -56,9 +56,12 @@ button{font:inherit;cursor:pointer}
 .note{font-size:14px;color:var(--muted);background:#fff7e0;border-radius:12px;padding:8px 12px;margin-bottom:10px}
 .foot{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-top:6px}
 .hint{font-size:13px;color:var(--muted)}
+.cols2{column-gap:18px}
+.cols2 .row{break-inside:avoid}
+@media (max-width:639px){.cols2{column-count:1!important}}
 </style>
 </head>
-<body>
+<body data-lang="zh">
 <header class="top">
   <h1>华文 3A · 课堂评估（新版）</h1>
   <a href="index.html?sub=cn">← 返回练习菜单</a>
@@ -151,13 +154,16 @@ function renderPanel(){
       const used = Object.values(st).filter(v => v);
       h += `<div class="bank">` + [...new Set(bankOf(sec))].map(w =>
         `<span class="chip${selWord === w ? ' sel' : ''}${used.includes(w) ? ' used' : ''}" draggable="true" data-word="${esc(w)}">${esc(w)}</span>`).join('') + `</div>`;
+      // Plain drop-box lines: split into two even columns.
+      const twoCol = !sec.cols && sec.items.length >= 2 && sec.items.every(it => !it.tpl && !it.bank);
       if(sec.cols) h += `<div style="display:grid;grid-template-columns:repeat(${sec.cols},minmax(0,1fr));gap:4px 12px">`;
+      else if(twoCol) h += '<div class="cols2" style="column-count:2">';
       sec.items.forEach(it => {
         const k = key(sec, it.n), v = st[k] || '';
         const cls = done ? (v === it.ans ? ' ok' : (v ? ' bad' : '')) : '';
         h += `<div class="row"><span class="n">${it.n}.</span>${it.pre ? `<span style="font-size:18px;font-weight:700">${esc(it.pre)}</span>` : ''}<span class="drop${v ? ' filled' : ''}${cls}" data-k="${k}">${v ? esc(v) : '＿＿'}</span></div>`;
       });
-      if(sec.cols) h += '</div>';
+      if(sec.cols || twoCol) h += '</div>';
     } else if(sec.kind === 'text'){
       h += '<div style="display:grid;grid-template-columns:1fr;gap:12px">';
       sec.items.forEach(it => {
