@@ -83,7 +83,7 @@ textarea.free{width:100%;min-height:120px;font:inherit;font-size:17px;padding:8p
 .ftab td:first-child{background:#f5ecdc;font-weight:700;width:34%}
 </style>
 </head>
-<body>
+<body data-lang="zh">
 <header class="top"><div class="top-in">
   <h1>✏️ 三年级华文 · 单元练习 3A</h1>
   <div class="score" id="score"></div>
@@ -166,7 +166,12 @@ function markHTML(u,si,s,ii,it){
   return `<div class="uline">${chars}<span class="mk">← 点出错的字，再在下面写正确的字</span><div>改正：<input class="fill${chk?(ok?' ok':' bad'):''}" data-id="${bid}" value="${esc(v)}" aria-label="正确的字" autocomplete="off"></div></div>`;
 }
 
-function sectionHTML(u,si,s){
+function autoCols(s){
+  if(s.cols) return s.cols;
+  if(!s.it || s.it.length<2) return 0;
+  const plain = s.it.every(it => !it.cells && !it.grid && !it.rows && kindOf(s,it)!=='mark' && !isFreeItem(s,it));
+  return plain ? 2 : 0;
+}function sectionHTML(u,si,s){
   const st=sec(u,si);
   let h=`<section class="card" id="s${si}"><h3 class="sec-h">${esc(s.t)}</h3>`;
   if(s.img) h+=`<img class="pic" style="${s.imgw?'width:'+s.imgw+';margin-left:auto;margin-right:auto':''}" src="${IMG}${esc(s.img)}" alt="题目图片" loading="lazy">`;
@@ -175,7 +180,8 @@ function sectionHTML(u,si,s){
     if(s.k==='drag') h+=`<div class="bank" data-bank="${u}|${si}">${s.bk.map(w=>`<span class="chip${s.sq?' sq':''}" data-chip="${esc(w)}" data-sec="${u}|${si}">${esc(w)}</span>`).join('')}</div>`;
     else h+=`<div class="bank">${s.bk.map(w=>`<span class="hint">${esc(w)}</span>`).join('')}</div>`;
   }
-  if(s.cols) h+='<div class="cols2" style="column-count:'+s.cols+'">';
+  const nc=autoCols(s);
+  if(nc) h+='<div class="cols2" style="column-count:'+nc+'">';
   let graded=0;
   s.it.forEach((it,ii)=>{
     if(it.cells){
@@ -212,7 +218,7 @@ function sectionHTML(u,si,s){
     graded+=it.b.length;
     h+=`<div class="uline">${line}</div>`;
   });
-  if(s.cols) h+='</div>';
+  if(nc) h+='</div>';
   if(graded||s.btn){
     h+=`<div class="row"><button class="btn" data-act="check" data-s="${si}">✔ 检查</button><button class="btn alt sm" data-act="redo" data-s="${si}">↺ 重做</button></div>`;
     if(st.checked&&graded){ const r=scoreSec(u,si); h+=`<div class="muted">本节：${r.ok} / ${r.tot} 对${r.ok===r.tot?' 🎉 全对了！':''}</div>`; }
