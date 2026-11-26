@@ -32,9 +32,9 @@ button{font:inherit;cursor:pointer}
 .btn:disabled{opacity:.4;cursor:default}
 .split{display:grid;grid-template-columns:minmax(0,1fr);gap:16px;align-items:start}
 .split.single .left{display:none}
-@media (min-width:900px){
-  .split:not(.single){grid-template-columns:minmax(0,1.35fr) minmax(0,.85fr)}
-  .split:not(.single) .left,.split .panel{position:sticky;top:90px;max-height:82vh;overflow:auto}
+@media (min-width:640px){
+  .split:not(.single){grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+  .split:not(.single) .left,.split .panel{position:static;max-height:none;overflow:visible}
 }
 .left{min-width:0}
 .panel{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px;min-width:0}
@@ -133,14 +133,14 @@ textarea.ans{display:block;width:100%;margin-top:6px}
 .pgrid.few .pfig{overflow:visible}
 </style>
 </head>
-<body data-lang="bm">
+<body data-lang="zh">
 <header class="top">
   <h1>五年级华文词语填充</h1>
   <a href="index.html?sub=cn5">← 返回菜单</a>
   <span class="hint" id="counter"></span>
 </header>
 <div class="wrap">
-  <nav class="list" id="tabs" aria-label="Senarai halaman"></nav>
+  <nav class="list" id="tabs" aria-label="页面列表"></nav>
   <section class="main">
     <div class="info">
       <b id="pagehead"></b>
