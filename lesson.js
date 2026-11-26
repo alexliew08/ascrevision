@@ -38,7 +38,9 @@
     'background:#fff8e1;border:2px solid #f2c94c;box-shadow:0 10px 30px rgba(0,0,0,.18);opacity:0;transition:all .3s;pointer-events:none;text-align:center}' +
     '#lsn-toast.show{opacity:1;transform:translateX(-50%) translateY(0)}' +
     '#lsn-toast.good{background:#e8f8ee;border-color:#2e9e5b}' +
-    '#lsn-toast.retry{background:#fdecec;border-color:#e0605e}';
+    '#lsn-toast.retry{background:#fdecec;border-color:#e0605e}' +
+    '.lsn-tab-ok{background:#2e7d32!important;color:#fff!important;border-color:#2e7d32!important}' +
+    '.lsn-tab-bad{background:#c62828!important;color:#fff!important;border-color:#c62828!important}';
   document.head.appendChild(css);
 
   // 3. Progress storage (this browser only).
@@ -136,11 +138,12 @@
   }
   function pick(list) { return list[Math.floor(Math.random() * list.length)]; }
 
-  function onChecked(scoreEl) {
+  function onChecked(scoreEl, domBlank) {
     var scoreTxt = scoreEl ? scoreEl.textContent : "";
     var sc = parseScore(scoreTxt);
     var blankM = /Masih ada (\d+) soalan kosong/.exec(scoreTxt); // Malay pages report empty answers
-    var blank = blankM ? +blankM[1] : 0;
+    var blank = Math.max(blankM ? +blankM[1] : 0, domBlank || 0);
+    setTabStatus(sc, blank);
     // Malay pages: the progress record and tab colour use the whole page's score, not just the part checked.
     var BMp = !!(document.body && document.body.dataset.lang === "bm");
     var pageEl = BMp ? document.getElementById("score") : null;
@@ -170,25 +173,30 @@
       } catch (err) {}
     }
 
-    var BM = !!(document.body && document.body.dataset.lang === "bm");
+    // Pop-up language follows the page: bm = Bahasa Melayu, zh = Chinese only, en = English only.
+    var LANG = (document.body && document.body.dataset.lang) || "en";
+    var BM = LANG === "bm";
     var wrongN = scored ? sc.t - sc.r - blank : 0;
     if (blank > 0) {
       // Missing answers are named, never called wrong.
       if (BM) toast("✏️ Masih ada " + blank + " soalan kosong." + (wrongN > 0 ? " Semak semula, anda boleh!" : " Cuba jawab semua dahulu, ya!"), "");
-      else toast("✏️ There are still " + blank + " empty questions. 还有 " + blank + " 题没有作答。", "");
+      else if (LANG === "zh") toast("✏️ 还有 " + blank + " 题没有作答，请全部作答。", "");
+      else toast("✏️ There are still " + blank + " empty questions. Please answer them all.", "");
     } else if (!scored || !sc) {
-      toast(pick(["✅ Checked! Keep going. 已检查，继续加油！", "✅ Submitted. Well done for finishing! 已提交，做得好！"]), "good");
+      toast(LANG === "bm" ? pick(["✅ Sudah disemak! Teruskan usaha anda.", "✅ Dihantar. Syabas kerana menyiapkannya!"]) : LANG === "zh" ? pick(["✅ 已检查，继续加油！", "✅ 已提交，做得好！"]) : pick(["✅ Checked! Keep going.", "✅ Submitted. Well done for finishing!"]), "good");
     } else if (sc.r === sc.t) {
       if (BM) toast(pick(["🌟 Bagus! Semua betul!", "🎉 Syabas! Semua jawapan betul sekarang!"]), "good");
-      else if (rec.firstTry) toast(pick(["🌟 Well done! All correct on the first try! 太棒了，一次全对！", "🏆 Excellent! Perfect first time! 完美！", "👏 Brilliant work! 你真厉害！"]), "good");
-      else toast(pick(["🎉 Great job! All correct now. 做得好！", "👍 Well done, you got it all right now! 很好！"]), "good");
+      else if (LANG === "zh") toast(rec.firstTry ? pick(["🌟 太棒了，一次全对！", "🏆 完美！你真厉害！"]) : pick(["🎉 很好！现在全部正确！", "👍 做得好，全部答对了！"]), "good");
+      else if (rec.firstTry) toast(pick(["🌟 Well done! All correct on the first try!", "🏆 Excellent! Perfect first time!", "👏 Brilliant work!"]), "good");
+      else toast(pick(["🎉 Great job! All correct now.", "👍 Well done, you got it all right now!"]), "good");
     } else {
       // Mistakes are encouraged, never called wrong.
       if (BM) toast("💪 Hampir! " + sc.r + " daripada " + sc.t + " betul. Semak semula, anda boleh!", "retry");
+      else if (LANG === "zh") toast("💪 很接近了！对了 " + sc.r + " 题，共 " + sc.t + " 题。再检查一下，你可以的！", "retry");
       else toast(pick([
-        "💪 Good try! " + sc.r + " of " + sc.t + " right so far. Have another go! 再试一次吧！",
-        "🔍 Almost there — " + sc.r + " out of " + sc.t + " correct. Look again! 再检查一下！",
-        "🙂 Good effort: " + sc.r + " / " + sc.t + " so far. Keep going! 继续加油！"
+        "💪 Good try! " + sc.r + " of " + sc.t + " right so far. Have another go!",
+        "🔍 Almost there — " + sc.r + " out of " + sc.t + " correct. Look again!",
+        "🙂 Good effort: " + sc.r + " / " + sc.t + " so far. Keep going!"
       ]), "retry");
     }
   }
@@ -323,6 +331,48 @@
       .catch(function () {});
   }
 
+  // Empty answer boxes on the visible part of the page (for the "still empty questions" note).
+  function domBlankCount() {
+    if (/(^|\/)index\.html$/.test(location.pathname) || /\/$/.test(location.pathname)) return 0;
+    var n = 0;
+    Array.prototype.slice.call(document.querySelectorAll("select:not([data-nosave]), textarea, input:not([type=button]):not([type=submit]):not([type=hidden]):not([type=password]):not([type=checkbox]):not([type=radio])")).forEach(function (el) {
+      if (!el.offsetParent) return;
+      if (el.tagName === "SELECT") { if (!el.value || (el.selectedIndex === 0 && el.options[0] && el.options[0].value === "")) n++; }
+      else if (!String(el.value || "").trim()) n++;
+    });
+    Array.prototype.slice.call(document.querySelectorAll(".drop")).forEach(function (el) {
+      if (!el.offsetParent) return;
+      var t = (el.textContent || "").trim();
+      if (el.classList.contains("empty") || /^[\s_＿….]*$/.test(t) || /seret/i.test(t)) n++;
+    });
+    return n;
+  }
+  // Tab colour: green when the checked part is fully right, red when a mistake is left, plain while answers are still empty.
+  var TAB_SEL = ".tab.on,.part.on,.dot.on,.pgbtn.on,.list .item.on,#tabs .on";
+  var TAB_ALL = ".tab,.part,.dot,.pgbtn,.list .item";
+  function tabKey() { return "asc_tabs_" + pageKey(); }
+  function loadTabs() { try { return JSON.parse(localStorage.getItem(tabKey()) || "{}"); } catch (e) { return {}; } }
+  function saveTabs(m) { try { localStorage.setItem(tabKey(), JSON.stringify(m)); } catch (e) {} }
+  function paintTabs(m) {
+    document.querySelectorAll(TAB_ALL).forEach(function (t) {
+      var st = m[t.textContent.trim()] || "";
+      t.classList.remove("lsn-tab-ok", "lsn-tab-bad");
+      if (st) t.classList.add(st === "ok" ? "lsn-tab-ok" : "lsn-tab-bad");
+    });
+  }
+  function setTabStatus(sc, blank) {
+    var active = document.querySelector(TAB_SEL);
+    if (!active || !sc || !(sc.t > 0)) return;
+    var wrong = sc.t - sc.r - blank;
+    var st = wrong > 0 ? "bad" : (blank > 0 ? "" : "ok");
+    var m = loadTabs();
+    var label = active.textContent.trim();
+    if (st) m[label] = st; else delete m[label];
+    saveTabs(m);
+    paintTabs(m);
+  }
+  function applyStoredTabs() { paintTabs(loadTabs()); }
+
   var CHECK_SEL = '#checkBtn,#checkAll,[data-act="check"],[data-act="wcheck"],[data-act="icheck"],button.check,.pgbtn.chk';
   document.addEventListener("click", function (e) {
     var b = e.target && e.target.closest ? e.target.closest(CHECK_SEL) : null;
@@ -335,11 +385,12 @@
       var cur = keys.length ? document.querySelector(selector) : b;
       var box = cur && cur.closest ? cur.closest("section, .card, .qcard") : null;
       var own = box ? box.querySelector(".muted, .fbline, .score") : null;
-      onChecked(own || document.getElementById("score") || document.querySelector(".score"));
+      onChecked(own || document.getElementById("score") || document.querySelector(".score"), domBlankCount());
     }, 80);
   }, true);
 
   restoreFormAnswers();
+  setTimeout(applyStoredTabs, 300);
 
   // Open the page at the first exercise (练习) not yet checked, instead of the top.
   function scrollToNext() {

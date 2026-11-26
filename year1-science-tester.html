@@ -28,10 +28,10 @@ button{font:inherit;cursor:pointer}
 .btn.primary{background:var(--green);color:#fff;border-color:var(--green)}
 .btn:disabled{opacity:.4;cursor:default}
 .pdfs img{width:100%;height:auto;display:block;border:1px solid var(--line);border-radius:14px;background:#fff;margin-bottom:10px}
-.split{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,0.9fr);gap:16px;align-items:start}
+.split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:start}
 .split.full{grid-template-columns:minmax(0,1fr)}
-.split .panel{position:sticky;top:90px;max-height:82vh;overflow:auto}
-@media (max-width:900px){.split{grid-template-columns:1fr}.split .panel{position:static;max-height:none}}
+.split .panel{position:static;max-height:none;overflow:visible}
+@media (max-width:639px){.split{grid-template-columns:1fr}.split .panel{position:static;max-height:none}}
 .panel{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px}
 .sec{margin-bottom:16px}
 .sec h3{font-size:16px;margin:0 0 8px}
@@ -62,12 +62,13 @@ button{font:inherit;cursor:pointer}
 .ov-in.ok{border-color:var(--good);background:var(--okbg)}
 .ov-in.bad{border-color:var(--bad);background:var(--badbg)}
 .ov-drop{position:absolute;transform:translateY(-50%);min-width:0;min-height:0;width:4.6%;aspect-ratio:1/1;padding:0;font-size:clamp(11px,1.9cqw,20px);border-radius:8px}
+@media (min-width:700px){#panel .sec{column-count:2;column-gap:22px}#panel .sec>h3,#panel .sec>.note,#panel .sec>.bank,#panel .sec>.hint{column-span:all}#panel .sec>*{break-inside:avoid}}
 </style>
 </head>
-<body>
+<body data-lang="zh">
 <header class="top">
   <h1>Year 1 Science · 一年级科学单元评估</h1>
-  <a href="index.html?sub=sc1">← Back to exercise menu</a>
+  <a href="index.html?sub=sc1">← 返回练习菜单</a>
   <span class="hint" id="counter"></span>
 </header>
 
@@ -77,7 +78,7 @@ button{font:inherit;cursor:pointer}
   <section class="main">
     <div class="info">
       <b id="title"></b>
-      <span class="score" id="score">Not checked</span>
+      <span class="score" id="score">尚未检查</span>
       <button class="btn" id="prev" type="button">← 上一个</button>
       <button class="btn" id="next" type="button">下一个 →</button>
     </div>
@@ -204,7 +205,7 @@ function chipsFor(words) {
 function pageImgTags() {
   const start = PAGES[cur], end = cur < PAGES.length - 1 ? PAGES[cur + 1] - 1 : start;
   let imgs = '';
-  for (let p = start; p <= end; p++) imgs += `<img src="${PAGE_IMG[String(p).padStart(2, '0')]}" alt="Book page ${p}">`;
+  for (let p = start; p <= end; p++) imgs += `<img src="${PAGE_IMG[String(p).padStart(2, '0')]}" alt="书本第 ${p} 页">`;
   return imgs;
 }
 
@@ -249,8 +250,8 @@ function renderPanel() {
 
     if (sec.kind === 'pdf') {
       const grammar = /Grammar/.test(TITLES[cur]);
-      h += `<div class="hint">${grammar ? 'Read the grammar notes on the book page above. Nothing to fill in.'
-        : 'Do this on the book page above (draw, colour or trace). Your teacher checks it. No score.'}</div></div>`;
+      h += `<div class="hint">${grammar ? '请阅读书本上方的语法笔记，无需填写。'
+        : '请在书本上方的页面完成（画、涂色或描画），由老师检查，不计分。'}</div></div>`;
       return;
     }
 
@@ -368,7 +369,7 @@ function render() {
   $('next').disabled = cur === ANSWERS.length - 1;
   $('counter').textContent = `第 ${cur + 1} / ${ANSWERS.length} 页`;
   $('list').querySelectorAll('.item').forEach((b, k) => b.classList.toggle('on', k === cur));
-  $('score').textContent = checked[cur] ? scoreText() : 'Not checked';
+  $('score').textContent = checked[cur] ? scoreText() : '尚未检查';
   if (overlay) {
     renderOverlay();
   } else {
@@ -396,7 +397,7 @@ function scoreText() {
       if (st[key(sec, it.n)] === it.ans) right++;
     });
   });
-  return total ? `Score ${right} / ${total}` : 'No score (teacher checks)';
+  return total ? `得分 ${right} / ${total}` : '无分数（老师检查）';
 }
 
 function place(sec, n, w) {
@@ -434,7 +435,7 @@ document.addEventListener('click', e => {
 document.addEventListener('input', e => {
   const t = e.target;
   if (t.classList && t.classList.contains('ans-in')) {
-    S()[t.dataset.k] = t.value; checked[cur] = false; $('score').textContent = 'Not checked'; saveState();
+    S()[t.dataset.k] = t.value; checked[cur] = false; $('score').textContent = '尚未检查'; saveState();
   }
 });
 document.addEventListener('dragstart', e => { const c = e.target.closest && e.target.closest('.chip'); if (c) e.dataTransfer.setData('text/plain', c.dataset.word); });
