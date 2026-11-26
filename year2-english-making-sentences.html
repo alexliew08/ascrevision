@@ -29,11 +29,11 @@ button{cursor:pointer}
 .btn{padding:8px 14px;border-radius:12px;border:1px solid var(--line);background:#fff;color:var(--ink)}
 .btn.primary{background:var(--green);color:#fff;border-color:var(--green)}
 .btn:disabled{opacity:.4;cursor:default}
-.split{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,0.9fr);gap:16px;align-items:start}
-@media (max-width:900px){.split{grid-template-columns:1fr}.panel{max-height:none!important}}
+.split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:start}
+@media (max-width:639px){.split{grid-template-columns:1fr}.panel{max-height:none!important}}
 .pdfs img{width:100%;height:auto;display:block;border:1px solid var(--line);border-radius:14px;background:#fff;position:sticky;top:90px}
 @media (max-width:900px){.pdfs img{position:static}}
-.panel{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px;max-height:82vh;overflow:auto}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px;max-height:none;overflow:visible}
 .ins{font-weight:700;font-size:15px;background:#fff7e0;border-radius:12px;padding:8px 12px;margin:0 0 10px}
 .row{display:flex;flex-wrap:wrap;gap:6px 8px;align-items:center;font-size:17px;padding:4px 0}
 .row .n{font-weight:700;min-width:36px}
@@ -82,7 +82,7 @@ textarea{width:100%;font-size:17px;line-height:1.6;padding:10px 12px;border:2px 
 .ord.para > .row{display:none}
 .ord.para .pool .w.used{visibility:visible;opacity:.35;pointer-events:none;text-decoration:line-through}
 .ord.para .pool .w{font-size:15px;min-height:0;padding:4px 8px}
-.pdfs{position:sticky;top:90px;align-self:start}
+.pdfs{position:static;align-self:start}
 .pdfs img{position:static!important}
 .pgw{position:relative}
 #ovl{position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none}
@@ -114,7 +114,7 @@ select.ans-t{min-height:40px;padding:6px 8px;cursor:pointer}
 .rp-kw b{color:var(--ink)}.ans-t.big-box{min-height:300px;font-size:17px;line-height:1.7}
 </style>
 </head>
-<body>
+<body data-lang="en">
 <header class="top">
   <h1>Year 2 English · Sentence Making</h1>
   <a href="index.html?sub=en2">← Back to exercise menu</a>

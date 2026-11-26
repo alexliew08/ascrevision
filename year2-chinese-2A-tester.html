@@ -27,9 +27,9 @@ button{font:inherit;cursor:pointer}
 .btn.primary{background:var(--green);color:#fff;border-color:var(--green)}
 .btn:disabled{opacity:.4;cursor:default}
 .pdfs img{width:100%;height:auto;display:block;border:1px solid var(--line);border-radius:14px;background:#fff;margin-bottom:10px}
-.split{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,0.9fr);gap:16px;align-items:start}
-.split .panel{position:sticky;top:90px;max-height:82vh;overflow:auto}
-@media (max-width:900px){.split{grid-template-columns:1fr}.split .panel{position:static;max-height:none}}
+.split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:start}
+.split .panel{position:static;max-height:none;overflow:visible}
+@media (max-width:639px){.split{grid-template-columns:1fr}.split .panel{position:static;max-height:none}}
 .panel{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px}
 .sec{margin-bottom:16px}
 .sec h3{font-size:16px;margin:0 0 8px}
@@ -56,9 +56,10 @@ button{font:inherit;cursor:pointer}
 .note{font-size:14px;color:var(--muted);background:#fff7e0;border-radius:12px;padding:8px 12px;margin-bottom:10px}
 .foot{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-top:6px}
 .hint{font-size:13px;color:var(--muted)}
+.cols2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0 24px;align-items:start}.cols2>div{min-width:0}.cols2 .row{min-width:0;flex-wrap:wrap}.cols2 input,.cols2 textarea{min-width:0!important;max-width:100%!important;box-sizing:border-box}@media (max-width:639px){.cols2{grid-template-columns:1fr}}
 </style>
 </head>
-<body>
+<body data-lang="zh">
 <header class="top">
   <h1>华文 2A · 课堂评估（新版）</h1>
   <a href="index.html?sub=cn2">← 返回练习菜单</a>
@@ -321,6 +322,28 @@ function renderPanel(){
     h += `</div>`;
   });
   $('panel').innerHTML = h;
+  splitRows();
+}
+function splitRows(){
+  document.querySelectorAll('#panel .sec').forEach(function(sec){
+    var parent = sec;
+    var direct = function(el){ return Array.prototype.filter.call(el.children, function(c){ return c.classList && c.classList.contains('row'); }); };
+    var rows = direct(sec);
+    if (rows.length < 2) { var cands = Array.prototype.filter.call(sec.children, function(c){ return c.tagName === 'DIV' && direct(c).length > 1; }); if (cands.length === 1) { parent = cands[0]; rows = direct(parent); } }
+    if (rows.length < 2) return;
+    var before = rows.map(function(r){ return r.offsetHeight; });
+    var half = Math.ceil(rows.length / 2);
+    var wrap = document.createElement('div'); wrap.className = 'cols2';
+    var a = document.createElement('div'), b = document.createElement('div');
+    rows.forEach(function(r, i){ (i < half ? a : b).appendChild(r); });
+    wrap.appendChild(a); wrap.appendChild(b);
+    rows[0].parentNode === parent ? parent.insertBefore(wrap, null) : parent.appendChild(wrap);
+    // keep the single column when rows wrap or overflow at half width
+    if (wrap.scrollWidth > wrap.clientWidth + 2 || parent.scrollWidth > parent.clientWidth + 2 || rows.some(function(r, i){ return r.offsetHeight > before[i] + 4; })) {
+      rows.forEach(function(r){ parent.insertBefore(r, wrap); });
+      parent.removeChild(wrap);
+    }
+  });
 }
 
 function render(){
